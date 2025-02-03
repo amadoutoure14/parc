@@ -3,7 +3,7 @@ import {MatDrawer, MatDrawerContainer} from '@angular/material/sidenav';
 import {MatCardContent, MatCardHeader} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ import {RouterLink, RouterOutlet} from '@angular/router';
     MatDrawer,
     MatCardContent,
     MatButton, MatIconModule,
-    MatIcon, MatCardHeader, RouterOutlet, RouterLink
+    MatIcon, MatCardHeader, RouterOutlet, RouterLink, RouterLinkActive
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
