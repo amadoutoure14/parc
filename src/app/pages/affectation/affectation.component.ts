@@ -1,8 +1,24 @@
 import { Component } from '@angular/core';
+import {MatCard, MatCardActions, MatCardContent, MatCardHeader} from '@angular/material/card';
+import {MatDivider} from '@angular/material/divider';
+import {MatButton} from '@angular/material/button';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-affectation',
-  imports: [],
+  imports: [
+    MatCard,
+    MatCardHeader,
+    MatCardContent,
+    MatCardActions,
+    MatDivider,
+    MatButton,
+    RouterLinkActive,
+    MatIcon,
+    RouterLink,
+    RouterOutlet
+  ],
   templateUrl: './affectation.component.html',
   styleUrl: './affectation.component.css'
 })

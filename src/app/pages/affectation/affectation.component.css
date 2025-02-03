@@ -1,0 +1,6 @@
+.sous-titre{
+  display: flex;
+  justify-content: center;
+  font-style: oblique;
+  font-size: 22px;
+}

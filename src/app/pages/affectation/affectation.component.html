@@ -1,1 +1,18 @@
-<p>affectation works!</p>
+<mat-card-header>
+  <h1 class="sous-titre">Gestion des affectations chauffeurs & véhicule</h1>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <div class="buttons-actions">
+      <button mat-button routerLinkActive="active-button" routerLink="/liste-affectations">
+        <mat-icon>view_list</mat-icon>
+        <span>Liste des affectations</span>
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card-header>
+
+<mat-card-content>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+</mat-card-content>
