@@ -2,11 +2,21 @@
 
   <mat-drawer #drawer mode="side" class="drawer" opened>
    <div class="buttons-container">
-     <button mat-stroked-button>
-       <mat-icon>
-         dashboard_2
-       </mat-icon>
+     <button mat-stroked-button routerLink="/dashboard">
+       <mat-icon>dashboard_2</mat-icon>
        <span>DASHBOARD</span>
+     </button>
+     <button mat-stroked-button routerLink="/vehicule">
+       <mat-icon>directions_car</mat-icon>
+       <span>Véhicule</span>
+     </button>
+     <button mat-stroked-button routerLink="/chauffeur">
+       <mat-icon>person</mat-icon>
+       <span>chauffeur</span>
+     </button>
+     <button mat-stroked-button routerLink="/affectation">
+       <mat-icon>add_link</mat-icon>
+       <span>Affectation</span>
      </button>
    </div>
   </mat-drawer>
@@ -18,9 +28,8 @@
    </mat-card-header>
 
    <mat-card-content class="content">
-
+     <router-outlet></router-outlet>
    </mat-card-content>
 
  </div>
-
 </mat-drawer-container>
