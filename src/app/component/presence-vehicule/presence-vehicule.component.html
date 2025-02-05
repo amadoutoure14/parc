@@ -1,6 +1,6 @@
-<div class="search-container">
-  <input type="text" class="search-input" placeholder="Entrez votre numéro">
-</div>
+<p *ngIf="!vehicules || vehicules.length === 0" class="liste-vide">
+  La liste est vide!
+</p>
 
 <div *ngIf="vehicules && vehicules.length > 0" class="chauffeurs-container">
   <table class="chauffeurs-table">
@@ -8,9 +8,9 @@
     <tr>
       <th>Numéro</th>
       <th>Immatriculation</th>
-      <th>modèle</th>
-      <th>commentaire</th>
-      <th>disponible</th>
+      <th>Modèle</th>
+      <th>Commentaire</th>
+      <th>Disponible</th>
       <th>Date</th>
       <th>Actions</th>
     </tr>
@@ -24,12 +24,11 @@
       <td>{{ vehicule.disponible }}</td>
       <td>{{ vehicule.date }}</td>
       <td>
-        <!-- Boutons d'actions -->
         <button mat-icon-button (click)="editVehicule(vehicule)">
           <mat-icon class="modifier">edit</mat-icon>
         </button>
-        <button mat-icon-button  (click)="deleteVehicule(vehicule)">
-          <mat-icon class="supprimer">delete</mat-icon> <!-- Icône de suppression -->
+        <button mat-icon-button (click)="deleteVehicule(vehicule)">
+          <mat-icon class="supprimer">delete</mat-icon>
         </button>
       </td>
     </tr>

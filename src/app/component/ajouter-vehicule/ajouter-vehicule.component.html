@@ -1,1 +1,28 @@
-<p>ajouter-vehicule works!</p>
+<form [formGroup]="vehiculeForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="immatriculation">Immatriculation:</label>
+    <input id="immatriculation" formControlName="immatriculation" required>
+  </div>
+
+  <div>
+    <label for="modele">Modèle:</label>
+    <input id="modele" formControlName="modele" required>
+  </div>
+
+  <div>
+    <label for="commentaire">Commentaire:</label>
+    <textarea id="commentaire" formControlName="commentaire"></textarea>
+  </div>
+
+  <div>
+    <label for="date">Date:</label>
+    <input id="date" type="date" formControlName="date" required>
+  </div>
+
+  <div>
+    <label for="disponible">Disponible:</label>
+    <input id="disponible" type="checkbox" formControlName="disponible">
+  </div>
+
+  <button type="submit" [disabled]="vehiculeForm.invalid">Ajouter Véhicule</button>
+</form>

@@ -1,4 +1,4 @@
-import {Carburant} from './Carburant';
+import {Carburant} from '../modeles/Carburant';
 
 export interface IVehicule {
   id?:number;

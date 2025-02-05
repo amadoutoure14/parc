@@ -1,0 +1,66 @@
+/* Style général du formulaire */
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des labels */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Style des champs input et textarea */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Style pour le champ date */
+input[type="date"] {
+  cursor: pointer;
+}
+
+/* Style pour la checkbox */
+input[type="checkbox"] {
+  width: auto;
+  margin-left: 10px;
+}
+
+/* Bouton de soumission */
+button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Effet au survol du bouton */
+button:hover {
+  background: #0056b3;
+}
+
+/* Désactiver le bouton quand le formulaire est invalide */
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Ajout d'un peu d'espace entre les éléments */
+div {
+  margin-bottom: 15px;
+}
