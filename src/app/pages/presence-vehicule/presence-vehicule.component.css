@@ -1,0 +1,94 @@
+
+.add-chauffeur{
+  width: 100vw;
+}
+/* Conteneur principal */
+.chauffeurs-container {
+  padding: 10px;
+  background-color: transparent !important;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tableau */
+.chauffeurs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* En-têtes du tableau */
+.chauffeurs-table th {
+  background-color: #3FAAD8;
+  color: white;
+  padding: 12px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Cellules du tableau */
+.chauffeurs-table td {
+  background-color: #fff;
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Ligne survolée */
+.chauffeurs-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Bordure de la table */
+.chauffeurs-table {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Bordure sur chaque cellule */
+.chauffeurs-table td, .chauffeurs-table th {
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+/* Suppression de la bordure sur la première colonne et ligne */
+.chauffeurs-table th:first-child, .chauffeurs-table td:first-child {
+  border-left: none;
+}
+
+/* Suppression de la bordure sur la dernière ligne */
+.chauffeurs-table tr:last-child td {
+  border-bottom: none;
+}
+
+.search-container {
+  width: 40%;
+  padding-left: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  background-color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.4);
+}
+.modifier{
+  color: #1976d2;
+}
+.supprimer{
+  color: darkred;
+}

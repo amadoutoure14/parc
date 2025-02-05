@@ -1,6 +1,6 @@
 import {Carburant} from './Carburant';
 
-export interface Vehicule {
+export interface IVehicule {
   id?:number;
   immatriculation:string;
   disponible:boolean;

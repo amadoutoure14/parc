@@ -1,8 +1,8 @@
-import {Vehicule} from './Vehicule';
+import {IVehicule} from './IVehicule';
 
 export interface Carburant {
   id?: number;
   approv:number;
   date:string;
-  vehicule:Vehicule;
+  vehicule:IVehicule;
 }

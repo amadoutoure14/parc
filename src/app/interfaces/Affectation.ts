@@ -1,9 +1,9 @@
 import {IChauffeur} from './IChauffeur';
-import {Vehicule} from './Vehicule';
+import {IVehicule} from './IVehicule';
 
 export interface Affectation {
   id?: number;
   date: string;
-  vehicule: Vehicule;
+  vehicule: IVehicule;
   chauffeur:IChauffeur;
 }
