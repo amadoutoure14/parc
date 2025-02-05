@@ -24,21 +24,20 @@
   <div class="form-container">
     <mat-form-field appearance="fill" class="select-chauffeur">
       <label>Sélectionner un vehicule</label>
-      <mat-select [(value)]="selectedChauffeur" (selectionChange)="onChauffeurChange()">
-        <mat-option *ngFor="let chauffeur of chauffeurs" [value]="chauffeur">
-          {{ chauffeur.nom_complet }}
+      <mat-select [(value)]="selectedVehicule" (selectionChange)="onVehiculeChange()">
+        <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
+          {{ vehicule.immatriculation }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-card *ngIf="selectedChauffeur" class="chauffeur-details">
+    <mat-card *ngIf="selectedVehicule" class="chauffeur-details">
       <mat-card-header>
-        <mat-card-title>{{ selectedChauffeur.nom_complet }}</mat-card-title>
+        <mat-card-title>{{ selectedVehicule.immatriculation }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p><strong>Permis:</strong> {{ selectedChauffeur?.permis }}</p>
-        <p><strong>Téléphone:</strong> {{ selectedChauffeur?.telephone }}</p>
-        <p><strong>Date d'enregistrement:</strong> {{ selectedChauffeur?.date }}</p>
+        <p><strong>Type:</strong> {{ selectedVehicule?.type }}</p>
+        <p><strong>Date d'enregistrement:</strong> {{ selectedVehicule?.date }}</p>
       </mat-card-content>
     </mat-card>
   </div>

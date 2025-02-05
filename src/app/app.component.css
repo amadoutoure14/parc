@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 100vw;
 }
 
 .drawer{
@@ -59,6 +58,7 @@
 
 .header{
   display: flex;
+  align-items: center;
   justify-content: flex-start !important;
   background-color: #169dd4;
   width: 100vw;

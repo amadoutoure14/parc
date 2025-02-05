@@ -16,6 +16,10 @@ export const routes: Routes = [
       { path: '',   redirectTo: 'liste', pathMatch: 'full' },
     ]
   },
-  { path: 'chauffeur', component: ChauffeurComponent },
+  { path: 'chauffeur', component: ChauffeurComponent,
+    children:[
+
+    ]
+  },
   { path: '',   redirectTo: '/dashboard', pathMatch: 'full' },
 ];

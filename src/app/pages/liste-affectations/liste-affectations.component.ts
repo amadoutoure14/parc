@@ -1,18 +1,22 @@
 import {Component, } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
-import {Chauffeur} from '../../modeles/Chauffeur';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
+import {IChauffeur} from '../../interfaces/IChauffeur';
 
 @Component({
   selector: 'app-liste-affectations',
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: './liste-affectations.component.html',
   styleUrl: './liste-affectations.component.css'
 })
 export class ListeAffectationsComponent {
-  chauffeurs: Chauffeur[] = [
+  chauffeurs: IChauffeur[] = [
     {
       id: 1,
       nom_complet: 'Jean Dupont',
@@ -35,4 +39,12 @@ export class ListeAffectationsComponent {
       date: '2021-06-30'
     }
   ];
+
+  deleteChauffeur(chauffeur: IChauffeur) {
+
+  }
+
+  editChauffeur(chauffeur: IChauffeur) {
+
+  }
 }

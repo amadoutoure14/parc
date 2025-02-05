@@ -7,6 +7,7 @@
       <th>Permis</th>
       <th>Téléphone</th>
       <th>Date</th>
+      <th>Actions</th> <!-- Colonne Actions -->
     </tr>
     </thead>
     <tbody>
@@ -16,6 +17,15 @@
       <td>{{ chauffeur.permis }}</td>
       <td>{{ chauffeur.telephone }}</td>
       <td>{{ chauffeur.date }}</td>
+      <td>
+        <!-- Boutons d'actions -->
+        <button mat-icon-button (click)="editChauffeur(chauffeur)">
+          <mat-icon>edit</mat-icon> <!-- Icône d'édition -->
+        </button>
+        <button mat-icon-button (click)="deleteChauffeur(chauffeur)">
+          <mat-icon>delete</mat-icon> <!-- Icône de suppression -->
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>

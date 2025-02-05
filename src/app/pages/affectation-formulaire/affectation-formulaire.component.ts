@@ -31,16 +31,16 @@ export class AffectationFormulaireComponent implements OnInit{
     { id: 2, nom_complet: 'Marie Curie', permis: 'C', telephone: '0607080910', date: '2022-03-22' }
   ];
   vehicules = [
-    { id: 1, nom: 'Véhicule 1', type: 'Camion', immatriculation: 'AB-123-CD' },
-    { id: 2, nom: 'Véhicule 2', type: 'Voiture', immatriculation: 'XY-456-ZZ' }
+    { id: 1, nom: 'Véhicule 1', type: 'Camion', immatriculation: 'AB-123-CD', date: '2023-01-15' },
+    { id: 2, nom: 'Véhicule 2', type: 'Voiture', immatriculation: 'XY-456-ZZ', date: '2023-01-15' }
   ];
 
   selectedChauffeur: any;
   selectedVehicule: any;
 
   ngOnInit(): void {
-    // Initialiser avec le premier chauffeur
     this.selectedChauffeur = this.chauffeurs[0];
+    this.selectedVehicule = this.vehicules[0];
   }
 
   onChauffeurChange(): void {
@@ -52,7 +52,7 @@ export class AffectationFormulaireComponent implements OnInit{
   }
 
   affecterChauffeur(): void {
-    console.log('Chauffeur affecté:', this.selectedChauffeur);
+   alert('Chauffeur affecté');
   }
 
   modifierChauffeur(): void {

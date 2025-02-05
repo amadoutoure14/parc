@@ -1,20 +1,16 @@
 <mat-card-header>
   <h1 class="sous-titre">Gestion des affectations chauffeurs & véhicule</h1>
 </mat-card-header>
-  <mat-card-actions>
+
     <div class="buttons-actions">
-      <button mat-button routerLinkActive="active-button" [routerLink]="['/affectation/formulaire']">
+      <button  mat-flat-button  routerLinkActive="active-button" [routerLink]="['/affectation/formulaire']">
         <mat-icon>add</mat-icon>
         <span>Nouvelle affectation</span>
       </button>
-      <button mat-button routerLinkActive="active-button" [routerLink]="['/affectation/liste']">
-        <mat-icon>view_list</mat-icon>
+      <button  mat-flat-button  routerLinkActive="active-button" [routerLink]="['/affectation/liste']">
+         <mat-icon>list</mat-icon>
         <span>Liste des affectations</span>
       </button>
     </div>
-  </mat-card-actions>
 
-
-<mat-card-content class="main">
   <router-outlet></router-outlet>
-</mat-card-content>

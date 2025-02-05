@@ -4,18 +4,18 @@ import {MatDivider} from '@angular/material/divider';
 import {MatButton} from '@angular/material/button';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {ListeAffectationsComponent} from '../liste-affectations/liste-affectations.component';
 
 @Component({
   selector: 'app-affectation',
   imports: [
     MatCardHeader,
-    MatCardContent,
-    MatCardActions,
     MatButton,
     RouterLinkActive,
-    MatIcon,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    MatIcon,
   ],
   templateUrl: './affectation.component.html',
   styleUrl: './affectation.component.css'

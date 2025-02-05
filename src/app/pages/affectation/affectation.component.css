@@ -7,6 +7,7 @@
   width: 100%;
 }
 .buttons-actions{
+  margin: 20px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -16,5 +17,8 @@
 .buttons-actions button{
   border: none;
   border-radius: 0;
+  background-color: #3faad8;
+  color: white;
   width: 100%;
+  margin: 0 10px;
 }
