@@ -1,6 +1,20 @@
 .sous-titre{
   display: flex;
+  align-items: center;
   justify-content: center;
   font-style: oblique;
-  font-size: 22px;
+  font-size: 20px;
+  width: 100%;
+}
+.buttons-actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.buttons-actions button{
+  border: none;
+  border-radius: 0;
+  width: 100%;
 }

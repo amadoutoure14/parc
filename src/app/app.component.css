@@ -1,19 +1,33 @@
 .container{
   display: flex;
+  flex-direction: column;
   height: 100vh;
-  background-color: darkred;
+  width: 100vw;
 }
+
 .drawer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #169dd4;
   border-radius: 0;
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.55);
   width:200px;
 }
+
+.logo {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+}
+
 .buttons-container{
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 50%;
+  max-width: 200px;
   gap: 30px;
   justify-items: center;
   justify-content: center;
@@ -22,8 +36,13 @@
 
 .buttons-container button{
   transition: transform .2s;
+  max-width: 200px;
   color: white;
   border: none;
+}
+.buttons-container button span{
+  width: 100%;
+  max-width: 200px;
 }
 .active-button {
   background-color: white !important;
@@ -37,13 +56,16 @@
   color: black;
   transform: scale(1.5);
 }
+
 .header{
   display: flex;
   justify-content: flex-start !important;
+  background-color: #169dd4;
+  width: 100vw;
 }
 
 .header mat-icon{
-  color: black;
+  color: white;
   font-size: 20px;
 }
 
@@ -51,9 +73,4 @@
   display: flex;
   padding-left: 500px;
   text-transform: uppercase;
-}
-.main{
-  background-color: #ffffff;
-  height: 100vh;
-  width: 100vw;
 }

@@ -1,0 +1,32 @@
+.affectation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 85vw;
+}
+.form-container {
+  padding: 10px 5px;
+  width: 45%;
+}
+
+.select-chauffeur {
+  width: 100%;
+  background-color: white;
+}
+
+.chauffeur-details {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f4f7fc;
+}
+
+.affecter {
+  margin-left: 5%;
+  background-color: #3faad8;
+  color: white;
+  border-radius: 0;
+  width: 90%;
+}
