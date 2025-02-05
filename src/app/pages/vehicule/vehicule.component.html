@@ -1,1 +1,15 @@
-<p>vehicule works!</p>
+<mat-card-header>
+  <h1 class="sous-titre">Gestion des véhicules</h1>
+</mat-card-header>
+
+<div class="vehicule-buttons">
+  <button mat-flat-button routerLink="/vehicule/ajouter">
+    <span>Nouveau véhicule</span>
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-flat-button routerLink="/vehicule/liste">
+    <span>Liste des véhicules</span>
+    <mat-icon>list</mat-icon>
+  </button>
+</div>
+<router-outlet></router-outlet>

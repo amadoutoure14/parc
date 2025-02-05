@@ -60,3 +60,9 @@
 .chauffeurs-table tr:last-child td {
   border-bottom: none;
 }
+.modifier{
+  color: #1976d2;
+}
+.supprimer{
+  color: darkred;
+}

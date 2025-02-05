@@ -1,1 +1,36 @@
-<p>presence-chauffeur works!</p>
+<div class="search-container">
+  <input type="text" class="search-input" placeholder="Entrez votre numéro">
+</div>
+
+<div *ngIf="chauffeurs && chauffeurs.length > 0" class="chauffeurs-container">
+  <table class="chauffeurs-table">
+    <thead>
+    <tr>
+      <th>Numéro</th>
+      <th>Nom Complet</th>
+      <th>Permis</th>
+      <th>Téléphone</th>
+      <th>Date</th>
+      <th>Actions</th> <!-- Colonne Actions -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let chauffeur of chauffeurs; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ chauffeur.nom_complet }}</td>
+      <td>{{ chauffeur.permis }}</td>
+      <td>{{ chauffeur.telephone }}</td>
+      <td>{{ chauffeur.date }}</td>
+      <td>
+        <!-- Boutons d'actions -->
+        <button mat-icon-button (click)="editChauffeur(chauffeur)">
+          <mat-icon class="modifier">edit</mat-icon> <!-- Icône d'édition -->
+        </button>
+        <button mat-icon-button  (click)="deleteChauffeur(chauffeur)">
+          <mat-icon class="supprimer">delete</mat-icon> <!-- Icône de suppression -->
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

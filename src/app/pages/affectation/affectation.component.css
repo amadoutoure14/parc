@@ -7,18 +7,25 @@
   width: 100%;
 }
 .buttons-actions{
-  margin: 20px 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  justify-content: center;
+  width: 100vw;
+  gap: 10px;
 }
 .buttons-actions button{
-  border: none;
-  border-radius: 0;
-  background-color: #3faad8;
+  border-radius: 5px; /* Ajoute un léger arrondi pour un rendu plus moderne */
+  background-color: #3FAAD8;
   color: white;
-  width: 100%;
-  margin: 0 10px;
+  width: 40%;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
