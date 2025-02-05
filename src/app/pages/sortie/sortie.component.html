@@ -1,1 +1,15 @@
-<p>sortie works!</p>
+<mat-card-header>
+  <h1 class="sous-titre">Gestion des sorties</h1>
+</mat-card-header>
+
+<div class="sortie-buttons">
+  <button mat-flat-button routerLink="/sortie/ajouter">
+    <span>Nouvelle sortie</span>
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-flat-button routerLink="/sortie/liste">
+    <span>Liste des sorties</span>
+    <mat-icon>list</mat-icon>
+  </button>
+</div>
+<router-outlet></router-outlet>

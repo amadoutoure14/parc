@@ -1,0 +1,81 @@
+/* Conteneur du formulaire */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Espacement entre les champs du formulaire */
+div {
+  margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Champs de saisie */
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Pour les champs numériques */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="date"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Bouton de soumission */
+button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Bouton désactivé */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Message d'erreur (si vous en avez besoin) */
+input.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+input.ng-valid.ng-touched {
+  border-color: green;
+}

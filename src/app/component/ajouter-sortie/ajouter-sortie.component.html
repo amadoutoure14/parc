@@ -1,1 +1,34 @@
-<p>ajouter-sortie works!</p>
+<form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="affectation">Affectation</label>
+    <input id="affectation" formControlName="affectation" />
+  </div>
+
+  <div>
+    <label for="dateArrivee">Date d'arrivée</label>
+    <input id="dateArrivee" type="date" formControlName="dateArrivee" />
+  </div>
+
+  <div>
+    <label for="dateDepart">Date de départ</label>
+    <input id="dateDepart" type="date" formControlName="dateDepart" />
+  </div>
+
+  <div>
+    <label for="destination">Destination</label>
+    <input id="destination" formControlName="destination" />
+  </div>
+
+  <div>
+    <label for="duree">Durée</label>
+    <input id="duree" type="number" formControlName="duree" />
+  </div>
+
+
+  <div>
+    <label for="objet">Objet</label>
+    <input id="objet" formControlName="objet" />
+  </div>
+
+  <button type="submit" [disabled]="!sortieForm.valid">Envoyer</button>
+</form>

@@ -1,11 +1,11 @@
 import {Affectation} from '../modeles/Affectation';
 
-export interface ISortie{
-  id?: string;
-  dateDepart:string;
-  dateArrivee:string;
-  affectation:Affectation;
-  objet:string;
-  duree:number;
-  destination:string;
+export interface ISortie {
+  affectation: Affectation | null;
+  dateArrivee: string;
+  dateDepart: string;
+  destination: string;
+  duree: number;
+  id: string;
+  objet: string;
 }

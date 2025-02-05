@@ -1,0 +1,36 @@
+.sous-titre{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: oblique;
+  font-size: 20px;
+  width: 100vw;
+}
+.sortie-buttons {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  gap: 10px;
+}
+
+.sortie-buttons button {
+  border-radius: 5px; /* Ajoute un léger arrondi pour un rendu plus moderne */
+  background-color: #3FAAD8;
+  color: white;
+  width: 40%;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sortie-buttons button:hover {
+  background-color: #3598c1;
+}

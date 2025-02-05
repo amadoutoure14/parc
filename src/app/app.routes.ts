@@ -10,6 +10,8 @@ import {PresenceChauffeurComponent} from './component/presence-chauffeur/presenc
 import {SortieComponent} from './pages/sortie/sortie.component';
 import {AjouterVehiculeComponent} from './component/ajouter-vehicule/ajouter-vehicule.component';
 import {PresenceVehiculeComponent} from './component/presence-vehicule/presence-vehicule.component';
+import {AjouterSortieComponent} from './component/ajouter-sortie/ajouter-sortie.component';
+import {ListeSortieComponent} from './component/liste-sortie/liste-sortie.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -20,7 +22,13 @@ export const routes: Routes = [
       {path: '',redirectTo:'liste',pathMatch: 'full'},
     ]
   },
-  { path: 'sortie', component: SortieComponent },
+  { path: 'sortie', component: SortieComponent ,
+    children:[
+      {path: 'ajouter',component: AjouterSortieComponent},
+      {path: 'liste',component: ListeSortieComponent},
+      {path: '',redirectTo: 'liste',pathMatch: 'full'},
+    ]
+  },
   { path: 'affectation', component: AffectationComponent ,
     children:[
       { path: 'formulaire', component: AffectationFormulaireComponent },
