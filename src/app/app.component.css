@@ -1,8 +1,26 @@
-.container{
+.container {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-image: url("../assets/parking.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
 }
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Change l'opacité selon le besoin */
+  z-index: 1;
+}
+
 
 .drawer{
   display: flex;
@@ -69,7 +87,8 @@
 }
 
 .titre{
+  color: white;
   display: flex;
-  padding-left: 500px;
+  padding-left: 526px;
   text-transform: uppercase;
 }

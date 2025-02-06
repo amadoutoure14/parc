@@ -1,35 +1,40 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {Component} from '@angular/core';
+import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {ChauffeurService} from '../../services/chauffeur.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ajouter-chauffeur',
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    FormsModule
   ],
   templateUrl: './ajouter-chauffeur.component.html',
   styleUrl: './ajouter-chauffeur.component.css'
 })
-export class AjouterChauffeurComponent implements OnInit {
-  chauffeurForm!: FormGroup;
+export class AjouterChauffeurComponent {
+  chauffeur = {
+    nom_complet: '',
+    permis: '',
+    telephone: ''
+  };
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private chauffeurService: ChauffeurService, private snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {
-    this.chauffeurForm = this.fb.group({
-      nom_complet: ['', Validators.required],
-      permis: ['', Validators.required],
-      telephone: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]], // Validation pour un numéro de téléphone de 8 chiffres
-    });
-  }
-
-  onSubmit(): void {
-    if (this.chauffeurForm.valid) {
-      console.log('Formulaire soumis', this.chauffeurForm.value);
-      // Logique pour envoyer les données du formulaire à un service ou backend
-    } else {
-      console.log('Formulaire invalide');
+  onSubmit() {
+    if (!this.chauffeur.nom_complet || !this.chauffeur.permis || !this.chauffeur.telephone) {
+      return;
     }
+
+    this.chauffeurService.ajouterChauffeur(this.chauffeur).subscribe({
+      next: (response) => {
+        this.snackBar.open('Chauffeur ajouté avec succès !', 'Fermer', { duration: 3000, panelClass: ['success-snackbar'] });
+      },
+      error: (err) => {
+        this.snackBar.open('Erreur lors de l\'ajout du chauffeur.', 'Fermer', { duration: 3000, panelClass: ['error-snackbar'] });
+      }
+    });
   }
 }
