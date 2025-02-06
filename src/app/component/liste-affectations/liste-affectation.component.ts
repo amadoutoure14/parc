@@ -12,10 +12,10 @@ import {IChauffeur} from '../../interfaces/IChauffeur';
     MatIcon,
     MatIconButton
   ],
-  templateUrl: './liste-affectations.component.html',
-  styleUrl: './liste-affectations.component.css'
+  templateUrl: './liste-affectation.component.html',
+  styleUrl: './liste-affectation.component.css'
 })
-export class ListeAffectationsComponent {
+export class ListeAffectationComponent {
   chauffeurs: IChauffeur[] = [
     {
       id: 1,
