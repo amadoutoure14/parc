@@ -1,3 +1,4 @@
+<div class="container">
 <form [formGroup]="chauffeurForm" (ngSubmit)="onSubmit()">
   <label for="nom_complet">Nom Complet:</label>
   <input id="nom_complet" formControlName="nom_complet" required />
@@ -19,3 +20,4 @@
 
   <button type="submit" [disabled]="chauffeurForm.invalid">Soumettre</button>
 </form>
+</div>

@@ -11,6 +11,10 @@
          <mat-icon>list</mat-icon>
         <span>Liste des affectations</span>
       </button>
+      <button  mat-flat-button  routerLinkActive="active-button" [routerLink]="['/affectation/rechercher']">
+         <mat-icon>search</mat-icon>
+        <span>Rechercher</span>
+      </button>
     </div>
 
   <router-outlet></router-outlet>

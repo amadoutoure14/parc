@@ -1,0 +1,65 @@
+/* Conteneur principal */
+.sortie-container {
+  padding: 10px;
+  background-color: transparent !important;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tableau */
+.sortie-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* En-têtes du tableau */
+.sortie-table th {
+  background-color: #3FAAD8;
+  color: white;
+  padding: 12px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Cellules du tableau */
+.sortie-table td {
+  background-color: #fff;
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Ligne survolée */
+.sortie-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+/* Bordure sur chaque cellule */
+.sortie-table td, .sortie-table th {
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+/* Suppression de la bordure sur la première colonne et ligne */
+.sortie-table th:first-child, .sortie-table td:first-child {
+  border-left: none;
+}
+
+/* Suppression de la bordure sur la dernière ligne */
+.sortie-table tr:last-child td {
+  border-bottom: none;
+}
+.modifier{
+  color: #1976d2;
+}
+.supprimer{
+  color: darkred;
+}

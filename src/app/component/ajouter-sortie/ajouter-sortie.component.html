@@ -1,3 +1,4 @@
+<div class="container">
 <form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="affectation">Affectation</label>
@@ -32,3 +33,4 @@
 
   <button type="submit" [disabled]="!sortieForm.valid">Envoyer</button>
 </form>
+</div>

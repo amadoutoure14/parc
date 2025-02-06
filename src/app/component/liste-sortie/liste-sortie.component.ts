@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {Sortie} from '../../modeles/Sortie';
-import {NgIf} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-liste-sortie',
   imports: [
-    NgIf,
+    MatIcon,
+    MatIconButton,
   ],
   templateUrl: './liste-sortie.component.html',
   styleUrl: './liste-sortie.component.css'
@@ -13,4 +15,11 @@ import {NgIf} from '@angular/common';
 export class ListeSortieComponent {
   sorties: Sortie[] = [];
 
+  editSortie() {
+
+  }
+
+  deleteSortie() {
+
+  }
 }

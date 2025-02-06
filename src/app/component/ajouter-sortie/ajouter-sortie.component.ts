@@ -16,7 +16,7 @@ export class AjouterSortieComponent {
 
   ngOnInit(): void {
     this.sortieForm = this.fb.group({
-      affectation: [null, Validators.required], // Remplacer par le bon type si nécessaire
+      affectation: [null, Validators.required],
       dateArrivee: ['', Validators.required],
       dateDepart: ['', Validators.required],
       destination: ['', Validators.required],

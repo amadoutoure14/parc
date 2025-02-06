@@ -12,12 +12,19 @@ import {AjouterVehiculeComponent} from './component/ajouter-vehicule/ajouter-veh
 import {PresenceVehiculeComponent} from './component/presence-vehicule/presence-vehicule.component';
 import {AjouterSortieComponent} from './component/ajouter-sortie/ajouter-sortie.component';
 import {ListeSortieComponent} from './component/liste-sortie/liste-sortie.component';
+import {RechercherVehiculeComponent} from './component/rechercher-vehicule/rechercher-vehicule.component';
+import {ImprimerVehiculeComponent} from './component/imprimer-vehicule/imprimer-vehicule.component';
+import {RechercherChauffeurComponent} from './component/rechercher-chauffeur/rechercher-chauffeur.component';
+import {ImprimerChauffeurComponent} from './component/imprimer-chauffeur/imprimer-chauffeur.component';
+import {RechercherAffectationComponent} from './component/rechercher-affectation/rechercher-affectation.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'vehicule', component: VehiculeComponent ,
     children: [
       {path: 'ajouter',component: AjouterVehiculeComponent},
+      {path: 'recherche',component: RechercherVehiculeComponent},
+      {path: 'imprimer',component: ImprimerVehiculeComponent},
       {path: 'liste',component: PresenceVehiculeComponent},
       {path: '',redirectTo:'liste',pathMatch: 'full'},
     ]
@@ -32,6 +39,7 @@ export const routes: Routes = [
   { path: 'affectation', component: AffectationComponent ,
     children:[
       { path: 'formulaire', component: AffectationFormulaireComponent },
+      { path: 'rechercher', component: RechercherAffectationComponent },
       { path: 'liste', component: ListeAffectationsComponent },
       { path: '',   redirectTo: 'liste', pathMatch: 'full' },
     ]
@@ -39,6 +47,8 @@ export const routes: Routes = [
   { path: 'chauffeur', component: ChauffeurComponent,
     children: [
       { path: 'ajouter', component: AjouterChauffeurComponent },
+      { path: 'rechercher', component: RechercherChauffeurComponent },
+      { path: 'imprimer', component: ImprimerChauffeurComponent },
       { path: 'liste', component: PresenceChauffeurComponent },
       { path: '', redirectTo: 'liste', pathMatch: 'full' },
     ]

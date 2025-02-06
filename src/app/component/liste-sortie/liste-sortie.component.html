@@ -1,1 +1,32 @@
-<p *ngIf="!sorties || sorties.length === 0">La liste des sorties est vide!</p>
+<div class="sortie-container">
+  <table class="sortie-table">
+    <thead>
+    <tr>
+      <th>Numéro</th>
+      <th>Nom Complet</th>
+      <th>Permis</th>
+      <th>Téléphone</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr >
+      <td> 1 </td>
+      <td>Immatricula</td>
+      <td>permis </td>
+      <td>telephone </td>
+      <td>date</td>
+      <td>
+        <!-- Boutons d'actions -->
+        <button mat-icon-button (click)="editSortie()">
+          <mat-icon class="modifier">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteSortie()">
+          <mat-icon class="supprimer">delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
