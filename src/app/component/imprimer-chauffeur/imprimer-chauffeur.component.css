@@ -1,0 +1,47 @@
+.filter-container {
+  padding-top: 25px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+input {
+  text-align: center;
+  width: 40%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+  outline: none;
+}
+.boutons{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-left: 16px;
+}
+.boutons button {
+  border-radius: 5px; /* Ajoute un léger arrondi pour un rendu plus moderne */
+  background-color: #3FAAD8;
+  color: white;
+  width: auto;
+  min-width: 120px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}

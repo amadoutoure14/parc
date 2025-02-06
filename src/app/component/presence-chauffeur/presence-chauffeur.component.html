@@ -1,4 +1,7 @@
-<div *ngIf="chauffeurs && chauffeurs.length > 0" class="chauffeurs-container">
+<div class="filter-container">
+  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterChauffeurs()" placeholder="Filtrer par nom, permis, téléphone ou date d'enregistrement"  />
+</div>
+<div *ngIf="filteredChauffeurs && filteredChauffeurs.length > 0" class="chauffeurs-container">
   <table class="chauffeurs-table">
     <thead>
     <tr>
@@ -11,22 +14,26 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let chauffeur of chauffeurs; let i = index">
+    <tr *ngFor="let chauffeur of filteredChauffeurs; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ chauffeur.nom_complet }}</td>
       <td>{{ chauffeur.permis }}</td>
       <td>{{ chauffeur.telephone }}</td>
       <td>{{ chauffeur.date }}</td>
       <td>
-        <!-- Boutons d'actions -->
         <button mat-icon-button (click)="editChauffeur(chauffeur)">
           <mat-icon class="modifier">edit</mat-icon> <!-- Icône d'édition -->
         </button>
-        <button mat-icon-button  (click)="deleteChauffeur(chauffeur)">
+        <button mat-icon-button (click)="deleteChauffeur(chauffeur)">
           <mat-icon class="supprimer">delete</mat-icon> <!-- Icône de suppression -->
         </button>
       </td>
     </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Message si aucun chauffeur trouvé -->
+<div *ngIf="filteredChauffeurs && filteredChauffeurs.length === 0">
+  <p>Aucun chauffeur trouvé</p>
 </div>

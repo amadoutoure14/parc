@@ -65,7 +65,7 @@ export class ImprimerVehiculeComponent {
       const url = window.URL.createObjectURL(blob);
       window.open(url);
     }, error => {
-      console.error("Erreur lors de la récupération du PDF :", error);
+      console.error();
       alert("Erreur lors de la génération du PDF.");
     });
   }

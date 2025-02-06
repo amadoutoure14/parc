@@ -1,1 +1,50 @@
-<p>imprimer-chauffeur works!</p>
+<div class="filter-container">
+  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterChauffeurs()" placeholder="Imprimer les chauffeurs selon leurs dates d'enregistrement"  />
+  <div class="boutons">
+    <button mat-flat-button style="display: flex;flex-direction: row" (click)="rechercher(filterTerm)">
+      <mat-icon>search</mat-icon>
+      <span>Rechercher</span>
+    </button>
+    <button mat-flat-button>
+      <mat-icon>print</mat-icon>
+      Imprimer
+    </button>
+  </div>
+</div>
+<div *ngIf="filteredChauffeurs && filteredChauffeurs.length > 0" class="chauffeurs-container">
+  <table class="chauffeurs-table">
+    <thead>
+    <tr>
+      <th>Numéro</th>
+      <th>Nom Complet</th>
+      <th>Permis</th>
+      <th>Téléphone</th>
+      <th>Date</th>
+      <th>Actions</th> <!-- Colonne Actions -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let chauffeur of filteredChauffeurs; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ chauffeur.nom_complet }}</td>
+      <td>{{ chauffeur.permis }}</td>
+      <td>{{ chauffeur.telephone }}</td>
+      <td>{{ chauffeur.date }}</td>
+      <td>
+        <button mat-icon-button (click)="editChauffeur(chauffeur)">
+          <mat-icon class="modifier">edit</mat-icon> <!-- Icône d'édition -->
+        </button>
+        <button mat-icon-button (click)="deleteChauffeur(chauffeur)">
+          <mat-icon class="supprimer">delete</mat-icon> <!-- Icône de suppression -->
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Message si aucun chauffeur trouvé -->
+<div *ngIf="filteredChauffeurs && filteredChauffeurs.length === 0">
+  <p>Aucun chauffeur trouvé</p>
+</div>
+

@@ -14,7 +14,6 @@ import {AjouterSortieComponent} from './component/ajouter-sortie/ajouter-sortie.
 import {ListeSortieComponent} from './component/liste-sortie/liste-sortie.component';
 import {RechercherVehiculeComponent} from './component/rechercher-vehicule/rechercher-vehicule.component';
 import {ImprimerVehiculeComponent} from './component/imprimer-vehicule/imprimer-vehicule.component';
-import {RechercherChauffeurComponent} from './component/rechercher-chauffeur/rechercher-chauffeur.component';
 import {ImprimerChauffeurComponent} from './component/imprimer-chauffeur/imprimer-chauffeur.component';
 import {RechercherAffectationComponent} from './component/rechercher-affectation/rechercher-affectation.component';
 import {RechercherSortieComponent} from './component/rechercher-sortie/rechercher-sortie.component';
@@ -51,7 +50,6 @@ export const routes: Routes = [
   { path: 'chauffeur', component: ChauffeurComponent,
     children: [
       { path: 'ajouter', component: AjouterChauffeurComponent },
-      { path: 'rechercher', component: RechercherChauffeurComponent },
       { path: 'imprimer', component: ImprimerChauffeurComponent },
       { path: 'liste', component: PresenceChauffeurComponent },
       { path: '', redirectTo: 'liste', pathMatch: 'full' },
