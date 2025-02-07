@@ -1,7 +1,6 @@
-import { ISortie } from '../interfaces/ISortie';
 import { Affectation } from './Affectation';
 
-export class Sortie implements ISortie {
+export class Sortie {
   affectation: Affectation | null;
   dateArrivee: string;
   dateDepart: string;

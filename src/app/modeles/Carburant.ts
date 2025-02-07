@@ -1,7 +1,6 @@
-import { ICarburant } from '../interfaces/ICarburant';
 import { Vehicule } from './Vehicule';
 
-export class Carburant implements ICarburant {
+export class Carburant  {
   approv: number;
   date: string;
   id: number;

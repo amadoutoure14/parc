@@ -1,7 +1,7 @@
-import {IVehicule} from '../interfaces/IVehicule';
+
 import {Carburant} from './Carburant';
 
-export class Vehicule implements IVehicule{
+export class Vehicule {
   carburants: Carburant[];
   commentaire: string;
   date: string;

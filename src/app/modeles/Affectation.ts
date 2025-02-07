@@ -1,8 +1,7 @@
-import { IAffectation } from '../interfaces/IAffectation';
 import { Vehicule } from './Vehicule';
 import { Chauffeur } from './Chauffeur';
 
-export class Affectation implements IAffectation {
+export class Affectation  {
   chauffeur: Chauffeur | null;
   date: string;
   id: number;

@@ -1,6 +1,4 @@
-import { IChauffeur } from '../interfaces/IChauffeur';
-
-export class Chauffeur implements IChauffeur {
+export class Chauffeur {
   id?: number;
   nom_complet: string;
   permis: string;
@@ -16,9 +14,9 @@ export class Chauffeur implements IChauffeur {
   }
 
   // Convertir un JSON en objet Chauffeur
-  static fromJson(chauffeurJson: Partial<IChauffeur>): Chauffeur {
+  static fromJson(chauffeurJson: Partial<Chauffeur>): Chauffeur {
     return new Chauffeur(
-      chauffeurJson.date ?? '', // Valeur par défaut pour éviter les `undefined`
+      chauffeurJson.date ?? '',
       chauffeurJson.nom_complet ?? 'Inconnu',
       chauffeurJson.permis ?? 'Non spécifié',
       chauffeurJson.telephone ?? 'Non spécifié',
@@ -26,10 +24,9 @@ export class Chauffeur implements IChauffeur {
     );
   }
 
-  // Convertir un objet Chauffeur en JSON
-  toJson(): IChauffeur {
+  toJson(): any {
     return {
-      id: this.id ?? undefined, // Assure que l'id peut être absent
+      id: this.id ?? undefined,
       nom_complet: this.nom_complet,
       permis: this.permis,
       telephone: this.telephone,
