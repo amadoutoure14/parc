@@ -1,28 +1,24 @@
-<form [formGroup]="vehiculeForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="immatriculation">Immatriculation:</label>
-    <input id="immatriculation" formControlName="immatriculation" required>
-  </div>
+<div class="container">
+  <h2>Enregistrement véhicule</h2>
+  <form #vehiculeForm="ngForm" (ngSubmit)="onSubmit()">
 
-  <div>
-    <label for="modele">Modèle:</label>
-    <input id="modele" formControlName="modele" required>
-  </div>
+    <label for="immatriculation">Immatriculation</label>
+    <input id="immatriculation" name="immatriculation" [(ngModel)]="vehicule.immatriculation" required />
+    <div class="error" *ngIf="!vehicule.immatriculation && vehiculeForm.submitted">
+      immatriculation requis
+    </div>
 
-  <div>
-    <label for="commentaire">Commentaire:</label>
-    <textarea id="commentaire" formControlName="commentaire"></textarea>
-  </div>
 
-  <div>
-    <label for="date">Date:</label>
-    <input id="date" type="date" formControlName="date" required>
-  </div>
+    <label for="modele">Modèle</label>
+    <input id="modele" name="modele" [(ngModel)]="vehicule.modele" required />
+    <div class="error" *ngIf="!vehicule.modele && vehiculeForm.submitted">
+      Modèle requis
+    </div>
 
-  <div>
-    <label for="disponible">Disponible:</label>
-    <input id="disponible" type="checkbox" formControlName="disponible">
-  </div>
 
-  <button type="submit" [disabled]="vehiculeForm.invalid">Ajouter Véhicule</button>
-</form>
+    <label for="commentaire">Téléphone</label>
+    <input id="commentaire" name="commentaire" [(ngModel)]="vehicule.commentaire" />
+
+    <button type="submit" [disabled]="vehiculeForm.invalid">Soumettre</button>
+  </form>
+</div>

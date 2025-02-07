@@ -17,7 +17,7 @@ import {Chauffeur} from '../../modeles/Chauffeur';
   styleUrls: ['./ajouter-chauffeur.component.css']
 })
 export class AjouterChauffeurComponent {
-  // Définir l'objet chauffeur
+
   chauffeur = {
     nom_complet: '',
     permis: '',
@@ -26,9 +26,8 @@ export class AjouterChauffeurComponent {
 
   constructor(private chauffeurService: ChauffeurService, private snackBar: MatSnackBar) {}
 
-  // Fonction appelée lors de la soumission du formulaire
   onSubmit() {
-    // Vérification si tous les champs sont remplis
+
     if (!this.chauffeur.nom_complet || !this.chauffeur.permis || !this.chauffeur.telephone) {
       return;
     }
@@ -38,10 +37,10 @@ export class AjouterChauffeurComponent {
       this.chauffeur.permis,
       this.chauffeur.telephone,
     );
-    // Appel du service pour ajouter le chauffeur
+
     this.chauffeurService.ajouterChauffeur(newChauffeur).subscribe({
       next: () => {
-        // Message de succès
+
         this.snackBar.open('Chauffeur ajouté avec succès !', 'Fermer', { duration: 6000, panelClass: ['success-snackbar'] });
         this.chauffeur.nom_complet = '';
         this.chauffeur.permis = '';

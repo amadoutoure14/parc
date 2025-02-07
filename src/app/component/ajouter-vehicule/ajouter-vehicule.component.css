@@ -1,66 +1,111 @@
-/* Style général du formulaire */
-form {
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 010px rgba(0, 0, 0, 0.1);
+/* Container global */
+.container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
 }
 
-/* Style des labels */
+/* Titre du formulaire */
+h2 {
+  color: #3aa0cd;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* Formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Labels */
 label {
   font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-/* Style des champs input et textarea */
-input, textarea {
+  margin-top: 10px;
+  color: #333;
+  text-transform: uppercase;
+  text-align: left;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
   font-size: 16px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Style pour le champ date */
-input[type="date"] {
-  cursor: pointer;
+input:focus {
+  border-color: #4295C6;
+  box-shadow: 0 0 5px rgb(58, 160, 205);
+  outline: none;
 }
 
-/* Style pour la checkbox */
-input[type="checkbox"] {
-  width: auto;
-  margin-left: 10px;
+/* Message d'erreur */
+.error {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+  width: 100%;
 }
 
 /* Bouton de soumission */
 button {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  padding: 12px;
+  text-transform: uppercase;
   font-size: 16px;
+  color: white;
+  background-color: #3faad8;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+  width: 100%;
 }
 
-/* Effet au survol du bouton */
-button:hover {
-  background: #0056b3;
-}
-
-/* Désactiver le bouton quand le formulaire est invalide */
 button:disabled {
-  background: #ccc;
+  background-color: #ddd;
   cursor: not-allowed;
 }
 
-/* Ajout d'un peu d'espace entre les éléments */
-div {
-  margin-bottom: 15px;
+button:hover {
+  background-color: #2f8db8;
+}
+/* Exemple de style pour une notification de succès */
+.success-snackbar {
+  background-color: #4caf50; /* Vert pour un succès */
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Exemple de style pour une notification d'erreur */
+.error-snackbar {
+  background-color: #f44336; /* Rouge pour une erreur */
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Personnalisation de la barre de notification générale */
+.mat-snack-bar-container {
+  font-family: 'Arial', sans-serif;
 }
