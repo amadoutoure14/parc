@@ -6,20 +6,23 @@
   width: 100vw;
 }
 .form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 10px 5px;
-  width: 47%;
+  width: 60%;
 }
 
-.select-chauffeur {
-  width: 100%;
-  background-color: white;
+.select {
+  width: 70%;
 }
 
-.chauffeur-details {
+.details {
   margin-top: 5px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  width: 70%;
   height: 350px;
   background-color: #f4f7fc;
 }
@@ -31,4 +34,20 @@
   color: white;
   border-radius: 0;
   width: 90%;
+}
+mat-card-content{
+font-size: 23px ;
+}
+mat-card-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+mat-card-title{
+  text-transform: capitalize;
+  font-size: 25px ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

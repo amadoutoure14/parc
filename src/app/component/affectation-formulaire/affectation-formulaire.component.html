@@ -1,6 +1,6 @@
 <div class="affectation">
   <div class="form-container">
-    <mat-form-field appearance="fill" class="select-chauffeur">
+    <mat-form-field appearance="fill" class="select">
       <label>Sélectionner un chauffeur</label>
       <mat-select [(value)]="selectedChauffeur" (selectionChange)="onChauffeurChange()">
         <mat-option *ngFor="let chauffeur of chauffeurs" [value]="chauffeur">
@@ -9,20 +9,22 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-card *ngIf="selectedChauffeur" class="chauffeur-details">
+    <mat-card *ngIf="selectedChauffeur" class="details">
       <mat-card-header>
-        <mat-card-title>{{ selectedChauffeur.nom_complet }}</mat-card-title>
+        <mat-card-title><strong>{{ selectedChauffeur.nom_complet }}</strong></mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p><strong>Permis:</strong> {{ selectedChauffeur?.permis }}</p>
-        <p><strong>Téléphone:</strong> {{ selectedChauffeur?.telephone }}</p>
+        <br>
+        <p><strong>Permis:</strong> {{ selectedChauffeur?.permis }}</p><br>
+
+        <p><strong>Téléphone:</strong> {{ selectedChauffeur?.telephone }}</p><br>
         <p><strong>Date d'enregistrement:</strong> {{ selectedChauffeur?.date }}</p>
       </mat-card-content>
     </mat-card>
   </div>
 
   <div class="form-container">
-    <mat-form-field appearance="fill" class="select-chauffeur">
+    <mat-form-field appearance="fill" class="select">
       <label>Sélectionner un vehicule</label>
       <mat-select [(value)]="selectedVehicule" (selectionChange)="onVehiculeChange()">
         <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
@@ -31,9 +33,9 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-card *ngIf="selectedVehicule" class="chauffeur-details">
+    <mat-card *ngIf="selectedVehicule" class="details">
       <mat-card-header>
-        <mat-card-title>{{ selectedVehicule.immatriculation }}</mat-card-title>
+        <mat-card-title><strong>{{ selectedVehicule.immatriculation }}</strong></mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <p><strong>Type:</strong> {{ selectedVehicule?.type }}</p>
