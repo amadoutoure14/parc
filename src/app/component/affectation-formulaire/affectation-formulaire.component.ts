@@ -1,10 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatFormField} from '@angular/material/form-field';
 import {MatOption, MatSelect} from '@angular/material/select';
 import {MatCard, MatCardContent, MatCardHeader, MatCardModule} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {NgForOf, NgIf} from '@angular/common';
+import {Vehicule} from '../../modeles/Vehicule';
+import {Chauffeur} from '../../modeles/Chauffeur';
+import {AffectationService} from '../../services/affectation.service';
+import {ChauffeurService} from '../../services/chauffeur.service';
+import {VehiculeService} from '../../services/vehicule.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Affectation} from '../../modeles/Affectation';
 
 
 @Component({
@@ -21,50 +28,66 @@ import {NgForOf, NgIf} from '@angular/common';
     MatCardModule,
     MatFormField,
     NgForOf,
+    FormsModule,
   ],
   templateUrl: './affectation-formulaire.component.html',
   styleUrl: './affectation-formulaire.component.css'
 })
 export class AffectationFormulaireComponent implements OnInit{
-  chauffeurs = [
-    { id: 1, nom_complet: 'Jean Dupont', permis: 'B', telephone: '0102030405', date: '2023-01-15' },
-    { id: 2, nom_complet: 'Marie Curie', permis: 'C', telephone: '0607080910', date: '2022-03-22' }
-  ];
-  vehicules = [
-    { id: 1, nom: 'Véhicule 1', type: 'Camion', immatriculation: 'AB-123-CD', date: '2023-01-15' },
-    { id: 2, nom: 'Véhicule 2', type: 'Voiture', immatriculation: 'XY-456-ZZ', date: '2023-01-15' }
-  ];
 
-  selectedChauffeur: any;
-  selectedVehicule: any;
+  constructor(private  service:AffectationService,private chauffeurService:ChauffeurService,private vehiculeService:VehiculeService,private snackBar:MatSnackBar) {
+  }
+
+  chauffeurs:Chauffeur[] = [];
+  vehicules:Vehicule[] = [];
+
+  selectedChauffeur!: Chauffeur;
+  selectedVehicule!: Vehicule;
+  nom='';
 
   ngOnInit(): void {
-    this.selectedChauffeur = this.chauffeurs[0];
-    this.selectedVehicule = this.vehicules[0];
+    this.vehiculeService.listeVehicule().subscribe(
+      {next:value => {
+          this.vehicules = value;
+          this.selectedVehicule = this.vehicules[0];
+        },
+        error: error => {
+          console.log(error);
+        }})
+    this.chauffeurService.listeChauffeur().subscribe({
+      next:value => {
+        this.chauffeurs = value;
+        this.selectedChauffeur = this.chauffeurs[0];
+      },
+      error: error => {
+        console.log(error);
+      }})
+
   }
 
   onChauffeurChange(): void {
-    console.log('Chauffeur sélectionné:', this.selectedChauffeur);
+
   }
 
   onVehiculeChange(): void {
-    console.log('Véhicule sélectionné:', this.selectedVehicule);
   }
 
+/*
   affecterChauffeur(): void {
-   alert('Chauffeur affecté');
-  }
 
-  modifierChauffeur(): void {
-    // Logique pour modifier le chauffeur
-    console.log('Modification du chauffeur:', this.selectedChauffeur);
+    this.service.nouvelleAffectation(affectation).subscribe(
+      {
+        next:value => {
+          this.snackBar.open('Affectation effectuée!',"Fermer",{duration:6000})
+        },
+        error: error => {
+     this.snackBar.open('Une erreur est survenue'+error)
+        }
+      })
   }
+* */
 
-  supprimerChauffeur(): void {
-    // Logique pour supprimer le chauffeur
-    console.log('Suppression du chauffeur:', this.selectedChauffeur);
-    // Suppression du chauffeur de la liste, par exemple
-    this.chauffeurs = this.chauffeurs.filter(chauffeur => chauffeur !== this.selectedChauffeur);
-    this.selectedChauffeur = this.chauffeurs[0]; // Optionnel : sélectionner le premier chauffeur restant
+  affecterChauffeur() {
+
   }
 }

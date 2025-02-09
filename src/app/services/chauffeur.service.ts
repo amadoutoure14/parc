@@ -2,32 +2,32 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Injectable } from '@angular/core';
 import {Chauffeur} from '../modeles/Chauffeur';
-import {PresenceChauffeur} from '../modeles/presenceChauffeur';
+import {Server} from './server';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChauffeurService {
-  private baseUrl = 'http://localhost:8080/chauffeur';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
 
   ajouterChauffeur(chauffeur: Chauffeur): Observable<Chauffeur> {
-    const postUrl = `${this.baseUrl}/nouveau`;
+    const postUrl = `http://localhost:8080/chauffeur/nouveau`
     return this.http.post<Chauffeur>(postUrl, chauffeur);
   }
 
-  listeChauffeur(): Observable<Chauffeur[]> {
-    const listeUrl = `${this.baseUrl}/liste`;
+  listeChauffeur():Observable<Chauffeur[]> {
+    const listeUrl = `http://localhost:8080/chauffeur/liste`;
     return this.http.get<Chauffeur[]>(listeUrl);
   }
 
-  filtreChauffeurDate(formatted: string|null) : Observable <Chauffeur[]>{
-    const presenceUrl=` http://localhost:8080/chauffeur/index/date/liste/d?date=${formatted}`;
+  filtreChauffeurDate(formatted: string|null): Observable <Chauffeur[]>{
+    const presenceUrl=`http://localhost:8080/chauffeur/index/date/liste/d?date=${formatted}`;
     return this.http.get<Chauffeur[]>(presenceUrl);
   }
 
-  imprimerPresenceChauffeur(date: string|null) : Observable<Blob>{
+  imprimerChauffeurDate(date: string|null) : Observable<Blob>{
     const url = `http://localhost:8080/chauffeur/index/date/liste/pdf/d?date=${date}`;
     return this.http.get(url, { responseType: 'blob' });
   }

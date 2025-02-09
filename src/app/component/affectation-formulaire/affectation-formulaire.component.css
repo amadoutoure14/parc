@@ -29,11 +29,13 @@
 
 .affecter {
   margin-top: 20px;
-  margin-left: 6%;
+  margin-left: 7%;
   background-color: #3faad8;
   color: white;
-  border-radius: 0;
-  width: 90%;
+  border-radius: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 86%;
 }
 mat-card-content{
 font-size: 23px ;

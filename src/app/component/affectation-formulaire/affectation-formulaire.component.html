@@ -1,3 +1,4 @@
+<input type="text" [ngModel]="nom">
 <div class="affectation">
   <div class="form-container">
     <mat-form-field appearance="fill" class="select">
@@ -15,10 +16,9 @@
       </mat-card-header>
       <mat-card-content>
         <br>
-        <p><strong>Permis:</strong> {{ selectedChauffeur?.permis }}</p><br>
-
-        <p><strong>Téléphone:</strong> {{ selectedChauffeur?.telephone }}</p><br>
-        <p><strong>Date d'enregistrement:</strong> {{ selectedChauffeur?.date }}</p>
+        <p><strong>Permis:</strong> {{ selectedChauffeur.permis }}</p><br>
+        <p><strong>Téléphone:</strong> {{ selectedChauffeur.telephone }}</p><br>
+        <p><strong>Date d'enregistrement:</strong> {{ selectedChauffeur.date }}</p>
       </mat-card-content>
     </mat-card>
   </div>
@@ -38,8 +38,9 @@
         <mat-card-title><strong>{{ selectedVehicule.immatriculation }}</strong></mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p><strong>Type:</strong> {{ selectedVehicule?.type }}</p>
-        <p><strong>Date d'enregistrement:</strong> {{ selectedVehicule?.date }}</p>
+        <br>
+        <p><strong>Modèle:</strong> {{ selectedVehicule.modele }}</p><br>
+        <p><strong>Date d'enregistrement:</strong> {{ selectedVehicule.date }}</p>
       </mat-card-content>
     </mat-card>
   </div>

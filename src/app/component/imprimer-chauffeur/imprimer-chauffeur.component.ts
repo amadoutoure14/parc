@@ -69,7 +69,7 @@ export class ImprimerChauffeurComponent {
     }
     const formatted = this.datePipe.transform(date, 'dd/MM/yyyy');
 
-    this.service.imprimerPresenceChauffeur(formatted).subscribe({
+    this.service.imprimerChauffeurDate(formatted).subscribe({
       next: (response) => {
         // Crée un URL temporaire pour le blob (le PDF)
         const blob = new Blob([response], { type: 'application/pdf' });

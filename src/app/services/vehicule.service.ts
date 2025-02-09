@@ -11,12 +11,12 @@ export class VehiculeService {
   constructor(private http:HttpClient) { }
 
   enregistrerVehicule(vehicule: Vehicule): Observable<Vehicule> {
-    const url = 'http://localhost:8080/vehicule/nouveau';
+    const url = `http://localhost:8080/vehicule/nouveau`;
     return this.http.post<Vehicule>(url, vehicule);
   }
 
   listeVehicule(): Observable<Vehicule[]>{
-    const url = 'http://localhost:8080/vehicule/liste';
+    const url = `http://localhost:8080/vehicule/liste`;
     return this.http.get<Vehicule[]>(url)
   }
 
@@ -26,7 +26,7 @@ export class VehiculeService {
   }
 
   imprimerVehiculeDateEnregistrement(formatted: string) : Observable<Blob>{
-    const url = `http://localhost:8080/vehicule/index/date/liste/pdf/d?date=${formatted}`;
+    const url = `http://localhost:8080/vehicule/index/date/enregistrement/d?date=${formatted}`;
     return this.http.get(url, { responseType: 'blob' })
   }
 
