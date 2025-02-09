@@ -22,13 +22,13 @@ export class ChauffeurService {
     return this.http.get<Chauffeur[]>(listeUrl);
   }
 
-  presenceChauffeur(formatted: string|null) : Observable <PresenceChauffeur[]>{
-    const presenceUrl=`http://localhost:8080/presence/chauffeur/index/date/liste/d?date=${formatted}`;
-    return this.http.get<PresenceChauffeur[]>(presenceUrl);
+  filtreChauffeurDate(formatted: string|null) : Observable <Chauffeur[]>{
+    const presenceUrl=` http://localhost:8080/chauffeur/index/date/liste/d?date=${formatted}`;
+    return this.http.get<Chauffeur[]>(presenceUrl);
   }
 
   imprimerPresenceChauffeur(date: string|null) : Observable<Blob>{
-    const url = `http://localhost:8080/presence/chauffeur/index/date/pdf/d?date=${date}`;
+    const url = `http://localhost:8080/chauffeur/index/date/liste/pdf/d?date=${date}`;
     return this.http.get(url, { responseType: 'blob' });
   }
 }

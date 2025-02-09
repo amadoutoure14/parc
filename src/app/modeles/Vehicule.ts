@@ -2,11 +2,11 @@
 import {Carburant} from './Carburant';
 
 export class Vehicule {
-  carburants: Carburant[];
+  carburants?: Carburant[]|null;
   commentaire: string;
-  date: string;
-  disponible: boolean;
-  id: number;
+  date?: string|null;
+  disponible?: boolean|null;
+  id?: number|null;
   immatriculation: string;
   modele: string;
 
@@ -25,7 +25,7 @@ export class Vehicule {
       json.carburants || [],
       json.commentaire || '',
       json.date || '',
-      json.disponible || false,
+      json.disponible ,
       json.id || 0,
       json.immatriculation || '',
       json.modele || ''

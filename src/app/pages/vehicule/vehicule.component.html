@@ -2,22 +2,27 @@
   <h1 class="sous-titre">Gestion des véhicules</h1>
 </mat-card-header>
 
-<div class="vehicule-buttons">
+<div class="buttons">
+
   <button mat-flat-button routerLink="/vehicule/ajouter">
     <span>Nouveau véhicule</span>
     <mat-icon>add</mat-icon>
   </button>
+
   <button mat-flat-button routerLink="/vehicule/liste">
     <span>Liste des véhicules</span>
     <mat-icon>list</mat-icon>
   </button>
-  <button mat-flat-button routerLink="/vehicule/recherche">
-    <span>Rechercher</span>
-    <mat-icon>search</mat-icon>
+
+  <button mat-flat-button routerLink="/vehicule/disponible">
+    <span>Véhicules disponibles</span>
+    <mat-icon>car</mat-icon>
   </button>
+
   <button mat-flat-button routerLink="/vehicule/imprimer">
-    <span>Imprimer</span>
+    <span>Imprimer véhicule / enregistrement</span>
     <mat-icon>print</mat-icon>
   </button>
+
 </div>
 <router-outlet></router-outlet>

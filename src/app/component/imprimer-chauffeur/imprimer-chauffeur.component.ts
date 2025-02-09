@@ -5,8 +5,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {ChauffeurService} from '../../services/chauffeur.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {PresenceChauffeur} from '../../modeles/presenceChauffeur';
 import {HttpClientModule} from '@angular/common/http';
+import {Chauffeur} from '../../modeles/Chauffeur';
 
 @Component({
   selector: 'app-imprimer-chauffeur',
@@ -26,10 +26,11 @@ import {HttpClientModule} from '@angular/common/http';
   styleUrl: './imprimer-chauffeur.component.css'
 })
 export class ImprimerChauffeurComponent {
-  constructor(private service:ChauffeurService,private datePipe: DatePipe,private snackBar: MatSnackBar ) {
-  }
+
+  constructor(private service:ChauffeurService,private datePipe: DatePipe,private snackBar: MatSnackBar ) {}
+
   date='';
-  presences: PresenceChauffeur[] = [];
+  chauffeurs: Chauffeur[] = [];
 
 
   rechercher(date: string) {
@@ -41,13 +42,13 @@ export class ImprimerChauffeurComponent {
     const formatted = this.datePipe.transform(date, 'dd/MM/yyyy');
 
     if (formatted) {
-      this.service.presenceChauffeur(formatted).subscribe({
+      this.service.filtreChauffeurDate(formatted).subscribe({
         next: (data) => {
           if (data.length === 0) {
-            this.presences = [];
+            this.chauffeurs = [];
             this.snackBar.open('Aucun chauffeur trouvé pour cette date.', '', { duration: 3000 });
           } else {
-            this.presences = data.map((data: Partial<PresenceChauffeur>) => PresenceChauffeur.fromJson(data));
+            this.chauffeurs = data.map((data: Partial<Chauffeur>) => Chauffeur.fromJson(data));
             this.snackBar.open(`La liste des présences de chauffeur au ${formatted}`,'Fermer',  { duration: 3000 });
           }
         },
@@ -77,7 +78,7 @@ export class ImprimerChauffeurComponent {
         // Crée un lien temporaire pour télécharger le fichier
         const a = document.createElement('a');
         a.href = url;
-        a.download = `La_liste_de_presence_des_chauffeurs_du_${date}.pdf`; // Nom du fichier
+        a.download = `La_liste_des_chauffeurs_du_${date}.pdf`; // Nom du fichier
         a.click();
 
         // Libère l'URL une fois que le téléchargement est terminé
@@ -91,11 +92,12 @@ export class ImprimerChauffeurComponent {
     });
   }
 
-  delete(id:number) {
-    console.log(id);
+
+  edit(id: number | undefined) {
+
   }
 
-  edit(id:number) {
-    console.log(id);
+  delete(id: number | undefined) {
+
   }
 }

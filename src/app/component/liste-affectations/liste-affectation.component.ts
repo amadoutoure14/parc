@@ -1,4 +1,5 @@
 import {Component, } from '@angular/core';
+import {Affectation} from '../../modeles/Affectation';
 
 
 @Component({
@@ -9,7 +10,7 @@ import {Component, } from '@angular/core';
   styleUrl: './liste-affectation.component.css'
 })
 export class ListeAffectationComponent {
-
+  affectations:Affectation[]=[];
 
   deleteChauffeur() {
 

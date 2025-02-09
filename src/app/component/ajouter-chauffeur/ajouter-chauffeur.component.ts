@@ -40,7 +40,6 @@ export class AjouterChauffeurComponent {
 
     this.chauffeurService.ajouterChauffeur(newChauffeur).subscribe({
       next: () => {
-
         this.snackBar.open('Chauffeur ajouté avec succès !', 'Fermer', { duration: 6000, panelClass: ['success-snackbar'] });
         this.chauffeur.nom_complet = '';
         this.chauffeur.permis = '';

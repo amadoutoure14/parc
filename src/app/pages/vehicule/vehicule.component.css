@@ -8,7 +8,7 @@
   width: 100vw;
   color: white;
 }
-.vehicule-buttons {
+.buttons {
   margin-top: 20px;
   margin-bottom: 10px;
   display: flex;
@@ -16,9 +16,10 @@
   justify-content: center;
   width: 100vw;
   gap: 10px;
+  text-transform: uppercase;
 }
 
-.vehicule-buttons button {
+.buttons button {
   border-radius: 5px;
   background-color: #3FAAD8;
   color: white;
@@ -33,6 +34,6 @@
   justify-content: center;
 }
 
-.vehicule-buttons button:hover {
+.buttons button:hover {
   background-color: #3598c1;
 }

@@ -9,7 +9,7 @@
         </button>
     </div>
 </div>
-<div *ngIf="presences && presences.length > 0" class="container">
+<div *ngIf="chauffeurs && chauffeurs.length > 0" class="container">
     <table class="table">
         <thead>
         <tr>
@@ -22,17 +22,17 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let presence of presences; let i = index">
+        <tr *ngFor="let chauffeur of chauffeurs; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ presence.chauffeur.nom_complet }}</td>
-            <td>{{ presence.chauffeur.permis }}</td>
-            <td>{{ presence.chauffeur.telephone }}</td>
-            <td>{{ presence.date }}</td>
+            <td>{{ chauffeur.nom_complet }}</td>
+            <td>{{ chauffeur.permis }}</td>
+            <td>{{ chauffeur.telephone }}</td>
+            <td>{{ chauffeur.date }}</td>
             <td>
-                <button mat-icon-button  (click)="edit(presence.id)">
+                <button mat-icon-button  (click)="edit(chauffeur.id)">
                     <mat-icon class="modifier">edit</mat-icon>
                 </button>
-                <button mat-icon-button (click)="delete(presence.id)">
+                <button mat-icon-button (click)="delete(chauffeur.id)">
                     <mat-icon class="supprimer">delete</mat-icon>
                 </button>
             </td>
@@ -41,6 +41,6 @@
     </table>
 </div>
 
-<div *ngIf="presences && presences.length === 0">
+<div *ngIf="chauffeurs && chauffeurs.length === 0">
     <p>Aucun chauffeur trouvé</p>
 </div>

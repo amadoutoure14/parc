@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 
 @Component({
-  selector: 'app-presence-chauffeur',
+  selector: 'app-liste-chauffeur',
   standalone: true,
   imports: [
     NgIf,
@@ -18,10 +18,11 @@ import {MatInput} from '@angular/material/input';
     FormsModule,
     MatInput
   ],
-  templateUrl: './presence-chauffeur.component.html',
-  styleUrl: './presence-chauffeur.component.css'
+  templateUrl: './liste-chauffeur.component.html',
+  styleUrl: './liste-chauffeur.component.css'
 })
-export class PresenceChauffeurComponent implements OnInit {
+export class ListeChauffeurComponent implements OnInit {
+
   chauffeurs: Chauffeur[] = [];
   filteredChauffeurs: Chauffeur[] = [];
   filterTerm: string = '';
@@ -42,23 +43,23 @@ export class PresenceChauffeurComponent implements OnInit {
 
   filterChauffeurs(): void {
     if (this.filterTerm.trim()) {
-      // On filtre seulement si le terme de recherche est non vide
-      this.filteredChauffeurs = this.chauffeurs.filter(chauffeur =>
+      this.filteredChauffeurs = this.chauffeurs.filter(
+        chauffeur =>
         chauffeur.nom_complet.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-        chauffeur.permis.includes(this.filterTerm) || chauffeur.telephone.includes(this.filterTerm)|| chauffeur.date.includes(this.filterTerm)
+        chauffeur.permis.includes(this.filterTerm) ||
+          chauffeur.telephone.includes(this.filterTerm)||
+          chauffeur.date.includes(this.filterTerm)
       );
     } else {
       this.filteredChauffeurs = [...this.chauffeurs];
     }
   }
 
-  editChauffeur(chauffeur: Chauffeur): void {
+  edit(chauffeur: Chauffeur): void {
     console.log('Éditer chauffeur:', chauffeur);
-    // Implémenter la logique d'édition ici
   }
 
-  deleteChauffeur(chauffeur: Chauffeur): void {
+  delete(chauffeur: Chauffeur): void {
     console.log('Supprimer chauffeur:', chauffeur);
-    // Implémenter la logique de suppression ici
   }
 }

@@ -1,8 +1,8 @@
 <div class="filter-container">
   <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterChauffeurs()" placeholder="Filtrer par nom, permis, téléphone ou date d'enregistrement"  />
 </div>
-<div *ngIf="filteredChauffeurs && filteredChauffeurs.length > 0" class="chauffeurs-container">
-  <table class="chauffeurs-table">
+<div *ngIf="filteredChauffeurs && filteredChauffeurs.length > 0" class="container">
+  <table class="table">
     <thead>
     <tr>
       <th>Numéro</th>
@@ -10,7 +10,7 @@
       <th>Permis</th>
       <th>Téléphone</th>
       <th>Date</th>
-      <th>Actions</th> <!-- Colonne Actions -->
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -21,11 +21,11 @@
       <td>{{ chauffeur.telephone }}</td>
       <td>{{ chauffeur.date }}</td>
       <td>
-        <button mat-icon-button (click)="editChauffeur(chauffeur)">
-          <mat-icon class="modifier">edit</mat-icon> <!-- Icône d'édition -->
+        <button mat-icon-button (click)="edit(chauffeur)">
+          <mat-icon class="modifier">edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteChauffeur(chauffeur)">
-          <mat-icon class="supprimer">delete</mat-icon> <!-- Icône de suppression -->
+        <button mat-icon-button (click)="delete(chauffeur)">
+          <mat-icon class="supprimer">delete</mat-icon>
         </button>
       </td>
     </tr>

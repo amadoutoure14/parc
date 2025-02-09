@@ -1,26 +1,28 @@
-<p *ngIf="!vehicules || vehicules.length === 0" class="liste-vide">
-  La liste est vide!
-</p>
+<div class="filter-container">
+  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher"  />
+</div>
 
-<div *ngIf="vehicules && vehicules.length > 0" class="chauffeurs-container">
-  <table class="chauffeurs-table">
+<div *ngIf="filtrevehicules && filtrevehicules.length > 0" class="container">
+  <table class="table">
     <thead>
     <tr>
       <th>Numéro</th>
       <th>Immatriculation</th>
       <th>Modèle</th>
       <th>Commentaire</th>
+      <th>Carburant / Litre</th>
       <th>Disponible</th>
       <th>Date</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let vehicule of vehicules; let i = index">
+    <tr *ngFor="let vehicule of filtrevehicules; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ vehicule.immatriculation }}</td>
       <td>{{ vehicule.modele }}</td>
       <td>{{ vehicule.commentaire }}</td>
+      <td>{{ vehicule.carburants }}</td>
       <td>{{ vehicule.disponible }}</td>
       <td>{{ vehicule.date }}</td>
       <td>
