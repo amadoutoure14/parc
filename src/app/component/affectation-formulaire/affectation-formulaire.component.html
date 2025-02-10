@@ -1,9 +1,12 @@
-<input type="text" [ngModel]="nom">
+<div class="recherche">
+  <input type="text" [(ngModel)]="nom" placeholder="Saisir le nom de l'affectation">
+</div>
+
 <div class="affectation">
   <div class="form-container">
     <mat-form-field appearance="fill" class="select">
       <label>Sélectionner un chauffeur</label>
-      <mat-select [(value)]="selectedChauffeur" (selectionChange)="onChauffeurChange()">
+      <mat-select [(value)]="selectedChauffeur" >
         <mat-option *ngFor="let chauffeur of chauffeurs" [value]="chauffeur">
           {{ chauffeur.nom_complet }}
         </mat-option>
@@ -26,7 +29,7 @@
   <div class="form-container">
     <mat-form-field appearance="fill" class="select">
       <label>Sélectionner un vehicule</label>
-      <mat-select [(value)]="selectedVehicule" (selectionChange)="onVehiculeChange()">
+      <mat-select [(value)]="selectedVehicule" >
         <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
           {{ vehicule.immatriculation }}
         </mat-option>

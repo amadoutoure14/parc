@@ -43,7 +43,7 @@ export class AffectationFormulaireComponent implements OnInit{
 
   selectedChauffeur!: Chauffeur;
   selectedVehicule!: Vehicule;
-  nom='';
+  nom:string='';
 
   ngOnInit(): void {
     this.vehiculeService.listeVehicule().subscribe(
@@ -72,22 +72,23 @@ export class AffectationFormulaireComponent implements OnInit{
   onVehiculeChange(): void {
   }
 
-/*
-  affecterChauffeur(): void {
-
-    this.service.nouvelleAffectation(affectation).subscribe(
-      {
-        next:value => {
-          this.snackBar.open('Affectation effectuée!',"Fermer",{duration:6000})
-        },
-        error: error => {
-     this.snackBar.open('Une erreur est survenue'+error)
-        }
-      })
-  }
-* */
 
   affecterChauffeur() {
+    if (!this.nom || this.nom.trim() === '') {
+      this.snackBar.open('Veuillez entrer un nom pour l’affectation.', 'Fermer', { duration: 3000 });
+      return;
+    }
 
+    const affectation = new Affectation(this.selectedChauffeur, this.nom.trim(), 0, this.selectedVehicule);
+    this.service.nouvelleAffectation(affectation).subscribe({
+      next: value => {
+        this.snackBar.open(`Affectation effectuée avec succès`, 'Fermer', { duration: 6000 });
+      },
+      error: error => {
+        console.log(error);
+        this.snackBar.open('Une erreur est survenue : ' + error, 'Fermer', { duration: 3000 });
+      }
+    });
   }
+
 }

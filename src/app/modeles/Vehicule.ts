@@ -20,15 +20,15 @@ export class Vehicule {
     this.immatriculation = immatriculation;
     this.modele = modele;
   }
-  static fromJson(json: any): Vehicule {
+  static fromJson(vehicule: any): Vehicule {
     return new Vehicule(
-      json.carburants || [],
-      json.commentaire || '',
-      json.date || '',
-      json.disponible ,
-      json.id || 0,
-      json.immatriculation || '',
-      json.modele || ''
+      vehicule.carburants || [],
+      vehicule.commentaire || '',
+      vehicule.date || '',
+      vehicule.disponible ,
+      vehicule.id || 0,
+      vehicule.immatriculation || '',
+      vehicule.modele || ''
     );
   }
   toJson(): any {

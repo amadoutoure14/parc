@@ -53,3 +53,26 @@ mat-card-title{
   align-items: center;
   justify-content: center;
 }
+.recherche{
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+input{
+  width: 40%;
+  text-align: center;
+  height: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+}
+input:focus {
+  border-color: #3aa0cd;
+  box-shadow: 0 0 5px rgb(58, 160, 205);
+  outline: none;
+}

@@ -1,40 +1,39 @@
 import { Vehicule } from './Vehicule';
 import { Chauffeur } from './Chauffeur';
 
-export class Affectation  {
-  chauffeur: Chauffeur | null;
-  nom:string;
+export class Affectation {
+  chauffeur: Chauffeur;
+  nom: string;
   date?: string;
   id?: number;
-  vehicule: Vehicule | null;
+  vehicule: Vehicule;
 
-  constructor(chauffeur: Chauffeur | null,nom:string, date: string, id: number, vehicule: Vehicule | null) {
+  constructor(chauffeur: Chauffeur, nom: string, id?: number, vehicule?: Vehicule, date?: string) {
     this.chauffeur = chauffeur;
-    this.nom=nom;
-    this.date = date;
+    this.nom = nom;
     this.id = id;
-    this.vehicule = vehicule;
+    this.vehicule = vehicule!;
+    this.date = date;
   }
 
-  // Convertir l'objet en JSON
   toJson(): any {
     return {
-      chauffeur: this.chauffeur ? this.chauffeur.toJson() : null,
-      nom: this.nom,
-      date: this.date,
+      chauffeur: this.chauffeur,
+      nom: this.nom || '',
       id: this.id,
-      vehicule: this.vehicule ? this.vehicule.toJson() : null
+      vehicule: this.vehicule
     };
   }
+
 
   // Convertir un JSON en objet Affectation
   static fromJson(json: any): Affectation {
     return new Affectation(
-      json.chauffeur ? Chauffeur.fromJson(json.chauffeur) : null,
+      Chauffeur.fromJson(json.chauffeur),
       json.nom,
-      json.date,
       json.id,
-      json.vehicule ? Vehicule.fromJson(json.vehicule) : null
+      Vehicule.fromJson(json.vehicule),
+      json.date ?? undefined
     );
   }
 }

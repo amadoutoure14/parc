@@ -14,13 +14,13 @@ export class Chauffeur {
   }
 
   // Convertir un JSON en objet Chauffeur
-  static fromJson(chauffeurJson: Partial<Chauffeur>): Chauffeur {
+  static fromJson(chauffeur: Partial<Chauffeur>): Chauffeur {
     return new Chauffeur(
-      chauffeurJson.date ?? '',
-      chauffeurJson.nom_complet ?? 'Inconnu',
-      chauffeurJson.permis ?? 'Non spécifié',
-      chauffeurJson.telephone ?? 'Non spécifié',
-      chauffeurJson.id
+      chauffeur.date ?? '',
+      chauffeur.nom_complet ?? 'Inconnu',
+      chauffeur.permis ?? 'Non spécifié',
+      chauffeur.telephone ?? 'Non spécifié',
+      chauffeur.id
     );
   }
 

@@ -2,8 +2,8 @@ import { Vehicule } from './Vehicule';
 
 export class Carburant  {
   approv: number;
-  date: string;
-  id: number;
+  date?: string;
+  id?: number;
   vehicule: Vehicule | null;
 
   constructor(approv: number, date: string, id: number, vehicule: Vehicule | null) {
