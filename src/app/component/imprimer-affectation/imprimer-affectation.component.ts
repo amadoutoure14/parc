@@ -36,8 +36,12 @@ export class ImprimerAffectationComponent {
       const formatted = this.datePipe.transform(date, 'dd/MM/yyyy');
       this.service.dateAffectation(formatted).subscribe({
         next: value => {
-          this.affectations = value;
-          this.snackBar.open('La liste des affectations au ' + formatted, 'Fermer');
+          if (value.length ===0) {
+            this.snackBar.open(`Aucun enregistrement n'a été effectué le ${formatted}`);
+          }else {
+            this.affectations = value;
+            this.snackBar.open('La liste des affectations au ' + formatted, 'Fermer');
+          }
         },
         error: error => {
           this.snackBar.open("Une erreur est survenue de type " + error.message, 'Fermer')

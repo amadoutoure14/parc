@@ -18,6 +18,14 @@ import {ImprimerChauffeurComponent} from './component/imprimer-chauffeur/imprime
 import {ImprimerAffectationComponent} from './component/imprimer-affectation/imprimer-affectation.component';
 import {RechercherSortieComponent} from './component/rechercher-sortie/rechercher-sortie.component';
 import {ImprimerSortieComponent} from './component/imprimer-sortie/imprimer-sortie.component';
+import {ApprovisionnementComponent} from './pages/approvisionnement/approvisionnement.component';
+import {
+  AjouterApprovisionnementComponent
+} from './component/ajouter-approvisionnement/ajouter-approvisionnement.component';
+import {ListeApprovisionnementComponent} from './component/liste-approvisionnement/liste-approvisionnement.component';
+import {
+  ModifierApprovisionnementComponent
+} from './component/modifier-approvisionnement/modifier-approvisionnement.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -38,6 +46,14 @@ export const routes: Routes = [
       {path: 'liste',component: ListeSortieComponent},
       {path: '',redirectTo: 'liste',pathMatch: 'full'},
     ]
+  },
+  {path:'approv',component:ApprovisionnementComponent,
+  children:[
+    {path: 'ajouter',component: AjouterApprovisionnementComponent},
+    {path: 'liste',component: ListeApprovisionnementComponent},
+    {path: 'modifier',component: ModifierApprovisionnementComponent},
+    {path: '',redirectTo: 'liste',pathMatch: 'full'},
+  ]
   },
   { path: 'affectation', component: AffectationComponent ,
     children:[
