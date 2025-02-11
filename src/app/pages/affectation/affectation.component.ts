@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import {MatCardActions, MatCardContent, MatCardHeader} from '@angular/material/card';
-import {MatDivider} from '@angular/material/divider';
+import {MatCardHeader} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
-import {ListeAffectationComponent} from '../../component/liste-affectations/liste-affectation.component';
+import {DatePipe} from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-affectation',
@@ -21,5 +20,7 @@ import {ListeAffectationComponent} from '../../component/liste-affectations/list
   styleUrl: './affectation.component.css'
 })
 export class AffectationComponent {
+
+
 
 }

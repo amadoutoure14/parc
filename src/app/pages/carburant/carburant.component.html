@@ -1,0 +1,23 @@
+<mat-card-header>
+  <h1 class="sous-titre">Gestion des véhicules</h1>
+</mat-card-header>
+
+<div class="buttons">
+
+  <button mat-flat-button routerLink="/carburant/ajouter">
+    <span>Apprivionner véhicule</span>
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <button mat-flat-button routerLink="/carburant/liste">
+    <span>Liste des approvisionnements</span>
+    <mat-icon>list</mat-icon>
+  </button>
+
+  <button mat-flat-button routerLink="/carburant/rechercher">
+    <span>Rechercher / Véhicule</span>
+    <mat-icon>directions_car</mat-icon>
+  </button>
+
+</div>
+<router-outlet></router-outlet>

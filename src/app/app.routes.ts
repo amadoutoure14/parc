@@ -17,14 +17,14 @@ import {ImprimerVehiculeComponent} from './component/imprimer-vehicule/imprimer-
 import {ImprimerChauffeurComponent} from './component/imprimer-chauffeur/imprimer-chauffeur.component';
 import {ImprimerAffectationComponent} from './component/imprimer-affectation/imprimer-affectation.component';
 import {ImprimerSortieComponent} from './component/imprimer-sortie/imprimer-sortie.component';
-import {ApprovisionnementComponent} from './pages/approvisionnement/approvisionnement.component';
+import {CarburantComponent} from './pages/carburant/carburant.component';
 import {
   AjouterApprovisionnementComponent
 } from './component/ajouter-approvisionnement/ajouter-approvisionnement.component';
-import {ListeApprovisionnementComponent} from './component/liste-approvisionnement/liste-approvisionnement.component';
+import {ListeCarburantComponent} from './component/liste-carburant/liste-carburant.component';
 import {
-  ModifierApprovisionnementComponent
-} from './component/modifier-approvisionnement/modifier-approvisionnement.component';
+  RechercherCarburantComponent
+} from './component/rechercher-carburant/rechercher-carburant.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -45,11 +45,11 @@ export const routes: Routes = [
       {path: '',redirectTo: 'liste',pathMatch: 'full'},
     ]
   },
-  {path:'approv',component:ApprovisionnementComponent,
+  {path:'carburant',component:CarburantComponent,
   children:[
     {path: 'ajouter',component: AjouterApprovisionnementComponent},
-    {path: 'liste',component: ListeApprovisionnementComponent},
-    {path: 'modifier',component: ModifierApprovisionnementComponent},
+    {path: 'liste',component: ListeCarburantComponent},
+    {path: 'rechercher',component: RechercherCarburantComponent},
     {path: '',redirectTo: 'liste',pathMatch: 'full'},
   ]
   },

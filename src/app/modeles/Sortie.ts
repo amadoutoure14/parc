@@ -2,7 +2,7 @@ import {Affectation} from './Affectation';
 
 export class Sortie{
   id?: number|null;
-  affectation: Affectation;
+  affectation?: Affectation|null;
   objet:string;
   destination: string;
   arrivee: string;
@@ -10,7 +10,7 @@ export class Sortie{
   date?:string|null;
 
 
-  constructor(id: number | null, affectation: Affectation, objet: string, destination: string, arrivee: string, depart: string, date: string | null) {
+  constructor(id: number | null, affectation: Affectation|null, objet: string, destination: string, arrivee: string, depart: string, date: string | null) {
     this.id = id;
     this.affectation = affectation;
     this.objet = objet;

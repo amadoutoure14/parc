@@ -26,7 +26,7 @@ import {MatOption, MatSelect} from '@angular/material/select';
 })
 export class AjouterSortieComponent implements OnInit {
   affectations: Affectation[] = [];
-  sortie!:Sortie;
+  sortie: Sortie = new Sortie(null, null, '', '', '', '', null);  // Initialisation de l'objet Sortie
 
   constructor(
     private affectationService: AffectationService,
@@ -41,32 +41,39 @@ export class AjouterSortieComponent implements OnInit {
         this.affectations = data;
       }
     });
-
   }
 
   onSubmit(): void {
+    // Vérifier que l'affectation est bien définie avant de soumettre
+    if (!this.sortie.affectation) {
+      this.snackbar.open("L'affectation est requise", "Fermer", { duration: 3000 });
+      return;
+    }
+
     const sortie = new Sortie(
-      null,
-      this.sortie.affectation,
-      this.sortie.objet,
-      this.sortie.destination,
-      this.sortie.arrivee,
-      this.sortie.depart,
-      null
+      null, // ID
+      this.sortie.affectation, // Affectation
+      this.sortie.objet, // Objet
+      this.sortie.destination, // Destination
+      this.sortie.arrivee, // Arrivée
+      this.sortie.depart, // Départ
+      null // Date
     );
     console.log(sortie);
 
-/*
-    this.service.enregistrer(this.sortie).subscribe({
+    // Uncomment and implement the service call for saving the "sortie"
+    /*
+    this.service.enregistrer(sortie).subscribe({
       next: () => {
         this.snackbar.open("Sortie enregistrée avec succès !", "Fermer", { duration: 3000 });
         this.sortieForm.reset();
       },
       error: (error) => {
-        console.log(error)
+        console.log(error);
         this.snackbar.open(`L'erreur ${error} est survenue !`, "Fermer", { duration: 3000 });
       }
     });
- */
+    */
   }
 }
+

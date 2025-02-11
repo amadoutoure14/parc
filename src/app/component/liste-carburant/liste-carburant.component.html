@@ -1,0 +1,36 @@
+<div class="filter-container">
+  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterCarburants()" placeholder="Filtrer par véhicule"  />
+</div>
+<div *ngIf="carburantsFiltre && carburantsFiltre.length > 0" class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Numéro</th>
+      <th>Véhicule</th>
+      <th>Date</th>
+      <th>Carburant / Litres</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let carburant of carburantsFiltre; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ carburant.vehicule?.immatriculation }}</td>
+      <td>{{carburant.date}}</td>
+      <td>{{ carburant.approv}}</td>
+      <td>
+        <button mat-icon-button (click)="edit()">
+          <mat-icon class="modifier">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete()">
+          <mat-icon class="supprimer">delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="carburantsFiltre && carburantsFiltre.length === 0">
+  <p>Aucune approvisionnement trouvée</p>
+</div>
