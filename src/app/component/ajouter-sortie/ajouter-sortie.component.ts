@@ -1,54 +1,72 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Sortie} from '../../modeles/Sortie';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Affectation} from '../../modeles/Affectation';
-import {NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {AffectationService} from '../../services/affectation.service';
+import {SortieService} from '../../services/sortie.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Sortie} from '../../modeles/Sortie';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-ajouter-sortie',
+  providers:[DatePipe],
   imports: [
     ReactiveFormsModule,
-    NgIf,
+    FormsModule,
     MatFormField,
     MatSelect,
     MatOption,
-    MatLabel
+    NgForOf,
+    MatLabel,
   ],
   templateUrl: './ajouter-sortie.component.html',
   styleUrl: './ajouter-sortie.component.css'
 })
 export class AjouterSortieComponent implements OnInit {
-  sortieForm!: FormGroup;
-  affectations: Affectation[]=[];
+  affectations: Affectation[] = [];
+  sortie!:Sortie;
 
-  constructor(private fb: FormBuilder, private affectationService: AffectationService) {}
+  constructor(
+    private affectationService: AffectationService,
+    private datePipe: DatePipe,
+    private service: SortieService,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-
     this.affectationService.listeAffectations().subscribe({
-      next: data => {
+      next: (data) => {
         this.affectations = data;
       }
     });
 
-    this.sortieForm = this.fb.group({
-      affectation: ['', Validators.required],
-      arrivee: [''],
-      depart: [''],
-      destination: ['', Validators.required],
-      duree: [''],
-      id: [''],
-      objet: ['', Validators.required],
-    });
   }
 
   onSubmit(): void {
-    if (this.sortieForm.valid) {
-      const formValue = this.sortieForm.value;
+    const sortie = new Sortie(
+      null,
+      this.sortie.affectation,
+      this.sortie.objet,
+      this.sortie.destination,
+      this.sortie.arrivee,
+      this.sortie.depart,
+      null
+    );
+    console.log(sortie);
 
-    }
+/*
+    this.service.enregistrer(this.sortie).subscribe({
+      next: () => {
+        this.snackbar.open("Sortie enregistrée avec succès !", "Fermer", { duration: 3000 });
+        this.sortieForm.reset();
+      },
+      error: (error) => {
+        console.log(error)
+        this.snackbar.open(`L'erreur ${error} est survenue !`, "Fermer", { duration: 3000 });
+      }
+    });
+ */
   }
 }

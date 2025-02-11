@@ -27,13 +27,13 @@
   </div>
 
   <div class="form-container">
+
     <mat-form-field appearance="fill" class="select">
       <label>Sélectionner un vehicule</label>
-      <mat-select [(value)]="selectedVehicule" >
+      <mat-select [(value)]="selectedVehicule" >   </mat-select>
         <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
           {{ vehicule.immatriculation }}
         </mat-option>
-      </mat-select>
     </mat-form-field>
 
     <mat-card *ngIf="selectedVehicule" class="details">

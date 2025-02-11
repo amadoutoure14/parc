@@ -16,7 +16,6 @@ import {VehiculeDisponibleComponent} from './component/vehicule-disponible/vehic
 import {ImprimerVehiculeComponent} from './component/imprimer-vehicule/imprimer-vehicule.component';
 import {ImprimerChauffeurComponent} from './component/imprimer-chauffeur/imprimer-chauffeur.component';
 import {ImprimerAffectationComponent} from './component/imprimer-affectation/imprimer-affectation.component';
-import {RechercherSortieComponent} from './component/rechercher-sortie/rechercher-sortie.component';
 import {ImprimerSortieComponent} from './component/imprimer-sortie/imprimer-sortie.component';
 import {ApprovisionnementComponent} from './pages/approvisionnement/approvisionnement.component';
 import {
@@ -41,7 +40,6 @@ export const routes: Routes = [
   { path: 'sortie', component: SortieComponent ,
     children:[
       {path: 'ajouter',component: AjouterSortieComponent},
-      {path: 'rechercher',component: RechercherSortieComponent},
       {path: 'imprimer',component: ImprimerSortieComponent},
       {path: 'liste',component: ListeSortieComponent},
       {path: '',redirectTo: 'liste',pathMatch: 'full'},

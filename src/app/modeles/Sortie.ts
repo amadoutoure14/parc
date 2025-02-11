@@ -1,48 +1,45 @@
-import { Affectation } from './Affectation';
+import {Affectation} from './Affectation';
 
-export class Sortie {
+export class Sortie{
+  id?: number|null;
   affectation: Affectation;
-  arrivee?: string | null;
-  depart?: string| null;
+  objet:string;
   destination: string;
-  duree?: number| null;
-  id?: string| null;
-  objet: string;
+  arrivee: string;
+  depart:string;
+  date?:string|null;
 
 
-  constructor(affectation: Affectation, arrivee: string | null, depart: string | null, destination: string, duree: number | null, id: string | null, objet: string) {
+  constructor(id: number | null, affectation: Affectation, objet: string, destination: string, arrivee: string, depart: string, date: string | null) {
+    this.id = id;
     this.affectation = affectation;
+    this.objet = objet;
+    this.destination = destination;
     this.arrivee = arrivee;
     this.depart = depart;
-    this.destination = destination;
-    this.duree = duree;
-    this.id = id;
-    this.objet = objet;
+    this.date = date;
   }
 
-// Convertir l'objet en JSON
   toJson(): any {
     return {
-      affectation: this.affectation.toJson(),
-      dateArrivee: this.arrivee,
-      dateDepart: this.depart,
-      destination: this.destination,
-      duree: this.duree,
       id: this.id,
-      objet: this.objet
-    };
+      affectation: this.affectation,
+      objet: this.objet,
+      destination: this.destination,
+      arrivee: this.arrivee,
+      depart: this.depart,
+      date:this.date
+    }
   }
-
-  // Convertir un JSON en objet Sortie
   static fromJson(json: any): Sortie {
     return new Sortie(
-      Affectation.fromJson(json.affectation),
-      json.dateArrivee,
-      json.dateDepart,
-      json.destination,
-      json.duree,
       json.id,
-      json.objet
-    );
+      json.affectation,
+      json.objet,
+      json.destination,
+      json.arrivee,
+      json.depart,
+      json.date
+    )
   }
 }

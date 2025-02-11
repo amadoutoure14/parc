@@ -19,7 +19,7 @@ export class Affectation {
   toJson(): any {
     return {
       chauffeur: this.chauffeur,
-      nom: this.nom || '',
+      nom: this.nom,
       id: this.id,
       vehicule: this.vehicule
     };

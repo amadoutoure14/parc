@@ -9,7 +9,7 @@
   font-family: Arial, sans-serif;
 }
 
-/* Titre du formulaire */
+/* Titre */
 h2 {
   color: #3aa0cd;
   font-size: 24px;
@@ -19,50 +19,47 @@ h2 {
   text-transform: uppercase;
 }
 
-/* Formulaire */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Champs de saisie */
+.input-group {
+  width: 100%;
+  margin-bottom: 15px;
 }
 
-/* Labels */
 label {
   font-weight: bold;
-  margin-top: 10px;
   color: #333;
+  display: block;
+  margin-bottom: 5px;
   text-transform: uppercase;
-  text-align: left;
-  width: 100%;
 }
 
-/* Inputs */
-input {
+.input-large {
   width: 100%;
+  text-align: center;
   padding: 12px;
   font-size: 16px;
-  margin: 10px 0;
   border-radius: 8px;
   border: 1px solid #ddd;
   transition: all 0.3s ease-in-out;
 }
 
-input:focus {
+.input-large:focus {
   border-color: #4295c6;
   box-shadow: 0 0 5px rgb(58, 160, 205);
   outline: none;
 }
 
-/* Message d'erreur */
-.error {
-  color: #f44336;
-  font-size: 14px;
-  margin-top: 5px;
-  text-align: left;
+/* Mat-Select */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.full-width {
   width: 100%;
 }
 
-/* Bouton de soumission */
+/* Bouton */
 button {
   padding: 12px;
   text-transform: uppercase;
@@ -73,7 +70,6 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-  margin-top: 20px;
   width: 100%;
 }
 
@@ -86,22 +82,11 @@ button:hover {
   background-color: #2f8db8;
 }
 
-/* Exemple de style pour une notification de succès */
-.success-snackbar {
-  background-color: #4caf50;
-  color: white;
-  font-weight: bold;
-  border-radius: 4px;
-  padding: 10px;
+/* Message d'erreur */
+.error {
+  color: #f44336;
   font-size: 14px;
-}
-
-/* Exemple de style pour une notification d'erreur */
-.error-snackbar {
-  background-color: #f44336;
-  color: white;
-  font-weight: bold;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+  width: 100%;
 }

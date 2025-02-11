@@ -1,49 +1,30 @@
 <div class="container">
-  <h2>Formulaire de Sortie</h2>
-  <form (ngSubmit)="onSubmit()" [formGroup]="sortieForm">
-    <mat-form-field>
-      <mat-label>L'affectation concernée</mat-label>
-      <mat-select>
-        @for (affectation of affectations; track affectation.nom) {
-          <mat-option [value]="affectation.chauffeur">{{affectation.chauffeur}}</mat-option>
-        }
-      </mat-select>
-    </mat-form-field>
-    <div>
-      <label for="objet">Objet</label>
-      <input id="objet" formControlName="objet" type="text" required />
-      <div *ngIf="sortieForm.get('objet')?.invalid && sortieForm.get('objet')?.touched" class="error">
-        Objet est requis.
-      </div>
-    </div>
+<h2>FICHE DE SORTIE</h2>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Sélectionner une affectation</mat-label>
+    <mat-select [(value)]="sortie" >   </mat-select>
+    <mat-option *ngFor="let affectation of affectations" [value]="affectation.id">
+      {{ affectation.nom }}
+    </mat-option>
+  </mat-form-field>
 
-    <div>
-      <label for="depart">Départ</label>
-      <input id="depart" formControlName="depart" type="date" />
-    </div>
-
-    <div>
-      <label for="arrivee">Arrivée</label>
-      <input id="arrivee" formControlName="arrivee" type="date" />
-    </div>
+  <div class="input-group">
+    <label >Objet</label>
+    <input type="text" placeholder="Saisir l'objet de la sortie" [(ngModel)]="sortie.objet" class="input-large">
+  </div>
+  <div class="input-group">
+    <label >Destination</label>
+    <input type="text" placeholder="Saisir la destination de la sortie" [(ngModel)]="sortie.destination" class="input-large">
+  </div>
+  <div class="input-group">
+    <label >Date de départ</label>
+    <input type="text" placeholder="Saisir la date de départ de la sortie" [(ngModel)]="sortie.depart" class="input-large">
+  </div>
+  <div class="input-group">
+    <label >Date de d'arrivée</label>
+    <input type="text" placeholder="Saisir la date d'arriver de la sortie" [(ngModel)]="sortie.arrivee" class="input-large">
+  </div>
 
 
-
-    <div>
-      <label for="destination">Destination</label>
-      <input id="destination" formControlName="destination" type="text" required />
-      <div *ngIf="sortieForm.get('destination')?.invalid && sortieForm.get('destination')?.touched" class="error">
-        Destination est requis.
-      </div>
-    </div>
-
-    <div>
-      <label for="duree">Durée</label>
-      <input id="duree" formControlName="duree" type="number" />
-    </div>
-
-
-
-    <button type="submit" [disabled]="sortieForm.invalid">Soumettre</button>
-  </form>
+  <button (click)="onSubmit()">SOUMETTRE</button>
 </div>
