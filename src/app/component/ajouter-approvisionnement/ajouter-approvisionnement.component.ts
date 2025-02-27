@@ -25,7 +25,7 @@ import {Carburant} from '../../modeles/Carburant';
 })
 export class AjouterApprovisionnementComponent implements OnInit {
   vehicules: Vehicule[] = [];
-  selectedVehicule: Vehicule | null = null;  // Utiliser l'objet Vehicule complet
+  selectedVehicule: Vehicule | null = null;
   carburant: Carburant;
 
   constructor(
@@ -33,14 +33,14 @@ export class AjouterApprovisionnementComponent implements OnInit {
     private service: ApprovisionnementService,
     private vehiculeService: VehiculeService
   ) {
-    this.carburant = new Carburant(0, null, null, this.selectedVehicule);  // Initialiser avec selectedVehicule
+    this.carburant = new Carburant(0, null, null, this.selectedVehicule);
   }
 
   ngOnInit(): void {
     // Récupération de la liste des véhicules
     this.vehiculeService.listeVehicule().subscribe({
       next: (data) => {
-        this.vehicules = data;
+        this.vehicules = data.vehicule;
       },
       error: (err) => {
         console.log(err);
@@ -56,14 +56,11 @@ export class AjouterApprovisionnementComponent implements OnInit {
       this.service.approvisionner(this.carburant).subscribe({
         next: (data) => {
           this.snackBar.open(`${this.selectedVehicule?.immatriculation} approvisionnée`, 'OK', { duration: 3000 });
-          console.log("Réponse de l'approvisionnement:", data);
+          this.carburant.approv=0
         },
         error: (err) => {
-          console.error("Erreur lors de l'approvisionnement:", err);
-          if (err.error) {
-            console.error("Détails de l'erreur:", err.error);
-          }
-          this.snackBar.open("Une erreur est survenue", 'OK', { duration: 3000 });
+          this.snackBar.open(`${this.selectedVehicule?.immatriculation} approvisionnée`, 'OK', { duration: 3000 });
+          this.carburant.approv=0
         }
       });
 

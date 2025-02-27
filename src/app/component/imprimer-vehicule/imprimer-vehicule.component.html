@@ -1,48 +1,59 @@
 <div class="recherche">
-  <input type="date" [(ngModel)]="date">
+
+  <div class="input">
+      <label for="debut">Début</label>
+      <input id="debut" type="date" [(ngModel)]="debut" name="debut">
+
+      <label for="fin">Fin</label>
+      <input id="fin" type="date" [(ngModel)]="fin" name="fin">
+  </div>
+
   <div class="boutons">
-    <button mat-flat-button (click)="rechercherVehiculeDateEnregistrement(date)">
+    <button mat-flat-button (click)="rechercherVehiculeDateEnregistrement(debut,fin)">
       <mat-icon>search</mat-icon><span>RECHERCHER</span>
     </button>
-    <button mat-flat-button (click)="imprimerVehiculeDateEnregistrement(date)">
+    <button mat-flat-button (click)="imprimerVehiculeDateEnregistrement(debut,fin)">
       <mat-icon>print</mat-icon><span>IMPRIMER</span>
     </button>
   </div>
+
 </div>
-<div *ngIf="vehicules && vehicules.length > 0" class="container">
+<div class="filter-container">
+  <input class="input-barre" matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher" />
+</div>
+<div *ngIf="filtrevehicules.length > 0" class="container">
   <table class="table">
     <thead>
     <tr>
       <th>Numéro</th>
       <th>Immatriculation</th>
       <th>Modèle</th>
+      <th>Commentaire</th>
+      <th>Carburant</th>
       <th>Disponible</th>
-      <th>Carburant / Litres</th>
-      <th>Dates</th>
-      <th>Actions</th>
+      <th>Début de location</th>
+      <th>Fin de location</th>
+      <th>Modifier</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let vehicule of vehicules; let i = index">
+    <tr *ngFor="let vehicule of filtrevehicules; let i = index">
       <td>{{ i + 1 }}</td>
-      <td>{{ vehicule.immatriculation}}</td>
+      <td>{{ vehicule.immatriculation }}</td>
       <td>{{ vehicule.modele }}</td>
-      <td>{{ vehicule.disponible }}</td>
-      <td>{{ vehicule.carburants }}</td>
-      <td>{{ vehicule.date }}</td>
-      <td>
-        <button mat-icon-button  (click)="edit(vehicule.id)">
-          <mat-icon class="modifier">edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="delete(vehicule.id)">
-          <mat-icon class="supprimer">delete</mat-icon>
-        </button>
+      <td>{{ vehicule.commentaire }}</td>
+      <td>{{getTotalCarburant(vehicule.carburants)}}</td>
+      <td [ngClass]="{'disponible': !vehicule.sortie, 'non-disponible': vehicule.sortie}">
+        {{ vehicule.sortie ? 'Non': 'Oui'  }}
       </td>
+      <td>{{ vehicule.debut_location}}</td>
+      <td>{{ vehicule.fin_location}}</td>
+      <td><button mat-icon-button (click)="edit()"><mat-icon class="modifier">edit</mat-icon></button></td>
     </tr>
     </tbody>
   </table>
-</div>
 
-<div *ngIf="vehicules && vehicules.length === 0">
-  <p>Aucun véhicule trouvé</p>
+  <div *ngIf="filtrevehicules.length === 0">
+    <p>Aucun véhicule trouvé</p>
+  </div>
 </div>

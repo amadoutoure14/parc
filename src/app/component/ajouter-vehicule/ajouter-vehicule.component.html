@@ -5,9 +5,8 @@
     <label for="immatriculation">Immatriculation</label>
     <input id="immatriculation" name="immatriculation" [(ngModel)]="vehicule.immatriculation" required />
     <div class="error" *ngIf="!vehicule.immatriculation && vehiculeForm.submitted">
-      immatriculation requis
+      Immatriculation requise
     </div>
-
 
     <label for="modele">Modèle</label>
     <input id="modele" name="modele" [(ngModel)]="vehicule.modele" required />
@@ -15,9 +14,19 @@
       Modèle requis
     </div>
 
+    <label for="debut">Début de location</label>
+    <input type="date" id="debut" name="debut" [(ngModel)]="vehicule.debut_location" required />
+    <div class="error" *ngIf="!vehicule.debut_location && vehiculeForm.submitted">
+      début de location réquis
+    </div>
+    <label for="fin">Fin de location</label>
+    <input type="date" id="fin" name="fin" [(ngModel)]="vehicule.fin_location" required />
+    <div class="error" *ngIf="!vehicule.fin_location && vehiculeForm.submitted">
+      fin de location réquis
+    </div>
 
     <label for="commentaire">Commentaire</label>
-    <input id="commentaire" name="commentaire"  [(ngModel)]="vehicule.commentaire" />
+    <input id="commentaire" name="commentaire" [(ngModel)]="vehicule.commentaire" />
 
     <button type="submit" [disabled]="vehiculeForm.invalid">Soumettre</button>
   </form>

@@ -15,8 +15,8 @@ export class ApprovisionnementService {
     return this.http.post<Carburant>(url,carburant.toJson())
   }
 
-  listeApprov(): Observable<Carburant[]> {
+  listeApprov(): Observable<any> {
     const url = "http://localhost:8080/approv/liste";
-    return this.http.get<Carburant[]>(url)
+    return this.http.get<any>(url)
   }
 }

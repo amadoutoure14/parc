@@ -6,6 +6,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
 import {ApprovisionnementService} from '../../services/approvisionnement.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-liste-carburant',
@@ -25,11 +26,12 @@ export class ListeCarburantComponent implements OnInit {
 
   carburants: Carburant[]=[];
 
-  constructor(private service:ApprovisionnementService) {
+  constructor(private service:ApprovisionnementService, private snackbar: MatSnackBar) {
   }
 
   filterTerm='';
   carburantsFiltre: Carburant[]=[];
+  message=""
 
   filterCarburants() {
     if (this.filterTerm.trim()) {
@@ -53,8 +55,10 @@ export class ListeCarburantComponent implements OnInit {
   ngOnInit(): void {
     this.service.listeApprov().subscribe({
       next: (data) => {
-        this.carburantsFiltre=data;
-        this.carburants=data;
+        this.carburants=data.carburant;
+        this.carburantsFiltre=this.carburants;
+        this.message=data.message;
+        this.snackbar.open(data.message,"Fermer",{duration:3000})
       }
     })
   }

@@ -1,1 +1,59 @@
-<p>modifier-vehicule works!</p>
+<h2>Modifier le véhicule</h2>
+<form [formGroup]="vehiculeForm" (ngSubmit)="saveChanges()">
+  <div class="form-container">
+    <!-- Immatriculation -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="immatriculation">Immatriculation</label>
+        <input type="text" id="immatriculation" formControlName="immatriculation" />
+        <div *ngIf="vehiculeForm.get('immatriculation')?.invalid && submitted" class="error">
+          Immatriculation requise
+        </div>
+      </div>
+
+      <!-- Modèle -->
+      <div class="form-group">
+        <label for="modele">Modèle</label>
+        <input type="text" id="modele" formControlName="modele" />
+        <div *ngIf="vehiculeForm.get('modele')?.invalid && submitted" class="error">
+          Modèle requis
+        </div>
+      </div>
+    </div>
+
+    <!-- Commentaire -->
+    <div class="form-group">
+      <label for="commentaire">Commentaire</label>
+      <input type="text" id="commentaire" formControlName="commentaire" />
+      <div *ngIf="vehiculeForm.get('commentaire')?.invalid && submitted" class="error">
+        Fin de location requise
+      </div>
+    </div>
+
+    <!-- Début de location -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="debut_location">Début de location</label>
+        <input type="date" id="debut_location" formControlName="debut_location" />
+        <div *ngIf="vehiculeForm.get('debut_location')?.invalid && submitted" class="error">
+          Début de location requis
+        </div>
+      </div>
+
+      <!-- Fin de location -->
+      <div class="form-group">
+        <label for="fin_location">Fin de location</label>
+        <input type="date" id="fin_location" formControlName="fin_location" />
+        <div *ngIf="vehiculeForm.get('fin_location')?.invalid && submitted" class="error">
+          Fin de location requise
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutons -->
+    <div class="buttons">
+      <button type="submit" [disabled]="vehiculeForm.invalid">Enregistrer</button>
+      <button class="annuler" type="button" (click)="close()">Annuler</button>
+    </div>
+  </div>
+</form>

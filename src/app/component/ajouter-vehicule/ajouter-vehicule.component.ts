@@ -1,45 +1,33 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import {NgIf} from "@angular/common";
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {FormsModule} from '@angular/forms';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-ajouter-vehicule',
-    imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        NgIf
-    ],
   templateUrl: './ajouter-vehicule.component.html',
-  styleUrl: './ajouter-vehicule.component.css'
+  imports: [
+    FormsModule,
+    NgIf
+  ],
+  styleUrls: ['./ajouter-vehicule.component.css']
 })
 export class AjouterVehiculeComponent {
+  vehicule: Vehicule = new Vehicule();
 
-
-  constructor(private service: VehiculeService,private snackBar: MatSnackBar) {
-  }
-
-  vehicule={
-     immatriculation:'',
-     modele:'',
-     commentaire:''
-   } ;
+  constructor(private service: VehiculeService, private snackBar: MatSnackBar) {}
 
   onSubmit() {
-    const vehicule = new Vehicule([], this.vehicule.commentaire, '', true, 0, this.vehicule.immatriculation, this.vehicule.modele);
-    this.service.enregistrerVehicule(vehicule).subscribe({
+    this.service.enregistrerVehicule(this.vehicule.toJson()).subscribe({
       next: () => {
-        this.snackBar.open('Véhicule enregistré !', 'OK');
-        this.vehicule.modele='',this.vehicule.commentaire='',this.vehicule.immatriculation='';
+        this.snackBar.open('Véhicule enregistré avec succès', 'Fermer', { duration: 3000 });
       },
       error: () => {
-        this.snackBar.open('Une erreur est survenue lors de l\'enregristement !', 'FERMER');
+        this.snackBar.open("erreur", 'Fermer', { duration: 3000 });
       }
-    })
+    });
   }
-
 
 }

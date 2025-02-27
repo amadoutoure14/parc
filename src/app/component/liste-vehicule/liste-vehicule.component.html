@@ -1,42 +1,47 @@
-<div class="filter-container">
-  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher"  />
+<div *ngIf="vehicules && vehicules.length > 0" class="container">
+  <div class="filter-container">
+    <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher" />
+  </div>
+
+  <div *ngIf="filtrevehicules.length > 0" class="container">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Numéro</th>
+        <th>Immatriculation</th>
+        <th>Modèle</th>
+        <th>Commentaire</th>
+        <th>Carburant</th>
+        <th>Disponible</th>
+        <th>Début de location</th>
+        <th>Fin de location</th>
+        <th>Modifier</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let vehicule of filtrevehicules; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ vehicule.immatriculation }}</td>
+        <td>{{ vehicule.modele }}</td>
+        <td>{{ vehicule.commentaire }}</td>
+        <td>{{getTotalCarburant(vehicule.carburants)}}</td>
+        <td [ngClass]="{'disponible': !vehicule.sortie, 'non-disponible': vehicule.sortie}">
+          {{ vehicule.sortie ? 'Non': 'Oui'  }}
+        </td>
+        <td>{{ vehicule.debut_location}}</td>
+        <td>{{ vehicule.fin_location}}</td>
+        <td><button mat-icon-button (click)="modifier(vehicule)"><mat-icon class="modifier">edit</mat-icon></button></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="filtrevehicules.length === 0">
+      <p>Aucun véhicule trouvé</p>
+    </div>
+  </div>
+
 </div>
 
-<div *ngIf="filtrevehicules && filtrevehicules.length > 0" class="container">
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Numéro</th>
-      <th>Immatriculation</th>
-      <th>Modèle</th>
-      <th>Commentaire</th>
-      <th>Carburant / Litre</th>
-      <th>Disponible</th>
-      <th>Date</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let vehicule of filtrevehicules; let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ vehicule.immatriculation }}</td>
-      <td>{{ vehicule.modele }}</td>
-      <td>{{ vehicule.commentaire }}</td>
-      <td>{{ vehicule.carburants }}</td>
-      <td>{{ vehicule.disponible }}</td>
-      <td>{{ vehicule.date }}</td>
-      <td>
-        <button mat-icon-button (click)="editVehicule(vehicule)">
-          <mat-icon class="modifier">edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="deleteVehicule(vehicule)">
-          <mat-icon class="supprimer">delete</mat-icon>
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-<div *ngIf="!vehicules && filtrevehicules.length===0">
-  <p>Aucun véhicule enregistrer</p>
+<div *ngIf="vehicules && vehicules.length === 0">
+  <p>Aucun véhicule trouvé</p>
 </div>

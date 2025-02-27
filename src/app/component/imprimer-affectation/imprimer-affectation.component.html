@@ -27,7 +27,7 @@
       <td>{{ affectation.chauffeur.nom_complet }}</td>
       <td>{{ affectation.chauffeur.telephone }}</td>
       <td>{{ affectation.vehicule.immatriculation }}</td>
-      <td>{{ affectation.vehicule.carburants }}</td>
+      <td>{{ totalCarburant(affectation.vehicule.carburants) }}</td>
       <td>
         <button mat-icon-button (click)="edit(affectation.id)">
           <mat-icon class="modifier">edit</mat-icon>

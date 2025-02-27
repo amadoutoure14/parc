@@ -22,6 +22,7 @@
       <th>Véhicule</th>
       <th>Carburant / Litres</th>
       <th>Objet</th>
+      <th>Lieu de départ</th>
       <th>Destination</th>
       <th>Départ</th>
       <th>Arrivée</th>
@@ -34,8 +35,9 @@
       <td>{{ sortie.affectation?.chauffeur?.nom_complet }}</td>
       <td>{{ sortie.affectation?.chauffeur?.telephone }}</td>
       <td>{{ sortie.affectation?.vehicule?.immatriculation }}</td>
-      <td>{{ sortie.affectation?.vehicule?.carburants }}</td>
+      <td>{{ totalCarburant(sortie.affectation?.vehicule?.carburants) }}</td>
       <td>{{ sortie.objet }}</td>
+      <td>{{ sortie.lieu_depart }}</td>
       <td>{{ sortie.destination }}</td>
       <td>{{ sortie.depart }}</td>
       <td>{{ sortie.arrivee }}</td>
@@ -53,5 +55,5 @@
   </table>
 </div>
 <div *ngIf="filtreSorties && filtreSorties.length === 0">
-  <p>Aucune sortie trouvée !</p>
+  <p >Aucune sortie trouvée !</p>
 </div>

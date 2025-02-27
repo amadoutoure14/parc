@@ -6,23 +6,14 @@ export class Chauffeur {
   date: string;
 
   constructor(date: string, nom_complet: string, permis: string, telephone: string, id?: number) {
-    this.date = date;
-    this.nom_complet = nom_complet;
-    this.permis = permis;
-    this.telephone = telephone;
+    this.date = date || '';  // Assurez-vous que date est toujours une chaîne
+    this.nom_complet = nom_complet || '';
+    this.permis = permis || '';
+    this.telephone = telephone || '';
     this.id = id;
   }
 
-  // Convertir un JSON en objet Chauffeur
-  static fromJson(chauffeur: Partial<Chauffeur>): Chauffeur {
-    return new Chauffeur(
-      chauffeur.date ?? '',
-      chauffeur.nom_complet ?? 'Inconnu',
-      chauffeur.permis ?? 'Non spécifié',
-      chauffeur.telephone ?? 'Non spécifié',
-      chauffeur.id
-    );
-  }
+
 
   toJson(): any {
     return {

@@ -8,8 +8,8 @@
       <th>Numéro</th>
       <th>Véhicule</th>
       <th>Date</th>
-      <th>Carburant / Litres</th>
-      <th>Actions</th>
+      <th>Carburant </th>
+      <th>Modifier</th>
     </tr>
     </thead>
     <tbody>
@@ -17,13 +17,10 @@
       <td>{{ i + 1 }}</td>
       <td>{{ carburant.vehicule?.immatriculation }}</td>
       <td>{{carburant.date}}</td>
-      <td>{{ carburant.approv}}</td>
+      <td>{{ carburant.approv}} Litres</td>
       <td>
         <button mat-icon-button (click)="edit()">
           <mat-icon class="modifier">edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="delete()">
-          <mat-icon class="supprimer">delete</mat-icon>
         </button>
       </td>
     </tr>
@@ -32,5 +29,5 @@
 </div>
 
 <div *ngIf="carburantsFiltre && carburantsFiltre.length === 0">
-  <p>Aucune approvisionnement trouvée</p>
+  <p>{{message}}</p>
 </div>

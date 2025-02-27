@@ -6,6 +6,7 @@ import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {Affectation} from '../../modeles/Affectation';
 import {AffectationService} from '../../services/affectation.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Carburant} from '../../modeles/Carburant';
 
 @Component({
   selector: 'app-imprimer-affectation',
@@ -81,5 +82,10 @@ export class ImprimerAffectationComponent {
 
   edit(id: number | undefined) {
 
+  }
+
+  totalCarburant(carburants: Carburant[] | null | undefined):number {
+    console.log(carburants?.length);
+    return (carburants??[]).reduce((total,carburant)=>total+carburant.approv,0 );
   }
 }

@@ -8,9 +8,9 @@ export class Sortie{
   arrivee: string;
   depart:string;
   date?:string|null;
+  lieu_depart?:string|null;
 
-
-  constructor(id: number | null, affectation: Affectation|null, objet: string, destination: string, arrivee: string, depart: string, date: string | null) {
+  constructor(id: number | null, affectation: Affectation|null, objet: string, destination: string, arrivee: string, depart: string, date: string | null,lieu_depart: string | null) {
     this.id = id;
     this.affectation = affectation;
     this.objet = objet;
@@ -18,28 +18,18 @@ export class Sortie{
     this.arrivee = arrivee;
     this.depart = depart;
     this.date = date;
+    this.lieu_depart = lieu_depart;
   }
 
   toJson(): any {
     return {
-      id: this.id,
       affectation: this.affectation,
       objet: this.objet,
       destination: this.destination,
       arrivee: this.arrivee,
       depart: this.depart,
-      date:this.date
+      lieu_depart:this.lieu_depart
     }
   }
-  static fromJson(json: any): Sortie {
-    return new Sortie(
-      json.id,
-      json.affectation,
-      json.objet,
-      json.destination,
-      json.arrivee,
-      json.depart,
-      json.date
-    )
-  }
+
 }

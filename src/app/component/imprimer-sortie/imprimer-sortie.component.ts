@@ -7,6 +7,7 @@ import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
 import {MatInput} from '@angular/material/input';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Carburant} from '../../modeles/Carburant';
 
 @Component({
   selector: 'app-imprimer-sortie',
@@ -91,5 +92,7 @@ export class ImprimerSortieComponent {
       this.filtreSorties = [...this.sorties];
     }
   }
-
+  totalCarburant(carburants: Carburant[] | null | undefined):number{
+    return (carburants?? []).reduce((total, carburant) =>total+carburant.approv,0 );
+  }
 }

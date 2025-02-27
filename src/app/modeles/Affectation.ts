@@ -1,5 +1,5 @@
-import { Vehicule } from './Vehicule';
-import { Chauffeur } from './Chauffeur';
+import {Chauffeur} from './Chauffeur';
+import {Vehicule} from './Vehicule';
 
 export class Affectation {
   chauffeur: Chauffeur;
@@ -23,17 +23,5 @@ export class Affectation {
       id: this.id,
       vehicule: this.vehicule
     };
-  }
-
-
-  // Convertir un JSON en objet Affectation
-  static fromJson(json: any): Affectation {
-    return new Affectation(
-      Chauffeur.fromJson(json.chauffeur),
-      json.nom,
-      json.id,
-      Vehicule.fromJson(json.vehicule),
-      json.date ?? undefined
-    );
   }
 }

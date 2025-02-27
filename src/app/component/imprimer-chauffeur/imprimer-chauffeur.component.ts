@@ -48,7 +48,7 @@ export class ImprimerChauffeurComponent {
             this.chauffeurs = [];
             this.snackBar.open('Aucun chauffeur trouvé pour cette date.', '', { duration: 3000 });
           } else {
-            this.chauffeurs = data.map((data: Partial<Chauffeur>) => Chauffeur.fromJson(data));
+            this.chauffeurs = data;
             this.snackBar.open(`La liste des présences de chauffeur au ${formatted}`,'Fermer',  { duration: 3000 });
           }
         },

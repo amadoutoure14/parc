@@ -1,30 +1,58 @@
 <div class="container">
   <h2>FICHE DE SORTIE</h2>
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Sélectionner une affectation</mat-label>
-    <mat-select [(value)]="sortie.affectation">   <!-- Lien avec l'objet complet Affectation -->
-      <mat-option *ngFor="let affectation of affectations" [value]="affectation">
-        {{ affectation.nom }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
 
-  <div class="input-group">
-    <label>Objet</label>
-    <input type="text" placeholder="Saisir l'objet de la sortie" [(ngModel)]="sortie.objet" class="input-large">
-  </div>
-  <div class="input-group">
-    <label>Destination</label>
-    <input type="text" placeholder="Saisir la destination de la sortie" [(ngModel)]="sortie.destination" class="input-large">
-  </div>
-  <div class="input-group">
-    <label>Date de départ</label>
-    <input type="date" placeholder="Saisir la date de départ de la sortie" [(ngModel)]="sortie.depart" class="input-large">
-  </div>
-  <div class="input-group">
-    <label>Date d'arrivée</label>
-    <input type="date" placeholder="Saisir la date d'arrivée de la sortie" [(ngModel)]="sortie.arrivee" class="input-large">
-  </div>
+  <form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
+    <!-- Sélection de l'affectation -->
+    <mat-form-field appearance="fill" class="select">
+      <mat-label> Sélectionner une affectation</mat-label>
+      <mat-select formControlName="affectation">
+        <mat-option *ngFor="let affectation of affectations" [value]="affectation">
+          {{ affectation.vehicule.immatriculation }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <button (click)="onSubmit()">SOUMETTRE</button>
+    <!-- Objet de la sortie -->
+    <div class="input-group">
+      <label>Objet</label>
+      <input
+        type="text"
+        placeholder="Saisir l'objet de la sortie"
+        formControlName="objet"
+        class="input-large">
+    </div>
+
+    <!-- Destination -->
+    <div class="input-group">
+      <label>Destination</label>
+      <input
+        type="text"
+        placeholder="Saisir la destination de la sortie"
+        formControlName="destination"
+        class="input-large">
+    </div>
+
+    <!-- Date de départ -->
+    <div class="input-group">
+      <label>Date de départ</label>
+      <input
+        type="date"
+        placeholder="Saisir la date de départ de la sortie"
+        formControlName="depart"
+        class="input-large">
+    </div>
+
+    <!-- Date d'arrivée -->
+    <div class="input-group">
+      <label>Date d'arrivée</label>
+      <input
+        type="date"
+        placeholder="Saisir la date d'arrivée de la sortie"
+        formControlName="arrivee"
+        class="input-large">
+    </div>
+
+    <!-- Bouton de soumission -->
+    <button mat-button color="primary" type="submit" [disabled]="sortieForm.invalid">SOUMETTRE</button>
+  </form>
 </div>

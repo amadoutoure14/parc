@@ -4,7 +4,7 @@ export class Carburant  {
   approv: number;
   date?: string|null;
   id?: number|null;
-  vehicule: Vehicule | null;
+  vehicule?: Vehicule | null;
 
   constructor(approv: number, date: string | null, id: number | null, vehicule: Vehicule | null) {
     this.approv = approv;
@@ -13,7 +13,6 @@ export class Carburant  {
     this.vehicule = vehicule;
   }
 
-  // Convertir l'objet en JSON
   toJson(): any {
     return {
       approv: this.approv,
@@ -23,8 +22,5 @@ export class Carburant  {
     };
   }
 
-  // Convertir un JSON en objet Carburant
-  static fromJson(json: any): Carburant {
-    return new Carburant(json.approv, json.date, json.id, Vehicule.fromJson(json.vehicule));
-  }
+
 }

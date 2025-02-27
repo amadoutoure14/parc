@@ -25,12 +25,14 @@ import {ListeCarburantComponent} from './component/liste-carburant/liste-carbura
 import {
   RechercherCarburantComponent
 } from './component/rechercher-carburant/rechercher-carburant.component';
+import {ModifierVehiculeComponent} from './component/modifier-vehicule/modifier-vehicule.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'vehicule', component: VehiculeComponent ,
     children: [
       {path: 'ajouter',component: AjouterVehiculeComponent},
+      { path: 'modifier', component: ModifierVehiculeComponent },
       {path: 'disponible',component: VehiculeDisponibleComponent},
       {path: 'imprimer',component: ImprimerVehiculeComponent},
       {path: 'liste',component: ListeVehiculeComponent},

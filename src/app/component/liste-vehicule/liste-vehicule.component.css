@@ -98,3 +98,12 @@ input:focus {
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
   outline: none;
 }
+.disponible {
+  color: green;
+  font-weight: bold;
+}
+
+.non-disponible {
+  color: red;
+  font-weight: bold;
+}
