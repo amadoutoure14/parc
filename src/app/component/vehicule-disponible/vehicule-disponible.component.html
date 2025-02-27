@@ -24,13 +24,13 @@
         <td>{{ vehicule.immatriculation }}</td>
         <td>{{ vehicule.modele }}</td>
         <td>{{ vehicule.commentaire }}</td>
-        <td>{{getTotalCarburant(vehicule.carburants)}}</td>
+        <td>{{getTotalCarburant(vehicule.carburants)}} Litres</td>
         <td [ngClass]="{'disponible': !vehicule.sortie, 'non-disponible': vehicule.sortie}">
           {{ vehicule.sortie ? 'Non': 'Oui'  }}
         </td>
         <td>{{ vehicule.debut_location}}</td>
         <td>{{ vehicule.fin_location}}</td>
-        <td><button mat-icon-button (click)="edit()"><mat-icon class="modifier">edit</mat-icon></button></td>
+        <td><button mat-icon-button (click)="modifier(vehicule)"><mat-icon class="modifier">edit</mat-icon></button></td>
       </tr>
       </tbody>
     </table>

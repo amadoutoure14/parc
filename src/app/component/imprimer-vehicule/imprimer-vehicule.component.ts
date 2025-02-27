@@ -18,7 +18,6 @@ import {MatInput} from '@angular/material/input';
     FormsModule,
     MatButton,
     MatIcon,
-    MatIconButton,
     NgForOf,
     NgIf,
     MatInput,
@@ -38,8 +37,6 @@ export class ImprimerVehiculeComponent {
 
 
   rechercherVehiculeDateEnregistrement(debut: string, fin: string) {
-    const debutFormat = this.datePipe.transform(debut,"dd/MM/yyyy");
-    const finFormat = this.datePipe.transform(fin,"dd/MM/yyyy");
     if (!debut && !fin) {
       alert('Veuillez sélectionner une intervalle !');
       return;
@@ -88,12 +85,6 @@ export class ImprimerVehiculeComponent {
   edit() {
 
   }
-
-
-  totalCarburant(carburants: Carburant[] | null | undefined):number{
-    return (carburants?? []).reduce((total, carburant) =>total+carburant.approv,0 );
-  }
-
   filterVehicules() {
     if (this.filterTerm) {
       this.filtrevehicules = this.vehicules.filter(

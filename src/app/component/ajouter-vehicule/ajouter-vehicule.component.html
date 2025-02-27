@@ -1,32 +1,33 @@
 <div class="container">
   <h2>Enregistrement véhicule</h2>
-  <form #vehiculeForm="ngForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="vehiculeForm" (ngSubmit)="onSubmit()">
 
     <label for="immatriculation">Immatriculation</label>
-    <input id="immatriculation" name="immatriculation" [(ngModel)]="vehicule.immatriculation" required />
-    <div class="error" *ngIf="!vehicule.immatriculation && vehiculeForm.submitted">
+    <input id="immatriculation" formControlName="immatriculation" />
+    <div class="error" *ngIf="vehiculeForm.get('immatriculation')?.touched && vehiculeForm.get('immatriculation')?.hasError('required')">
       Immatriculation requise
     </div>
 
     <label for="modele">Modèle</label>
-    <input id="modele" name="modele" [(ngModel)]="vehicule.modele" required />
-    <div class="error" *ngIf="!vehicule.modele && vehiculeForm.submitted">
+    <input id="modele" formControlName="modele" />
+    <div class="error" *ngIf="vehiculeForm.get('modele')?.touched && vehiculeForm.get('modele')?.hasError('required')">
       Modèle requis
     </div>
 
     <label for="debut">Début de location</label>
-    <input type="date" id="debut" name="debut" [(ngModel)]="vehicule.debut_location" required />
-    <div class="error" *ngIf="!vehicule.debut_location && vehiculeForm.submitted">
-      début de location réquis
+    <input type="date" id="debut" formControlName="debut_location" />
+    <div class="error" *ngIf="vehiculeForm.get('debut_location')?.touched && vehiculeForm.get('debut_location')?.hasError('required')">
+      Début de location requis
     </div>
+
     <label for="fin">Fin de location</label>
-    <input type="date" id="fin" name="fin" [(ngModel)]="vehicule.fin_location" required />
-    <div class="error" *ngIf="!vehicule.fin_location && vehiculeForm.submitted">
-      fin de location réquis
+    <input type="date" id="fin" formControlName="fin_location" />
+    <div class="error" *ngIf="vehiculeForm.get('fin_location')?.touched && vehiculeForm.get('fin_location')?.hasError('required')">
+      Fin de location requise
     </div>
 
     <label for="commentaire">Commentaire</label>
-    <input id="commentaire" name="commentaire" [(ngModel)]="vehicule.commentaire" />
+    <input id="commentaire" formControlName="commentaire" />
 
     <button type="submit" [disabled]="vehiculeForm.invalid">Soumettre</button>
   </form>

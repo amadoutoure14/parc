@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
-import {FormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf} from '@angular/common';
 
 @Component({
@@ -10,24 +9,40 @@ import {NgIf} from '@angular/common';
   templateUrl: './ajouter-vehicule.component.html',
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    ReactiveFormsModule
   ],
   styleUrls: ['./ajouter-vehicule.component.css']
 })
-export class AjouterVehiculeComponent {
-  vehicule: Vehicule = new Vehicule();
+export class AjouterVehiculeComponent implements OnInit {
+  vehiculeForm!: FormGroup;
 
-  constructor(private service: VehiculeService, private snackBar: MatSnackBar) {}
+  constructor(
+    private fb: FormBuilder,
+    private service: VehiculeService,
+    private snackBar: MatSnackBar
+  ) {}
 
-  onSubmit() {
-    this.service.enregistrerVehicule(this.vehicule.toJson()).subscribe({
-      next: () => {
-        this.snackBar.open('Véhicule enregistré avec succès', 'Fermer', { duration: 3000 });
-      },
-      error: () => {
-        this.snackBar.open("erreur", 'Fermer', { duration: 3000 });
-      }
+  ngOnInit(): void {
+    this.vehiculeForm = this.fb.group({
+      immatriculation: ['', Validators.required],
+      modele: ['', Validators.required],
+      debut_location: ['', Validators.required],
+      fin_location: ['', Validators.required],
+      commentaire: ['']
     });
   }
 
+  onSubmit(): void {
+    if (this.vehiculeForm.valid) {
+      this.service.enregistrerVehicule(this.vehiculeForm.value).subscribe({
+        next: () => {
+          this.snackBar.open('Véhicule enregistré avec succès', 'Fermer', { duration: 3000 });
+        },
+        error: () => {
+          this.snackBar.open('Erreur lors de l\'enregistrement', 'Fermer', { duration: 3000 });
+        }
+      });
+    }
+  }
 }

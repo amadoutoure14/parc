@@ -51,7 +51,8 @@ export class VehiculeService {
     return this.http.get<any>(`${this.apiUrl}/vehicule/liste/dispo`);
   }
 
-  patchVehicule(vehicule: any) {
-    return this.http.patch<any>(`${this.apiUrl}/vehicule/vehicule`, vehicule);
+  patchVehicule(vehicule: Vehicule):Observable<any> {
+    const url = `${this.apiUrl}/vehicule/${vehicule.id}/maj`;
+    return this.http.patch<any>(url, vehicule);
   }
 }

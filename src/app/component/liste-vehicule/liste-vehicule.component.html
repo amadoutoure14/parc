@@ -24,7 +24,7 @@
         <td>{{ vehicule.immatriculation }}</td>
         <td>{{ vehicule.modele }}</td>
         <td>{{ vehicule.commentaire }}</td>
-        <td>{{getTotalCarburant(vehicule.carburants)}}</td>
+        <td>{{getTotalCarburant(vehicule.carburants)}} Litres</td>
         <td [ngClass]="{'disponible': !vehicule.sortie, 'non-disponible': vehicule.sortie}">
           {{ vehicule.sortie ? 'Non': 'Oui'  }}
         </td>
