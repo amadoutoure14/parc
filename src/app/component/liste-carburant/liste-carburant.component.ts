@@ -5,7 +5,7 @@ import {MatInput} from "@angular/material/input";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
-import {ApprovisionnementService} from '../../services/approvisionnement.service';
+import {CarburantService} from '../../services/carburant.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -26,7 +26,7 @@ export class ListeCarburantComponent implements OnInit {
 
   carburants: Carburant[]=[];
 
-  constructor(private service:ApprovisionnementService, private snackbar: MatSnackBar) {
+  constructor(private service:CarburantService, private snackbar: MatSnackBar) {
   }
 
   filterTerm='';
@@ -44,7 +44,7 @@ export class ListeCarburantComponent implements OnInit {
   }
 
 
-  edit() {
+  modifier() {
 
   }
 

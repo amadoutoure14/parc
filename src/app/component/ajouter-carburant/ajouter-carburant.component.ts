@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe, NgForOf} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ApprovisionnementService} from '../../services/approvisionnement.service';
+import {CarburantService} from '../../services/carburant.service';
 import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
@@ -20,24 +20,20 @@ import {Carburant} from '../../modeles/Carburant';
     FormsModule
   ],
   providers: [DatePipe],
-  templateUrl: './ajouter-approvisionnement.component.html',
-  styleUrl: './ajouter-approvisionnement.component.css'
+  templateUrl: './ajouter-carburant.component.html',
+  styleUrl: './ajouter-carburant.component.css'
 })
-export class AjouterApprovisionnementComponent implements OnInit {
+export class AjouterCarburantComponent implements OnInit {
   vehicules: Vehicule[] = [];
-  selectedVehicule: Vehicule | null = null;
+  vehicule: Vehicule | null = null;
   carburant: Carburant;
 
-  constructor(
-    private snackBar: MatSnackBar,
-    private service: ApprovisionnementService,
-    private vehiculeService: VehiculeService
-  ) {
-    this.carburant = new Carburant(0, null, null, this.selectedVehicule);
+  constructor(private snackBar: MatSnackBar, private service: CarburantService, private vehiculeService: VehiculeService) {
+    this.carburant = new Carburant(0, null, null, this.vehicule);
   }
 
   ngOnInit(): void {
-    // Récupération de la liste des véhicules
+
     this.vehiculeService.listeVehicule().subscribe({
       next: (data) => {
         this.vehicules = data.vehicule;
@@ -49,22 +45,20 @@ export class AjouterApprovisionnementComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.selectedVehicule && this.carburant.approv > 0) {
-      // Utiliser l'objet Vehicule directement au lieu de chercher par ID
-      this.carburant.vehicule = this.selectedVehicule;
+    if (this.vehicule && this.carburant.approv > 0) {
+
+      this.carburant.vehicule = this.vehicule;
+
 
       this.service.approvisionner(this.carburant).subscribe({
         next: (data) => {
-          this.snackBar.open(`${this.selectedVehicule?.immatriculation} approvisionnée`, 'OK', { duration: 3000 });
+          this.snackBar.open('Véhicule approvisionné !', 'Fermer', { duration: 3000 });
           this.carburant.approv=0
         },
         error: (err) => {
-          this.snackBar.open(`${this.selectedVehicule?.immatriculation} approvisionnée`, 'OK', { duration: 3000 });
-          this.carburant.approv=0
+          this.snackBar.open("Une erreur est survenue !","Fermer",{duration:3000})
         }
       });
-
-      console.log('Véhicule:', this.selectedVehicule, 'Carburant:', this.carburant.approv);
     }
   }
 }

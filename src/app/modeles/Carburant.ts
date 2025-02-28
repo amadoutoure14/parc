@@ -18,9 +18,8 @@ export class Carburant  {
       approv: this.approv,
       date: this.date,
       id: this.id,
-      vehicule: this.vehicule
+      vehiculeId: this.vehicule ? this.vehicule.id : null // Récupère uniquement l'ID du véhicule
     };
   }
-
 
 }

@@ -1,31 +1,21 @@
 <div class="container">
   <h2>Formulaire d'Approvisionnement</h2>
 
-  <!-- Sélectionner un véhicule -->
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Sélectionner un véhicule</mat-label>
-    <mat-select [(ngModel)]="selectedVehicule">
+    <mat-select [(ngModel)]="vehicule">
       <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
         {{ vehicule.immatriculation }}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <!-- Champ de saisie pour la quantité de carburant approvisionné -->
   <div class="input-group">
     <label for="approv">Quantité de carburant (en litres)</label>
-    <input
-      type="number"
-      id="approv"
-      [(ngModel)]="carburant.approv"
-      placeholder="Saisir la quantité de carburant (litres)"
-      class="input-large"
-      min="0"
-      required>
+    <input type="number" id="approv" [(ngModel)]="carburant.approv" placeholder="Saisir la quantité de carburant (litres)" class="input-large" min="0" required>
   </div>
 
-  <!-- Bouton de soumission -->
-  <button (click)="onSubmit()" [disabled]="!carburant.approv || !selectedVehicule">
+  <button (click)="onSubmit()" [disabled]="!carburant.approv || !vehicule">
     SOUMETTRE
   </button>
 </div>

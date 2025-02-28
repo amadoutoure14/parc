@@ -38,6 +38,7 @@ export class AjouterVehiculeComponent implements OnInit {
       this.service.enregistrerVehicule(this.vehiculeForm.value).subscribe({
         next: () => {
           this.snackBar.open('Véhicule enregistré avec succès', 'Fermer', { duration: 3000 });
+          this.vehiculeForm.reset();
         },
         error: () => {
           this.snackBar.open('Erreur lors de l\'enregistrement', 'Fermer', { duration: 3000 });

@@ -19,12 +19,12 @@ import {ImprimerAffectationComponent} from './component/imprimer-affectation/imp
 import {ImprimerSortieComponent} from './component/imprimer-sortie/imprimer-sortie.component';
 import {CarburantComponent} from './pages/carburant/carburant.component';
 import {
-  AjouterApprovisionnementComponent
-} from './component/ajouter-approvisionnement/ajouter-approvisionnement.component';
+  AjouterCarburantComponent
+} from './component/ajouter-carburant/ajouter-carburant.component';
 import {ListeCarburantComponent} from './component/liste-carburant/liste-carburant.component';
 import {
-  RechercherCarburantComponent
-} from './component/rechercher-carburant/rechercher-carburant.component';
+  ImprimerCarburantComponent
+} from './component/imprimer-carburant/imprimer-carburant.component';
 import {ModifierVehiculeComponent} from './component/modifier-vehicule/modifier-vehicule.component';
 
 export const routes: Routes = [
@@ -49,9 +49,9 @@ export const routes: Routes = [
   },
   {path:'carburant',component:CarburantComponent,
   children:[
-    {path: 'ajouter',component: AjouterApprovisionnementComponent},
+    {path: 'ajouter',component: AjouterCarburantComponent},
     {path: 'liste',component: ListeCarburantComponent},
-    {path: 'rechercher',component: RechercherCarburantComponent},
+    {path: 'imprimer',component: ImprimerCarburantComponent},
     {path: '',redirectTo: 'liste',pathMatch: 'full'},
   ]
   },

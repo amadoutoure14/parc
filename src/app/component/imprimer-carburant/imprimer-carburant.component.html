@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="recherche">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Sélectionner un véhicule</mat-label>
+      <mat-select [(ngModel)]="vehicule">
+        <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
+          {{ vehicule.immatriculation }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="boutons">
+      <button mat-flat-button (click)="rechercherCarburantVehicule(vehicule)" [disabled]="!vehicule" class="disabled-button">
+        <mat-icon>search</mat-icon><span>RECHERCHER</span>
+      </button>
+      <button mat-flat-button (click)="imprimer(vehicule)" [disabled]="!vehicule" class="disabled-button">
+        <mat-icon>print</mat-icon><span>IMPRIMER</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Affichage de la table si des carburants sont trouvés -->
+  <div *ngIf="carburantsFiltre && carburantsFiltre.length > 0" class="container">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Numéro</th>
+        <th>Véhicule</th>
+        <th>Date</th>
+        <th>Carburant</th>
+        <th>Modifier</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let carburant of carburantsFiltre; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ carburant.vehicule?.immatriculation }}</td>
+        <td>{{ carburant.date }}</td>
+        <td>{{ carburant.approv }} Litres</td>
+        <td>
+          <button mat-icon-button (click)="modifier()">
+            <mat-icon class="modifier">edit</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!vehicule" class="message-attention">
+    <p>Veuillez sélectionner un véhicule.</p>
+  </div>
+
+</div>
