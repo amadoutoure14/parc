@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { ChauffeurService } from '../../services/chauffeur.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,36 +17,28 @@ import {Chauffeur} from '../../modeles/Chauffeur';
   styleUrls: ['./ajouter-chauffeur.component.css']
 })
 export class AjouterChauffeurComponent {
+  chauffeurForm: FormGroup;
 
-  chauffeur = {
-    nom_complet: '',
-    permis: '',
-    telephone: ''
-  };
-
-  constructor(private chauffeurService: ChauffeurService, private snackBar: MatSnackBar) {}
+  constructor(private fb: FormBuilder, private chauffeurService: ChauffeurService, private snackBar: MatSnackBar) {
+    this.chauffeurForm = this.fb.group({
+      nom_complet: ['', Validators.required],
+      permis: ['', Validators.required],
+      telephone: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]]
+    });
+  }
 
   onSubmit() {
-
-    if (!this.chauffeur.nom_complet || !this.chauffeur.permis || !this.chauffeur.telephone) {
+    if (this.chauffeurForm.invalid) {
       return;
     }
-     const newChauffeur = new Chauffeur(
-      '',
-      this.chauffeur.nom_complet,
-      this.chauffeur.permis,
-      this.chauffeur.telephone,
-    );
 
-    this.chauffeurService.ajouterChauffeur(newChauffeur).subscribe({
+    this.chauffeurService.ajouterChauffeur(this.chauffeurForm.value).subscribe({
       next: () => {
         this.snackBar.open('Chauffeur ajouté avec succès !', 'Fermer', { duration: 6000, panelClass: ['success-snackbar'] });
-        this.chauffeur.nom_complet = '';
-        this.chauffeur.permis = '';
-        this.chauffeur.telephone = '';
+        this.chauffeurForm.reset();
       },
       error: () => {
-        this.snackBar.open('Erreur lors de l\'ajout du chauffeur.', 'Fermer', { duration: 6000, panelClass: ['error-snackbar'] });
+        this.snackBar.open("Erreur lors de l'ajout du chauffeur.", 'Fermer', { duration: 6000, panelClass: ['error-snackbar'] });
       }
     });
   }

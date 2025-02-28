@@ -1,19 +1,18 @@
 export class Chauffeur {
-  id?: number;
+  id?: number|null;
   nom_complet: string;
   permis: string;
   telephone: string;
-  date: string;
+  date: string|null;
 
-  constructor(date: string, nom_complet: string, permis: string, telephone: string, id?: number) {
-    this.date = date || '';  // Assurez-vous que date est toujours une chaîne
-    this.nom_complet = nom_complet || '';
-    this.permis = permis || '';
-    this.telephone = telephone || '';
+
+  constructor(id: number | null, nom_complet: string, permis: string, telephone: string, date: string | null) {
     this.id = id;
+    this.nom_complet = nom_complet;
+    this.permis = permis;
+    this.telephone = telephone;
+    this.date = date;
   }
-
-
 
   toJson(): any {
     return {

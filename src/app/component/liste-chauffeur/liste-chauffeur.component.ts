@@ -48,7 +48,7 @@ export class ListeChauffeurComponent implements OnInit {
         chauffeur.nom_complet.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
         chauffeur.permis.includes(this.filterTerm) ||
           chauffeur.telephone.includes(this.filterTerm)||
-          chauffeur.date.includes(this.filterTerm)
+          chauffeur.date?.includes(this.filterTerm)
       );
     } else {
       this.filteredChauffeurs = [...this.chauffeurs];

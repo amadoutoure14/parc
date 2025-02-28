@@ -1,24 +1,22 @@
 <div class="container">
   <h2>Inscription Chauffeur</h2>
-  <form #chauffeurForm="ngForm" (ngSubmit)="onSubmit()">
-    <!-- Nom complet -->
+  <form [formGroup]="chauffeurForm" (ngSubmit)="onSubmit()">
+
     <label for="nom_complet">Nom Complet</label>
-    <input id="nom_complet" name="nom_complet" [(ngModel)]="chauffeur.nom_complet" required />
-    <div class="error" *ngIf="!chauffeur.nom_complet && chauffeurForm.submitted">
+    <input id="nom_complet" formControlName="nom_complet" />
+    <div class="error" *ngIf="chauffeurForm.get('nom_complet')?.invalid && chauffeurForm.get('nom_complet')?.touched">
       Nom complet requis
     </div>
 
-    <!-- Permis -->
     <label for="permis">Permis</label>
-    <input id="permis" name="permis" [(ngModel)]="chauffeur.permis" required />
-    <div class="error" *ngIf="!chauffeur.permis && chauffeurForm.submitted">
+    <input id="permis" formControlName="permis" />
+    <div class="error" *ngIf="chauffeurForm.get('permis')?.invalid && chauffeurForm.get('permis')?.touched">
       Numéro du permis requis
     </div>
 
-    <!-- Téléphone -->
     <label for="telephone">Téléphone</label>
-    <input id="telephone" name="telephone" [(ngModel)]="chauffeur.telephone" pattern="[0-9]{8}" required />
-    <div class="error" *ngIf="!chauffeur.telephone && chauffeurForm.submitted">
+    <input id="telephone" formControlName="telephone" />
+    <div class="error" *ngIf="chauffeurForm.get('telephone')?.invalid && chauffeurForm.get('telephone')?.touched">
       Numéro de téléphone invalide (8 chiffres requis)
     </div>
 

@@ -1,13 +1,32 @@
 <div class="recherche">
-    <input type="date" [(ngModel)]="date">
-    <div class="boutons">
-        <button mat-flat-button (click)="rechercher(date)">
-            <mat-icon>search</mat-icon><span>RECHERCHER</span>
-        </button>
-        <button mat-flat-button (click)="imprimer(date)">
-            <mat-icon>print</mat-icon><span>IMPRIMER</span>
-        </button>
-    </div>
+
+  <div class="input">
+    <label for="debut">Début</label>
+    <input id="debut" type="date" [(ngModel)]="debut" name="debut">
+
+    <label for="fin">Fin</label>
+    <input id="fin" type="date" [(ngModel)]="fin" name="fin">
+  </div>
+
+  <div class="boutons">
+    <button
+      mat-flat-button
+      (click)="rechercher(debut, fin)"
+      [disabled]="!debut || !fin"
+      [color]="debut && fin ? 'primary' : 'warn'">
+      <mat-icon>search</mat-icon><span>RECHERCHER</span>
+    </button>
+
+    <button
+      mat-flat-button
+      (click)="imprimer(debut, fin)"
+      [disabled]="!debut || !fin"
+      [color]="debut && fin ? 'accent' : 'warn'">
+      <mat-icon>print</mat-icon><span>IMPRIMER</span>
+    </button>
+  </div>
+
+
 </div>
 <div *ngIf="chauffeurs && chauffeurs.length > 0" class="container">
     <table class="table">
@@ -18,7 +37,7 @@
             <th>Permis</th>
             <th>Téléphone</th>
             <th>Date</th>
-            <th>Actions</th>
+            <th>Modifier</th>
         </tr>
         </thead>
         <tbody>
@@ -29,11 +48,8 @@
             <td>{{ chauffeur.telephone }}</td>
             <td>{{ chauffeur.date }}</td>
             <td>
-                <button mat-icon-button  (click)="edit(chauffeur.id)">
+                <button mat-icon-button  (click)="modifier(chauffeur)">
                     <mat-icon class="modifier">edit</mat-icon>
-                </button>
-                <button mat-icon-button (click)="delete(chauffeur.id)">
-                    <mat-icon class="supprimer">delete</mat-icon>
                 </button>
             </td>
         </tr>

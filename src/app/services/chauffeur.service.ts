@@ -3,12 +3,13 @@ import {Observable} from 'rxjs';
 import { Injectable } from '@angular/core';
 import {Chauffeur} from '../modeles/Chauffeur';
 import {Server} from './server';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChauffeurService {
-
+private env=environment.apiUrl;
   constructor(private http: HttpClient) { }
 
 
@@ -22,13 +23,13 @@ export class ChauffeurService {
     return this.http.get<Chauffeur[]>(listeUrl);
   }
 
-  filtreChauffeurDate(formatted: string|null): Observable <Chauffeur[]>{
-    const presenceUrl=`http://localhost:8080/chauffeur/index/date/liste/d?date=${formatted}`;
-    return this.http.get<Chauffeur[]>(presenceUrl);
+  filtreChauffeurDate(debut: Date,fin:Date ): Observable <any>{
+    const presenceUrl=`${this.env}/chauffeur/dates/d?debut=${debut}&fin=${fin}`;
+    return this.http.get<any>(presenceUrl);
   }
 
-  imprimerChauffeurDate(date: string|null) : Observable<Blob>{
-    const url = `http://localhost:8080/chauffeur/index/date/liste/pdf/d?date=${date}`;
+  imprimerChauffeurDate(debut: Date,fin: Date) : Observable<Blob>{
+    const url = `${this.env}/chauffeur/dates/pdf/d?debut=${debut}&fin=${fin}`;
     return this.http.get(url, { responseType: 'blob' });
   }
 }
