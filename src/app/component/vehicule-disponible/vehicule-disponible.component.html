@@ -34,14 +34,9 @@
       </tr>
       </tbody>
     </table>
-
-    <div *ngIf="filtrevehicules.length === 0">
-      <p>Aucun véhicule trouvé</p>
-    </div>
   </div>
-
 </div>
 
-<div *ngIf="vehicules && vehicules.length === 0">
-  <p>Aucun véhicule trouvé</p>
+<div *ngIf="filtrevehicules.length==0">
+  <p class="non-vehicule"> {{message}}</p>
 </div>

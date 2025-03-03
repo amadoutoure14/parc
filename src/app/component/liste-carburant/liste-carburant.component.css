@@ -98,3 +98,17 @@ p{
   align-items: center;
   font-size: 26px;
 }
+.message-container {
+  padding-top: 12%;
+  font-size: 26px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.no-data {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

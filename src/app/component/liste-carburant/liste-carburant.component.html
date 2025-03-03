@@ -1,6 +1,11 @@
 <div class="filter-container">
-  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterCarburants()" placeholder="Filtrer par véhicule"  />
+  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterCarburants()" placeholder="Filtrer par véhicule" />
 </div>
+
+<div *ngIf="carburantsFiltre.length ===0" class="message-container">
+  {{ message }}
+</div>
+
 <div *ngIf="carburantsFiltre && carburantsFiltre.length > 0" class="container">
   <table class="table">
     <thead>
@@ -8,7 +13,7 @@
       <th>Numéro</th>
       <th>Véhicule</th>
       <th>Date</th>
-      <th>Carburant </th>
+      <th>Carburant</th>
       <th>Modifier</th>
     </tr>
     </thead>
@@ -16,18 +21,14 @@
     <tr *ngFor="let carburant of carburantsFiltre; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ carburant.vehicule?.immatriculation }}</td>
-      <td>{{carburant.date}}</td>
-      <td>{{ carburant.approv}} Litres</td>
+      <td>{{ carburant.date }}</td>
+      <td>{{ carburant.approv }} Litres</td>
       <td>
-        <button mat-icon-button (click)="modifier()">
+        <button mat-icon-button (click)="modifier(carburant)">
           <mat-icon class="modifier">edit</mat-icon>
         </button>
       </td>
     </tr>
     </tbody>
   </table>
-</div>
-
-<div *ngIf="carburantsFiltre && carburantsFiltre.length === 0">
-  <p>{{message}}</p>
 </div>

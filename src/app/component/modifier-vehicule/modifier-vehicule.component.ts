@@ -19,12 +19,7 @@ export class ModifierVehiculeComponent {
   vehiculeForm: FormGroup;
   submitted = false;
 
-  constructor(
-    private fb: FormBuilder,
-    public dialogRef: MatDialogRef<ModifierVehiculeComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private service: VehiculeService,
-    private snackBar: MatSnackBar
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<ModifierVehiculeComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private service: VehiculeService, private snackBar: MatSnackBar
   ) {
     this.vehiculeForm = this.fb.group({
       id: [data.vehicule.id],

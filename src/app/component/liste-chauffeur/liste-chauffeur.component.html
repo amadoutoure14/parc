@@ -1,7 +1,12 @@
 <div class="filter-container">
   <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterChauffeurs()" placeholder="Filtrer par nom, permis, téléphone ou date d'enregistrement"  />
 </div>
-<div *ngIf="filteredChauffeurs && filteredChauffeurs.length > 0" class="container">
+
+<div *ngIf="filteredChauffeurs.length === 0">
+  <p class="non-disponible">{{ message }}</p>
+</div>
+
+<div *ngIf="filteredChauffeurs.length > 0" class="container">
   <table class="table">
     <thead>
     <tr>
@@ -30,6 +35,3 @@
   </table>
 </div>
 
-<div *ngIf="filteredChauffeurs && filteredChauffeurs.length === 0">
-  <p>Aucun chauffeur trouvé</p>
-</div>

@@ -26,14 +26,21 @@ export class ListeChauffeurComponent implements OnInit {
   chauffeurs: Chauffeur[] = [];
   filteredChauffeurs: Chauffeur[] = [];
   filterTerm: string = '';
+  message="";
 
   constructor(private chauffeurService: ChauffeurService) {}
 
   ngOnInit(): void {
     this.chauffeurService.listeChauffeur().subscribe({
-      next: (data: Chauffeur[]) => {
-        this.chauffeurs = data;
-        this.filteredChauffeurs = data;
+      next: (data) => {
+        if (data.chauffeur) {
+          this.chauffeurs = data.chauffeur;
+          this.filteredChauffeurs = [...this.chauffeurs];
+        } else {
+          this.chauffeurs = [];
+          this.filteredChauffeurs = [];
+        }
+        this.message = data.message || '';
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des chauffeurs', error);

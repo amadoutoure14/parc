@@ -38,4 +38,8 @@ export class CarburantService {
     return this.http.get(url, { responseType: 'blob' });
   }
 
+  patch(carburant: Carburant): Observable<any>  {
+    const url = `${this.apiUrl}/approv/${carburant.id}/maj?approv=${carburant.approv}`;
+    return this.http.patch<Carburant>(url, carburant);
+  }
 }

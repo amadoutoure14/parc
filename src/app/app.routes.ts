@@ -26,6 +26,9 @@ import {
   ImprimerCarburantComponent
 } from './component/imprimer-carburant/imprimer-carburant.component';
 import {ModifierVehiculeComponent} from './component/modifier-vehicule/modifier-vehicule.component';
+import {PointageComponent} from './pages/pointage/pointage.component';
+import {ImprimerPointageComponent} from './component/imprimer-pointage/imprimer-pointage.component';
+import {ListePointageComponent} from './component/liste-pointage/liste-pointage.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -44,6 +47,14 @@ export const routes: Routes = [
       {path: 'ajouter',component: AjouterSortieComponent},
       {path: 'imprimer',component: ImprimerSortieComponent},
       {path: 'liste',component: ListeSortieComponent},
+      {path: '',redirectTo: 'liste',pathMatch: 'full'},
+    ]
+  },
+  { path: 'pointage', component: PointageComponent ,
+    children:[
+      {path: 'pointer',component: AffectationFormulaireComponent},
+      {path: 'imprimer',component: ImprimerPointageComponent},
+      {path: 'liste',component: ListePointageComponent},
       {path: '',redirectTo: 'liste',pathMatch: 'full'},
     ]
   },

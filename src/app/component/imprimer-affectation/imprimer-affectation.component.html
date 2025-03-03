@@ -29,11 +29,8 @@
       <td>{{ affectation.vehicule.immatriculation }}</td>
       <td>{{ totalCarburant(affectation.vehicule.carburants) }}</td>
       <td>
-        <button mat-icon-button (click)="edit(affectation.id)">
+        <button mat-icon-button (click)="modifier(affectation.id)">
           <mat-icon class="modifier">edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="delete(affectation.id)">
-          <mat-icon class="supprimer">delete</mat-icon>
         </button>
       </td>
     </tr>

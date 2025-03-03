@@ -80,7 +80,7 @@ export class ImprimerAffectationComponent {
   delete(id: number | undefined) {
   }
 
-  edit(id: number | undefined) {
+  modifier(id: number | null | undefined) {
 
   }
 

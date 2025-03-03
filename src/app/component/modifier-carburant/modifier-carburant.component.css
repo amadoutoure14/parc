@@ -1,0 +1,97 @@
+/* Container global */
+.container {
+  width: 100%;
+  padding: 10% 3%;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+}
+
+/* Titre */
+h2 {
+  padding: 5% 0;
+  color: #3aa0cd;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* Champs de saisie */
+.input-group {
+  text-align: center;
+  width: 100%;
+  padding: 12% 0;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.input-large {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+}
+
+.input-large:focus {
+  border-color: #4295c6;
+  box-shadow: 0 0 5px rgb(58, 160, 205);
+  outline: none;
+}
+
+/* Mat-Select */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Bouton */
+button {
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: white;
+  background-color: #3faad8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  width: 100%;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.annuler{
+  background-color: red;
+}
+p{
+  text-align: center;
+  font-size: 26px;
+  padding-bottom: 2%;
+  text-transform: uppercase;
+}

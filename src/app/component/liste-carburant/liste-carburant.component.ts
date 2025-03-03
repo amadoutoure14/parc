@@ -7,6 +7,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
 import {CarburantService} from '../../services/carburant.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carburant.component';
 
 @Component({
   selector: 'app-liste-carburant',
@@ -26,7 +28,7 @@ export class ListeCarburantComponent implements OnInit {
 
   carburants: Carburant[]=[];
 
-  constructor(private service:CarburantService, private snackbar: MatSnackBar) {
+  constructor(private service:CarburantService, private snackbar: MatSnackBar, public dialog: MatDialog) {
   }
 
   filterTerm='';
@@ -43,23 +45,36 @@ export class ListeCarburantComponent implements OnInit {
     }
   }
 
-
-  modifier() {
-
+  modifier(carburant: Carburant) {
+    const dialogRef = this.dialog.open(ModifierCarburantComponent, { data: carburant });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.listeApprov().subscribe({
+          next: (data) => {
+            this.carburants = data.carburant || [];
+            this.carburantsFiltre = [...this.carburants];
+          },
+          error: (error) => console.error("Erreur lors du rechargement :", error)
+        });
+      }
+    });
   }
 
-  delete() {
 
-  }
+
 
   ngOnInit(): void {
     this.service.listeApprov().subscribe({
       next: (data) => {
-        this.carburants=data.carburant;
-        this.carburantsFiltre=this.carburants;
-        this.message=data.message;
-        this.snackbar.open(data.message,"Fermer",{duration:3000})
+        this.carburants = data?.carburant || [];
+        this.carburantsFiltre = [...this.carburants];
+        this.message = data?.message || "Aucune donnée trouvée";
+      },
+      error: (error) => {
+        console.error("Erreur lors du chargement des carburants :", error);
       }
-    })
+    });
   }
+
+
 }

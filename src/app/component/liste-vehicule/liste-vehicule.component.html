@@ -12,7 +12,7 @@
         <th>Modèle</th>
         <th>Commentaire</th>
         <th>Carburant</th>
-        <th>Disponible</th>
+        <th>Sortie</th>
         <th>Début de location</th>
         <th>Fin de location</th>
         <th>Modifier</th>
@@ -25,8 +25,8 @@
         <td>{{ vehicule.modele }}</td>
         <td>{{ vehicule.commentaire }}</td>
         <td>{{getTotalCarburant(vehicule.carburants)}} Litres</td>
-        <td [ngClass]="{'disponible': !vehicule.sortie, 'non-disponible': vehicule.sortie}">
-          {{ vehicule.sortie ? 'Non': 'Oui'  }}
+        <td [ngClass]="{'disponible': vehicule.sortie, 'non-disponible': !vehicule.sortie}">
+          {{ vehicule.sortie ? 'Oui':'Non'  }}
         </td>
         <td>{{ vehicule.debut_location}}</td>
         <td>{{ vehicule.fin_location}}</td>
@@ -34,14 +34,9 @@
       </tr>
       </tbody>
     </table>
-
-    <div *ngIf="filtrevehicules.length === 0">
-      <p>Aucun véhicule trouvé</p>
-    </div>
-  </div>
-
+</div>
 </div>
 
-<div *ngIf="vehicules && vehicules.length === 0">
-  <p>Aucun véhicule trouvé</p>
+<div *ngIf="filtrevehicules.length==0">
+  <p class="non-vehicule"> {{message}}</p>
 </div>

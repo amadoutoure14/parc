@@ -5,15 +5,16 @@ export class Affectation {
   chauffeur: Chauffeur;
   nom: string;
   date?: string;
-  id?: number;
+  id?: number|null;
   vehicule: Vehicule;
 
-  constructor(chauffeur: Chauffeur, nom: string, id?: number, vehicule?: Vehicule, date?: string) {
+
+  constructor(chauffeur: Chauffeur, nom: string, date: string, id: number | null, vehicule: Vehicule) {
     this.chauffeur = chauffeur;
     this.nom = nom;
-    this.id = id;
-    this.vehicule = vehicule!;
     this.date = date;
+    this.id = id;
+    this.vehicule = vehicule;
   }
 
   toJson(): any {

@@ -92,12 +92,9 @@ input:focus {
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
   outline: none;
 }
-p{
-  padding: 12px;
+.non-disponible{
+  padding-top: 12%;
   color: white;
-  display: flex;
   text-align: center;
-  justify-content: center;
-  align-items: center;
   font-size: 26px;
 }

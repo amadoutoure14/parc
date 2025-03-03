@@ -25,6 +25,7 @@ import {Carburant} from '../../modeles/Carburant';
   styleUrl: './liste-affectation.component.css'
 })
 export class ListeAffectationComponent implements OnInit {
+   message="";
 
   constructor(private service: AffectationService,private snackBar: MatSnackBar) {
   }
@@ -36,8 +37,15 @@ export class ListeAffectationComponent implements OnInit {
   ngOnInit(): void {
     this.service.listeAffectations().subscribe({
       next: data => {
-        this.affectations = data;
-        this.affectationsFiltre = [...this.affectations];
+        if (data.affectation) {
+          this.affectations = data.affectation;
+          this.affectationsFiltre = [...this.affectations];
+        }
+       else {
+         this.affectations = [];
+         this.affectationsFiltre = [];
+        }
+        this.message=data.message
       },
       error: error => {
         this.snackBar.open(error, 'Fermer', { duration: 3000 });
@@ -49,18 +57,18 @@ export class ListeAffectationComponent implements OnInit {
 
   filterAffectations() {
     if (this.filterTerm.trim()) {
-      this.affectationsFiltre = this.affectations.filter(affectation => {
-        return affectation.vehicule.immatriculation.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          affectation.chauffeur.nom_complet.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          affectation.chauffeur.telephone.toLowerCase().includes(this.filterTerm.toLowerCase());
-      });
+      // this.affectationsFiltre = this.affectations.filter(affectation => {
+      //   return affectation.vehicule.immatriculation.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+      //     affectation.chauffeur.nom_complet.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+      //     affectation.chauffeur.telephone.toLowerCase().includes(this.filterTerm.toLowerCase());
+      // });
     } else {
       this.affectationsFiltre = [...this.affectations];
     }
   }
 
 
-  edit(id: number | undefined) {
+  modifier(id: number | null | undefined) {
 
   }
 
@@ -72,3 +80,12 @@ export class ListeAffectationComponent implements OnInit {
     return (carburants??[]).reduce((total, carburant) =>total+carburant.approv,0);
   }
 }
+
+
+/*
+      <td>{{ i + 1 }}</td>
+      <td>{{ affectation.chauffeur.nom_complet }}</td>
+      <td>{{ affectation.chauffeur.telephone }}</td>
+      <td>{{ affectation.vehicule.immatriculation }}</td>
+      <td>{{ totalCarburant(affectation.vehicule.carburants)}}</td>
+* */

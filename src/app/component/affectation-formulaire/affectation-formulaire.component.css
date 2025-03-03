@@ -1,78 +1,53 @@
-.affectation{
+.affectation {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  width: 100vw;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 20px;
 }
 .form-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 10px 5px;
-  width: 60%;
+  padding: 20px;
+  width: 45%;
 }
-
 .select {
-  width: 70%;
-}
+  text-align: center;
+  width: 100%;
 
+}
 .details {
-  margin-top: 5px;
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  height: 350px;
+  margin-top: 10px;
+  width: 100%;
   background-color: #f4f7fc;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 .affecter {
-  margin-top: 20px;
-  margin-left: 7%;
+  margin: 20px 0 0 25%;
+  width: 50%;
   background-color: #3faad8;
   color: white;
-  border-radius: 5px;
   font-weight: bold;
   text-transform: uppercase;
-  width: 86%;
+  padding: 12px;
+  border-radius: 5px;
 }
-mat-card-content{
-font-size: 23px ;
-}
-mat-card-header{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-}
-mat-card-title{
-  text-transform: capitalize;
-  font-size: 25px ;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.recherche{
-  padding: 10px 0;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-input{
-  width: 40%;
+.input {
+  margin-left: 25%;
+  width: 50%;
   text-align: center;
-  height: 100%;
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ddd;
   transition: all 0.3s ease-in-out;
 }
-input:focus {
-  border-color: #3aa0cd;
-  box-shadow: 0 0 5px rgb(58, 160, 205);
+.input-recherche:focus {
+  border-color: #2eafe8;
+  box-shadow: 0 0 5px rgb(63, 182, 234);
   outline: none;
 }

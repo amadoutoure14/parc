@@ -14,13 +14,13 @@ private env=environment.apiUrl;
 
 
   ajouterChauffeur(chauffeur: Chauffeur): Observable<Chauffeur> {
-    const postUrl = `http://localhost:8080/chauffeur/nouveau`
+    const postUrl = `${this.env}/chauffeur/nouveau`
     return this.http.post<Chauffeur>(postUrl, chauffeur);
   }
 
-  listeChauffeur():Observable<Chauffeur[]> {
-    const listeUrl = `http://localhost:8080/chauffeur/liste`;
-    return this.http.get<Chauffeur[]>(listeUrl);
+  listeChauffeur():Observable<any> {
+    const listeUrl = `${this.env}/chauffeur/liste`;
+    return this.http.get<any>(listeUrl);
   }
 
   filtreChauffeurDate(debut: Date,fin:Date ): Observable <any>{

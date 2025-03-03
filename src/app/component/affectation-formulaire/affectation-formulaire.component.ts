@@ -29,6 +29,7 @@ import {Affectation} from '../../modeles/Affectation';
     MatFormField,
     NgForOf,
     FormsModule,
+    MatLabel,
   ],
   templateUrl: './affectation-formulaire.component.html',
   styleUrl: './affectation-formulaire.component.css'
@@ -50,6 +51,7 @@ export class AffectationFormulaireComponent implements OnInit{
       {next:value => {
           this.vehicules = value.vehicule;
           this.selectedVehicule = this.vehicules[0];
+          console.log(this.selectedVehicule.date)
         },
         error: error => {
           console.log(error);
@@ -65,13 +67,6 @@ export class AffectationFormulaireComponent implements OnInit{
 
   }
 
-  onChauffeurChange(): void {
-
-  }
-
-  onVehiculeChange(): void {
-  }
-
 
   affecterChauffeur() {
     if (!this.nom || this.nom.trim() === '') {
@@ -79,8 +74,8 @@ export class AffectationFormulaireComponent implements OnInit{
       return;
     }
 
-    const affectation = new Affectation(this.selectedChauffeur, this.nom.trim(), 0, this.selectedVehicule);
-    this.service.nouvelleAffectation(affectation).subscribe({
+
+    this.service.nouvelleAffectation().subscribe({
       next: value => {
         this.snackBar.open(`Affectation effectuée avec succès`, 'Fermer', { duration: 6000 });
       },

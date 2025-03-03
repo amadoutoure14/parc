@@ -30,15 +30,21 @@ export class ListeVehiculeComponent implements OnInit {
   vehicules: Vehicule[] = [];
   filtrevehicules: Vehicule[] = [];
   filterTerm = '';
+   message="";
 
   constructor(private snackBar: MatSnackBar, private service: VehiculeService, public dialog: MatDialog, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.service.listeVehicule().subscribe({
       next: (data: any) => {
-        this.vehicules = data.vehicule;
-        this.filtrevehicules = [...this.vehicules];
-        this.snackBar.open(data.message, 'Fermer', { duration: 3000 });
+        if (data.vehicule) {
+          this.vehicules = data.vehicule;
+          this.filtrevehicules = [...this.vehicules];
+        }else{
+          this.vehicules=[]
+          this.filtrevehicules=[]
+        }
+        this.message = data.message || '';
       },
       error: (err) => {
         console.log(err);
@@ -66,6 +72,7 @@ export class ListeVehiculeComponent implements OnInit {
 
 
   modifier(vehicule: Vehicule) {
+
     const debutLocationDate = vehicule.debut_location ? this.convertStringToDate(vehicule.debut_location) : null;
     const finLocationDate = vehicule.fin_location ? this.convertStringToDate(vehicule.fin_location) : null;
 
@@ -86,13 +93,11 @@ export class ListeVehiculeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe({
       next: (data) => {
-        // Relance la requête pour mettre à jour la liste des véhicules
         this.service.listeVehicule().subscribe({
           next: (data: any) => {
             if (data && data.vehicule) {
               this.vehicules = data.vehicule;
               this.filtrevehicules = [...this.vehicules];
-              this.snackBar.open(data.message, 'Fermer', { duration: 3000 });
             } else {
               // Gérer le cas où les données sont vides ou mal formées
               this.snackBar.open('Erreur lors de la récupération des véhicules.', 'Fermer', { duration: 3000 });

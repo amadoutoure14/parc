@@ -80,14 +80,14 @@ export class ImprimerSortieComponent {
 
   filterSortie() {
     if (this.filterTerm.trim()) {
-      this.filtreSorties = this.sorties.filter(sortie => {
-        return (
-          sortie.destination?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          sortie.objet?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          sortie.affectation?.chauffeur?.nom_complet?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          sortie.affectation?.chauffeur?.telephone?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          sortie.affectation?.vehicule?.immatriculation?.toLowerCase().includes(this.filterTerm.toLowerCase()))
-      });
+      // this.filtreSorties = this.sorties.filter(sortie => {
+      //   return (
+      //     sortie.destination?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+      //     sortie.objet?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+      //     sortie.affectation?.chauffeur?.nom_complet?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+      //     sortie.affectation?.chauffeur?.telephone?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+      //     sortie.affectation?.vehicule?.immatriculation?.toLowerCase().includes(this.filterTerm.toLowerCase()))
+      // });
     } else {
       this.filtreSorties = [...this.sorties];
     }
@@ -96,3 +96,9 @@ export class ImprimerSortieComponent {
     return (carburants?? []).reduce((total, carburant) =>total+carburant.approv,0 );
   }
 }
+/*
+      <td>{{ sortie.affectation?.chauffeur?.nom_complet }}</td>
+      <td>{{ sortie.affectation?.chauffeur?.telephone }}</td>
+      <td>{{ sortie.affectation?.vehicule?.immatriculation }}</td>
+      <td>{{ totalCarburant(sortie.affectation?.vehicule?.carburants) }}</td>
+* */

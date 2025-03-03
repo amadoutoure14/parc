@@ -75,10 +75,12 @@
 
 .header{
   display: flex;
+  text-align: center;
   align-items: center;
   justify-content: flex-start !important;
   background-color: #169dd4;
   width: 100vw;
+  height: 8vh;
 }
 
 .header mat-icon{

@@ -5,7 +5,7 @@ export class Vehicule {
   immatriculation: string;
   modele: string;
   commentaire: string;
-  date?: string | null;
+  date: string | null;
   carburants?: Carburant[] | null;
   sortie?: boolean | null;
   chauffeur?: boolean | null;

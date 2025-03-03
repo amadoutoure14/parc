@@ -10,15 +10,15 @@ export class AffectationService {
 
   constructor(private http:HttpClient) { }
 
-  nouvelleAffectation(affectation:Affectation):Observable<Affectation>{
+  nouvelleAffectation():Observable<Affectation>{
     const url = `http://localhost:8080/affectation/nouvelle`;
-    console.log(affectation.toJson());
-    return this.http.post<Affectation>(url,affectation.toJson())
+
+    return this.http.post<Affectation>(url,"")
   }
 
-  listeAffectations() : Observable<Affectation[]>{
+  listeAffectations() : Observable<any>{
     const affectationListe = "http://localhost:8080/affectation/liste";
-    return this.http.get<Affectation[]>(affectationListe)
+    return this.http.get<any>(affectationListe)
   }
 
   dateAffectation(date: string|null) : Observable<Affectation[]> {
