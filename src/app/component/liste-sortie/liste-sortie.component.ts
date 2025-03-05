@@ -10,7 +10,6 @@ import {Carburant} from '../../modeles/Carburant';
 @Component({
   selector: 'app-liste-sortie',
   imports: [
-    MatIcon,
     MatIconButton,
     NgIf,
     NgForOf,

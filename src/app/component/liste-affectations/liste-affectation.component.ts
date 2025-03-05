@@ -1,21 +1,21 @@
 import {Component, OnInit,} from '@angular/core';
 import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from "@angular/forms";
-import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {NgForOf, NgIf} from "@angular/common";
 import {AffectationService} from '../../services/affectation.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Vehicule} from '../../modeles/Vehicule';
 import {Carburant} from '../../modeles/Carburant';
+import {MatDialog} from '@angular/material/dialog';
+import {ModifierAffectationComponent} from '../modifier-affectation/modifier-affectation.component';
 
 
 @Component({
   selector: 'app-liste-affectations',
     imports: [
         FormsModule,
-        MatIcon,
+
         MatIconButton,
         MatInput,
         NgForOf,
@@ -25,67 +25,69 @@ import {Carburant} from '../../modeles/Carburant';
   styleUrl: './liste-affectation.component.css'
 })
 export class ListeAffectationComponent implements OnInit {
-   message="";
+  message = "";
+  affectations: Affectation[] = [];
+  filterTerm = '';
+  affectationsFiltre: Affectation[] = [];
 
-  constructor(private service: AffectationService,private snackBar: MatSnackBar) {
-  }
-
-  affectations:Affectation[]=[];
-  filterTerm='';
-  affectationsFiltre:Affectation[]=[];
+  constructor(
+    private service: AffectationService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
+    this.chargerAffectations();
+  }
+
+  private chargerAffectations(): void {
     this.service.listeAffectations().subscribe({
-      next: data => {
-        if (data.affectation) {
+      next: (data) => {
+        if (Array.isArray(data.affectation)) {
           this.affectations = data.affectation;
           this.affectationsFiltre = [...this.affectations];
+        } else {
+          this.affectations = [];
+          this.affectationsFiltre = [];
         }
-       else {
-         this.affectations = [];
-         this.affectationsFiltre = [];
-        }
-        this.message=data.message
+        this.message = data.message || "";
       },
-      error: error => {
-        this.snackBar.open(error, 'Fermer', { duration: 3000 });
+      error: (error) => {
+        this.snackBar.open("Erreur lors du chargement des affectations", "Fermer", { duration: 3000 });
+        console.error("Erreur API:", error);
       }
     });
   }
 
-
-
-  filterAffectations() {
+  filterAffectations(): void {
     if (this.filterTerm.trim()) {
-      // this.affectationsFiltre = this.affectations.filter(affectation => {
-      //   return affectation.vehicule.immatriculation.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-      //     affectation.chauffeur.nom_complet.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-      //     affectation.chauffeur.telephone.toLowerCase().includes(this.filterTerm.toLowerCase());
-      // });
+      const term = this.filterTerm.toLowerCase();
+      this.affectationsFiltre = this.affectations.filter(affectation => {
+        return (
+          affectation.vehicule?.immatriculation?.toLowerCase().includes(term) ||
+          affectation.chauffeur?.nom_complet?.toLowerCase().includes(term) ||
+          affectation.chauffeur?.telephone?.toLowerCase().includes(term)
+        );
+      });
     } else {
       this.affectationsFiltre = [...this.affectations];
     }
   }
 
+  modifier(affectation: Affectation): void {
+    const dialogRef = this.dialog.open(ModifierAffectationComponent, {
+      data: affectation,
+      width: "900px",
+      height: "600px"
+    });
 
-  modifier(id: number | null | undefined) {
-
+    dialogRef.afterClosed().subscribe(() => {
+      this.chargerAffectations();
+    });
   }
 
-  delete(id: number | undefined) {
 
-  }
-
-  totalCarburant(carburants: Carburant[] | null | undefined):number {
-    return (carburants??[]).reduce((total, carburant) =>total+carburant.approv,0);
+  totalCarburant(carburants: Carburant[] | null | undefined): number {
+    return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);
   }
 }
-
-
-/*
-      <td>{{ i + 1 }}</td>
-      <td>{{ affectation.chauffeur.nom_complet }}</td>
-      <td>{{ affectation.chauffeur.telephone }}</td>
-      <td>{{ affectation.vehicule.immatriculation }}</td>
-      <td>{{ totalCarburant(affectation.vehicule.carburants)}}</td>
-* */

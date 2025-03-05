@@ -2,7 +2,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Injectable } from '@angular/core';
 import {Chauffeur} from '../modeles/Chauffeur';
-import {Server} from './server';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -32,4 +31,14 @@ private env=environment.apiUrl;
     const url = `${this.env}/chauffeur/dates/pdf/d?debut=${debut}&fin=${fin}`;
     return this.http.get(url, { responseType: 'blob' });
   }
+
+  patch(chauffeur: Chauffeur): Observable<any> {
+    const url = `${this.env}/chauffeur/${chauffeur.id}/maj`;
+    return this.http.patch(url, {
+      nom_complet: chauffeur.nom_complet,
+      permis: chauffeur.permis,
+      telephone: chauffeur.telephone
+    });
+  }
+
 }

@@ -29,7 +29,6 @@
         <th>Véhicule</th>
         <th>Date</th>
         <th>Carburant</th>
-        <th>Modifier</th>
       </tr>
       </thead>
       <tbody>
@@ -38,11 +37,6 @@
         <td>{{ carburant.vehicule?.immatriculation }}</td>
         <td>{{ carburant.date }}</td>
         <td>{{ carburant.approv }} Litres</td>
-        <td>
-          <button mat-icon-button (click)="modifier()">
-            <mat-icon class="modifier">edit</mat-icon>
-          </button>
-        </td>
       </tr>
       </tbody>
     </table>

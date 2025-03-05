@@ -1,4 +1,3 @@
-<h2>Modifier le véhicule</h2>
 <form [formGroup]="vehiculeForm" (ngSubmit)="saveChanges()">
   <div class="form-container">
     <!-- Immatriculation -->
@@ -50,7 +49,6 @@
       </div>
     </div>
 
-    <!-- Boutons -->
     <div class="buttons">
       <button type="submit" [disabled]="vehiculeForm.invalid">Enregistrer</button>
       <button class="annuler" type="button" (click)="close()">Annuler</button>

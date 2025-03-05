@@ -7,7 +7,7 @@
       <mat-label> Sélectionner une affectation</mat-label>
       <mat-select formControlName="affectation">
         <mat-option *ngFor="let affectation of affectations" [value]="affectation">
-          {{ affectation.vehicule.immatriculation }}
+          {{ affectation.vehicule?.immatriculation }}
         </mat-option>
       </mat-select>
     </mat-form-field>

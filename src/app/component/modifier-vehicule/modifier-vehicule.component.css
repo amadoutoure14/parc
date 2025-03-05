@@ -8,19 +8,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Titre du formulaire */
-h2 {
-  color: #3aa0cd;
-  font-size: 24px;
-  padding: 20px 0;
-  font-weight: bold;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
 
 .form-row {
   display: flex;

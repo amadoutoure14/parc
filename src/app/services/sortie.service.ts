@@ -10,17 +10,17 @@ export class SortieService {
 
   constructor(private http: HttpClient) { }
 
-  enregistrer(sortie:Sortie):Observable<Sortie> {
+  enregistrer(sortie:Sortie):Observable<any> {
     const url = "http://localhost:8080/sortie/nouvelle";
-    return this.http.post<Sortie>(url,sortie.toJson())
+    return this.http.post<any>(url,sortie.toJson())
   }
 
-  listeSortie():Observable<Sortie[]> {
+  listeSortie() : Observable<any> {
     const url = "http://localhost:8080/sortie/liste";
     return this.http.get<Sortie[]>(url)
   }
 
-  sortieDate(formatted: string | null):Observable<Sortie[]> {
+  sortieDate(formatted: string | null) : Observable<any>{
     const url = `http://localhost:8080/sortie/index/date/d?date=${formatted}`;
     return this.http.get<Sortie[]>(url)
   }

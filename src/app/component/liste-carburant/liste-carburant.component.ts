@@ -13,7 +13,6 @@ import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carbura
 @Component({
   selector: 'app-liste-carburant',
   imports: [
-    MatIcon,
     MatIconButton,
     MatInput,
     NgForOf,
@@ -28,7 +27,7 @@ export class ListeCarburantComponent implements OnInit {
 
   carburants: Carburant[]=[];
 
-  constructor(private service:CarburantService, private snackbar: MatSnackBar, public dialog: MatDialog) {
+  constructor(private service:CarburantService, public dialog: MatDialog) {
   }
 
   filterTerm='';

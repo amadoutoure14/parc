@@ -1,4 +1,3 @@
-/* Container global */
 .container {
   max-width: 600px;
   margin: 60px auto;
@@ -9,7 +8,7 @@
   font-family: Arial, sans-serif;
 }
 
-/* Titre du formulaire */
+
 h2 {
   color: #3aa0cd;
   font-size: 24px;
@@ -85,28 +84,3 @@ button:disabled {
 button:hover {
   background-color: #2f8db8;
 }
-/* Exemple de style pour une notification de succès */
-.success-snackbar {
-  background-color: #4caf50; /* Vert pour un succès */
-  color: white;
-  font-weight: bold;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 14px;
-}
-
-/* Exemple de style pour une notification d'erreur */
-.error-snackbar {
-  background-color: #f44336; /* Rouge pour une erreur */
-  color: white;
-  font-weight: bold;
-  border-radius: 4px;
-  padding: 10px;
-  font-size: 14px;
-}
-
-/* Personnalisation de la barre de notification générale */
-.mat-snack-bar-container {
-  font-family: 'Arial', sans-serif;
-}
-

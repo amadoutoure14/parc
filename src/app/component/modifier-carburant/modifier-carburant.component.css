@@ -8,18 +8,7 @@
   font-family: Arial, sans-serif;
 }
 
-/* Titre */
-h2 {
-  padding: 5% 0;
-  color: #3aa0cd;
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
 
-/* Champs de saisie */
 .input-group {
   text-align: center;
   width: 100%;

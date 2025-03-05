@@ -1,11 +1,13 @@
 <div class="filter-container">
-  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterAffectations()" placeholder="Filtrer par nom, téléphone ou immatriculation"  />
+  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterAffectations()" placeholder="Filtrer par nom, téléphone ou immatriculation" />
 </div>
+
 <div *ngIf="affectationsFiltre && affectationsFiltre.length > 0" class="container">
   <table class="table">
     <thead>
     <tr>
       <th>Numéro</th>
+      <th>Nom de l'affectation</th>
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
@@ -15,10 +17,15 @@
     </thead>
     <tbody>
     <tr *ngFor="let affectation of affectationsFiltre; let i = index">
-
+      <td>{{affectation.id}}</td>
+      <td>{{affectation.nom_affectation}}</td>
+      <td>{{affectation.chauffeur?.nom_complet}}</td>
+      <td>{{affectation.chauffeur?.telephone}}</td>
+      <td>{{affectation.vehicule?.immatriculation}}</td>
+      <td>{{totalCarburant(affectation.vehicule?.carburants)}} Litres</td>
       <td>
-        <button mat-icon-button (click)="modifier(affectation.id)">
-          <mat-icon class="modifier">edit</mat-icon>
+        <button mat-icon-button (click)="modifier(affectation)">
+          <img src="../../../assets/edit.png" alt="modifier">
         </button>
       </td>
     </tr>

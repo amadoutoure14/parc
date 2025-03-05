@@ -33,9 +33,14 @@ mat-card-header {
   justify-content: center;
   align-items: center;
 }
-.affecter {
-  margin: 20px 0 0 25%;
-  width: 50%;
+.buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7%;
+}
+.buttons button {
+  width: 30%;
   background-color: #3faad8;
   color: white;
   font-weight: bold;
@@ -43,8 +48,19 @@ mat-card-header {
   padding: 12px;
   border-radius: 5px;
 }
+.buttons .annuler{
+  background-color: red;
+}
+.label{
+  margin-top: 3%;
+  display: flex;
+  justify-content: center;
+  font-size: 23px;
+  font-weight: bold;
+  align-items: center;
+}
 .input {
-  margin-top: 3.3%;
+  margin-top: 2%;
   margin-left: 25%;
   width: 50%;
   text-align: center;

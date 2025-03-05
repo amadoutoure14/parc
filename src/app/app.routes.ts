@@ -29,6 +29,7 @@ import {ModifierVehiculeComponent} from './component/modifier-vehicule/modifier-
 import {PointageComponent} from './pages/pointage/pointage.component';
 import {ImprimerPointageComponent} from './component/imprimer-pointage/imprimer-pointage.component';
 import {ListePointageComponent} from './component/liste-pointage/liste-pointage.component';
+import {PointageFormulaireComponent} from './component/pointage-formulaire/pointage-formulaire.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -52,7 +53,7 @@ export const routes: Routes = [
   },
   { path: 'pointage', component: PointageComponent ,
     children:[
-      {path: 'pointer',component: AffectationFormulaireComponent},
+      {path: 'pointer',component: PointageFormulaireComponent},
       {path: 'imprimer',component: ImprimerPointageComponent},
       {path: 'liste',component: ListePointageComponent},
       {path: '',redirectTo: 'liste',pathMatch: 'full'},

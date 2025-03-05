@@ -1,15 +1,28 @@
 .recherche{
-  padding-top: 20px;
+  margin-top:20px;
   display: flex;
+  justify-content: center;
   flex-direction: row;
   width: 100%;
-  justify-content: center;
   align-items: center;
 }
-input{
-  width: 40%;
+
+.input{
+  width:50%;
+  display:flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+label{
+  color:white;
+  font-weight: bold;
+  margin-left:5%;
+  margin-right:2%;
+}
+.recherche .input input{
+  width:100%;
   text-align: center;
-  height: 100%;
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
@@ -23,7 +36,7 @@ input:focus {
 }
 .boutons{
   display: flex;
-  width: 40%;
+  width: 50%;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -113,14 +126,40 @@ input:focus {
 .modifier{
   color: #1976d2;
 }
-.supprimer{
-  color: darkred;
-}
+
 p{
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 26px;
-  font-size: 26px;
   color: white;
+  font-size: 26px;
+  font-weight: bold;
+  padding-top: 12px;
+}
+
+.disponible {
+  color: green;
+  font-weight: bold;
+}
+
+.non-disponible {
+  color: red;
+  font-weight: bold;
+}
+.filter-container {
+  padding-top: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}
+.input-barre {
+  text-align: center;
+  width: 50%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
 }

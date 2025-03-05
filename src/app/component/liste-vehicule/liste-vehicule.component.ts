@@ -17,7 +17,6 @@ import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.
   imports: [
     FormsModule,
     MatInput,
-    MatIcon,
     MatIconButton,
     NgClass,
     NgIf,

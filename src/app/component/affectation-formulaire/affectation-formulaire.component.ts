@@ -34,56 +34,67 @@ import {Affectation} from '../../modeles/Affectation';
   templateUrl: './affectation-formulaire.component.html',
   styleUrl: './affectation-formulaire.component.css'
 })
-export class AffectationFormulaireComponent implements OnInit{
+export class AffectationFormulaireComponent implements OnInit {
 
-  constructor(private  service:AffectationService,private chauffeurService:ChauffeurService,private vehiculeService:VehiculeService,private snackBar:MatSnackBar) {
-  }
-
-  chauffeurs:Chauffeur[] = [];
-  vehicules:Vehicule[] = [];
-
+  // @ts-ignore
+  affectation: Affectation = new Affectation();
+  chauffeurs: Chauffeur[] = [];
+  vehicules: Vehicule[] = [];
   selectedChauffeur!: Chauffeur;
   selectedVehicule!: Vehicule;
-  nom:string='';
+  nom: string = '';
 
-  ngOnInit(): void {
-    this.vehiculeService.listeVehicule().subscribe(
-      {next:value => {
-          this.vehicules = value.vehicule;
-          this.selectedVehicule = this.vehicules[0];
-          console.log(this.selectedVehicule.date)
-        },
-        error: error => {
-          console.log(error);
-        }})
-    this.chauffeurService.listeChauffeur().subscribe({
-      next:value => {
-        this.chauffeurs = value;
-        this.selectedChauffeur = this.chauffeurs[0];
-      },
-      error: error => {
-        console.log(error);
-      }})
+  constructor(private service: AffectationService, private chauffeurService: ChauffeurService, private vehiculeService: VehiculeService, private snackBar: MatSnackBar) {
 
   }
 
-
-  affecterChauffeur() {
-    if (!this.nom || this.nom.trim() === '') {
-      this.snackBar.open('Veuillez entrer un nom pour l’affectation.', 'Fermer', { duration: 3000 });
-      return;
-    }
-
-
-    this.service.nouvelleAffectation().subscribe({
-      next: value => {
-        this.snackBar.open(`Affectation effectuée avec succès`, 'Fermer', { duration: 6000 });
+  ngOnInit(): void {
+    this.vehiculeService.listeVehicule().subscribe({
+      next: (data) => {
+        this.vehicules = data.vehicule || data;
+        if (this.vehicules.length > 0) {
+          this.selectedVehicule = this.vehicules[0];
+        }
       },
-      error: error => {
-        console.log(error);
-        this.snackBar.open('Une erreur est survenue : ' + error, 'Fermer', { duration: 3000 });
+      error: () => {
+        this.snackBar.open('Erreur lors du chargement des véhicules', 'Fermer', { duration: 3000 });
+      }
+    });
+
+    this.chauffeurService.listeChauffeur().subscribe({
+      next: (data) => {
+        console.log('Données chauffeurs:', data);
+        this.chauffeurs = data.chauffeur || data;
+        if (this.chauffeurs.length > 0) {
+          this.selectedChauffeur = this.chauffeurs[0];
+        }
+      },
+      error: () => {
+        this.snackBar.open('Erreur lors du chargement des chauffeurs', 'Fermer', { duration: 3000 });
       }
     });
   }
 
+  affecterChauffeur() {
+    if (!this.nom.trim()) {
+      this.snackBar.open('Veuillez entrer un nom pour l’affectation.', 'Fermer', { duration: 3000 });
+      return;
+    }
+
+    this.affectation.chauffeur = this.selectedChauffeur;
+    this.affectation.vehicule = this.selectedVehicule;
+    this.affectation.nom_affectation=this.nom
+
+    this.service.nouvelleAffectation(this.affectation).subscribe({
+      next: (data) => {
+        this.snackBar.open(`${data.message}`, 'Fermer', { duration: 6000 });
+      },
+      error: (error) => {
+        console.error('Erreur affectation:', error);
+        const message = error.error?.message || 'Une erreur est survenue.';
+        this.snackBar.open(message, 'Fermer', { duration: 3000 });
+      }
+    });
+  }
 }
+

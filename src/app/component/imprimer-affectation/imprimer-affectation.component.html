@@ -1,38 +1,43 @@
 <div class="recherche">
-  <input type="date" [(ngModel)]="date">
+
+  <div class="input">
+    <label for="debut">Début</label>
+    <input id="debut" type="date" [(ngModel)]="debut" name="debut">
+
+    <label for="fin">Fin</label>
+    <input id="fin" type="date" [(ngModel)]="fin" name="fin">
+  </div>
+
   <div class="boutons">
-    <button mat-flat-button (click)="rechercher(date)">
+    <button mat-flat-button (click)="rechercher(debut,fin)">
       <mat-icon>search</mat-icon><span>RECHERCHER</span>
     </button>
-    <button mat-flat-button (click)="imprimer(date)">
+    <button mat-flat-button (click)="imprimer(debut,fin)">
       <mat-icon>print</mat-icon><span>IMPRIMER</span>
     </button>
   </div>
 </div>
+
 <div *ngIf="affectations && affectations.length > 0" class="container">
   <table class="table">
     <thead>
     <tr>
       <th>Numéro</th>
+      <th>Nom de l'affectation</th>
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
-      <th>Carburant / Litres</th>
-      <th>Actions</th>
+      <th>Carburant</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let affectation of affectations; let i = index">
       <td>{{ i + 1 }}</td>
-      <td>{{ affectation.chauffeur.nom_complet }}</td>
-      <td>{{ affectation.chauffeur.telephone }}</td>
-      <td>{{ affectation.vehicule.immatriculation }}</td>
-      <td>{{ totalCarburant(affectation.vehicule.carburants) }}</td>
-      <td>
-        <button mat-icon-button (click)="modifier(affectation.id)">
-          <mat-icon class="modifier">edit</mat-icon>
-        </button>
-      </td>
+      <td>{{affectation.nom_affectation}}</td>
+      <td>{{ affectation.chauffeur?.nom_complet }}</td>
+      <td>{{ affectation.chauffeur?.telephone }}</td>
+      <td>{{ affectation.vehicule?.immatriculation }}</td>
+      <td>{{ totalCarburant(affectation.vehicule?.carburants) }} Litres</td>
     </tr>
     </tbody>
   </table>

@@ -56,17 +56,10 @@
   border-left: none;
 }
 
-/* Suppression de la bordure sur la dernière ligne */
 .table tr:last-child td {
   border-bottom: none;
 }
 
-.modifier{
-  color: #1976d2;
-}
-.supprimer{
-  color: darkred;
-}
 
 .filter-container {
   padding-top: 25px;

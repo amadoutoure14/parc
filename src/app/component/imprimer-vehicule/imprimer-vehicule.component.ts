@@ -81,10 +81,6 @@ export class ImprimerVehiculeComponent {
     }
 
 
-
-  edit() {
-
-  }
   filterVehicules() {
     if (this.filterTerm) {
       this.filtrevehicules = this.vehicules.filter(

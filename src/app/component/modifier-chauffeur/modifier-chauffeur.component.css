@@ -1,0 +1,78 @@
+.container {
+  width: 100%;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #4295C6;
+  box-shadow: 0 0 5px rgb(58, 160, 205);
+  outline: none;
+}
+
+/* Message d'erreur */
+.error {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: left;
+  width: 100%;
+}
+
+/* Bouton de soumission */
+button {
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: white;
+  background-color: #3faad8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+  width: 100%;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+.buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 10px;
+}
+.annuler{
+  background: red;
+}

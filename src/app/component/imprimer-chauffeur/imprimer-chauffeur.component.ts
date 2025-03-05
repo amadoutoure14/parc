@@ -14,13 +14,11 @@ import {Chauffeur} from '../../modeles/Chauffeur';
   providers: [DatePipe],
   imports: [
     MatButton,
-    HttpClientModule,
     MatIcon,
     ReactiveFormsModule,
     FormsModule,
     NgIf,
     NgForOf,
-    MatIconButton
   ],
   templateUrl: './imprimer-chauffeur.component.html',
   styleUrl: './imprimer-chauffeur.component.css'
@@ -76,4 +74,5 @@ export class ImprimerChauffeurComponent {
   modifier(chauffeur: Chauffeur) {
 
   }
+
 }

@@ -11,6 +11,8 @@ import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
 import {CarburantService} from '../../services/carburant.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carburant.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-rechercher-carburant',
@@ -18,7 +20,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     ReactiveFormsModule,
     FormsModule,
     MatIcon,
-    MatIconButton,
     NgForOf,
     NgIf,
     MatButton,
@@ -31,16 +32,27 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrl: './imprimer-carburant.component.css'
 })
 export class ImprimerCarburantComponent implements OnInit{
+  carburants: Carburant[]=[];
 
-
-  constructor(private serviceVehicule:VehiculeService,private service:CarburantService,private snackBar:MatSnackBar) {
+  constructor(private serviceVehicule:VehiculeService,private service:CarburantService,private snackBar:MatSnackBar, public dialog: MatDialog) {
   }
   vehicules: Vehicule[]=[];
   carburantsFiltre: Carburant[]=[];
   vehicule!: Vehicule;
 
-  modifier() {
-
+  modifier(carburant: Carburant) {
+    const dialogRef = this.dialog.open(ModifierCarburantComponent, { data: carburant });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.listeApprov().subscribe({
+          next: (data) => {
+            this.carburants = data.carburant || [];
+            this.carburantsFiltre = [...this.carburants];
+          },
+          error: (error) => console.error("Erreur lors du rechargement :", error)
+        });
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -54,8 +66,14 @@ export class ImprimerCarburantComponent implements OnInit{
   rechercherCarburantVehicule(vehicule: Vehicule) {
     this.service.carburantVehicule(vehicule).subscribe({
       next: data => {
-        this.carburantsFiltre = data.carburant;
-        this.snackBar.open(data.message,"Fermer",{duration:3000});
+        if (data.carburant){
+          this.carburantsFiltre = data.carburant;
+          this.snackBar.open(`${data.message} pour le véhicule ${vehicule.immatriculation}`,"Fermer",{duration:3000});
+        }
+        else {
+          this.carburants=[];
+          this.carburantsFiltre = [];
+        }
       },
       error: err => {
         this.snackBar.open(err,"Fermer",{duration:3000});
@@ -64,24 +82,15 @@ export class ImprimerCarburantComponent implements OnInit{
   }
 
   imprimer(vehicule: Vehicule) {
-    // Afficher un snackBar pour informer que le téléchargement est en cours
     const snackBarRef = this.snackBar.open('Téléchargement en cours...', 'Fermer', { duration: 0 });
-
     this.service.imprimer(vehicule).subscribe({
       next: (data: Blob | string) => {
-        // Si la réponse est une chaîne (message d'absence de données)
         if (typeof data === 'string') {
           snackBarRef.dismiss();
-          // Afficher un snackBar pour informer qu'aucun carburant n'a été trouvé
           this.snackBar.open(data.toString(), 'Fermer', { duration: 3000 });
         } else {
-          // Fermer le snackBar une fois que le téléchargement est prêt
           snackBarRef.dismiss();
-
-          // Créer l'URL de l'objet pour le blob PDF
           const fileURL = URL.createObjectURL(data);
-
-          // Ouvrir le fichier PDF dans une nouvelle fenêtre
           const windowRef = window.open(fileURL, '_blank');
           if (windowRef) {
             windowRef.focus();
@@ -89,10 +98,7 @@ export class ImprimerCarburantComponent implements OnInit{
         }
       },
       error: (err) => {
-        // Fermer le snackBar en cas d'erreur
         snackBarRef.dismiss();
-
-        // Afficher un snackBar d'erreur
         this.snackBar.open('Erreur lors de l\'impression du carburant.', 'Fermer', { duration: 3000 });
       }
     });

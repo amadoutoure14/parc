@@ -1,0 +1,38 @@
+.sous-titre{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bolder;
+  width: 100vw;
+  color: white;
+}
+.chauffeur-buttons {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  gap: 10px;
+}
+
+.chauffeur-buttons button {
+  border-radius: 5px;
+  background-color: #3FAAD8;
+  color: white;
+  width: 20%;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chauffeur-buttons button:hover {
+  background-color: #3598c1;
+}

@@ -6,6 +6,8 @@ import {ChauffeurService} from '../../services/chauffeur.service';
 import {Chauffeur} from '../../modeles/Chauffeur';
 import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
+import {MatDialog} from '@angular/material/dialog';
+import {ModifierChauffeurComponent} from '../modifier-chauffeur/modifier-chauffeur.component';
 
 @Component({
   selector: 'app-liste-chauffeur',
@@ -13,7 +15,6 @@ import {MatInput} from '@angular/material/input';
   imports: [
     NgIf,
     NgForOf,
-    MatIcon,
     MatIconButton,
     FormsModule,
     MatInput
@@ -22,51 +23,65 @@ import {MatInput} from '@angular/material/input';
   styleUrl: './liste-chauffeur.component.css'
 })
 export class ListeChauffeurComponent implements OnInit {
-
   chauffeurs: Chauffeur[] = [];
   filteredChauffeurs: Chauffeur[] = [];
   filterTerm: string = '';
-  message="";
+  message: string = '';
+  errorMessage: string = '';
 
-  constructor(private chauffeurService: ChauffeurService) {}
+  constructor(public service: ChauffeurService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.chauffeurService.listeChauffeur().subscribe({
+    this.getChauffeurs();
+  }
+
+  // Méthode pour récupérer la liste des chauffeurs
+  private getChauffeurs(): void {
+    this.service.listeChauffeur().subscribe({
       next: (data) => {
-        if (data.chauffeur) {
-          this.chauffeurs = data.chauffeur;
-          this.filteredChauffeurs = [...this.chauffeurs];
-        } else {
-          this.chauffeurs = [];
-          this.filteredChauffeurs = [];
-        }
+        this.chauffeurs = data.chauffeur || [];
+        this.filteredChauffeurs = [...this.chauffeurs];
         this.message = data.message || '';
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des chauffeurs', error);
+        this.errorMessage = 'Erreur de récupération des données des chauffeurs';
       }
     });
   }
 
+  // Filtrer les chauffeurs
   filterChauffeurs(): void {
     if (this.filterTerm.trim()) {
-      this.filteredChauffeurs = this.chauffeurs.filter(
-        chauffeur =>
+      this.filteredChauffeurs = this.chauffeurs.filter(chauffeur =>
         chauffeur.nom_complet.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
         chauffeur.permis.includes(this.filterTerm) ||
-          chauffeur.telephone.includes(this.filterTerm)||
-          chauffeur.date?.includes(this.filterTerm)
+        chauffeur.telephone.includes(this.filterTerm) ||
+        chauffeur.date?.includes(this.filterTerm)
       );
     } else {
       this.filteredChauffeurs = [...this.chauffeurs];
     }
   }
 
-  edit(chauffeur: Chauffeur): void {
-    console.log('Éditer chauffeur:', chauffeur);
+  modifier(chauffeur: Chauffeur) {
+    const dialogRef = this.dialog.open(ModifierChauffeurComponent, {
+      data: { chauffeur: chauffeur },
+      width: "700px",
+      height: "385px",
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: () => {
+        this.service.listeChauffeur().subscribe({
+          next: (data) => {
+            this.chauffeurs = data.chauffeur || [];
+            this.filteredChauffeurs = [...this.chauffeurs];
+          }
+        })
+      }
+    });
   }
 
-  delete(chauffeur: Chauffeur): void {
-    console.log('Supprimer chauffeur:', chauffeur);
-  }
 }
+

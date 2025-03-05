@@ -11,14 +11,23 @@ import {MatListItem, MatNavList} from '@angular/material/list';
 @Component({
   selector: 'app-root',
   imports: [
-    MatDrawerContainer,
-    MatDrawer,
     MatIconModule,
-    MatIcon, RouterOutlet, RouterLink, RouterLinkActive, MatCardHeader, MatButton
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    MatCardHeader,
+    MatButton,
+    MatDrawer,
+    MatDrawerContainer
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   titre = 'Telecel parc auto';
+  isDrawerOpened = true;
+
+  toggleDrawer() {
+    this.isDrawerOpened = !this.isDrawerOpened;
+  }
 }
