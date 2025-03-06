@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Affectation } from '../../modeles/Affectation';
-import {DatePipe, NgForOf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import { AffectationService } from '../../services/affectation.service';
 import { SortieService } from '../../services/sortie.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,20 +22,19 @@ import {MatButton} from '@angular/material/button';
     MatSelect,
     NgForOf,
     MatButton,
-    MatLabel
+    MatLabel,
+    NgIf,
+    DatePipe
   ],
   styleUrl: './ajouter-sortie.component.css'
 })
 export class AjouterSortieComponent implements OnInit {
   affectations: Affectation[] = [];
   sortieForm!: FormGroup;
+  id!: number;
+  derniereSortie: Sortie | null = null;
 
-  constructor(
-    private affectationService: AffectationService,
-    private service: SortieService,
-    private snackbar: MatSnackBar,
-    private fb: FormBuilder
-  ) {}
+  constructor(private affectationService: AffectationService, private service: SortieService, private snackbar: MatSnackBar, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.sortieForm = this.fb.group({
@@ -50,6 +49,28 @@ export class AjouterSortieComponent implements OnInit {
     this.affectationService.listeAffectations().subscribe({
       next: (data) => {
         this.affectations = data.affectation;
+
+        if (this.affectations && this.affectations.length > 0) {
+          this.affectations.forEach((affectation) => {
+            if (affectation.id !== null && affectation.id !== undefined) {
+              this.service.derniereSortie(affectation.id).subscribe({
+                next: (data) => {
+                  if (data && data.sortie) {
+                    this.derniereSortie = data.sortie;
+                  } else {
+                    this.derniereSortie = null;
+                  }
+                },
+                error: (err) => {
+                  console.error("Erreur lors de la récupération de la dernière sortie", err);
+                  this.derniereSortie = null;
+                }
+              });
+            }
+          });
+        } else {
+          this.derniereSortie = null;
+        }
       },
       error: (err) => {
         console.error("Erreur lors du chargement des affectations", err);
@@ -57,6 +78,7 @@ export class AjouterSortieComponent implements OnInit {
       }
     });
   }
+
 
   onSubmit() {
     if (this.sortieForm.invalid) {
@@ -72,7 +94,7 @@ export class AjouterSortieComponent implements OnInit {
         this.sortieForm.reset();
       },
       error: (err) => {
-        console.error("Erreur lors de l'enregistrement", err);
+        console.error(err);
         const message = err.error?.message || "Erreur lors de l'enregistrement.";
         this.showSnackbar(message);
       }
@@ -80,7 +102,7 @@ export class AjouterSortieComponent implements OnInit {
   }
 
   private showSnackbar(message: string) {
-    this.snackbar.open(message, 'Fermer', { duration: 3000 });
+    this.snackbar.open(message, 'Fermer', { duration: 5000 });
   }
 }
 

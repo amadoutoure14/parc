@@ -44,7 +44,7 @@ export class ListeChauffeurComponent implements OnInit {
         this.message = data.message || '';
       },
       error: (error) => {
-        console.error('Erreur lors de la récupération des chauffeurs', error);
+        console.error(error);
         this.errorMessage = 'Erreur de récupération des données des chauffeurs';
       }
     });

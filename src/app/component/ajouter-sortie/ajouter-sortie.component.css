@@ -58,8 +58,6 @@ mat-form-field {
 .full-width {
   width: 100%;
 }
-
-/* Bouton */
 button {
   padding: 12px;
   text-transform: uppercase;
@@ -81,7 +79,6 @@ button:disabled {
 button:hover {
   background-color: #2f8db8;
 }
-
 /* Message d'erreur */
 .error {
   color: #f44336;

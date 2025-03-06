@@ -8,6 +8,7 @@ export class Affectation {
   id?: number | null;
   vehicule?: Vehicule | null;
 
+
   constructor(
     chauffeur: Chauffeur | null = null,
     nom_affectation: string | null = null,

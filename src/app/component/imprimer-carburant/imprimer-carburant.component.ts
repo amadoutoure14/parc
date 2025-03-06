@@ -49,7 +49,7 @@ export class ImprimerCarburantComponent implements OnInit{
             this.carburants = data.carburant || [];
             this.carburantsFiltre = [...this.carburants];
           },
-          error: (error) => console.error("Erreur lors du rechargement :", error)
+          error: (error) => console.error(error)
         });
       }
     });

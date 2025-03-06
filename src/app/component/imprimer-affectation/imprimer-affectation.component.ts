@@ -65,7 +65,7 @@ export class ImprimerAffectationComponent {
         },
         error: (error) => {
           this.snackBar.open('Erreur lors de la génération du PDF', 'Fermer', { duration: 3000 });
-          console.error(error);
+          console.error();
         }
       });
     }

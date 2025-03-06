@@ -47,7 +47,7 @@ export class ModifierCarburantComponent implements OnInit {
         this.vehicules = data?.vehicule || [];
       },
       error: (error) => {
-        console.error("Erreur de chargement des véhicules :", error);
+        console.error(error);
         this.snackbar.open("Erreur de chargement des véhicules", "Fermer", { duration: 3000 });
       }
     });

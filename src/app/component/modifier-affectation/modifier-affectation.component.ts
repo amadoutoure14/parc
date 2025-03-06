@@ -59,7 +59,7 @@ export class ModifierAffectationComponent implements OnInit {
         this.selectedChauffeur = this.chauffeurs.find(c => c.id === this.affectation.chauffeur?.id) || null;
       },
       error: (error) => {
-        console.error('Erreur lors du chargement des chauffeurs:', error);
+        console.error(error);
       }
     });
 
@@ -69,14 +69,14 @@ export class ModifierAffectationComponent implements OnInit {
         this.selectedVehicule = this.vehicules.find(v => v.id === this.affectation.vehicule?.id) || null;
       },
       error: (error) => {
-        console.error('Erreur lors du chargement des véhicules:', error);
+        console.error(error);
       }
     });
   }
 
   modifierAffectation(): void {
     if (!this.affectation.id) {
-      console.error("ID d'affectation manquant !");
+      console.error();
       return;
     }
 
@@ -92,7 +92,7 @@ export class ModifierAffectationComponent implements OnInit {
         this.dialogRef.close();
       },
       error: (error) => {
-        console.error('Erreur lors de la mise à jour de l\'affectation:', error);
+        console.error(error);
       }
     });
   }

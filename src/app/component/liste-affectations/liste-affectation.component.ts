@@ -54,7 +54,7 @@ export class ListeAffectationComponent implements OnInit {
       },
       error: (error) => {
         this.snackBar.open("Erreur lors du chargement des affectations", "Fermer", { duration: 3000 });
-        console.error("Erreur API:", error);
+        console.error(error);
       }
     });
   }

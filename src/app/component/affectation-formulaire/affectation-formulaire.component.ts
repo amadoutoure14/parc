@@ -90,7 +90,7 @@ export class AffectationFormulaireComponent implements OnInit {
         this.snackBar.open(`${data.message}`, 'Fermer', { duration: 6000 });
       },
       error: (error) => {
-        console.error('Erreur affectation:', error);
+        console.error(error);
         const message = error.error?.message || 'Une erreur est survenue.';
         this.snackBar.open(message, 'Fermer', { duration: 3000 });
       }

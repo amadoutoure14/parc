@@ -6,41 +6,51 @@
       <mat-label> Sélectionner une affectation</mat-label>
       <mat-select formControlName="affectation">
         <mat-option *ngFor="let affectation of affectations" [value]="affectation">
-          {{ affectation.nom_affectation }}
+          Nom de l'affectation : {{ affectation.nom_affectation }} <br>
+          L'intervalle de location : {{ affectation.vehicule?.debut_location }} - {{ affectation.vehicule?.fin_location }} <br>
+          La dernière sortie :
+          <ng-container *ngIf="derniereSortie">
+            {{ derniereSortie.date_debut | date:'dd/MM/yyyy HH:mm' }} - {{ derniereSortie.date_fin | date:'dd/MM/yyyy HH:mm' }}
+          </ng-container>
+          <ng-container *ngIf="!derniereSortie">
+            Pas de sortie récente
+          </ng-container>
+
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <!-- Objet de la sortie -->
     <div class="input-group">
-      <label>Objet</label>
-      <input type="text" placeholder="Saisir l'objet de la sortie" formControlName="objet" class="input-large">
+      <label for="objet">Objet</label>
+      <input id="objet" type="text" placeholder="Saisir l'objet de la sortie" formControlName="objet" class="input-large">
     </div>
 
-    <!-- Depart -->
+    <!-- Lieu de départ -->
     <div class="input-group">
-      <label>Lieu de Départ</label>
-      <input type="text" placeholder="Saisir le lieu de départ de la sortie" formControlName="lieu_depart" class="input-large">
+      <label for="lieu_depart">Lieu de Départ</label>
+      <input id="lieu_depart" type="text" placeholder="Saisir le lieu de départ" formControlName="lieu_depart" class="input-large">
     </div>
+
     <!-- Destination -->
     <div class="input-group">
-      <label>Destination</label>
-      <input type="text" placeholder="Saisir la destination de la sortie" formControlName="destination" class="input-large">
+      <label for="destination">Destination</label>
+      <input id="destination" type="text" placeholder="Saisir la destination" formControlName="destination" class="input-large">
     </div>
 
     <!-- Date de départ -->
     <div class="input-group">
-      <label>Date de départ</label>
-      <input type="datetime-local" placeholder="Saisir la date de départ de la sortie" formControlName="date_debut" class="input-large">
+      <label for="date_debut">Date de départ</label>
+      <input id="date_debut" type="datetime-local" placeholder="Saisir la date de départ" formControlName="date_debut" class="input-large">
     </div>
 
     <!-- Date d'arrivée -->
     <div class="input-group">
-      <label>Date d'arrivée</label>
-      <input type="datetime-local" placeholder="Saisir la date d'arrivée de la sortie" formControlName="date_fin" class="input-large">
+      <label for="date_fin">Date d'arrivée</label>
+      <input id="date_fin" type="datetime-local" placeholder="Saisir la date d'arrivée" formControlName="date_fin" class="input-large">
     </div>
 
-    <!-- Bouton de soumission -->
-    <button mat-button color="primary" type="submit" [disabled]="sortieForm.invalid">SOUMETTRE</button>
+
+    <button  [disabled]="sortieForm.invalid">SOUMETTRE</button>
   </form>
 </div>

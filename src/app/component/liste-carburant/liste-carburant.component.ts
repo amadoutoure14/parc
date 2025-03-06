@@ -53,7 +53,7 @@ export class ListeCarburantComponent implements OnInit {
             this.carburants = data.carburant || [];
             this.carburantsFiltre = [...this.carburants];
           },
-          error: (error) => console.error("Erreur lors du rechargement :", error)
+          error: (error) => console.error(error)
         });
       }
     });
@@ -70,7 +70,7 @@ export class ListeCarburantComponent implements OnInit {
         this.message = data?.message || "Aucune donnée trouvée";
       },
       error: (error) => {
-        console.error("Erreur lors du chargement des carburants :", error);
+        console.error(error);
       }
     });
   }

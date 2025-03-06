@@ -11,17 +11,19 @@
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
+      <th>Location</th>
       <th>Carburant</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let affectation of affectationsFiltre; let i = index">
-      <td>{{affectation.id}}</td>
+      <td>{{i+1}}</td>
       <td>{{affectation.nom_affectation}}</td>
       <td>{{affectation.chauffeur?.nom_complet}}</td>
       <td>{{affectation.chauffeur?.telephone}}</td>
       <td>{{affectation.vehicule?.immatriculation}}</td>
+      <td>{{affectation.vehicule?.debut_location}} - {{affectation.vehicule?.fin_location}}</td>
       <td>{{totalCarburant(affectation.vehicule?.carburants)}} Litres</td>
       <td>
         <button mat-icon-button (click)="modifier(affectation)">

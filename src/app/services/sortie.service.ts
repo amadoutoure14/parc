@@ -35,7 +35,11 @@ export class SortieService {
   }
 
   sortieDatePdf(formatted: string | null) :Observable<Blob>{
-    const url = `http://localhost:8080/sortie/index/date/pdf/d?date=${formatted}`;
+    const url = `${this.env}/sortie/index/date/pdf/d?date=${formatted}`;
     return this.http.get(url,{responseType:'blob'})
+  }
+  derniereSortie(id:number) : Observable<any>{
+    const url = `${this.env}/sortie/dernier/${id}`;
+    return this.http.get(url);
   }
 }
