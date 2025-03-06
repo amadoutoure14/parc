@@ -39,7 +39,16 @@ export class SortieService {
     return this.http.get(url,{responseType:'blob'})
   }
   derniereSortie(id:number) : Observable<any>{
-    const url = `${this.env}/sortie/dernier/${id}`;
+    const url =
+      `${this.env}/sortie/dernier/${id}`;
     return this.http.get(url);
+  }
+
+  patch():Observable<any> {
+    const body = {
+      id:1
+    }
+   const url = `${this.env}/sortie/${body.id}maj`
+    return this.http.patch(url,body)
   }
 }

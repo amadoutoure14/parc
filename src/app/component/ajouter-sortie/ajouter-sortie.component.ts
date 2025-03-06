@@ -9,7 +9,6 @@ import { Sortie } from '../../modeles/Sortie';
 import {MatOption} from '@angular/material/core';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatSelect} from '@angular/material/select';
-import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-ajouter-sortie',
@@ -21,7 +20,6 @@ import {MatButton} from '@angular/material/button';
     MatFormField,
     MatSelect,
     NgForOf,
-    MatButton,
     MatLabel,
     NgIf,
     DatePipe

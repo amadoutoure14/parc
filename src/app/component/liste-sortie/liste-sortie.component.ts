@@ -6,6 +6,8 @@ import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Carburant} from '../../modeles/Carburant';
+import {ModifierSortieComponent} from '../modifier-sortie/modifier-sortie.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-liste-sortie',
@@ -22,13 +24,24 @@ import {Carburant} from '../../modeles/Carburant';
 })
 export class ListeSortieComponent implements OnInit{
 
-  constructor(private service : SortieService, private snackbar: MatSnackBar, private datePipe:DatePipe) {
+  constructor(private service : SortieService, private snackbar: MatSnackBar, private datePipe:DatePipe,private dialog: MatDialog) {
   }
 
   sorties: Sortie[] = [];
 
-  modifier(sortie: Sortie) {
 
+  modifier(sortie: any): void {
+    const dialogRef = this.dialog.open(ModifierSortieComponent, {
+      width: '800px',
+      height:'600px',
+      data: { sortie }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
   }
 
   ngOnInit(): void {
