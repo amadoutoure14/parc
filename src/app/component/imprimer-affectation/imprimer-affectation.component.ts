@@ -58,7 +58,7 @@ export class ImprimerAffectationComponent {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `Liste_des_Affectations_entre_le_${{debut}}_et_le_${{fin}}.pdf`;
+          a.download = `Liste_des_Affectations_entre_le_${debut}_et_le_${fin}.pdf`;
           a.click();
           window.URL.revokeObjectURL(url);
           this.snackBar.open('Le PDF est en téléchargement.', 'Fermer', { duration: 3000 });
@@ -72,10 +72,6 @@ export class ImprimerAffectationComponent {
 
 
 
-
-  modifier(id: number | null | undefined): void {
-
-  }
 
 
   totalCarburant(carburants: Carburant[] | null | undefined): number {

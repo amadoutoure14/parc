@@ -32,60 +32,55 @@ export class AjouterSortieComponent implements OnInit {
 
   constructor(
     private affectationService: AffectationService,
-    private sortieService: SortieService,
+    private service: SortieService,
     private snackbar: MatSnackBar,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    // Initialisation du formulaire
     this.sortieForm = this.fb.group({
       affectation: [null, Validators.required],
       objet: ['', Validators.required],
       destination: ['', Validators.required],
-      depart: ['', Validators.required],
-      arrivee: ['', Validators.required],
+      lieu_depart: ['', Validators.required],
+      date_debut: ['', Validators.required],
+      date_fin: ['', Validators.required],
     });
 
-    // Chargement des affectations
     this.affectationService.listeAffectations().subscribe({
       next: (data) => {
-        this.affectations = data;
+        this.affectations = data.affectation;
       },
       error: (err) => {
         console.error("Erreur lors du chargement des affectations", err);
+        this.showSnackbar("Erreur lors du chargement des affectations.");
       }
     });
   }
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.sortieForm.invalid) {
-      this.snackbar.open("Veuillez remplir tous les champs obligatoires", "Fermer", { duration: 3000 });
+      this.showSnackbar('Veuillez remplir tous les champs requis.');
       return;
     }
-    const formValue = this.sortieForm.value;
-    const sortie: Sortie = new Sortie(
-      null,
-      formValue.affectation,
-      formValue.objet,
-      formValue.destination,
-      formValue.arrivee,
-      formValue.depart,
-      null,
-      null
-    );
 
-    this.sortieService.enregistrer(sortie).subscribe({
-      next: () => {
-        this.snackbar.open("Sortie enregistrée avec succès !", "Fermer", { duration: 3000 });
+    const sortie: Sortie = this.sortieForm.value;
+
+    this.service.enregistrer(sortie).subscribe({
+      next: (response) => {
+        this.showSnackbar(response.message || 'Sortie enregistrée avec succès.');
         this.sortieForm.reset();
       },
-      error: (error) => {
-        console.error(error);
-        this.snackbar.open("Une erreur est survenue !", "Fermer", { duration: 3000 });
-        this.sortieForm.reset();
+      error: (err) => {
+        console.error("Erreur lors de l'enregistrement", err);
+        const message = err.error?.message || "Erreur lors de l'enregistrement.";
+        this.showSnackbar(message);
       }
     });
+  }
 
+  private showSnackbar(message: string) {
+    this.snackbar.open(message, 'Fermer', { duration: 3000 });
   }
 }
+

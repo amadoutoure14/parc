@@ -2,11 +2,11 @@
   <table class="table">
     <thead>
     <tr *ngIf="sorties && sorties.length>0">
-      <th>Numéro</th>
+      <th>Statut</th>
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
-      <th>Carburant / Litres</th>
+      <th>Durée</th>
       <th>Objet</th>
       <th>Destination</th>
       <th>Lieu de départ</th>
@@ -17,18 +17,19 @@
     </thead>
     <tbody>
     <tr *ngFor="let sortie of sorties; let i = index">
-      <td> {{i+1}} </td>
+      <td *ngIf="sortie.status==true" style="background-color: green; color: white;font-weight: bolder">En cours</td>
+      <td *ngIf="sortie.status==false" style="background-color: red; color: white;font-weight: bolder;">Terminée</td>
       <td>{{ sortie.affectation?.chauffeur?.nom_complet }}</td>
       <td>{{ sortie.affectation?.chauffeur?.telephone }}</td>
       <td>{{ sortie.affectation?.vehicule?.immatriculation }}</td>
-      <td>{{totalCarburant( sortie.affectation?.vehicule?.carburants)}}</td>
+      <td>{{sortie.duree}} Heures</td>
       <td>{{ sortie.objet }}</td>
       <td>{{ sortie.destination }}</td>
       <td>{{ sortie.lieu_depart }}</td>
-      <td>{{ sortie.depart }}</td>
-      <td>{{ sortie.arrivee }}</td>
+      <td>{{ sortie.date_debut }}</td>
+      <td>{{ sortie.date_fin }}</td>
       <td>
-        <button mat-icon-button (click)="edit()">
+        <button mat-icon-button (click)="modifier(sortie)">
           <img src="../../../assets/edit.png" alt="modifier">
         </button>
       </td>

@@ -2,12 +2,11 @@
   <h2>FICHE DE SORTIE</h2>
 
   <form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
-    <!-- Sélection de l'affectation -->
     <mat-form-field appearance="fill" class="select">
       <mat-label> Sélectionner une affectation</mat-label>
       <mat-select formControlName="affectation">
         <mat-option *ngFor="let affectation of affectations" [value]="affectation">
-          {{ affectation.vehicule?.immatriculation }}
+          {{ affectation.nom_affectation }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -15,41 +14,30 @@
     <!-- Objet de la sortie -->
     <div class="input-group">
       <label>Objet</label>
-      <input
-        type="text"
-        placeholder="Saisir l'objet de la sortie"
-        formControlName="objet"
-        class="input-large">
+      <input type="text" placeholder="Saisir l'objet de la sortie" formControlName="objet" class="input-large">
     </div>
 
+    <!-- Depart -->
+    <div class="input-group">
+      <label>Lieu de Départ</label>
+      <input type="text" placeholder="Saisir le lieu de départ de la sortie" formControlName="lieu_depart" class="input-large">
+    </div>
     <!-- Destination -->
     <div class="input-group">
       <label>Destination</label>
-      <input
-        type="text"
-        placeholder="Saisir la destination de la sortie"
-        formControlName="destination"
-        class="input-large">
+      <input type="text" placeholder="Saisir la destination de la sortie" formControlName="destination" class="input-large">
     </div>
 
     <!-- Date de départ -->
     <div class="input-group">
       <label>Date de départ</label>
-      <input
-        type="date"
-        placeholder="Saisir la date de départ de la sortie"
-        formControlName="depart"
-        class="input-large">
+      <input type="datetime-local" placeholder="Saisir la date de départ de la sortie" formControlName="date_debut" class="input-large">
     </div>
 
     <!-- Date d'arrivée -->
     <div class="input-group">
       <label>Date d'arrivée</label>
-      <input
-        type="date"
-        placeholder="Saisir la date d'arrivée de la sortie"
-        formControlName="arrivee"
-        class="input-large">
+      <input type="datetime-local" placeholder="Saisir la date d'arrivée de la sortie" formControlName="date_fin" class="input-large">
     </div>
 
     <!-- Bouton de soumission -->

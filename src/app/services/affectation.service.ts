@@ -27,6 +27,11 @@ export class AffectationService {
     const url = `${this.env}/affectation/liste`;
     return this.http.get<any>(url)
   }
+  listeAffectationsDispo() : Observable<any>{
+    const url = `${this.env}/affectation/dispo`;
+    return this.http.get<any>(url)
+  }
+
 
   dateAffectation(debut:Date,fin:Date) : Observable<any> {
     const url = `${this.env}/affectation/dates/d?debut=${debut}&fin=${fin}`;
@@ -34,7 +39,7 @@ export class AffectationService {
   }
 
   imprimerAffectation(debut: Date, fin: Date): Observable<Blob> {
-    const url = `${this.env}/affectation/dates/pdf/d?debut=${debut}&fin=${fin}}`;
+    const url = `${this.env}/affectation/dates/pdf/d?debut=${debut}&fin=${fin}`;
     return this.http.get(url, { responseType: 'blob' });
   }
 
