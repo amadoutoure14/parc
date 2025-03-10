@@ -29,13 +29,13 @@ export class SortieService {
     return this.http.get<Sortie[]>(url)
   }
 
-  sortieDate(formatted: string | null) : Observable<any>{
-    const url = `http://localhost:8080/sortie/index/date/d?date=${formatted}`;
-    return this.http.get<Sortie[]>(url)
+  sortieDates(debut:Date,fin:Date) : Observable<any>{
+    const url = `${this.env}/sortie/liste/dates/d?debut=${debut}&fin=${fin}`;
+    return this.http.get<any>(url)
   }
 
-  sortieDatePdf(formatted: string | null) :Observable<Blob>{
-    const url = `${this.env}/sortie/index/date/pdf/d?date=${formatted}`;
+  sortieDatesPdf(debut:Date, fin:Date) :Observable<Blob>{
+    const url = `${this.env}/sortie/dates/pdf/d?debut=${debut}&fin=${fin}`;
     return this.http.get(url,{responseType:'blob'})
   }
 
