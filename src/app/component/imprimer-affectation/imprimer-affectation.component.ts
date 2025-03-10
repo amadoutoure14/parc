@@ -11,13 +11,14 @@ import {Carburant} from '../../modeles/Carburant';
 @Component({
   selector: 'app-imprimer-affectation',
   providers:[DatePipe],
-  imports: [
-    FormsModule,
-    MatButton,
-    MatIcon,
-    NgForOf,
-    NgIf
-  ],
+    imports: [
+        FormsModule,
+        MatButton,
+        MatIcon,
+        NgForOf,
+        NgIf,
+        DatePipe
+    ],
   templateUrl: './imprimer-affectation.component.html',
   styleUrl: './imprimer-affectation.component.css'
 })

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {ChauffeurService} from '../../services/chauffeur.service';
@@ -12,13 +12,14 @@ import {ModifierChauffeurComponent} from '../modifier-chauffeur/modifier-chauffe
 @Component({
   selector: 'app-liste-chauffeur',
   standalone: true,
-  imports: [
-    NgIf,
-    NgForOf,
-    MatIconButton,
-    FormsModule,
-    MatInput
-  ],
+    imports: [
+        NgIf,
+        NgForOf,
+        MatIconButton,
+        FormsModule,
+        MatInput,
+        DatePipe
+    ],
   templateUrl: './liste-chauffeur.component.html',
   styleUrl: './liste-chauffeur.component.css'
 })

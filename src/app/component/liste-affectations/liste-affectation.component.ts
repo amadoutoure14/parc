@@ -3,7 +3,7 @@ import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from "@angular/forms";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {AffectationService} from '../../services/affectation.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Carburant} from '../../modeles/Carburant';
@@ -19,7 +19,8 @@ import {ModifierAffectationComponent} from '../modifier-affectation/modifier-aff
         MatIconButton,
         MatInput,
         NgForOf,
-        NgIf
+        NgIf,
+        DatePipe
     ],
   templateUrl: './liste-affectation.component.html',
   styleUrl: './liste-affectation.component.css'

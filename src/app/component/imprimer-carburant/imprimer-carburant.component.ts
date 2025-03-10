@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
 import {VehiculeService} from '../../services/vehicule.service';
@@ -26,7 +26,8 @@ import {MatDialog} from '@angular/material/dialog';
     MatFormField,
     MatLabel,
     MatOption,
-    MatSelect
+    MatSelect,
+    DatePipe
   ],
   templateUrl: './imprimer-carburant.component.html',
   styleUrl: './imprimer-carburant.component.css'

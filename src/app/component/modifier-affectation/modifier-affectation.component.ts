@@ -7,7 +7,7 @@ import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from '@angular/forms';
 import {Chauffeur} from '../../modeles/Chauffeur';
 import {Vehicule} from '../../modeles/Vehicule';
-import {NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
@@ -28,7 +28,8 @@ import {MatSelect} from '@angular/material/select';
     MatLabel,
     MatOption,
     MatSelect,
-    NgIf
+    NgIf,
+    DatePipe
   ],
   templateUrl: './modifier-affectation.component.html',
   styleUrl: './modifier-affectation.component.css'

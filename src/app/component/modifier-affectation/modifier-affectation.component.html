@@ -39,7 +39,7 @@
       </mat-card-header>
       <mat-card-content>
         <p><strong>Modèle:</strong> {{ selectedVehicule.modele }}</p>
-        <p><strong>Date d'enregistrement:</strong> {{ selectedVehicule.date }}</p>
+        <p><strong>Date d'enregistrement:</strong> {{ selectedVehicule.date  | date: 'dd/MM/yyyy' }}</p>
       </mat-card-content>
     </mat-card>
   </div>

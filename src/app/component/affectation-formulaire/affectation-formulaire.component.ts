@@ -4,7 +4,7 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatOption, MatSelect} from '@angular/material/select';
 import {MatCard, MatCardContent, MatCardHeader, MatCardModule} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
-import {NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {Vehicule} from '../../modeles/Vehicule';
 import {Chauffeur} from '../../modeles/Chauffeur';
 import {AffectationService} from '../../services/affectation.service';
@@ -30,6 +30,7 @@ import {Affectation} from '../../modeles/Affectation';
     NgForOf,
     FormsModule,
     MatLabel,
+    DatePipe,
   ],
   templateUrl: './affectation-formulaire.component.html',
   styleUrl: './affectation-formulaire.component.css'

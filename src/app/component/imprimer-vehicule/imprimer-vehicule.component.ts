@@ -14,15 +14,16 @@ import {MatInput} from '@angular/material/input';
   selector: 'app-imprimer-vehicule',
   templateUrl: './imprimer-vehicule.component.html',
   providers:[DatePipe],
-  imports: [
-    FormsModule,
-    MatButton,
-    MatIcon,
-    NgForOf,
-    NgIf,
-    MatInput,
-    NgClass
-  ],
+    imports: [
+        FormsModule,
+        MatButton,
+        MatIcon,
+        NgForOf,
+        NgIf,
+        MatInput,
+        NgClass,
+        DatePipe
+    ],
   styleUrls: ['./imprimer-vehicule.component.css']
 })
 export class ImprimerVehiculeComponent {

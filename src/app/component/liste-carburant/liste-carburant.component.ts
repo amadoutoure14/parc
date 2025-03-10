@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
 import {CarburantService} from '../../services/carburant.service';
@@ -12,14 +12,15 @@ import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carbura
 
 @Component({
   selector: 'app-liste-carburant',
-  imports: [
-    MatIconButton,
-    MatInput,
-    NgForOf,
-    NgIf,
-    ReactiveFormsModule,
-    FormsModule
-  ],
+    imports: [
+        MatIconButton,
+        MatInput,
+        NgForOf,
+        NgIf,
+        ReactiveFormsModule,
+        FormsModule,
+        DatePipe
+    ],
   templateUrl: './liste-carburant.component.html',
   styleUrl: './liste-carburant.component.css'
 })

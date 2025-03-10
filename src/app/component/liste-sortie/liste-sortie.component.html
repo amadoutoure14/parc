@@ -1,8 +1,8 @@
 <div class="container">
   <table class="table">
     <thead>
-    <tr *ngIf="sorties && sorties.length>0">
-      <th>Statut</th>
+    <tr *ngIf="sorties && sorties.length > 0">
+      <th>Status</th>
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
@@ -16,18 +16,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let sortie of sorties; let i = index">
-      <td *ngIf="sortie.status==true" style="background-color: green; color: white;font-weight: bolder">En cours</td>
-      <td *ngIf="sortie.status==false" style="background-color: red; color: white;font-weight: bolder;">Terminée</td>
+    <tr *ngFor="let sortie of sorties">
+      <td *ngIf="sortie.status" style="background-color: green; color: white; font-weight: bolder">En cours</td>
+      <td *ngIf="!sortie.status" style="background-color: red; color: white; font-weight: bolder">Terminée</td>
       <td>{{ sortie.affectation?.chauffeur?.nom_complet }}</td>
       <td>{{ sortie.affectation?.chauffeur?.telephone }}</td>
       <td>{{ sortie.affectation?.vehicule?.immatriculation }}</td>
-      <td>{{sortie.duree}} Heures</td>
+      <td>{{ sortie.duree }} Heures</td>
       <td>{{ sortie.objet }}</td>
       <td>{{ sortie.destination }}</td>
       <td>{{ sortie.lieu_depart }}</td>
-      <td>{{ sortie.date_debut }}</td>
-      <td>{{ sortie.date_fin }}</td>
+      <td>{{ sortie.date_debut | date: 'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ sortie.date_fin | date: 'dd/MM/yyyy HH:mm' }}</td>
       <td>
         <button mat-icon-button (click)="modifier(sortie)">
           <img src="../../../assets/edit.png" alt="modifier">
@@ -37,6 +37,6 @@
     </tbody>
   </table>
 </div>
-<div *ngIf="sorties && sorties.length===0">
-  <p>Aucune sortie effectuée </p>
+<div *ngIf="sorties && sorties.length === 0">
+  <p>Aucune sortie effectuée</p>
 </div>

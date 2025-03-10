@@ -20,7 +20,8 @@ import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.
     MatIconButton,
     NgClass,
     NgIf,
-    NgForOf
+    NgForOf,
+    DatePipe
   ],
   providers:[DatePipe],
   styleUrls: ['./liste-vehicule.component.css']

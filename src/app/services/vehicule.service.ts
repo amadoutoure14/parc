@@ -21,6 +21,10 @@ export class VehiculeService {
     const url = `${this.apiUrl}/vehicule/liste`;
     return this.http.get<any>(url)
   }
+ listeVehiculeParc(): Observable<any>{
+    const url = `${this.apiUrl}/vehicule/parc`;
+    return this.http.get<any>(url)
+  }
 
   vehiculeDatesEnregistrement(debut: string, fin: string): Observable<any> {
    const url= `${this.apiUrl}/vehicule/dates/liste/d?debut=${debut}&fin=${fin}`;

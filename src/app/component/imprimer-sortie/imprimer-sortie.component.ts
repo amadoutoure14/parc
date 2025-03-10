@@ -11,16 +11,17 @@ import {Carburant} from '../../modeles/Carburant';
 
 @Component({
   selector: 'app-imprimer-sortie',
-  imports: [
-    MatButton,
-    MatIcon,
-    ReactiveFormsModule,
-    FormsModule,
-    MatIconButton,
-    NgForOf,
-    NgIf,
-    MatInput
-  ],
+    imports: [
+        MatButton,
+        MatIcon,
+        ReactiveFormsModule,
+        FormsModule,
+        MatIconButton,
+        NgForOf,
+        NgIf,
+        MatInput,
+        DatePipe
+    ],
   providers: [DatePipe],
   templateUrl: './imprimer-sortie.component.html',
   styleUrl: './imprimer-sortie.component.css'

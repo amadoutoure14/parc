@@ -1,1 +1,17 @@
-<p>pointage-formulaire works!</p>
+<table *ngIf="vehicules && vehicules.length > 0" class="table">
+  <thead>
+  <tr>
+    <th>Véhicule</th>
+    <th>Pointer</th>
+    <th>Soumettre</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let vehicule of vehicules; let i = index">
+    <td>{{ vehicule.immatriculation }}</td>
+    <td><input type="checkbox" [(ngModel)]="cocher"></td>
+    <td><button mat-flat-button (click)="submit(vehicule)" class="submit">Pointer</button></td>
+  </tr>
+  </tbody>
+</table>
+

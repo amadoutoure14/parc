@@ -20,7 +20,7 @@ import { ModifierVehiculeComponent } from '../modifier-vehicule/modifier-vehicul
   providers: [DatePipe],
   imports: [
     MatTableModule, MatInputModule, FormsModule, MatIconModule, MatButtonModule, MatSnackBarModule, MatDialogModule,
-    NgForOf, NgIf, NgClass
+    NgForOf, NgIf, NgClass, DatePipe
   ],
   templateUrl: './vehicule-disponible.component.html',
   styleUrls: ['./vehicule-disponible.component.css']

@@ -38,17 +38,33 @@ export class SortieService {
     const url = `${this.env}/sortie/index/date/pdf/d?date=${formatted}`;
     return this.http.get(url,{responseType:'blob'})
   }
+
   derniereSortie(id:number) : Observable<any>{
     const url =
       `${this.env}/sortie/dernier/${id}`;
     return this.http.get(url);
   }
 
-  patch():Observable<any> {
+  patch(id: number | null | undefined, sortie: any):Observable<any> {
     const body = {
-      id:1
+      id:sortie.id,
+      lieu_depart: sortie.lieu_depart,
+      destination:sortie.destination,
+      date_debut: sortie.date_debut,
+      date_fin: sortie.date_fin,
+      objet: sortie.objet,
+      affectation: sortie.affectation?.id
     }
-   const url = `${this.env}/sortie/${body.id}maj`
+    console.log(body)
+   const url = `${this.env}/sortie/${id}/maj`
     return this.http.patch(url,body)
+  }
+
+  terminer(sortie:Sortie) :Observable<any>{
+    const url = `${this.env}/sortie/terminer`;
+    const body = {
+      id:sortie.id
+    }
+    return this.http.post(url,body)
   }
 }

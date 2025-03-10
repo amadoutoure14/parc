@@ -8,9 +8,11 @@ import {MatOption, MatSelect} from '@angular/material/select';
 import {Affectation} from '../../modeles/Affectation';
 import {DatePipe, NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
+import {AffectationService} from '../../services/affectation.service';
 
 @Component({
   selector: 'app-modifier-sortie',
+  providers: [DatePipe],
   imports: [
     MatFormField,
     ReactiveFormsModule,
@@ -28,25 +30,56 @@ import {Sortie} from '../../modeles/Sortie';
 })
 export class ModifierSortieComponent implements OnInit {
   sortieForm!: FormGroup;
-  affectations: Affectation[]=[];
-  derniereSortie!: Sortie;
+  affectations: Affectation[] = [];
+  derniereSortie: Sortie | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<ModifierSortieComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: { sortie: Sortie },
     private fb: FormBuilder,
-    private sortieService: SortieService,
-    private snackbar: MatSnackBar
+    private service: SortieService,
+    private snackbar: MatSnackBar,
+    private affectationService: AffectationService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
+    const dateFin = this.data.sortie?.date_fin ? this.datePipe.transform(this.data.sortie.date_fin, 'yyyy-MM-ddTHH:mm') : '';
+    const dateDebut = this.data.sortie?.date_debut ? this.datePipe.transform(this.data.sortie.date_debut, 'yyyy-MM-ddTHH:mm') : '';
     this.sortieForm = this.fb.group({
-      objet: [this.data.sortie.objet, Validators.required],
-      destination: [this.data.sortie.destination, Validators.required],
-      lieu_depart: [this.data.sortie.lieu_depart, Validators.required],
-      date_debut: [this.data.sortie.date_debut, Validators.required],
-      date_fin: [this.data.sortie.date_fin, Validators.required],
+      objet: [this.data.sortie?.objet || '', Validators.required],
+      destination: [this.data.sortie?.destination || '', Validators.required],
+      lieu_depart: [this.data.sortie?.lieu_depart || '', Validators.required],
+      date_debut: [dateDebut, Validators.required],
+      date_fin: [dateFin, Validators.required],
+      affectation: [this.data.sortie?.affectation || null, Validators.required]
     });
+
+    this.affectationService.listeAffectations().subscribe({
+      next: (data) => {
+        this.affectations = data.affectation;
+        this.setDerniereSortie();
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des affectations', err);
+        this.showSnackbar("Erreur lors du chargement des affectations.");
+      }
+    });
+  }
+
+  setDerniereSortie(): void {
+    const affectationId = this.sortieForm.get('affectation')?.value?.id;
+    if (affectationId) {
+      this.service.derniereSortie(affectationId).subscribe({
+        next: (data) => {
+          this.derniereSortie = data?.sortie || null;
+        },
+        error: (err) => {
+          console.error("Erreur lors de la récupération de la dernière sortie", err);
+          this.derniereSortie = null;
+        }
+      });
+    }
   }
 
   onSubmit(): void {
@@ -55,12 +88,7 @@ export class ModifierSortieComponent implements OnInit {
       return;
     }
 
-    // const updatedSortie = {
-    //   ...this.data.sortie,
-    //   ...this.sortieForm.value
-    // };
-
-    this.sortieService.patch().subscribe({
+    this.service.patch(this.data.sortie.id,this.sortieForm.value).subscribe({
       next: (response) => {
         this.showSnackbar(response.message || 'Sortie modifiée avec succès.');
         this.dialogRef.close(true);
@@ -73,7 +101,6 @@ export class ModifierSortieComponent implements OnInit {
     });
   }
 
-
   private showSnackbar(message: string) {
     this.snackbar.open(message, 'Fermer', { duration: 5000 });
   }
@@ -81,4 +108,16 @@ export class ModifierSortieComponent implements OnInit {
   annuler(): void {
     this.dialogRef.close();
   }
+
+  terminer() {
+    this.service.terminer(this.data.sortie).subscribe(
+      {
+        next:(data) => {
+          this.dialogRef.close(true);
+          this.snackbar.open(data.message, 'Fermer', {duration: 3000})
+        }
+      });
+  }
+
 }
+

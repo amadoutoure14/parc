@@ -7,7 +7,7 @@
     <table class="table">
       <thead>
       <tr>
-        <th>Numéro</th>
+        <th>Staus</th>
         <th>Immatriculation</th>
         <th>Modèle</th>
         <th>Commentaire</th>
@@ -20,7 +20,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let vehicule of filtrevehicules; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td *ngIf="vehicule.parc" style="background-color: green; color: white; font-weight: bolder">Présent</td>
+        <td *ngIf="!vehicule.parc" style="background-color: red; color: white; font-weight: bolder">Absent</td>
         <td>{{ vehicule.immatriculation }}</td>
         <td>{{ vehicule.modele }}</td>
         <td>{{ vehicule.commentaire }}</td>
@@ -28,8 +29,8 @@
         <td [ngClass]="{'disponible': vehicule.sortie, 'non-disponible': !vehicule.sortie}">
           {{ vehicule.sortie ? 'Oui':'Non'  }}
         </td>
-        <td>{{ vehicule.debut_location}}</td>
-        <td>{{ vehicule.fin_location}}</td>
+        <td>{{ vehicule.debut_location  | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ vehicule.fin_location  | date: 'dd/MM/yyyy' }}</td>
         <td>
           <button mat-icon-button (click)="modifier(vehicule)">
             <img src="../../../assets/edit.png" alt="modifier">

@@ -1,11 +1,11 @@
-<form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
+<form *ngIf="sortieForm" [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
   <div class="mat-form-field-container">
     <mat-form-field appearance="fill" class="select">
       <mat-label>Sélectionner une affectation</mat-label>
       <mat-select formControlName="affectation">
         <mat-option *ngFor="let affectation of affectations" [value]="affectation">
           Nom de l'affectation : {{ affectation.nom_affectation }} <br>
-          L'intervalle de location : {{ affectation.vehicule?.debut_location }} - {{ affectation.vehicule?.fin_location }} <br>
+          L'intervalle de location : {{ affectation.vehicule?.debut_location | date:'dd/MM/yyyy' }} - {{ affectation.vehicule?.fin_location | date:'dd/MM/yyyy' }} <br>
           La dernière sortie :
           <ng-container *ngIf="derniereSortie">
             {{ derniereSortie.date_debut | date:'dd/MM/yyyy HH:mm' }} - {{ derniereSortie.date_fin | date:'dd/MM/yyyy HH:mm' }}
@@ -30,4 +30,5 @@
     <button [disabled]="sortieForm.invalid" class="soumettre">SOUMETTRE</button>
     <button type="button" (click)="annuler()" class="annuler">Annuler</button>
   </div>
+  <button class="terminer" type="button" (click)="terminer()">Terminer la sortie</button>
 </form>

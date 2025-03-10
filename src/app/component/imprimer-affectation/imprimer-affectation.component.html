@@ -38,7 +38,7 @@
       <td>{{affectation.chauffeur?.nom_complet}}</td>
       <td>{{affectation.chauffeur?.telephone}}</td>
       <td>{{affectation.vehicule?.immatriculation}}</td>
-      <td>{{affectation.vehicule?.debut_location}} - {{affectation.vehicule?.fin_location}}</td>
+      <td>{{affectation.vehicule?.debut_location  | date: 'dd/MM/yyyy' }} - {{affectation.vehicule?.fin_location | date: 'dd/MM/yyyy' }}</td>
       <td>{{totalCarburant(affectation.vehicule?.carburants)}} Litres</td>
     </tr>
     </tbody>

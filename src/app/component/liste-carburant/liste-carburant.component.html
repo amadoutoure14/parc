@@ -21,7 +21,7 @@
     <tr *ngFor="let carburant of carburantsFiltre; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ carburant.vehicule?.immatriculation }}</td>
-      <td>{{ carburant.date }}</td>
+      <td>{{ carburant.date  | date: 'dd/MM/yyyy' }}</td>
       <td>{{ carburant.approv }} Litres</td>
       <td>
         <button mat-icon-button (click)="modifier(carburant)">

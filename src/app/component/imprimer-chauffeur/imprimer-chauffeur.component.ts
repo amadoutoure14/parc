@@ -12,14 +12,15 @@ import {Chauffeur} from '../../modeles/Chauffeur';
   selector: 'app-imprimer-chauffeur',
   standalone: true,
   providers: [DatePipe],
-  imports: [
-    MatButton,
-    MatIcon,
-    ReactiveFormsModule,
-    FormsModule,
-    NgIf,
-    NgForOf,
-  ],
+    imports: [
+        MatButton,
+        MatIcon,
+        ReactiveFormsModule,
+        FormsModule,
+        NgIf,
+        NgForOf,
+        DatePipe,
+    ],
   templateUrl: './imprimer-chauffeur.component.html',
   styleUrl: './imprimer-chauffeur.component.css'
 })
