@@ -8,17 +8,17 @@
   width: 100vw;
   color: white;
 }
-.chauffeur-buttons {
+.buttons {
   margin-top: 20px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 99%;
   gap: 10px;
  }
 
-.chauffeur-buttons button {
+.buttons button {
   border-radius: 5px; /* Ajoute un léger arrondi pour un rendu plus moderne */
   background-color: #3FAAD8;
   color: white;
@@ -33,6 +33,6 @@
   justify-content: center;
 }
 
-.chauffeur-buttons button:hover {
+.buttons button:hover {
   background-color: #3598c1;
 }

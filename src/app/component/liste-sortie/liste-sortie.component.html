@@ -1,7 +1,7 @@
 <div class="container">
-  <table class="table">
+  <table class="table" *ngIf="filtreSorties.length > 0">
     <thead>
-    <tr *ngIf="sorties && sorties.length > 0">
+    <tr>
       <th>Status</th>
       <th>Chauffeur</th>
       <th>Téléphone</th>
@@ -16,18 +16,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let sortie of sorties">
-      <td *ngIf="sortie.status" style="background-color: green; color: white; font-weight: bolder">En cours</td>
-      <td *ngIf="!sortie.status" style="background-color: red; color: white; font-weight: bolder">Terminée</td>
-      <td>{{ sortie.affectation?.chauffeur?.nom_complet }}</td>
-      <td>{{ sortie.affectation?.chauffeur?.telephone }}</td>
-      <td>{{ sortie.affectation?.vehicule?.immatriculation }}</td>
-      <td>{{ sortie.duree }} Heures</td>
-      <td>{{ sortie.objet }}</td>
-      <td>{{ sortie.destination }}</td>
-      <td>{{ sortie.lieu_depart }}</td>
-      <td>{{ sortie.date_debut | date: 'dd/MM/yyyy HH:mm' }}</td>
-      <td>{{ sortie.date_fin | date: 'dd/MM/yyyy HH:mm' }}</td>
+    <tr *ngFor="let sortie of filtreSorties">
+      <td [ngStyle]="{'background-color': sortie.status ? 'green' : 'red', 'color': 'white', 'font-weight': 'bolder'}">
+        {{ sortie.status ? 'En cours' : 'Terminée' }}
+      </td>
+      <td>{{ sortie?.affectation?.chauffeur?.nom_complet || 'N/A' }}</td>
+      <td>{{ sortie?.affectation?.chauffeur?.telephone || 'N/A' }}</td>
+      <td>{{ sortie?.affectation?.vehicule?.immatriculation || 'N/A' }}</td>
+      <td>{{ sortie?.duree || 0 }} Heures</td>
+      <td>{{ sortie?.objet || 'N/A' }}</td>
+      <td>{{ sortie?.destination || 'N/A' }}</td>
+      <td>{{ sortie?.lieu_depart || 'N/A' }}</td>
+      <td>{{ sortie?.date_debut | date: 'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ sortie?.date_fin | date: 'dd/MM/yyyy HH:mm' }}</td>
       <td>
         <button mat-icon-button (click)="modifier(sortie)">
           <img src="../../../assets/edit.png" alt="modifier">
@@ -36,7 +37,8 @@
     </tr>
     </tbody>
   </table>
-</div>
-<div *ngIf="sorties && sorties.length === 0">
-  <p>{{message}}</p>
+
+  <div *ngIf="sorties.length === 0">
+    <p>{{ message || "Aucune sortie disponible." }}</p>
+  </div>
 </div>

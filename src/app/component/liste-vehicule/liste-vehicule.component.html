@@ -1,13 +1,13 @@
-<div *ngIf="filtrevehicules && filtrevehicules.length > 0" class="container">
+<div class="container">
   <div class="filter-container">
     <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher" />
   </div>
 
-  <div *ngIf="filtrevehicules.length > 0" class="container">
+  <div  *ngIf="filtrevehicules && filtrevehicules.length > 0" class="container">
     <table class="table">
       <thead>
       <tr>
-        <th>Staus</th>
+        <th>Numéro</th>
         <th>Immatriculation </th>
         <th>Modèle</th>
         <th>Commentaire</th>
@@ -40,3 +40,4 @@
 <div *ngIf="filtrevehicules.length==0">
   <p class="non-vehicule"> {{message}}</p>
 </div>
+

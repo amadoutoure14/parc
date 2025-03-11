@@ -1,9 +1,9 @@
-<div *ngIf="filtrerPointages && filtrerPointages.length > 0" class="container">
+<div  class="container">
   <div class="filter-container">
     <input matInput type="text" [(ngModel)]="filterTerm" (input)="filtrerListe()" placeholder="Rechercher" />
   </div>
 
-  <table class="table">
+  <table *ngIf="filtrerPointages && filtrerPointages.length > 0" class="table">
     <thead>
     <tr>
       <th>Véhicule</th>
@@ -12,16 +12,16 @@
     </thead>
     <tbody>
     <tr *ngFor="let pointage of filtrerPointages">
-      <td>{{ pointage.vehicule?.immatriculation }}</td>
+      <td>{{ pointage.vehicule.immatriculation }}</td>
       <td>{{ pointage.date | date: 'dd/MM/yyyy' }}</td>
     </tr>
     </tbody>
   </table>
 </div>
 
-<p *ngIf="filtrerPointages.length === 0 && !filterTerm" class="text-center text-danger fw-bold">
+<p *ngIf="filtrerPointages.length === 0 && !filterTerm" class="non-pointer">
   {{ message }}
 </p>
-<p *ngIf="filtrerPointages.length === 0 && filterTerm" class="text-center text-danger fw-bold">
+<p *ngIf="filtrerPointages.length === 0 && filterTerm" class="non-trouve">
   Aucun résultat trouvé
 </p>

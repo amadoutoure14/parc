@@ -99,11 +99,6 @@ export class ListeVehiculeComponent implements OnInit {
     });
   }
 
-  convertStringToDate(dateStr: string): Date {
-    const [day, month, year] = dateStr.split('/');
-    return new Date(Number(year), Number(month) - 1, Number(day));
-  }
-
 
 }
 

@@ -14,18 +14,6 @@
       Modèle requis
     </div>
 
-    <label for="debut">Début de location</label>
-    <input type="date" id="debut" formControlName="debut_location" />
-    <div class="error" *ngIf="vehiculeForm.get('debut_location')?.touched && vehiculeForm.get('debut_location')?.hasError('required')">
-      Début de location requis
-    </div>
-
-    <label for="fin">Fin de location</label>
-    <input type="date" id="fin" formControlName="fin_location" />
-    <div class="error" *ngIf="vehiculeForm.get('fin_location')?.touched && vehiculeForm.get('fin_location')?.hasError('required')">
-      Fin de location requise
-    </div>
-
     <label for="commentaire">Commentaire</label>
     <input id="commentaire" formControlName="commentaire" />
 

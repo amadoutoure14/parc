@@ -67,3 +67,11 @@ input:focus {
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
   outline: none;
 }
+.non-pointer , .non-trouve{
+  padding-top: 12%;
+  font-size: 26px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

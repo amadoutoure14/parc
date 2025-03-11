@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatIconButton} from '@angular/material/button';
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf, NgIf, NgStyle} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
 import {ModifierSortieComponent} from '../modifier-sortie/modifier-sortie.component';
@@ -12,7 +12,8 @@ import {MatDialog} from '@angular/material/dialog';
     MatIconButton,
     NgIf,
     NgForOf,
-    DatePipe
+    DatePipe,
+    NgStyle
   ],
   providers: [
     DatePipe
@@ -25,27 +26,28 @@ export class ListeSortieComponent implements OnInit {
   sorties: Sortie[] = [];
   filtreSorties: Sortie[] = [];
   message="";
-
-  constructor(
-    private service: SortieService,
-    private dialog: MatDialog
-  ) {}
-
+  constructor(private service: SortieService, private dialog: MatDialog) {}
   ngOnInit(): void {
     this.service.listeSortie().subscribe({
       next: data => {
-        if (data.sortie && data.sorties.length > 0) {
+
+        if (data && data.sortie && Array.isArray(data.sortie) && data.sortie.length > 0) {
           this.sorties = data.sortie;
-          this.filtreSorties=[...this.sorties]
-          this.message=data.message;
-        }else {
-          this.sorties=[]
-          this.filtreSorties=[]
-          this.message=data.message;
+          this.filtreSorties = [...this.sorties];
+          this.message = data.message;
+        } else {
+          this.sorties = [];
+          this.filtreSorties = [];
+          this.message = data?.message || "Aucune sortie trouvée.";
         }
+      },
+      error: err => {
+        console.error("Erreur lors de la récupération des sorties:", err);
+        this.message = "Erreur lors du chargement des sorties.";
       }
     });
   }
+
 
   modifier(sortie: Sortie): void {
     const dialogRef = this.dialog.open(

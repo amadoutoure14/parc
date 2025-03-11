@@ -27,8 +27,6 @@ export class AjouterVehiculeComponent implements OnInit {
     this.vehiculeForm = this.fb.group({
       immatriculation: ['', Validators.required],
       modele: ['', Validators.required],
-      debut_location: ['', Validators.required],
-      fin_location: ['', Validators.required],
       commentaire: ['']
     });
   }
