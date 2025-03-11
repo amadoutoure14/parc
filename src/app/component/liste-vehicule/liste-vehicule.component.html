@@ -1,4 +1,4 @@
-<div *ngIf="vehicules && vehicules.length > 0" class="container">
+<div *ngIf="filtrevehicules && filtrevehicules.length > 0" class="container">
   <div class="filter-container">
     <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher" />
   </div>
@@ -8,20 +8,17 @@
       <thead>
       <tr>
         <th>Staus</th>
-        <th>Immatriculation</th>
+        <th>Immatriculation </th>
         <th>Modèle</th>
         <th>Commentaire</th>
         <th>Carburant</th>
         <th>Sortie</th>
-        <th>Début de location</th>
-        <th>Fin de location</th>
         <th>Modifier</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let vehicule of filtrevehicules; let i = index">
-        <td *ngIf="vehicule.parc" style="background-color: green; color: white; font-weight: bolder">Présent</td>
-        <td *ngIf="!vehicule.parc" style="background-color: red; color: white; font-weight: bolder">Absent</td>
+        <td>{{i+1}}</td>
         <td>{{ vehicule.immatriculation }}</td>
         <td>{{ vehicule.modele }}</td>
         <td>{{ vehicule.commentaire }}</td>
@@ -29,8 +26,6 @@
         <td [ngClass]="{'disponible': vehicule.sortie, 'non-disponible': !vehicule.sortie}">
           {{ vehicule.sortie ? 'Oui':'Non'  }}
         </td>
-        <td>{{ vehicule.debut_location  | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ vehicule.fin_location  | date: 'dd/MM/yyyy' }}</td>
         <td>
           <button mat-icon-button (click)="modifier(vehicule)">
             <img src="../../../assets/edit.png" alt="modifier">

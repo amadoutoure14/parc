@@ -18,13 +18,10 @@ export class VehiculeService {
   }
 
   listeVehicule(): Observable<any>{
-    const url = `${this.apiUrl}/vehicule/liste`;
-    return this.http.get<any>(url)
+    const url=`${this.apiUrl}/vehicule/liste`
+    return this.http.get<any>(url);
   }
- listeVehiculeParc(): Observable<any>{
-    const url = `${this.apiUrl}/vehicule/parc`;
-    return this.http.get<any>(url)
-  }
+
 
   vehiculeDatesEnregistrement(debut: string, fin: string): Observable<any> {
    const url= `${this.apiUrl}/vehicule/dates/liste/d?debut=${debut}&fin=${fin}`;
@@ -37,15 +34,18 @@ export class VehiculeService {
   }
 
 
-  rechercherVehiculeDisponibleDate(formatted: string | null):Observable<Vehicule[]> {
-    const url = `${this.apiUrl}/vehicule/index/date/disponible/d?date=${formatted}`;
-    return this.http.get<Vehicule[]>(url);
-  }
+  /*
+   rechercherVehiculeDisponibleDate(formatted: string | null):Observable<Vehicule[]> {
+     const url = `${this.apiUrl}/vehicule/index/date/disponible/d?date=${formatted}`;
+     return this.http.get<Vehicule[]>(url);
+   }
 
-  imprimerVehiculeDisponibleDate(formatted: string):Observable<Blob>{
-    const url = `${this.apiUrl}/vehicule/index/date/disponible/pdf/d?date=${formatted}`;
-    return this.http.get(url, { responseType:'blob'});
-  }
+   imprimerVehiculeDisponibleDate(formatted: string):Observable<Blob>{
+     const url = `${this.apiUrl}/vehicule/index/date/disponible/pdf/d?date=${formatted}`;
+     return this.http.get(url, { responseType:'blob'});
+   }
+
+  */
 
   vehicule(id: number) :Observable<Vehicule> {
     return this.http.get<Vehicule>(`${this.apiUrl}/sortie/index/id/${id}/info`);

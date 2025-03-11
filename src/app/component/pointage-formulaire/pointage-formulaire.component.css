@@ -1,7 +1,9 @@
 .table {
-  width: 100%;
+  width: 98%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
   font-family: 'Arial', sans-serif;
 }
 
@@ -47,8 +49,13 @@
 .submit{
   background-color: #2f8db8;
   border-radius: 0;
-  color: black;
+  color: white;
   width: 80%;
   height: 80%;
   padding: 2%;
 }
+button:disabled {
+  background-color: black;
+  opacity: 0.1;
+}
+

@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {ModifierSortieComponent} from '../modifier-sortie/modifier-sortie.component';
 import {MatDialog} from '@angular/material/dialog';
 
@@ -14,7 +12,7 @@ import {MatDialog} from '@angular/material/dialog';
     MatIconButton,
     NgIf,
     NgForOf,
-    DatePipe,
+    DatePipe
   ],
   providers: [
     DatePipe
@@ -25,6 +23,8 @@ import {MatDialog} from '@angular/material/dialog';
 export class ListeSortieComponent implements OnInit {
 
   sorties: Sortie[] = [];
+  filtreSorties: Sortie[] = [];
+  message="";
 
   constructor(
     private service: SortieService,
@@ -34,10 +34,15 @@ export class ListeSortieComponent implements OnInit {
   ngOnInit(): void {
     this.service.listeSortie().subscribe({
       next: data => {
-        this.sorties = data.sortie;
-      },
-      error: err => {
-        console.log(err);
+        if (data.sortie && data.sorties.length > 0) {
+          this.sorties = data.sortie;
+          this.filtreSorties=[...this.sorties]
+          this.message=data.message;
+        }else {
+          this.sorties=[]
+          this.filtreSorties=[]
+          this.message=data.message;
+        }
       }
     });
   }

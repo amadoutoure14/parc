@@ -5,7 +5,6 @@
       <mat-select formControlName="affectation">
         <mat-option *ngFor="let affectation of affectations" [value]="affectation">
           Nom de l'affectation : {{ affectation.nom_affectation }} <br>
-          L'intervalle de location : {{ affectation.vehicule?.debut_location | date:'dd/MM/yyyy' }} - {{ affectation.vehicule?.fin_location | date:'dd/MM/yyyy' }} <br>
           La dernière sortie :
           <ng-container *ngIf="derniereSortie">
             {{ derniereSortie.date_debut | date:'dd/MM/yyyy HH:mm' }} - {{ derniereSortie.date_fin | date:'dd/MM/yyyy HH:mm' }}

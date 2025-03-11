@@ -21,37 +21,34 @@
 <div class="filter-container">
   <input class="input-barre" matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher" />
 </div>
+
 <div *ngIf="filtrevehicules.length > 0" class="container">
   <table class="table">
     <thead>
     <tr>
-      <th>Numéro</th>
-      <th>Immatriculation</th>
+      <th>Staus</th>
+      <th>Immatriculation </th>
       <th>Modèle</th>
       <th>Commentaire</th>
       <th>Carburant</th>
-      <th>Disponible</th>
-      <th>Début de location</th>
-      <th>Fin de location</th>
+      <th>Sortie</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let vehicule of filtrevehicules; let i = index">
-      <td>{{ i + 1 }}</td>
+      <td>{{i+1}}</td>
       <td>{{ vehicule.immatriculation }}</td>
       <td>{{ vehicule.modele }}</td>
       <td>{{ vehicule.commentaire }}</td>
       <td>{{getTotalCarburant(vehicule.carburants)}} Litres</td>
-      <td [ngClass]="{'disponible': !vehicule.sortie, 'non-disponible': vehicule.sortie}">
-        {{ vehicule.sortie ? 'Non': 'Oui'  }}
+      <td [ngClass]="{'disponible': vehicule.sortie, 'non-disponible': !vehicule.sortie}">
+        {{ vehicule.sortie ? 'Oui':'Non'  }}
       </td>
-      <td>{{ vehicule.debut_location  | date: 'dd/MM/yyyy' }}</td>
-      <td>{{ vehicule.fin_location  | date: 'dd/MM/yyyy' }}</td>
     </tr>
     </tbody>
   </table>
+</div>
 
-  <div *ngIf="filtrevehicules.length === 0">
-    <p>Aucun véhicule trouvé</p>
-  </div>
+<div *ngIf="filtrevehicules.length==0">
+  <p class="non-vehicule"> {{message}}</p>
 </div>

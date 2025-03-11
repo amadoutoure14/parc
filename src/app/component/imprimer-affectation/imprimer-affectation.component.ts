@@ -16,8 +16,7 @@ import {Carburant} from '../../modeles/Carburant';
         MatButton,
         MatIcon,
         NgForOf,
-        NgIf,
-        DatePipe
+        NgIf
     ],
   templateUrl: './imprimer-affectation.component.html',
   styleUrl: './imprimer-affectation.component.css'

@@ -1,5 +1,5 @@
 <div class="filter-container">
-  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterAffectations()" placeholder="Filtrer par nom, téléphone ou immatriculation" />
+  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterAffectations()" placeholder="Rechercher" />
 </div>
 
 <div *ngIf="affectationsFiltre && affectationsFiltre.length > 0" class="container">
@@ -11,7 +11,6 @@
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
-      <th>Location</th>
       <th>Carburant</th>
       <th>Actions</th>
     </tr>
@@ -23,7 +22,6 @@
       <td>{{affectation.chauffeur?.nom_complet}}</td>
       <td>{{affectation.chauffeur?.telephone}}</td>
       <td>{{affectation.vehicule?.immatriculation}}</td>
-      <td>{{affectation.vehicule?.debut_location | date: 'dd/MM/yyyy' }} - {{affectation.vehicule?.fin_location  | date: 'dd/MM/yyyy' }}</td>
       <td>{{totalCarburant(affectation.vehicule?.carburants)}} Litres</td>
       <td>
         <button mat-icon-button (click)="modifier(affectation)">

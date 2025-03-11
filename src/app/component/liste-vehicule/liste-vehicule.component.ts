@@ -5,7 +5,6 @@ import {VehiculeService} from '../../services/vehicule.service';
 import {Carburant} from '../../modeles/Carburant';
 import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
-import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
@@ -21,7 +20,6 @@ import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.
     NgClass,
     NgIf,
     NgForOf,
-    DatePipe
   ],
   providers:[DatePipe],
   styleUrls: ['./liste-vehicule.component.css']
@@ -32,22 +30,20 @@ export class ListeVehiculeComponent implements OnInit {
   filterTerm = '';
    message="";
 
-  constructor(private snackBar: MatSnackBar, private service: VehiculeService, public dialog: MatDialog, private datePipe: DatePipe) { }
+  constructor(private snackBar: MatSnackBar, private service: VehiculeService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.service.listeVehicule().subscribe({
-      next: (data: any) => {
-        if (data.vehicule) {
+      next: data => {
+        if (data.vehicule && data.vehicule.length > 0) {
           this.vehicules = data.vehicule;
           this.filtrevehicules = [...this.vehicules];
-        }else{
-          this.vehicules=[]
-          this.filtrevehicules=[]
+          this.message=data.message;
+        } else {
+          this.vehicules = [];
+          this.filtrevehicules = [];
+          this.message=data.message;
         }
-        this.message = data.message || '';
-      },
-      error: (err) => {
-        console.log(err);
       }
     });
   }
@@ -73,33 +69,20 @@ export class ListeVehiculeComponent implements OnInit {
 
   modifier(vehicule: Vehicule) {
 
-    const debutLocationDate = vehicule.debut_location ? this.convertStringToDate(vehicule.debut_location) : null;
-    const finLocationDate = vehicule.fin_location ? this.convertStringToDate(vehicule.fin_location) : null;
-
-    const formattedDebutLocation = debutLocationDate ? this.datePipe.transform(debutLocationDate, "yyyy-MM-dd") : '';
-    const formattedFinLocation = finLocationDate ? this.datePipe.transform(finLocationDate, "yyyy-MM-dd") : '';
-
     const dialogRef = this.dialog.open(ModifierVehiculeComponent, {
       width: '900px',
       height: 'auto',
-      data: {
-        vehicule: {
-          ...vehicule,
-          debut_location: formattedDebutLocation,
-          fin_location: formattedFinLocation
-        }
-      }
+      data: {vehicule}
     });
 
     dialogRef.afterClosed().subscribe({
-      next: (data) => {
+      next: () => {
         this.service.listeVehicule().subscribe({
           next: (data: any) => {
             if (data && data.vehicule) {
               this.vehicules = data.vehicule;
               this.filtrevehicules = [...this.vehicules];
             } else {
-              // Gérer le cas où les données sont vides ou mal formées
               this.snackBar.open('Erreur lors de la récupération des véhicules.', 'Fermer', { duration: 3000 });
             }
           },

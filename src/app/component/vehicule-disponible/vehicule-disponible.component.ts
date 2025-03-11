@@ -20,7 +20,7 @@ import { ModifierVehiculeComponent } from '../modifier-vehicule/modifier-vehicul
   providers: [DatePipe],
   imports: [
     MatTableModule, MatInputModule, FormsModule, MatIconModule, MatButtonModule, MatSnackBarModule, MatDialogModule,
-    NgForOf, NgIf, NgClass, DatePipe
+    NgForOf, NgIf
   ],
   templateUrl: './vehicule-disponible.component.html',
   styleUrls: ['./vehicule-disponible.component.css']
@@ -64,21 +64,11 @@ export class VehiculeDisponibleComponent implements OnInit {
   }
 
   modifier(vehicule: Vehicule) {
-    const debutLocationDate = vehicule.debut_location ? this.convertStringToDate(vehicule.debut_location) : null;
-    const finLocationDate = vehicule.fin_location ? this.convertStringToDate(vehicule.fin_location) : null;
-
-    const formattedDebutLocation = debutLocationDate ? this.datePipe.transform(debutLocationDate, "yyyy-MM-dd") : '';
-    const formattedFinLocation = finLocationDate ? this.datePipe.transform(finLocationDate, "yyyy-MM-dd") : '';
-
     const dialogRef = this.dialog.open(ModifierVehiculeComponent, {
       width: '900px',
       height: 'auto',
       data: {
-        vehicule: {
-          ...vehicule,
-          debut_location: formattedDebutLocation,
-          fin_location: formattedFinLocation
-        }
+        vehicule: {vehicule}
       }
     });
 

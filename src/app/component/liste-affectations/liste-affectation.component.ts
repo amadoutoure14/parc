@@ -15,12 +15,10 @@ import {ModifierAffectationComponent} from '../modifier-affectation/modifier-aff
   selector: 'app-liste-affectations',
     imports: [
         FormsModule,
-
         MatIconButton,
         MatInput,
         NgForOf,
         NgIf,
-        DatePipe
     ],
   templateUrl: './liste-affectation.component.html',
   styleUrl: './liste-affectation.component.css'

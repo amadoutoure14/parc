@@ -75,6 +75,7 @@ export class ImprimerSortieComponent {
        this.filtreSorties = this.sorties.filter(sortie => {
          return (
            sortie.destination?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
+           sortie.lieu_depart?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
            sortie.objet?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
            sortie.affectation?.chauffeur?.nom_complet?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
            sortie.affectation?.chauffeur?.telephone?.toLowerCase().includes(this.filterTerm.toLowerCase()) ||

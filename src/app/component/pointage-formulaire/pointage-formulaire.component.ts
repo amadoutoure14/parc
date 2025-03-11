@@ -5,6 +5,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {PointageService} from '../../services/pointage.service';
 
 
 @Component({
@@ -19,21 +20,33 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrl: './pointage-formulaire.component.css'
 })
 export class PointageFormulaireComponent implements OnInit {
-   vehicules: Vehicule[]=[];
+  vehicules: Vehicule[] = [];
 
-  constructor(private VehiculeService:VehiculeService, private snackBar: MatSnackBar) {
-  }
-
-  cocher: boolean=false;
+  constructor(
+    private VehiculeService: VehiculeService,
+    private snackBar: MatSnackBar,
+    private service: PointageService
+  ) {}
 
   ngOnInit(): void {
-    this.VehiculeService.listeVehiculeParc().subscribe({next: (data: any) => {this.vehicules = data.vehicule;this.snackBar.open(data.message,"Fermer",{duration:3000})}});
+    this.VehiculeService.listeVehicule().subscribe({
+      next: (data: any) => {
+        this.vehicules = data.vehicule;
+        this.snackBar.open(data.message, "Fermer", { duration: 3000 });
+      }
+    });
   }
 
   submit(vehicule: Vehicule) {
- if (this.cocher){
-   console.log(vehicule);
-   this.cocher=false
- }
+    if (vehicule.cocher) {
+      this.service.pointer(vehicule.id).subscribe({
+        next: (data: any) => {
+          vehicule.cocher = false;
+          this.snackBar.open(data.message, "Fermer", { duration: 3000 });
+        }
+      });
+    }
   }
 }
+
+

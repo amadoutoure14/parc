@@ -89,6 +89,7 @@
 }
 
 .titre{
+  width: 100vw;
   color: white;
   display: flex;
   padding-left: 526px;

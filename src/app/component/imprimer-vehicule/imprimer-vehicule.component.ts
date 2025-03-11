@@ -21,8 +21,7 @@ import {MatInput} from '@angular/material/input';
         NgForOf,
         NgIf,
         MatInput,
-        NgClass,
-        DatePipe
+        NgClass
     ],
   styleUrls: ['./imprimer-vehicule.component.css']
 })
@@ -33,6 +32,7 @@ export class ImprimerVehiculeComponent {
   vehicules: Vehicule[] = [];
   filtrevehicules: Vehicule[] = [];
   filterTerm = '';
+  message="";
 
   constructor(private service: VehiculeService,private datePipe:DatePipe, private snackBar:MatSnackBar) { }
 
@@ -47,9 +47,11 @@ export class ImprimerVehiculeComponent {
       next: (data) => {
         if (data.vehicule.length === 0) {
           this.vehicules=[]
+          this.message=data.message;
         }else {
           this.vehicules = data.vehicule;
           this.filtrevehicules = this.vehicules;
+          this.message=data.message;
           this.snackBar.open(data.message,'Fermer',  { duration: 3000 });
         }
       }

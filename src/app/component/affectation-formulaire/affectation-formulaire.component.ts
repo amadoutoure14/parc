@@ -64,7 +64,6 @@ export class AffectationFormulaireComponent implements OnInit {
 
     this.chauffeurService.listeChauffeur().subscribe({
       next: (data) => {
-        console.log('Données chauffeurs:', data);
         this.chauffeurs = data.chauffeur || data;
         if (this.chauffeurs.length > 0) {
           this.selectedChauffeur = this.chauffeurs[0];
