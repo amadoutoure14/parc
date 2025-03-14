@@ -39,14 +39,27 @@ export class PointageFormulaireComponent implements OnInit {
 
   submit(vehicule: Vehicule) {
     if (vehicule.cocher) {
-      this.service.pointer(vehicule.id).subscribe({
+      this.service.pointer(vehicule.datePointage, vehicule.id).subscribe({
         next: (data: any) => {
           vehicule.cocher = false;
+          vehicule.datePointage = null;
           this.snackBar.open(data.message, "Fermer", { duration: 3000 });
+        },
+        error: (err) => {
+          const errorMessage = err.error?.message || "Une erreur est survenue";
+          this.snackBar.open(errorMessage, "Fermer", { duration: 3000 });
         }
       });
     }
   }
+
+
+  resetDate(vehicule: Vehicule) {
+    if (!vehicule.cocher) {
+      vehicule.datePointage = null;
+    }
+  }
+
 }
 
 

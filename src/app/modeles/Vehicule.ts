@@ -10,6 +10,7 @@ export class Vehicule {
   sortie?: boolean | null;
   chauffeur?: boolean | null;
   cocher?: boolean;
+  datePointage?:Date| null;
 
 
   constructor(id: number | null, immatriculation: string, modele: string, commentaire: string, date: string | null, carburants: Carburant[] | null, sortie: boolean | null, chauffeur: boolean | null, cocher: boolean) {

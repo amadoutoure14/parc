@@ -1,0 +1,26 @@
+<table *ngIf="chauffeurs && chauffeurs.length > 0" class="table">
+  <thead>
+  <tr>
+    <th>Chauffeur</th>
+    <th>Nom et Prénom</th>
+    <th>Pointer</th>
+    <th>Soumettre</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let chauffeur of chauffeurs; let i = index">
+    <td>{{ chauffeur.nom_complet }}</td>
+    <td>{{ chauffeur.telephone }}</td>
+    <td>
+      <input type="checkbox" [(ngModel)]="chauffeur.cocher" (ngModelChange)="resetDate(chauffeur)">
+      <input type="date" [(ngModel)]="chauffeur.datePointage" *ngIf="chauffeur.cocher">
+    </td>
+    <td>
+      <button mat-flat-button (click)="submit(chauffeur)" class="submit" [disabled]="!chauffeur.cocher">
+        Pointer
+      </button>
+    </td>
+  </tr>
+
+  </tbody>
+</table>

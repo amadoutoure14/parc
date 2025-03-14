@@ -27,8 +27,8 @@
       <td>{{ sortie?.objet || 'N/A' }}</td>
       <td>{{ sortie?.destination || 'N/A' }}</td>
       <td>{{ sortie?.lieu_depart || 'N/A' }}</td>
-      <td>{{ sortie?.date_debut | date: 'dd/MM/yyyy HH:mm' }}</td>
-      <td>{{ sortie?.date_fin | date: 'dd/MM/yyyy HH:mm' }}</td>
+      <td>{{ sortie?.date_debut ? (sortie.date_debut | date: 'dd/MM/yyyy HH:mm') : 'À déterminer' }}</td>
+      <td>{{ sortie?.date_fin ? (sortie.date_fin | date: 'dd/MM/yyyy HH:mm') : 'À déterminer' }}</td>
       <td>
         <button mat-icon-button (click)="modifier(sortie)">
           <img src="../../../assets/edit.png" alt="modifier">

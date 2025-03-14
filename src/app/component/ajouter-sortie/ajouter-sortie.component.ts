@@ -39,9 +39,7 @@ export class AjouterSortieComponent implements OnInit {
       affectation: [null, Validators.required],
       objet: ['', Validators.required],
       destination: ['', Validators.required],
-      lieu_depart: ['', Validators.required],
-      date_debut: ['', Validators.required],
-      date_fin: ['', Validators.required],
+      lieu_depart: ['', Validators.required]
     });
 
     this.affectationService.listeAffectations().subscribe({

@@ -1,4 +1,4 @@
-/* Conteneur principal */
+
 .container {
   padding: 10px;
   background-color: transparent !important;
@@ -6,7 +6,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Tableau */
+
 .table {
   width: 100%;
   border-collapse: collapse;

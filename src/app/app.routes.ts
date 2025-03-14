@@ -30,6 +30,14 @@ import {PointageComponent} from './pages/pointage/pointage.component';
 import {ImprimerPointageComponent} from './component/imprimer-pointage/imprimer-pointage.component';
 import {ListePointageComponent} from './component/liste-pointage/liste-pointage.component';
 import {PointageFormulaireComponent} from './component/pointage-formulaire/pointage-formulaire.component';
+import {PointageChauffeurComponent} from './pages/pointage-chauffeur/pointage-chauffeur.component';
+import {
+  PointageChauffeurFormulaireComponent
+} from './component/pointage-chauffeur-formulaire/pointage-chauffeur-formulaire.component';
+import {
+  ImprimerPointageChauffeurComponent
+} from './component/imprimer-pointage-chauffeur/imprimer-pointage-chauffeur.component';
+import {ListePointageChauffeurComponent} from './component/liste-pointage-chauffeur/liste-pointage-chauffeur.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -56,6 +64,14 @@ export const routes: Routes = [
       {path: 'pointer',component: PointageFormulaireComponent},
       {path: 'imprimer',component: ImprimerPointageComponent},
       {path: 'liste',component: ListePointageComponent},
+      {path: '',redirectTo: 'liste',pathMatch: 'full'},
+    ]
+  },
+  { path: 'pointage-chauffeur', component: PointageChauffeurComponent ,
+    children:[
+      {path: 'pointer',component: PointageChauffeurFormulaireComponent},
+      {path: 'imprimer',component: ImprimerPointageChauffeurComponent},
+      {path: 'liste',component: ListePointageChauffeurComponent},
       {path: '',redirectTo: 'liste',pathMatch: 'full'},
     ]
   },

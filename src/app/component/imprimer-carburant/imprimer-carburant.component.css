@@ -1,4 +1,3 @@
-/* Conteneur principal */
 .container {
   padding: 10px;
   background-color: transparent !important;
@@ -52,7 +51,6 @@ label {
   background-color: #3598c1;
 }
 
-/* Tableau */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -60,7 +58,6 @@ label {
   font-family: 'Arial', sans-serif;
 }
 
-/* En-têtes du tableau */
 .table th {
   background-color: #3FAAD8;
   color: white;
@@ -70,7 +67,6 @@ label {
   text-align: center;
 }
 
-/* Cellules du tableau */
 .table td {
   background-color: #fff;
   padding: 12px 15px;
@@ -79,30 +75,25 @@ label {
   border-bottom: 1px solid #ddd;
 }
 
-/* Ligne survolée */
 .table tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Bordure de la table */
 .table {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* Bordure sur chaque cellule */
 .table td, .table th {
   border-left: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
 
-/* Suppression de la bordure sur la première colonne et ligne */
 .table th:first-child, .table td:first-child {
   border-left: none;
 }
 
-/* Suppression de la bordure sur la dernière ligne */
 .table tr:last-child td {
   border-bottom: none;
 }

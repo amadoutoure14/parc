@@ -29,26 +29,6 @@
       </div>
     </div>
 
-    <!-- Début de location -->
-    <div class="form-row">
-      <div class="form-group">
-        <label for="debut_location">Début de location</label>
-        <input type="date" id="debut_location" formControlName="debut_location" />
-        <div *ngIf="vehiculeForm.get('debut_location')?.invalid && submitted" class="error">
-          Début de location requis
-        </div>
-      </div>
-
-      <!-- Fin de location -->
-      <div class="form-group">
-        <label for="fin_location">Fin de location</label>
-        <input type="date" id="fin_location" formControlName="fin_location" />
-        <div *ngIf="vehiculeForm.get('fin_location')?.invalid && submitted" class="error">
-          Fin de location requise
-        </div>
-      </div>
-    </div>
-
     <div class="buttons">
       <button type="submit" [disabled]="vehiculeForm.invalid">Enregistrer</button>
       <button class="annuler" type="button" (click)="close()">Annuler</button>

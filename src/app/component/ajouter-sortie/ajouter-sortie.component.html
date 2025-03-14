@@ -35,20 +35,7 @@
       <label for="destination">Destination</label>
       <input id="destination" type="text" placeholder="Saisir la destination" formControlName="destination" class="input-large">
     </div>
-
-    <!-- Date de départ -->
-    <div class="input-group">
-      <label for="date_debut">Date de départ</label>
-      <input id="date_debut" type="datetime-local" placeholder="Saisir la date de départ" formControlName="date_debut" class="input-large">
-    </div>
-
-    <!-- Date d'arrivée -->
-    <div class="input-group">
-      <label for="date_fin">Date d'arrivée</label>
-      <input id="date_fin" type="datetime-local" placeholder="Saisir la date d'arrivée" formControlName="date_fin" class="input-large">
-    </div>
-
-
+    
     <button  [disabled]="sortieForm.invalid">SOUMETTRE</button>
   </form>
 </div>

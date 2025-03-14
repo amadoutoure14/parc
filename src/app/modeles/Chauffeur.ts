@@ -4,6 +4,8 @@ export class Chauffeur {
   permis: string;
   telephone: string;
   date: string|null;
+  datePointage?: string|null;
+  cocher?: boolean;
 
 
   constructor(id: number | null, nom_complet: string, permis: string, telephone: string, date: string | null) {

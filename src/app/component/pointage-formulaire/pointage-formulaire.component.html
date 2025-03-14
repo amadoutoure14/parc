@@ -2,6 +2,7 @@
   <thead>
   <tr>
     <th>Véhicule</th>
+    <th>Modèle</th>
     <th>Pointer</th>
     <th>Soumettre</th>
   </tr>
@@ -9,14 +10,17 @@
   <tbody>
   <tr *ngFor="let vehicule of vehicules; let i = index">
     <td>{{ vehicule.immatriculation }}</td>
+    <td>{{ vehicule.modele }}</td>
     <td>
-      <input type="checkbox" [(ngModel)]="vehicule.cocher">
+      <input type="checkbox" [(ngModel)]="vehicule.cocher" (ngModelChange)="resetDate(vehicule)">
+      <input type="date" [(ngModel)]="vehicule.datePointage" *ngIf="vehicule.cocher">
     </td>
     <td>
-      <button mat-flat-button (click)="submit(vehicule)"
-              class="submit"
-              [disabled]="!vehicule.cocher">Pointer</button>
+      <button mat-flat-button (click)="submit(vehicule)" class="submit" [disabled]="!vehicule.cocher">
+        Pointer
+      </button>
     </td>
   </tr>
+
   </tbody>
 </table>
