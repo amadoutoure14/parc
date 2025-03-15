@@ -68,7 +68,6 @@ export class ListePointageChauffeurComponent  implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
-
     setTimeout(() => {
       this.sort.active = 'date';
       this.sort.direction = 'asc';
