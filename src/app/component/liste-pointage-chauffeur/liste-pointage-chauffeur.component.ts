@@ -70,7 +70,7 @@ export class ListePointageChauffeurComponent  implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     setTimeout(() => {
       this.sort.active = 'date';
-      this.sort.direction = 'asc';
+      this.sort.direction = 'desc';
       this.sort.sortChange.emit();
     });
   }

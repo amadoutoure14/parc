@@ -37,13 +37,11 @@ import {Affectation} from '../../modeles/Affectation';
 })
 export class AffectationFormulaireComponent implements OnInit {
 
-  // @ts-ignore
   affectation: Affectation = new Affectation();
   chauffeurs: Chauffeur[] = [];
   vehicules: Vehicule[] = [];
-  selectedChauffeur!: Chauffeur;
-  selectedVehicule!: Vehicule;
-  nom: string = '';
+  selectedChauffeur!: Chauffeur|null;
+  selectedVehicule!: Vehicule|null;
 
   constructor(private service: AffectationService, private chauffeurService: ChauffeurService, private vehiculeService: VehiculeService, private snackBar: MatSnackBar) {
 
@@ -52,10 +50,7 @@ export class AffectationFormulaireComponent implements OnInit {
   ngOnInit(): void {
     this.vehiculeService.listeVehicule().subscribe({
       next: (data) => {
-        this.vehicules = data.vehicule || data;
-        if (this.vehicules.length > 0) {
-          this.selectedVehicule = this.vehicules[0];
-        }
+        this.vehicules = data.vehicule;
       },
       error: () => {
         this.snackBar.open('Erreur lors du chargement des véhicules', 'Fermer', { duration: 3000 });
@@ -64,10 +59,7 @@ export class AffectationFormulaireComponent implements OnInit {
 
     this.chauffeurService.listeChauffeur().subscribe({
       next: (data) => {
-        this.chauffeurs = data.chauffeur || data;
-        if (this.chauffeurs.length > 0) {
-          this.selectedChauffeur = this.chauffeurs[0];
-        }
+        this.chauffeurs = data.chauffeur;
       },
       error: () => {
         this.snackBar.open('Erreur lors du chargement des chauffeurs', 'Fermer', { duration: 3000 });
@@ -76,17 +68,14 @@ export class AffectationFormulaireComponent implements OnInit {
   }
 
   affecterChauffeur() {
-    if (!this.nom.trim()) {
-      this.snackBar.open('Veuillez entrer un nom pour l’affectation.', 'Fermer', { duration: 3000 });
-      return;
-    }
-
     this.affectation.chauffeur = this.selectedChauffeur;
     this.affectation.vehicule = this.selectedVehicule;
-    this.affectation.nom_affectation=this.nom
 
     this.service.nouvelleAffectation(this.affectation).subscribe({
       next: (data) => {
+        this.selectedChauffeur = null;
+        this.selectedVehicule = null;
+        this.affectation = new Affectation();
         this.snackBar.open(`${data.message}`, 'Fermer', { duration: 6000 });
       },
       error: (error) => {

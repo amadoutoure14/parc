@@ -13,9 +13,9 @@ import {RouterLink, RouterOutlet} from '@angular/router';
     RouterLink,
     RouterOutlet
   ],
-  templateUrl: './pointage.component.html',
-  styleUrl: './pointage.component.css'
+  templateUrl: './pointage-vehicule.component.html',
+  styleUrl: './pointage-vehicule.component.css'
 })
-export class PointageComponent {
+export class PointageVehiculeComponent {
 
 }

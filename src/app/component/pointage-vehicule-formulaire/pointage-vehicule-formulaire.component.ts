@@ -16,10 +16,10 @@ import {PointageService} from '../../services/pointage.service';
     NgForOf,
     NgIf
   ],
-  templateUrl: './pointage-formulaire.component.html',
-  styleUrl: './pointage-formulaire.component.css'
+  templateUrl: './pointage-vehicule-formulaire.component.html',
+  styleUrl: './pointage-vehicule-formulaire.component.css'
 })
-export class PointageFormulaireComponent implements OnInit {
+export class PointageVehiculeFormulaireComponent implements OnInit {
   vehicules: Vehicule[] = [];
 
   constructor(

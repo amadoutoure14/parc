@@ -77,8 +77,8 @@ export class ListeAffectationComponent implements OnInit {
   modifier(affectation: Affectation): void {
     const dialogRef = this.dialog.open(ModifierAffectationComponent, {
       data: affectation,
-      width: "900px",
-      height: "600px"
+      width: "800px",
+      height: "500px"
     });
 
     dialogRef.afterClosed().subscribe(() => {

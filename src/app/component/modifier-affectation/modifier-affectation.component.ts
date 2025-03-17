@@ -41,7 +41,6 @@ export class ModifierAffectationComponent implements OnInit {
 
   selectedVehicule: Vehicule | null = null;
   selectedChauffeur: Chauffeur | null = null;
-  nom_affectation: string = "";
 
   constructor(
     private service: AffectationService,
@@ -52,8 +51,6 @@ export class ModifierAffectationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.nom_affectation = this.affectation.nom_affectation || "";
-
     this.chauffeurService.listeChauffeur().subscribe({
       next: (data) => {
         this.chauffeurs = data.chauffeur || [];
@@ -83,7 +80,6 @@ export class ModifierAffectationComponent implements OnInit {
 
     const body = {
       id: this.affectation.id,
-      nom_affectation: this.nom_affectation,
       chauffeur: this.selectedChauffeur?.id || null,
       vehicule: this.selectedVehicule?.id || null
     };

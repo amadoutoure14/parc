@@ -179,7 +179,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
           const today = new Date();
           const dateString = `Fait à ............................... le : ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
           doc.text(dateString, doc.internal.pageSize.width - 92, doc.internal.pageSize.height - 34);
-          doc.save('pointage imprimer le ' + today.toDateString() + '.pdf');
+          doc.save(`Pointage_${today.toISOString().split('T')[0]}.pdf`);
         };
         img.onerror = function () {
           console.error("Erreur lors du chargement de l'image.");

@@ -41,10 +41,10 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
     MatSortHeader,
     MatSort
   ],
-  templateUrl: './liste-pointage.component.html',
-  styleUrl: './liste-pointage.component.css'
+  templateUrl: './liste-pointage-vehicule.component.html',
+  styleUrl: './liste-pointage-vehicule.component.css'
 })
-export class ListePointageComponent implements OnInit, AfterViewInit {
+export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
   pointages: PointageVehicule[] = [];
   dataSource = new MatTableDataSource<PointageVehicule>();
   displayedColumns: string[] = ['index', 'vehicule','modele', 'date'];
@@ -76,7 +76,7 @@ export class ListePointageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.sort.active = 'date';
-    this.sort.direction = 'asc';
+    this.sort.direction = 'desc';
     this.sort.sortChange.emit();
   }
 

@@ -23,7 +23,6 @@
     <thead>
     <tr>
       <th>Numéro</th>
-      <th>Nom de l'affectation</th>
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
@@ -33,7 +32,6 @@
     <tbody>
     <tr *ngFor="let affectation of affectations; let i = index">
       <td>{{i+1}}</td>
-      <td>{{affectation.nom_affectation}}</td>
       <td>{{affectation.chauffeur?.nom_complet}}</td>
       <td>{{affectation.chauffeur?.telephone}}</td>
       <td>{{affectation.vehicule?.immatriculation}}</td>

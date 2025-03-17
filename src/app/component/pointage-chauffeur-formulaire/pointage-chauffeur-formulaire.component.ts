@@ -43,15 +43,17 @@ export class PointageChauffeurFormulaireComponent implements OnInit {
       this.service.pointer(this.date, chauffeur.id).subscribe({
         next: (data: any) => {
           chauffeur.cocher = false;
-          chauffeur.date = null;
+          this.date = null;
           this.snackBar.open(data.message, "Fermer", { duration: 3000 });
         },
         error: (err) => {
           const errorMessage = err.error?.message || "Une erreur est survenue";
           this.snackBar.open(errorMessage, "Fermer", { duration: 3000 });
+          chauffeur.cocher=false
         }
       });
     }
+    this.date = null;
   }
 
 
