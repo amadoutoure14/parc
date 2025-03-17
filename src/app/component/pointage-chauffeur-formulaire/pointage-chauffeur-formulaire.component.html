@@ -13,7 +13,7 @@
     <td>{{ chauffeur.telephone }}</td>
     <td>
       <input type="checkbox" [(ngModel)]="chauffeur.cocher" (ngModelChange)="resetDate(chauffeur)">
-      <input type="date" [(ngModel)]="chauffeur.datePointage" *ngIf="chauffeur.cocher">
+      <input type="date" [(ngModel)]="date" *ngIf="chauffeur.cocher">
     </td>
     <td>
       <button mat-flat-button (click)="submit(chauffeur)" class="submit" [disabled]="!chauffeur.cocher">

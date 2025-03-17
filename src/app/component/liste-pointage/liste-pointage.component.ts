@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {PointageService} from '../../services/pointage.service';
-import {Pointage} from '../../modeles/Pointage';
+import {PointageVehicule} from '../../modeles/PointageVehicule';
 import {DatePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatInput} from '@angular/material/input';
 import {
   MatCell,
   MatCellDef,
@@ -45,9 +45,9 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
   styleUrl: './liste-pointage.component.css'
 })
 export class ListePointageComponent implements OnInit, AfterViewInit {
-  pointages: Pointage[] = [];
-  dataSource = new MatTableDataSource<Pointage>();
-  displayedColumns: string[] = ['index', 'vehicule','modele', 'datePointage'];
+  pointages: PointageVehicule[] = [];
+  dataSource = new MatTableDataSource<PointageVehicule>();
+  displayedColumns: string[] = ['index', 'vehicule','modele', 'date'];
   message = "";
   filterTerm = "";
 
@@ -65,8 +65,8 @@ export class ListePointageComponent implements OnInit, AfterViewInit {
     });
 
     this.dataSource.sortingDataAccessor = (item, property) => {
-      if (property === 'datePointage') {
-        return new Date(item.datePointage).getTime();
+      if (property === 'date') {
+        return new Date(item.date).getTime();
       }
       return item[property];
     };
@@ -75,7 +75,7 @@ export class ListePointageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
-    this.sort.active = 'datePointage';
+    this.sort.active = 'date';
     this.sort.direction = 'asc';
     this.sort.sortChange.emit();
   }
@@ -86,9 +86,9 @@ export class ListePointageComponent implements OnInit, AfterViewInit {
     this.filterTerm = filterValue;
     this.dataSource.filter = filterValue;
 
-    this.dataSource.filterPredicate = (data: Pointage, filter: string) => {
+    this.dataSource.filterPredicate = (data: PointageVehicule, filter: string) => {
       const immatriculation = data.vehicule.immatriculation.toLowerCase();
-      const datePointage = data.datePointage ? new Date(data.datePointage).toLocaleDateString().toLowerCase() : '';
+      const datePointage = data.date ? new Date(data.date).toLocaleDateString().toLowerCase() : '';
 
       return immatriculation.includes(filter) || datePointage.includes(filter);
     };

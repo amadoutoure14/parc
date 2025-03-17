@@ -25,7 +25,7 @@
       <td>{{totalCarburant(affectation.vehicule?.carburants)}} Litres</td>
       <td>
         <button mat-icon-button (click)="modifier(affectation)">
-          <img src="../../../assets/edit.png" alt="modifier">
+          <img ngSrc="../../../assets/edit.png" alt="modifier" fill>
         </button>
       </td>
     </tr>
@@ -34,5 +34,5 @@
 </div>
 
 <div *ngIf="affectationsFiltre && affectationsFiltre.length === 0">
-  <p class="non-disponible">{{message}}</p>
+  <p class="non-disponible">{{message ||"Erreur de connection avec le serveur !"}}</p>
 </div>

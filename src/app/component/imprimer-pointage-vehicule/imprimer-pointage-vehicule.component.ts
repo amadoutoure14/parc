@@ -19,6 +19,8 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {VehiculeService} from '../../services/vehicule.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import {Vehicule} from '../../modeles/Vehicule';
+import {PointageVehicule} from '../../modeles/PointageVehicule';
 
 @Component({
   selector: 'app-imprimer-pointage',
@@ -46,21 +48,21 @@ import autoTable from 'jspdf-autotable';
     MatHeaderCellDef,
     NgIf
   ],
-  templateUrl: './imprimer-pointage.component.html',
-  styleUrl: './imprimer-pointage.component.css'
+  templateUrl: './imprimer-pointage-vehicule.component.html',
+  styleUrl: './imprimer-pointage-vehicule.component.css'
 })
-export class ImprimerPointageComponent implements OnInit, AfterViewInit {
-  pointages: any[] = [];
+export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit {
+  pointages: PointageVehicule[] = [];
   dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'datePointage'];
+  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'date'];
   message = "";
   filterTerm = "";
 
   @ViewChild(MatSort) sort!: MatSort;
   debut: any;
   fin: any;
-  vehicule: any = null;
-  vehicules: any[] = [];
+  vehicule!: Vehicule;
+  vehicules: Vehicule[] = [];
 
   constructor(private service: PointageService, private vehiculeService: VehiculeService) {}
 
@@ -72,8 +74,7 @@ export class ImprimerPointageComponent implements OnInit, AfterViewInit {
     this.service.liste().subscribe({
       next: (data: any) => {
         this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
-        // Tri croissant sur la date
-        this.pointages.sort((a, b) => new Date(a.datePointage).getTime() - new Date(b.datePointage).getTime());
+        this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         this.dataSource.data = this.pointages;
         this.message = data.message;
       },
@@ -82,11 +83,9 @@ export class ImprimerPointageComponent implements OnInit, AfterViewInit {
         console.error('Erreur:', err);
       }
     });
-
-    // Configurer le tri personnalisé pour les dates dans le tableau
     this.dataSource.sortingDataAccessor = (item, property) => {
-      if (property === 'datePointage') {
-        return new Date(item.datePointage).getTime();
+      if (property === 'date') {
+        return new Date(item.date).getTime();
       }
       return item[property];
     };
@@ -100,16 +99,16 @@ export class ImprimerPointageComponent implements OnInit, AfterViewInit {
     this.pointages = [];
     this.dataSource.data = [];
     this.message = "";
+
     const traiterReponse = (data: any) => {
       if (!data || !data.pointage) {
         this.message = data.message || "Aucune donnée trouvée.";
         return;
       }
       this.pointages = data.pointage;
-      // Tri croissant sur la date
-      this.pointages.sort((a, b) => new Date(a.datePointage).getTime() - new Date(b.datePointage).getTime());
+      this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.dataSource.data = this.pointages;
-      this.dataSource.sort = this.sort;  // Réinitialiser le tri après la recherche
+      this.dataSource.sort = this.sort;
     };
 
     if (vehicule && debut && fin) {
@@ -161,15 +160,14 @@ export class ImprimerPointageComponent implements OnInit, AfterViewInit {
           const textWidth = doc.getTextWidth(data.message.toUpperCase());
           const textX = (pdfWidth - textWidth) / 2;
           doc.text(data.message.toUpperCase(), textX + 12, 25);
-          // Tri croissant sur la date avant la génération du PDF
-          data.pointage.sort((a: { datePointage: string | number | Date; }, b: { datePointage: string | number | Date; }) => new Date(a.datePointage).getTime() - new Date(b.datePointage).getTime());
+          data.pointage.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
           const header = ["Numéro", "Véhicule", "Modèle", "Date"];
           const pointage = data.pointage.map(
-            (p: { id: number; vehicule: any; datePointage: string }, index: number) => [
+            (p: { id: number; vehicule: Vehicule; date: string }, index: number) => [
               index + 1,
               p.vehicule.immatriculation,
               p.vehicule.modele,
-              new Date(p.datePointage).toLocaleDateString('fr-FR')
+              new Date(p.date).toLocaleDateString('fr-FR')
             ]
           );
           autoTable(

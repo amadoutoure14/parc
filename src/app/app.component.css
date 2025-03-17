@@ -70,7 +70,7 @@
 .buttons-container button:hover{
   background-color: white;
   color: black;
-  transform: scale(1.5);
+  transform: scale(1.2);
 }
 
 .header{

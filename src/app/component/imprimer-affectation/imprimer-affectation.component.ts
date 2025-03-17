@@ -30,8 +30,7 @@ export class ImprimerAffectationComponent {
 
   constructor(
     private service: AffectationService,
-    private snackBar: MatSnackBar,
-    private datePipe: DatePipe
+    private snackBar: MatSnackBar
   ) {}
 
   rechercher(debut: Date, fin: Date) {
@@ -69,10 +68,6 @@ export class ImprimerAffectationComponent {
         }
       });
     }
-
-
-
-
 
   totalCarburant(carburants: Carburant[] | null | undefined): number {
     return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);

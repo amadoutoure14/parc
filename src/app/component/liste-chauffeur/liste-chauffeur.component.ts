@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
-import {MatIcon} from '@angular/material/icon';
 import {MatIconButton} from '@angular/material/button';
 import {ChauffeurService} from '../../services/chauffeur.service';
 import {Chauffeur} from '../../modeles/Chauffeur';
@@ -57,8 +56,7 @@ export class ListeChauffeurComponent implements OnInit {
       this.filteredChauffeurs = this.chauffeurs.filter(chauffeur =>
         chauffeur.nom_complet.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
         chauffeur.permis.includes(this.filterTerm) ||
-        chauffeur.telephone.includes(this.filterTerm) ||
-        chauffeur.date?.includes(this.filterTerm)
+        chauffeur.telephone.includes(this.filterTerm)
       );
     } else {
       this.filteredChauffeurs = [...this.chauffeurs];

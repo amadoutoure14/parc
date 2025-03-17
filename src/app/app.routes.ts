@@ -27,7 +27,7 @@ import {
 } from './component/imprimer-carburant/imprimer-carburant.component';
 import {ModifierVehiculeComponent} from './component/modifier-vehicule/modifier-vehicule.component';
 import {PointageComponent} from './pages/pointage/pointage.component';
-import {ImprimerPointageComponent} from './component/imprimer-pointage/imprimer-pointage.component';
+import {ImprimerPointageVehiculeComponent} from './component/imprimer-pointage-vehicule/imprimer-pointage-vehicule.component';
 import {ListePointageComponent} from './component/liste-pointage/liste-pointage.component';
 import {PointageFormulaireComponent} from './component/pointage-formulaire/pointage-formulaire.component';
 import {PointageChauffeurComponent} from './pages/pointage-chauffeur/pointage-chauffeur.component';
@@ -62,7 +62,7 @@ export const routes: Routes = [
   { path: 'pointage', component: PointageComponent ,
     children:[
       {path: 'pointer',component: PointageFormulaireComponent},
-      {path: 'imprimer',component: ImprimerPointageComponent},
+      {path: 'imprimer',component: ImprimerPointageVehiculeComponent},
       {path: 'liste',component: ListePointageComponent},
       {path: '',redirectTo: 'liste',pathMatch: 'full'},
     ]
@@ -99,5 +99,5 @@ export const routes: Routes = [
       { path: '', redirectTo: 'liste', pathMatch: 'full' },
     ]
   },
-  { path: '',   redirectTo: 'sortie', pathMatch: 'full' },
+  { path: '',   redirectTo: 'vehicule', pathMatch: 'full' },
 ];

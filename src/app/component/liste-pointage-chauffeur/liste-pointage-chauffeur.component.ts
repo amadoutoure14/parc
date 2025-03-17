@@ -11,7 +11,7 @@ import {
 } from "@angular/material/table";
 import {MatInput} from "@angular/material/input";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
-import {Pointage} from '../../modeles/Pointage';
+import {PointageVehicule} from '../../modeles/PointageVehicule';
 import {PointageService} from '../../services/pointage.service';
 import {PointageChauffeurService} from '../../services/pointage-chauffeur.service';
 import {PointageChauffeur} from '../../modeles/PointageChauffeur';
@@ -52,7 +52,7 @@ export class ListePointageChauffeurComponent  implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.service.liste().subscribe({
       next: (data: any) => {
-        this.pointages = data.chauffeur && data.chauffeur.length > 0 ? data.chauffeur : [];
+        this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
         this.dataSource.data = [...this.pointages];
         this.message = data.message;
       }

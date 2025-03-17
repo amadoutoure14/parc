@@ -21,6 +21,7 @@ import {PointageChauffeurService} from '../../services/pointage-chauffeur.servic
 })
 export class PointageChauffeurFormulaireComponent implements OnInit {
   chauffeurs: Chauffeur[] = [];
+  date!: Date | null;
 
   constructor(
     private chauffeurService: ChauffeurService,
@@ -39,7 +40,7 @@ export class PointageChauffeurFormulaireComponent implements OnInit {
 
   submit(chauffeur: Chauffeur) {
     if (chauffeur.cocher) {
-      this.service.pointer(chauffeur.date, chauffeur.id).subscribe({
+      this.service.pointer(this.date, chauffeur.id).subscribe({
         next: (data: any) => {
           chauffeur.cocher = false;
           chauffeur.date = null;
@@ -56,7 +57,7 @@ export class PointageChauffeurFormulaireComponent implements OnInit {
 
   resetDate(chauffeur: Chauffeur) {
     if (!chauffeur.cocher) {
-      chauffeur.date = null;
+      this.date = null;
     }
   }
 
