@@ -52,9 +52,9 @@ import {PointageVehicule} from '../../modeles/PointageVehicule';
   styleUrl: './imprimer-pointage-vehicule.component.css'
 })
 export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit {
-  pointages: PointageVehicule[] = [];
-  dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'date'];
+
+  dataSource = new MatTableDataSource<PointageVehicule>();
+  displayedColumns: string[] = ['index', 'vehicule', 'modele','date'];
   message = "";
   filterTerm = "";
 
@@ -63,10 +63,12 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
   fin: any;
   vehicule!: Vehicule;
   vehicules: Vehicule[] = [];
+  pointages: PointageVehicule[] = [];
 
   constructor(private service: PointageService, private vehiculeService: VehiculeService) {}
 
   ngOnInit(): void {
+
     this.vehiculeService.listeVehicule().subscribe({
       next: data => { this.vehicules = data.vehicule; },
       error: err => { console.error('Erreur lors du chargement des véhicules:', err); }
@@ -76,6 +78,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
         this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         this.dataSource.data = this.pointages;
+        this.dataSource.sort = this.sort;
         this.message = data.message;
       },
       error: err => {
@@ -83,19 +86,20 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         console.error('Erreur:', err);
       }
     });
-    this.dataSource.sortingDataAccessor = (item, property) => {
+    this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
       if (property === 'date') {
         return new Date(item.date).getTime();
       }
-      return item[property];
+      return (item as any)[property] ?? '';
     };
+
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
 
-  rechercher(vehicule: any, debut: Date | null, fin: Date | null): void {
+  rechercher(vehicule: Vehicule, debut: Date | null, fin: Date | null): void {
     this.pointages = [];
     this.dataSource.data = [];
     this.message = "";
@@ -105,16 +109,29 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         this.message = data.message || "Aucune donnée trouvée.";
         return;
       }
-      this.pointages = data.pointage;
+      this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
       this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.dataSource.data = this.pointages;
       this.dataSource.sort = this.sort;
+      this.message = data.message;
+
     };
 
     if (vehicule && debut && fin) {
       this.service.listeDates(vehicule.id, debut, fin).subscribe({
-        next: traiterReponse,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        next: (data )=> {
+          if (!data || !data.pointage) {
+            this.message = data.message || "Aucune donnée trouvée.";
+            return;
+          }
+          this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
+          this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+          this.dataSource.data = this.pointages;
+          this.dataSource.sort = this.sort;
+          this.message = data.message;
+
+        },
+          error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });
     }
     else if (vehicule && (debut || fin)) {
@@ -160,10 +177,10 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
           const textWidth = doc.getTextWidth(data.message.toUpperCase());
           const textX = (pdfWidth - textWidth) / 2;
           doc.text(data.message.toUpperCase(), textX + 12, 25);
-          data.pointage.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(a.date).getTime() - new Date(b.date).getTime());
-          const header = ["Numéro", "Véhicule", "Modèle", "Date"];
+          data.pointage.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) =>  new Date(b.date).getTime()-new Date(a.date).getTime());
+          const header = ["Numéro", "Véhicule","Modèle", "Date"];
           const pointage = data.pointage.map(
-            (p: { id: number; vehicule: Vehicule; date: string }, index: number) => [
+            (p: { id: number; vehicule: Vehicule; date: string;carburant:number }, index: number) => [
               index + 1,
               p.vehicule.immatriculation,
               p.vehicule.modele,
@@ -177,8 +194,8 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
               body: pointage
             });
           const today = new Date();
-          const dateString = `Fait à ............................... le : ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
-          doc.text(dateString, doc.internal.pageSize.width - 92, doc.internal.pageSize.height - 34);
+          const dateString = `Imprimer le ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`+ ` à ${today.getHours()}:${today.getMinutes()}`;
+          doc.text(dateString, doc.internal.pageSize.width - 75, doc.internal.pageSize.height - 34);
           doc.save(`Pointage_${today.toISOString().split('T')[0]}.pdf`);
         };
         img.onerror = function () {
@@ -216,5 +233,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
       this.message = "Veuillez sélectionner un véhicule.";
     }
   }
+
+
 }
 

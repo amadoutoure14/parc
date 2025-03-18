@@ -12,10 +12,15 @@
 
   <div class="input-group">
     <label for="approv">Quantité de carburant (en litres)</label>
-    <input type="number" id="approv" [(ngModel)]="carburant.approv" placeholder="Saisir la quantité de carburant (litres)" class="input-large" min="0" required>
+    <input type="number" id="approv" [(ngModel)]="carburant.approv" placeholder="Saisir la quantité de carburant (litres)" class="input-large" required>
   </div>
 
-  <button (click)="onSubmit()" [disabled]="!carburant.approv || !vehicule">
+  <div class="input-group">
+    <label for="date">Date d'approvisionnement</label>
+    <input type="date" id="date" [(ngModel)]="carburant.date"  class="input-large" required>
+  </div>
+
+  <button (click)="onSubmit()" [disabled]="!carburant.approv || !vehicule||!carburant.date">
     SOUMETTRE
   </button>
 </div>

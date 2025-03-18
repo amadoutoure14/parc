@@ -13,7 +13,6 @@ import {NgIf} from '@angular/common';
   templateUrl: './modifier-carburant.component.html',
   imports: [
     ReactiveFormsModule,
-    NgIf
   ],
   styleUrls: ['./modifier-carburant.component.css']
 })
@@ -38,7 +37,7 @@ export class ModifierCarburantComponent implements OnInit {
 
   ngOnInit(): void {
     this.approvForm = this.fb.group({
-      approv: [this.carburant.approv || '', [Validators.required, Validators.min(1)]]
+      approv: [this.carburant.approv || '', [Validators.required]]
     });
 
     // Load the list of vehicles

@@ -5,23 +5,22 @@ export class Vehicule {
   immatriculation: string;
   modele: string;
   commentaire: string;
-  date: string | null;
   carburants?: Carburant[] | null;
   sortie?: boolean | null;
   chauffeur?: boolean | null;
   cocher?: boolean;
-  datePointage?:Date| null;
+  date?:Date| null;
 
 
-  constructor(id: number | null, immatriculation: string, modele: string, commentaire: string, date: string | null, carburants: Carburant[] | null, sortie: boolean | null, chauffeur: boolean | null, cocher: boolean) {
+  constructor(id: number | null, immatriculation: string, modele: string, commentaire: string, carburants: Carburant[] | null, sortie: boolean | null, chauffeur: boolean | null, cocher: boolean, date: Date | null) {
     this.id = id;
     this.immatriculation = immatriculation;
     this.modele = modele;
     this.commentaire = commentaire;
-    this.date = date;
     this.carburants = carburants;
     this.sortie = sortie;
     this.chauffeur = chauffeur;
     this.cocher = cocher;
+    this.date = date;
   }
 }

@@ -62,7 +62,7 @@ export class ListePointageChauffeurComponent  implements OnInit, AfterViewInit {
       if (property === 'date') {
         return new Date(item.date).getTime();
       }
-      return item[property];
+      return (item as any)[property] ?? '';
     };
   }
 

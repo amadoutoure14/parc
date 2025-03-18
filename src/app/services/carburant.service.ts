@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Carburant} from '../modeles/Carburant';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Vehicule} from '../modeles/Vehicule';
 
@@ -14,10 +14,10 @@ export class CarburantService {
 
   approvisionner(carburant: Carburant): Observable<any> {
     const url = `${this.apiUrl}/approv/nouveau`;
-
     const body = {
       approv: carburant.approv,
-      vehicule: carburant.vehicule ? { id: carburant.vehicule.id } : null
+      date: carburant.date,
+      vehicule: carburant.vehicule
     };
     return this.http.post<Carburant>(url, body);
   }
@@ -28,6 +28,11 @@ export class CarburantService {
     const url = `${this.apiUrl}/approv/liste`;
     return this.http.get<any>(url)
   }
+  total(): Observable<any> {
+    const url = `${this.apiUrl}/approv/total`;
+    return this.http.get<any>(url)
+  }
+
   carburantVehicule(vehicule: Vehicule): Observable<any> {
     const url = `${this.apiUrl}/approv/vehicule?id=${vehicule.id}`;
     return this.http.get<Carburant>(url);
@@ -41,5 +46,15 @@ export class CarburantService {
   patch(carburant: Carburant): Observable<any>  {
     const url = `${this.apiUrl}/approv/${carburant.id}/maj?approv=${carburant.approv}`;
     return this.http.patch<Carburant>(url, carburant);
+  }
+
+  vehiculeDates(vehicule: Vehicule, debut: Date, fin: Date):Observable<any> {
+   const url = `${this.apiUrl}/approv/vehicule/${vehicule.id}/period/total?debut=${debut}&fin=${fin}`
+    return this.http.get(url)
+  }
+
+  vehicule(id: number | null | undefined):Observable<any> {
+    const url=`${this.apiUrl}/approv/vehicule?id=${id}`;
+    return this.http.get(url)
   }
 }

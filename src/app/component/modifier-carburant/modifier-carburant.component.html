@@ -1,13 +1,10 @@
 <div class="container">
-  <p>Véhicule : {{ carburant.vehicule?.immatriculation }}</p>
+  <p>Véhicule : {{ carburant.vehicule.immatriculation }}</p>
 
   <form [formGroup]="approvForm" (ngSubmit)="onSubmit()">
     <div class="input-group">
       <label for="approv">Quantité de carburant (en litres)</label>
-      <input type="number" id="approv" formControlName="approv" placeholder="Saisir la quantité de carburant (litres)" class="input-large" min="1" required>
-      <div *ngIf="approvForm.controls['approv'].invalid && approvForm.controls['approv']" class="error">
-        La quantité doit être supérieure à 0.
-      </div>
+      <input type="number" id="approv" formControlName="approv" placeholder="Saisir la quantité de carburant (litres)" class="input-large" required>
     </div>
 
     <div class="buttons">

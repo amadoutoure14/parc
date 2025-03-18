@@ -64,12 +64,13 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
       }
     });
 
-    this.dataSource.sortingDataAccessor = (item, property) => {
+    this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
       if (property === 'date') {
         return new Date(item.date).getTime();
       }
-      return item[property];
+      return (item as any)[property] ?? '';
     };
+
   }
 
 

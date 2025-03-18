@@ -21,6 +21,7 @@ import {PointageService} from '../../services/pointage.service';
 })
 export class PointageVehiculeFormulaireComponent implements OnInit {
   vehicules: Vehicule[] = [];
+  date!: Date|null;
 
   constructor(
     private VehiculeService: VehiculeService,
@@ -39,10 +40,10 @@ export class PointageVehiculeFormulaireComponent implements OnInit {
 
   submit(vehicule: Vehicule) {
     if (vehicule.cocher) {
-      this.service.pointer(vehicule.datePointage, vehicule.id).subscribe({
+      this.service.pointer(this.date, vehicule.id).subscribe({
         next: (data: any) => {
           vehicule.cocher = false;
-          vehicule.datePointage = null;
+          this.date = null;
           this.snackBar.open(data.message, "Fermer", { duration: 3000 });
         },
         error: (err) => {
@@ -56,7 +57,7 @@ export class PointageVehiculeFormulaireComponent implements OnInit {
 
   resetDate(vehicule: Vehicule) {
     if (!vehicule.cocher) {
-      vehicule.datePointage = null;
+      this.date = null;
     }
   }
 

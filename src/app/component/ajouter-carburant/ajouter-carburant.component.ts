@@ -29,7 +29,8 @@ export class AjouterCarburantComponent implements OnInit {
   carburant: Carburant;
 
   constructor(private snackBar: MatSnackBar, private service: CarburantService, private vehiculeService: VehiculeService) {
-    this.carburant = new Carburant(0, null, null, this.vehicule);
+    // @ts-ignore
+    this.carburant = new Carburant();
   }
 
   ngOnInit(): void {
@@ -55,6 +56,7 @@ export class AjouterCarburantComponent implements OnInit {
           this.snackBar.open('Véhicule approvisionné !', 'Fermer', { duration: 3000 });
           this.vehicule=null;
           this.carburant.approv=0
+          this.carburant.date=null
         },
         error: (err) => {
           this.snackBar.open("Une erreur est survenue !","Fermer",{duration:3000})
