@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
-import {Vehicule} from '../modeles/Vehicule';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +23,7 @@ export class PointageService {
   }
 
   listeDates(vehicule: number | null | undefined, debut: Date, fin: Date): Observable<any> {
-    const url = `${this.env}/pointage/${vehicule}/dates?debut=${debut}&fin=${fin}`;
+    const url = `${this.env}/pointage/carburant/${vehicule}?debut=${debut}&fin=${fin}`;
     return this.http.get(url)
   }
 
@@ -41,5 +40,10 @@ export class PointageService {
   vehicule(vehicule: number | null | undefined): Observable<any> {
     const url = `${this.env}/pointage/vehicule/${vehicule}`;
     return this.http.get(url)
+  }
+
+  supprimer(id: number): Observable<any> {
+    const url = `${this.env}/pointage/supprimer/${id}`;
+    return this.http.delete(url)
   }
 }

@@ -23,9 +23,12 @@
       <td>{{ carburant.vehicule.immatriculation }}</td>
       <td>{{ carburant.date  | date: 'dd/MM/yyyy' }}</td>
       <td>{{ carburant.approv }} Litres</td>
-      <td>
+      <td class="actions">
         <button mat-icon-button (click)="modifier(carburant)">
           <img src="../../../assets/edit.png" alt="modifier">
+        </button>
+        <button mat-icon-button (click)="supprimer(carburant)">
+          <img src="../../../assets/delete.png" alt="supprimer">
         </button>
       </td>
     </tr>

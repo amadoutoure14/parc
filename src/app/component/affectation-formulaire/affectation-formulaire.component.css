@@ -57,3 +57,30 @@ mat-card-header {
 input:focus {
   outline: none;
 }
+.input-date{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input{
+  width: 40%;
+  text-align: center;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+}
+input:focus{
+  border-color: #4295c6;
+  box-shadow: 0 0 5px rgb(58, 160, 205);
+  outline: none;
+}
+label {
+  font-weight: bold;
+  color: white;
+  display: block;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}

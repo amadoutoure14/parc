@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
 import {CarburantService} from '../../services/carburant.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carburant.component';
+import {SuppressionCarburantComponent} from '../suppression-carburant/suppression-carburant.component';
 
 @Component({
   selector: 'app-liste-carburant',
@@ -26,14 +25,12 @@ import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carbura
 })
 export class ListeCarburantComponent implements OnInit {
 
-  carburants: Carburant[]=[];
+  carburants: Carburant[] = [];
+  carburantsFiltre: Carburant[] = [];
+  filterTerm = '';
+  message = '';
 
-  constructor(private service:CarburantService, public dialog: MatDialog) {
-  }
-
-  filterTerm='';
-  carburantsFiltre: Carburant[]=[];
-  message=""
+  constructor(private service: CarburantService, public dialog: MatDialog) {}
 
   filterCarburants() {
     if (this.filterTerm.trim()) {
@@ -49,21 +46,16 @@ export class ListeCarburantComponent implements OnInit {
     const dialogRef = this.dialog.open(ModifierCarburantComponent, { data: carburant });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.service.listeApprov().subscribe({
-          next: (data) => {
-            this.carburants = data.carburant || [];
-            this.carburantsFiltre = [...this.carburants];
-          },
-          error: (error) => console.error(error)
-        });
+        this.loadCarburants();
       }
     });
   }
 
-
-
-
   ngOnInit(): void {
+    this.loadCarburants();
+  }
+
+  loadCarburants(): void {
     this.service.listeApprov().subscribe({
       next: (data) => {
         this.carburants = data?.carburant || [];
@@ -75,6 +67,20 @@ export class ListeCarburantComponent implements OnInit {
       }
     });
   }
+  supprimer(carburant: Carburant): void {
+    const dialogRef = this.dialog.open(SuppressionCarburantComponent, {
+      width:"500",maxWidth:600,
+      data: { carburant }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        this.loadCarburants();
+      }
+    });
+  }
 
 
 }
+
+

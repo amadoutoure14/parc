@@ -3,21 +3,21 @@
   <div class="form-container">
     <mat-form-field appearance="fill" class="select">
       <mat-label>Sélectionner un chauffeur</mat-label>
-      <mat-select [(value)]="selectedChauffeur">
+      <mat-select [(value)]="affectation.chauffeur">
         <mat-option *ngFor="let chauffeur of chauffeurs" [value]="chauffeur">
           {{ chauffeur.nom_complet }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-card *ngIf="selectedChauffeur" class="details">
+    <mat-card *ngIf="affectation.chauffeur" class="details">
       <mat-card-header>
-        <mat-card-title>{{ selectedChauffeur.nom_complet }}</mat-card-title>
+        <mat-card-title>{{ affectation.chauffeur.nom_complet }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p><strong>Permis:</strong> {{ selectedChauffeur.permis }}</p>
-        <p><strong>Téléphone:</strong> {{ selectedChauffeur.telephone }}</p>
-        <p><strong>Date d'enregistrement:</strong> {{ selectedChauffeur.date  | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Permis:</strong> {{ affectation.chauffeur.permis }}</p>
+        <p><strong>Téléphone:</strong> {{ affectation.chauffeur.telephone }}</p>
+        <p><strong>Date d'enregistrement:</strong> {{ affectation.chauffeur.date  | date: 'dd/MM/yyyy' }}</p>
       </mat-card-content>
     </mat-card>
   </div>
@@ -25,23 +25,26 @@
   <div class="form-container">
     <mat-form-field appearance="fill" class="select">
       <mat-label>Sélectionner un véhicule</mat-label>
-      <mat-select [(value)]="selectedVehicule">
+      <mat-select [(value)]="affectation.vehicule">
         <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
           {{ vehicule.immatriculation }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-card *ngIf="selectedVehicule" class="details">
+    <mat-card *ngIf="affectation.vehicule" class="details">
       <mat-card-header>
-        <mat-card-title>{{ selectedVehicule.immatriculation }}</mat-card-title>
+        <mat-card-title>{{ affectation.vehicule.immatriculation }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p><strong>Modèle:</strong> {{ selectedVehicule.modele }}</p>
-        <p><strong>Date d'enregistrement:</strong> {{ selectedVehicule.date  | date: 'dd/MM/yyyy' }}</p>
+        <p><strong>Modèle:</strong> {{ affectation.vehicule.modele }}</p>
+        <p><strong>Date d'enregistrement:</strong> {{ affectation.vehicule.date  | date: 'dd/MM/yyyy' }}</p>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
-
-<button class="affecter" mat-raised-button color="primary" (click)="affecterChauffeur()">Affecter</button>
+<div class="input-date">
+  <label for="date">Date d'affectation</label>
+  <input type="date" name="date" id="date" [(ngModel)]="affectation.date">
+</div>
+<button class="affecter" mat-raised-button color="primary" (click)="affecter()">Affecter</button>

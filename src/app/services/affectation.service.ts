@@ -16,7 +16,8 @@ export class AffectationService {
     const url = `${this.env}/affectation/nouvelle`;
     const body={
       chauffeur: {id:affectation.chauffeur?.id},
-      vehicule: {id:affectation.vehicule?.id}
+      vehicule: {id:affectation.vehicule?.id},
+      date:affectation.date
     }
     return this.http.post<any>(url,body)
   }

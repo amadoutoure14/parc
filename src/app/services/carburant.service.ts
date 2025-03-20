@@ -57,4 +57,9 @@ export class CarburantService {
     const url=`${this.apiUrl}/approv/vehicule?id=${id}`;
     return this.http.get(url)
   }
+
+  supprimer(carburant: Carburant):Observable<any> {
+    const url=`${this.apiUrl}/approv/${carburant.id}/sup`;
+    return this.http.delete(url);
+  }
 }

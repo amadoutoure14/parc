@@ -30,7 +30,7 @@
   </div>
 
 </div>
-<div class="container" *ngIf="pointages.length > 0">
+<div class="container" *ngIf="dataSource.data.length > 0">
   <table mat-table [dataSource]="dataSource" class="table mat-elevation-z8" matSort>
     <ng-container matColumnDef="index">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Nunéro </th>
@@ -47,6 +47,11 @@
       <td mat-cell *matCellDef="let element"> {{element.vehicule.modele}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="carburant">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Carburant </th>
+      <td mat-cell *matCellDef="let element"> {{element.carburant}} Litres</td>
+    </ng-container>
+
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de pointage </th>
       <td mat-cell *matCellDef="let element"> {{element.date | date:"dd/MM/yyyy"}} </td>
@@ -56,6 +61,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<div class="message" *ngIf="pointages.length === 0 && message">
+<div class="message" *ngIf="dataSource.data.length === 0 && message">
   <p>{{ message }}</p>
 </div>

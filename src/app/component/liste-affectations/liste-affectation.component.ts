@@ -19,7 +19,7 @@ import {ModifierAffectationComponent} from '../modifier-affectation/modifier-aff
     MatInput,
     NgForOf,
     NgIf,
-    NgOptimizedImage,
+    DatePipe
   ],
   templateUrl: './liste-affectation.component.html',
   styleUrl: './liste-affectation.component.css'
@@ -46,6 +46,7 @@ export class ListeAffectationComponent implements OnInit {
         if (Array.isArray(data.affectation)) {
           this.affectations = data.affectation;
           this.affectationsFiltre = [...this.affectations];
+          this.affectationsFiltre.forEach((affectation: Affectation) => {console.log(affectation.date)})
         } else {
           this.affectations = [];
           this.affectationsFiltre = [];

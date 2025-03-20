@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {PointageService} from '../../services/pointage.service';
 import {PointageVehicule} from '../../modeles/PointageVehicule';
 import {DatePipe} from '@angular/common';
@@ -19,6 +19,10 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {MatIconButton} from '@angular/material/button';
+import {MatDialog} from '@angular/material/dialog';
+import {SupprimerPointageComponent} from '../supprimer-pointage/supprimer-pointage.component';
+
 
 @Component({
   selector: 'app-liste-pointage',
@@ -39,7 +43,8 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
     MatNoDataRow,
     DatePipe,
     MatSortHeader,
-    MatSort
+    MatSort,
+    MatIconButton
   ],
   templateUrl: './liste-pointage-vehicule.component.html',
   styleUrl: './liste-pointage-vehicule.component.css'
@@ -47,13 +52,13 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
 export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
   pointages: PointageVehicule[] = [];
   dataSource = new MatTableDataSource<PointageVehicule>();
-  displayedColumns: string[] = ['index', 'vehicule','modele', 'date'];
+  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'carburant', 'date', 'action'];
   message = "";
   filterTerm = "";
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private service: PointageService) {}
+  constructor(private service: PointageService, private cdRef: ChangeDetectorRef,private dialog:MatDialog) {}
 
   ngOnInit(): void {
     this.service.liste().subscribe({
@@ -61,7 +66,8 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
         this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
         this.dataSource.data = [...this.pointages];
         this.message = data.message;
-      }
+      },
+      error: err => console.error('Erreur lors du chargement des données :', err)
     });
 
     this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
@@ -70,17 +76,14 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
       }
       return (item as any)[property] ?? '';
     };
-
   }
-
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.sort.active = 'date';
     this.sort.direction = 'desc';
-    this.sort.sortChange.emit();
+    this.cdRef.detectChanges();
   }
-
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
@@ -95,4 +98,21 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
     };
   }
 
+  supprimer(id: number): void {
+    const dialogRef=this.dialog.open(
+      SupprimerPointageComponent,{width:"500",maxWidth:600,data:{id}}
+    )
+    dialogRef.afterClosed().subscribe(resultat => {
+      if (resultat === 'confirm') {
+        this.service.liste().subscribe({
+          next: (data: any) => {
+            this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
+            this.dataSource.data = [...this.pointages];
+            this.message = data.message;
+          },
+          error: err => console.error('Erreur lors du chargement des données :', err)
+        });
+      }
+    })
+  }
 }

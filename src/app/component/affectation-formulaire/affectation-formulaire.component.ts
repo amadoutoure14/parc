@@ -12,6 +12,7 @@ import {ChauffeurService} from '../../services/chauffeur.service';
 import {VehiculeService} from '../../services/vehicule.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Affectation} from '../../modeles/Affectation';
+import {MatListOption} from '@angular/material/list';
 
 
 @Component({
@@ -31,23 +32,27 @@ import {Affectation} from '../../modeles/Affectation';
     FormsModule,
     MatLabel,
     DatePipe,
+    MatOption,
+    MatOption,
+    MatOption
   ],
   templateUrl: './affectation-formulaire.component.html',
   styleUrl: './affectation-formulaire.component.css'
 })
 export class AffectationFormulaireComponent implements OnInit {
 
-  affectation: Affectation = new Affectation();
+  affectation!: Affectation;
   chauffeurs: Chauffeur[] = [];
   vehicules: Vehicule[] = [];
-  selectedChauffeur!: Chauffeur|null;
-  selectedVehicule!: Vehicule|null;
 
   constructor(private service: AffectationService, private chauffeurService: ChauffeurService, private vehiculeService: VehiculeService, private snackBar: MatSnackBar) {
 
   }
 
   ngOnInit(): void {
+    // @ts-ignore
+    this.affectation = new Affectation();
+
     this.vehiculeService.listeVehicule().subscribe({
       next: (data) => {
         this.vehicules = data.vehicule;
@@ -67,15 +72,13 @@ export class AffectationFormulaireComponent implements OnInit {
     });
   }
 
-  affecterChauffeur() {
-    this.affectation.chauffeur = this.selectedChauffeur;
-    this.affectation.vehicule = this.selectedVehicule;
 
+  affecter() {
     this.service.nouvelleAffectation(this.affectation).subscribe({
       next: (data) => {
-        this.selectedChauffeur = null;
-        this.selectedVehicule = null;
-        this.affectation = new Affectation();
+        this.affectation.vehicule=null
+        this.affectation.chauffeur=null
+        this.affectation.date=null
         this.snackBar.open(`${data.message}`, 'Fermer', { duration: 6000 });
       },
       error: (error) => {

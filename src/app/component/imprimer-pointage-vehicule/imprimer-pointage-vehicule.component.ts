@@ -54,7 +54,7 @@ import {PointageVehicule} from '../../modeles/PointageVehicule';
 export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<PointageVehicule>();
-  displayedColumns: string[] = ['index', 'vehicule', 'modele','date'];
+  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'carburant', 'date'];
   message = "";
   filterTerm = "";
 
@@ -134,13 +134,6 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
           error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });
     }
-    else if (vehicule && (debut || fin)) {
-      const dateUnique = debut ?? fin;
-      this.service.listeDate(vehicule.id, dateUnique).subscribe({
-        next: traiterReponse,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
-      });
-    }
     else if (debut && fin) {
       this.service.listePeriode(debut, fin).subscribe({
         next: traiterReponse,
@@ -164,46 +157,55 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         this.message = data.message || "Aucune donnée trouvée.";
         return;
       }
+
       if (data.pointage.length > 0) {
         const doc = new jsPDF();
         const logoPath = 'assets/logo.png';
         const img = new Image();
         img.src = logoPath;
+
         img.onload = function () {
           doc.addImage(img, 'PNG', 10, 10, 30, 30);
           doc.setFont('Cambria', 'bold');
           doc.setFontSize(14);
+
+          // Centrer le message
           const pdfWidth = doc.internal.pageSize.width;
           const textWidth = doc.getTextWidth(data.message.toUpperCase());
           const textX = (pdfWidth - textWidth) / 2;
           doc.text(data.message.toUpperCase(), textX + 12, 25);
-          data.pointage.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) =>  new Date(b.date).getTime()-new Date(a.date).getTime());
-          const header = ["Numéro", "Véhicule","Modèle", "Date"];
+
+          // Trier les pointages par date décroissante
+          data.pointage.sort((a: { date: string | number | Date }, b: { date: string | number | Date }) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
+          );
+          const header = ["Numéro", "Véhicule", "Modèle", "Carburant", "Date"];
+
           const pointage = data.pointage.map(
-            (p: { id: number; vehicule: Vehicule; date: string;carburant:number }, index: number) => [
+            (p: { id: number; vehicule: Vehicule; date: string; carburant: number }, index: number) => [
               index + 1,
               p.vehicule.immatriculation,
               p.vehicule.modele,
+              p.carburant ?? "N/A",
               new Date(p.date).toLocaleDateString('fr-FR')
             ]
           );
-          autoTable(
-            doc, {
-              startY: 55,
-              head: [header],
-              body: pointage
-            });
+          autoTable(doc, {
+            startY: 55,
+            head: [header],
+            body: pointage
+          });
           const today = new Date();
-          const dateString = `Imprimer le ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`+ ` à ${today.getHours()}:${today.getMinutes()}`;
-          doc.text(dateString, doc.internal.pageSize.width - 75, doc.internal.pageSize.height - 34);
+          const dateString = `Imprimé le ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()} à ${today.getHours()}:${today.getMinutes()}`;
+          doc.text(dateString, pdfWidth - 75, doc.internal.pageSize.height - 34);
           doc.save(`Pointage_${today.toISOString().split('T')[0]}.pdf`);
         };
+
         img.onerror = function () {
           console.error("Erreur lors du chargement de l'image.");
         };
       }
     };
-
     if (vehicule && debut && fin) {
       this.service.listeDates(vehicule.id, debut, fin).subscribe({
         next: impression,
@@ -233,7 +235,5 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
       this.message = "Veuillez sélectionner un véhicule.";
     }
   }
-
-
 }
 
