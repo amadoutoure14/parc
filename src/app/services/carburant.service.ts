@@ -32,12 +32,6 @@ export class CarburantService {
     const url = `${this.apiUrl}/approv/total`;
     return this.http.get<any>(url)
   }
-
-  carburantVehicule(vehicule: Vehicule): Observable<any> {
-    const url = `${this.apiUrl}/approv/vehicule?id=${vehicule.id}`;
-    return this.http.get<Carburant>(url);
-  }
-
   imprimer(vehicule: Vehicule): Observable<Blob> {
     const url = `${this.apiUrl}/approv/imprimer?id=${vehicule.id}`;
     return this.http.get(url, { responseType: 'blob' });
@@ -61,5 +55,10 @@ export class CarburantService {
   supprimer(carburant: Carburant):Observable<any> {
     const url=`${this.apiUrl}/approv/${carburant.id}/sup`;
     return this.http.delete(url);
+  }
+
+  periode(debut: Date, fin: Date) {
+    const url=`${this.apiUrl}/approv/liste/dates/d?debut=${debut}&fin=${fin}`;
+    return this.http.get(url)
   }
 }

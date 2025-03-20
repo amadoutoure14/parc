@@ -169,13 +169,11 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
           doc.setFont('Cambria', 'bold');
           doc.setFontSize(14);
 
-          // Centrer le message
           const pdfWidth = doc.internal.pageSize.width;
           const textWidth = doc.getTextWidth(data.message.toUpperCase());
           const textX = (pdfWidth - textWidth) / 2;
           doc.text(data.message.toUpperCase(), textX + 12, 25);
 
-          // Trier les pointages par date décroissante
           data.pointage.sort((a: { date: string | number | Date }, b: { date: string | number | Date }) =>
             new Date(b.date).getTime() - new Date(a.date).getTime()
           );
@@ -212,13 +210,6 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });
     }
-    else if (vehicule && (debut || fin)) {
-      const dateUnique = debut ?? fin;
-      this.service.listeDate(vehicule.id, dateUnique).subscribe({
-        next: impression,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
-      });
-    }
     else if (debut && fin) {
       this.service.listePeriode(debut, fin).subscribe({
         next: impression,
@@ -235,5 +226,6 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
       this.message = "Veuillez sélectionner un véhicule.";
     }
   }
+
 }
 

@@ -47,4 +47,12 @@
   <label for="date">Date d'affectation</label>
   <input type="date" name="date" id="date" [(ngModel)]="affectation.date">
 </div>
-<button class="affecter" mat-raised-button color="primary" (click)="affecter()">Affecter</button>
+<button
+  class="affecter"
+  mat-raised-button
+  color="primary"
+  (click)="affecter()"
+  [disabled]="!affectation.chauffeur || !affectation.vehicule || !affectation.date">
+  Affecter
+</button>
+
