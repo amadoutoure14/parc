@@ -3,7 +3,7 @@ import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from "@angular/forms";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {DatePipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {AffectationService} from '../../services/affectation.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Carburant} from '../../modeles/Carburant';
@@ -46,16 +46,14 @@ export class ListeAffectationComponent implements OnInit {
         if (Array.isArray(data.affectation)) {
           this.affectations = data.affectation;
           this.affectationsFiltre = [...this.affectations];
-          this.affectationsFiltre.forEach((affectation: Affectation) => {console.log(affectation.date)})
         } else {
           this.affectations = [];
           this.affectationsFiltre = [];
         }
         this.message = data.message || "";
       },
-      error: (error) => {
+      error: () => {
         this.snackBar.open("Erreur lors du chargement des affectations", "Fermer", { duration: 3000 });
-        console.error(error);
       }
     });
   }
@@ -76,14 +74,17 @@ export class ListeAffectationComponent implements OnInit {
   }
 
   modifier(affectation: Affectation): void {
+    console.log(affectation.date)
     const dialogRef = this.dialog.open(ModifierAffectationComponent, {
       data: affectation,
       width: "800px",
-      height: "500px"
+      height: "530px"
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.chargerAffectations();
+    dialogRef.afterClosed().subscribe(resultat => {
+      if (resultat==="resultat") {
+        this.chargerAffectations();
+      }
     });
   }
 

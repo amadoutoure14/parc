@@ -61,7 +61,7 @@ export class ModifierSortieComponent implements OnInit {
         this.setDerniereSortie();
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des affectations', err);
+        console.error(err);
         this.showSnackbar("Erreur lors du chargement des affectations.");
       }
     });
@@ -75,7 +75,7 @@ export class ModifierSortieComponent implements OnInit {
           this.derniereSortie = data?.sortie || null;
         },
         error: (err) => {
-          console.error("Erreur lors de la récupération de la dernière sortie", err);
+          console.error(err);
           this.derniereSortie = null;
         }
       });
@@ -94,7 +94,7 @@ export class ModifierSortieComponent implements OnInit {
         this.dialogRef.close(true);
       },
       error: (err) => {
-        console.error(err);
+        console.error();
         const message = err.error?.message || "Erreur lors de la modification.";
         this.showSnackbar(message);
       }

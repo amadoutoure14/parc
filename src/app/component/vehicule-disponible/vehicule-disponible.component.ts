@@ -57,7 +57,7 @@ export class VehiculeDisponibleComponent implements OnInit {
         this.message = data.message || '';
       },
       error: (err) => {
-        console.error(err);
+        console.error();
         this.snackBar.open('Erreur lors de la récupération des véhicules.', 'Fermer', { duration: 3000 });
       }
     });
@@ -79,7 +79,7 @@ export class VehiculeDisponibleComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error(err);
+        console.error();
         this.snackBar.open('Une erreur est survenue lors de la modification du véhicule.', 'Fermer', { duration: 3000 });
       }
     });

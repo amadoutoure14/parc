@@ -39,7 +39,7 @@ export class SuppressionCarburantComponent {
         this.dialogRef.close('confirm');
       },
       error: (error) => {
-        console.error("Erreur lors de la suppression:", error);
+        console.error(error);
       }
     });
   }

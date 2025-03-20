@@ -48,7 +48,7 @@ export class ModifierChauffeurComponent {
         this.snackBar.open("Chauffeur modifié avec succès !", "Fermer", { duration: 3000 });
       },
       error: err => {
-        console.error(err);
+        console.error();
         this.snackBar.open("Échec de la modification", "Fermer", { duration: 3000 });
       }
     });

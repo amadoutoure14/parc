@@ -42,6 +42,9 @@
     </mat-card>
   </div>
 </div>
+<div class="date-container">
+  <input type="date"[(ngModel)]="affectation.date" class="date">
+</div>
 <div class="buttons">
   <button class="affecter" mat-raised-button color="primary" (click)="modifierAffectation()">Modifier</button>
   <button class="annuler" mat-raised-button color="primary" (click)="annuler()">Annuler</button>

@@ -63,7 +63,7 @@ export class ListeCarburantComponent implements OnInit {
         this.message = data?.message || "Aucune donnée trouvée";
       },
       error: (error) => {
-        console.error(error);
+        console.error();
       }
     });
   }

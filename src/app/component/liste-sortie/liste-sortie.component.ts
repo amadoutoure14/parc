@@ -42,7 +42,7 @@ export class ListeSortieComponent implements OnInit {
         }
       },
       error: err => {
-        console.error("Erreur lors de la récupération des sorties:", err);
+        console.error(err);
         this.message = "Erreur lors du chargement des sorties.";
       }
     });

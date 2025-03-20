@@ -71,7 +71,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
 
     this.vehiculeService.listeVehicule().subscribe({
       next: data => { this.vehicules = data.vehicule; },
-      error: err => { console.error('Erreur lors du chargement des véhicules:', err); }
+      error: err => { console.error(err); }
     });
     this.service.liste().subscribe({
       next: (data: any) => {
@@ -83,7 +83,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
       },
       error: err => {
         this.message = "Erreur lors du chargement des pointages.";
-        console.error('Erreur:', err);
+        console.error(err);
       }
     });
     this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
@@ -200,7 +200,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         };
 
         img.onerror = function () {
-          console.error("Erreur lors du chargement de l'image.");
+          console.error();
         };
       }
     };

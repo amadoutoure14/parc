@@ -70,7 +70,7 @@ export class ImprimerCarburantComponent implements OnInit {
         this.carburants = data.carburant || [];
         this.carburantsFiltre = [...this.carburants];
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error()
     });
   }
 
@@ -131,7 +131,7 @@ export class ImprimerCarburantComponent implements OnInit {
         };
 
         img.onerror = function () {
-          console.error("Erreur lors du chargement de l'image.");
+          console.error();
         };
       }
     };
@@ -172,7 +172,7 @@ export class ImprimerCarburantComponent implements OnInit {
           next: (data) => {
             this.carburantsFiltre = data.carburant || [];
           },
-          error: (error) => console.error(error)
+          error: (error) => console.error()
         });
       }
     } else if (debut && fin) {

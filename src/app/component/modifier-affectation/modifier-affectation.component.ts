@@ -51,13 +51,14 @@ export class ModifierAffectationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.affectation.date);
     this.chauffeurService.listeChauffeur().subscribe({
       next: (data) => {
         this.chauffeurs = data.chauffeur || [];
         this.selectedChauffeur = this.chauffeurs.find(c => c.id === this.affectation.chauffeur?.id) || null;
       },
       error: (error) => {
-        console.error(error);
+        console.error();
       }
     });
 
@@ -65,34 +66,38 @@ export class ModifierAffectationComponent implements OnInit {
       next: (data) => {
         this.vehicules = data.vehicule || [];
         this.selectedVehicule = this.vehicules.find(v => v.id === this.affectation.vehicule?.id) || null;
-      },
-      error: (error) => {
-        console.error(error);
       }
     });
   }
 
   modifierAffectation(): void {
     if (!this.affectation.id) {
-      console.error();
+      console.error('ID d\'affectation manquant');
+      return;
+    }
+
+    if (!this.selectedChauffeur || !this.selectedVehicule || !this.affectation.date) {
+      console.error('Chauffeur, Véhicule ou Date manquants');
       return;
     }
 
     const body = {
       id: this.affectation.id,
       chauffeur: this.selectedChauffeur?.id || null,
-      vehicule: this.selectedVehicule?.id || null
+      vehicule: this.selectedVehicule?.id || null,
+      date: this.affectation.date
     };
 
     this.service.patch(body).subscribe({
       next: () => {
-        this.dialogRef.close();
+        this.dialogRef.close("resultat");
       },
       error: (error) => {
-        console.error(error);
+        console.error('Erreur lors de la modification de l\'affectation :', error);
       }
     });
   }
+
 
   annuler(): void {
     this.dialogRef.close();

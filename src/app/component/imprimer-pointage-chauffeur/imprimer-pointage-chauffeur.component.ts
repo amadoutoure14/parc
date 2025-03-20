@@ -84,7 +84,7 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
         this.chauffeurs = data.chauffeur || [];
       },
       error: err => {
-        console.error('Erreur lors du chargement des chauffeurs:', err);
+        console.error(err);
       }
     });
 
@@ -95,7 +95,7 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
       },
       error: err => {
         this.message = "Erreur lors du chargement des pointages.";
-        console.error('Erreur:', err);
+        console.error(err);
       }
     });
 

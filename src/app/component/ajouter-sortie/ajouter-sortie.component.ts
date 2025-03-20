@@ -58,7 +58,7 @@ export class AjouterSortieComponent implements OnInit {
                   }
                 },
                 error: (err) => {
-                  console.error("Erreur lors de la récupération de la dernière sortie", err);
+                  console.error(err);
                   this.derniereSortie = null;
                 }
               });
@@ -69,7 +69,7 @@ export class AjouterSortieComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error("Erreur lors du chargement des affectations", err);
+        console.error(err);
         this.showSnackbar("Erreur lors du chargement des affectations.");
       }
     });
@@ -90,7 +90,7 @@ export class AjouterSortieComponent implements OnInit {
         this.sortieForm.reset();
       },
       error: (err) => {
-        console.error(err);
+        console.error();
         const message = err.error?.message || "Erreur lors de l'enregistrement.";
         this.showSnackbar(message);
       }
