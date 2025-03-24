@@ -30,10 +30,8 @@ export class AjouterSortieComponent implements OnInit {
   affectations: Affectation[] = [];
   sortieForm!: FormGroup;
   id!: number;
-  derniereSortie: Sortie | null = null;
 
-  constructor(private affectationService: AffectationService, private service: SortieService, private snackbar: MatSnackBar, private fb: FormBuilder) {}
-
+  constructor(private affectationService:AffectationService,private service: SortieService, private snackbar: MatSnackBar, private fb: FormBuilder) {}
   ngOnInit(): void {
     this.sortieForm = this.fb.group({
       affectation: [null, Validators.required],
@@ -44,29 +42,26 @@ export class AjouterSortieComponent implements OnInit {
 
     this.affectationService.listeAffectations().subscribe({
       next: (data) => {
-        this.affectations = data.affectation;
+        this.affectations = data.affectation.map((affectation: any) => ({
+          ...affectation,
+          derniereSortie: null,
+        }));
 
-        if (this.affectations && this.affectations.length > 0) {
-          this.affectations.forEach((affectation) => {
-            if (affectation.id !== null && affectation.id !== undefined) {
-              this.service.derniereSortie(affectation.id).subscribe({
-                next: (data) => {
-                  if (data && data.sortie) {
-                    this.derniereSortie = data.sortie;
-                  } else {
-                    this.derniereSortie = null;
-                  }
-                },
-                error: (err) => {
-                  console.error(err);
-                  this.derniereSortie = null;
+        this.affectations.forEach((affectation) => {
+          if (affectation.id !== null && affectation.id !== undefined) {
+            this.service.derniereSortie(affectation.id).subscribe({
+              next: (data) => {
+                if (data && data.sortie) {
+                  affectation.derniereSortie = data.sortie;
                 }
-              });
-            }
-          });
-        } else {
-          this.derniereSortie = null;
-        }
+              },
+              error: (err) => {
+                console.error(err);
+                affectation.derniereSortie = null;
+              }
+            });
+          }
+        });
       },
       error: (err) => {
         console.error(err);
@@ -74,6 +69,7 @@ export class AjouterSortieComponent implements OnInit {
       }
     });
   }
+
 
 
   onSubmit() {

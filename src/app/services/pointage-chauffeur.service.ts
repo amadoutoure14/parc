@@ -40,4 +40,9 @@ private env = environment.apiUrl;
     const url = `${this.env}/pointage/chauffeur/${id}`;
     return this.http.get(url)
   }
+
+  supprimer(id: number):Observable<any> {
+    const url = `${this.env}/pointage/chauffeur/del/${id}`;
+    return this.http.delete(url)
+  }
 }

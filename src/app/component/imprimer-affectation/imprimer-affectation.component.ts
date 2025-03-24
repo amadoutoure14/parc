@@ -49,25 +49,9 @@ export class ImprimerAffectationComponent {
     });
   }
 
-  imprimer(debut: Date, fin: Date) {
+  imprimer(debut: Date, fin: Date){
 
-      this.service.imprimerAffectation(debut,fin).subscribe({
-        next: (response: Blob) => {
-          const blob = new Blob([response], { type: 'application/pdf' });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `Liste_des_Affectations_entre_le_${debut}_et_le_${fin}.pdf`;
-          a.click();
-          window.URL.revokeObjectURL(url);
-          this.snackBar.open('Le PDF est en téléchargement.', 'Fermer', { duration: 3000 });
-        },
-        error: (error) => {
-          this.snackBar.open('Erreur lors de la génération du PDF', 'Fermer', { duration: 3000 });
-          console.error();
-        }
-      });
-    }
+  }
 
   totalCarburant(carburants: Carburant[] | null | undefined): number {
     return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);

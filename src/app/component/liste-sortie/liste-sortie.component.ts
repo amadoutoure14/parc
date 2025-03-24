@@ -30,7 +30,6 @@ export class ListeSortieComponent implements OnInit {
   ngOnInit(): void {
     this.service.listeSortie().subscribe({
       next: data => {
-
         if (data && data.sortie && Array.isArray(data.sortie) && data.sortie.length > 0) {
           this.sorties = data.sortie;
           this.filtreSorties = [...this.sorties];
@@ -52,8 +51,8 @@ export class ListeSortieComponent implements OnInit {
   modifier(sortie: Sortie): void {
     const dialogRef = this.dialog.open(
       ModifierSortieComponent, {
-        width: '800px',
-        height: '640px',
+        width: '95vw',
+        height: '92vh',
         data: { sortie }
     });
 

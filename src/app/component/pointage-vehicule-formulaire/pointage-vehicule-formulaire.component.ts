@@ -5,7 +5,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {PointageService} from '../../services/pointage.service';
+import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 
 
 @Component({
@@ -26,7 +26,7 @@ export class PointageVehiculeFormulaireComponent implements OnInit {
   constructor(
     private VehiculeService: VehiculeService,
     private snackBar: MatSnackBar,
-    private service: PointageService
+    private service: PointageVehiculeService
   ) {}
 
   ngOnInit(): void {

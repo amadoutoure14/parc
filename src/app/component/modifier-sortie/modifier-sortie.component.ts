@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {SortieService} from '../../services/sortie.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -20,10 +20,10 @@ import {AffectationService} from '../../services/affectation.service';
     MatOption,
     NgForOf,
     NgIf,
-    DatePipe,
     MatLabel,
     MatError,
-    TitleCasePipe
+    TitleCasePipe,
+    MatOption
   ],
   templateUrl: './modifier-sortie.component.html',
   styleUrl: './modifier-sortie.component.css'
@@ -47,12 +47,12 @@ export class ModifierSortieComponent implements OnInit {
     const dateFin = this.data.sortie?.date_fin ? this.datePipe.transform(this.data.sortie.date_fin, 'yyyy-MM-ddTHH:mm') : '';
     const dateDebut = this.data.sortie?.date_debut ? this.datePipe.transform(this.data.sortie.date_debut, 'yyyy-MM-ddTHH:mm') : '';
     this.sortieForm = this.fb.group({
-      objet: [this.data.sortie?.objet || '', Validators.required],
-      destination: [this.data.sortie?.destination || '', Validators.required],
-      lieu_depart: [this.data.sortie?.lieu_depart || '', Validators.required],
-      date_debut: [dateDebut, Validators.required],
-      date_fin: [dateFin, Validators.required],
-      affectation: [this.data.sortie?.affectation || null, Validators.required]
+      objet: [this.data.sortie?.objet],
+      destination: [this.data.sortie?.destination],
+      lieu_depart: [this.data.sortie?.lieu_depart],
+      date_debut: [dateDebut],
+      date_fin: [dateFin],
+      affectation: [this.data.sortie?.affectation]
     });
 
     this.affectationService.listeAffectations().subscribe({
@@ -110,14 +110,12 @@ export class ModifierSortieComponent implements OnInit {
   }
 
   terminer() {
-    this.service.terminer(this.data.sortie).subscribe(
-      {
-        next:(data) => {
-          this.dialogRef.close(true);
-          this.snackbar.open(data.message, 'Fermer', {duration: 3000})
-        }
-      });
+    this.service.terminer(this.data.sortie).subscribe({
+      next:(data) => {
+        this.dialogRef.close(true);
+        this.snackbar.open(data.message, 'Fermer', {duration: 3000})
+      }
+    });
   }
-
 }
 

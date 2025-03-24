@@ -23,7 +23,10 @@
       <td>{{ sortie?.affectation?.chauffeur?.nom_complet || 'N/A' }}</td>
       <td>{{ sortie?.affectation?.chauffeur?.telephone || 'N/A' }}</td>
       <td>{{ sortie?.affectation?.vehicule?.immatriculation || 'N/A' }}</td>
-      <td>{{ sortie?.duree || 0 }} Heures</td>
+      <td *ngIf="(sortie?.duree ?? 0) > 0">
+        {{ sortie?.duree + (sortie?.duree === 1 ? " Heure" : " Heures") }}
+      </td>
+      <td *ngIf="(sortie?.duree ?? 0) === 0">À déterminer</td>
       <td>{{ sortie?.objet || 'N/A' }}</td>
       <td>{{ sortie?.destination || 'N/A' }}</td>
       <td>{{ sortie?.lieu_depart || 'N/A' }}</td>
@@ -39,6 +42,6 @@
   </table>
 
   <div *ngIf="sorties.length === 0">
-    <p>{{ message || "Aucune sortie disponible." }}</p>
+    <p>{{message || "Erreur de connection avec le serveur !"}}</p>
   </div>
 </div>

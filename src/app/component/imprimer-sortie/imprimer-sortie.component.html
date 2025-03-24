@@ -1,4 +1,14 @@
 <div class="recherche">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Sélectionner un véhicule</mat-label>
+    <mat-select [(ngModel)]="sortie">
+      <mat-option [value]="null">Aucun</mat-option>
+      <mat-option *ngFor="let sortie of sorties" [value]="sortie">
+        {{ sortie.affectation?.vehicule?.immatriculation }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 
   <div class="input">
     <label for="debut">Début</label>
@@ -9,21 +19,18 @@
   </div>
 
   <div class="boutons">
-    <button mat-flat-button (click)="rechercherSortieDates(debut,fin)">
+    <button mat-flat-button (click)="rechercher(sortie,debut,fin)">
       <mat-icon>search</mat-icon><span>RECHERCHER</span>
     </button>
-    <button mat-flat-button (click)="imprimerSortieDate(debut,fin)">
+    <button mat-flat-button (click)="imprimer(sortie,debut,fin)">
       <mat-icon>print</mat-icon><span>IMPRIMER</span>
     </button>
   </div>
 </div>
-<div class="filter-container">
-  <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterSortie()" placeholder="Rechercher"  />
-</div>
 <div class="container">
   <table class="table">
     <thead>
-    <tr *ngIf="filtreSorties && filtreSorties.length>0">
+    <tr *ngIf="sorties && sorties.length>0">
       <th>Numéro</th>
       <th>Chauffeur</th>
       <th>Téléphone</th>
@@ -36,7 +43,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let sortie of filtreSorties; let i = index">
+    <tr *ngFor="let sortie of sorties; let i = index">
       <td> {{i+1}} </td>
       <td>{{ sortie.affectation?.chauffeur?.nom_complet }}</td>
       <td>{{ sortie.affectation?.chauffeur?.telephone }}</td>
@@ -50,6 +57,6 @@
     </tbody>
   </table>
 </div>
-<div *ngIf="filtreSorties && filtreSorties.length === 0">
+<div *ngIf="sorties && sorties.length === 0">
   <p >Aucune sortie trouvée !</p>
 </div>

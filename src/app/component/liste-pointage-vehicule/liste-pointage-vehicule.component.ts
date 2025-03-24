@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
-import {PointageService} from '../../services/pointage.service';
+import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 import {PointageVehicule} from '../../modeles/PointageVehicule';
 import {DatePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -21,7 +21,7 @@ import {
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {MatIconButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
-import {SupprimerPointageComponent} from '../supprimer-pointage/supprimer-pointage.component';
+import {SupprimerPointageVehiculeComponent} from '../supprimer-pointage-vehicule/supprimer-pointage-vehicule.component';
 
 
 @Component({
@@ -58,7 +58,7 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private service: PointageService, private cdRef: ChangeDetectorRef,private dialog:MatDialog) {}
+  constructor(private service: PointageVehiculeService, private cdRef: ChangeDetectorRef, private dialog:MatDialog) {}
 
   ngOnInit(): void {
     this.service.liste().subscribe({
@@ -100,7 +100,7 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
 
   supprimer(id: number): void {
     const dialogRef=this.dialog.open(
-      SupprimerPointageComponent,{width:"500",maxWidth:600,data:{id}}
+      SupprimerPointageVehiculeComponent,{width:"500",maxWidth:600,data:{id}}
     )
     dialogRef.afterClosed().subscribe(resultat => {
       if (resultat === 'confirm') {
@@ -115,4 +115,5 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
 }

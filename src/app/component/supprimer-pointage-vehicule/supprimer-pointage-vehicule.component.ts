@@ -7,7 +7,7 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
-import {PointageService} from '../../services/pointage.service';
+import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 
 @Component({
   selector: 'app-supprimer-pointage',
@@ -17,15 +17,15 @@ import {PointageService} from '../../services/pointage.service';
     MatDialogContent,
     MatDialogTitle
   ],
-  templateUrl: './supprimer-pointage.component.html',
-  styleUrl: './supprimer-pointage.component.css'
+  templateUrl: './supprimer-pointage-vehicule.component.html',
+  styleUrl: './supprimer-pointage-vehicule.component.css'
 })
-export class SupprimerPointageComponent {
+export class SupprimerPointageVehiculeComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<SupprimerPointageComponent>,
+    public dialogRef: MatDialogRef<SupprimerPointageVehiculeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { id: number },
-    private service: PointageService
+    private service: PointageVehiculeService
   ) {}
 
   onNoClick(): void {

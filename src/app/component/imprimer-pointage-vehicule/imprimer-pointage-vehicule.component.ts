@@ -6,7 +6,7 @@ import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from '@angular/forms';
-import {PointageService} from '../../services/pointage.service';
+import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 import {
   MatCell,
   MatCellDef,
@@ -65,7 +65,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
   vehicules: Vehicule[] = [];
   pointages: PointageVehicule[] = [];
 
-  constructor(private service: PointageService, private vehiculeService: VehiculeService) {}
+  constructor(private service: PointageVehiculeService, private vehiculeService: VehiculeService) {}
 
   ngOnInit(): void {
 

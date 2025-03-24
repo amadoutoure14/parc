@@ -1,15 +1,26 @@
 .recherche{
-  padding-top: 20px;
+  margin-top:2%;
   display: flex;
+  justify-content: center;
   flex-direction: row;
   width: 100%;
-  justify-content: center;
   align-items: center;
 }
-input{
-  width: 40%;
+.input{
+  width:35%;
+  display:flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+label{
+  color:white;
+  font-weight: bold;
+  margin-left:2%;
+  margin-right:1%;
+}
+.recherche .input input{
   text-align: center;
-  height: 100%;
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
@@ -21,25 +32,11 @@ input:focus {
   box-shadow: 0 0 5px rgb(58, 160, 205);
   outline: none;
 }
-.input{
-  width:50%;
-  display:flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-}
-label{
-  color:white;
-  font-weight: bold;
-  margin-left:5%;
-  margin-right:2%;
-}
-
 .boutons{
   display: flex;
-  width: 40%;
-  justify-content: center;
-  align-items: center;
+  width: 27%;
+  justify-content: end;
+    align-items: center;
   gap: 10px;
 }
 
@@ -60,7 +57,6 @@ label{
   background-color: #3598c1;
 }
 
-/* Conteneur principal */
 .container {
   padding: 10px;
   background-color: transparent !important;
@@ -68,7 +64,6 @@ label{
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Tableau */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -76,7 +71,6 @@ label{
   font-family: 'Arial', sans-serif;
 }
 
-/* En-têtes du tableau */
 .table th {
   background-color: #3FAAD8;
   color: white;
@@ -87,7 +81,6 @@ label{
   text-transform: uppercase;
 }
 
-/* Cellules du tableau */
 .table td {
   background-color: #fff;
   padding: 12px 15px;
@@ -96,39 +89,27 @@ label{
   border-bottom: 1px solid #ddd;
 }
 
-/* Ligne survolée */
 .table tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Bordure de la table */
 .table {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
 }
 
-/* Bordure sur chaque cellule */
 .table td, .table th {
   border-left: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
 
-/* Suppression de la bordure sur la première colonne et ligne */
 .table th:first-child, .table td:first-child {
   border-left: none;
 }
 
-/* Suppression de la bordure sur la dernière ligne */
 .table tr:last-child td {
   border-bottom: none;
-}
-
-.modifier{
-  color: #1976d2;
-}
-.supprimer{
-  color: darkred;
 }
 p{
   display: flex;
@@ -140,18 +121,9 @@ p{
   padding-top: 12px;
 }
 
-.filter-container {
-  padding-top: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  margin: 0 auto;
-}
-
 input {
   text-align: center;
-  width: 50%;
+  width: 54%;
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
@@ -163,4 +135,7 @@ input:focus {
   border-color: #1976d2;
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
   outline: none;
+}
+.full-width{
+  width: 28%;
 }

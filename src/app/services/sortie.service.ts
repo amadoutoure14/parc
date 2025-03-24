@@ -3,12 +3,14 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Sortie} from '../modeles/Sortie';
 import {environment} from '../../environments/environment';
+fetch(environment.apiUrl);
 
 @Injectable({
   providedIn: 'root'
 })
 export class SortieService {
   private  env = environment.apiUrl;
+
   constructor(private http: HttpClient) { }
 
   enregistrer(sortie:Sortie):Observable<any> {
@@ -34,10 +36,6 @@ export class SortieService {
     return this.http.get<any>(url)
   }
 
-  sortieDatesPdf(debut:Date, fin:Date) :Observable<Blob>{
-    const url = `${this.env}/sortie/dates/pdf/d?debut=${debut}&fin=${fin}`;
-    return this.http.get(url,{responseType:'blob'})
-  }
 
   derniereSortie(id:number) : Observable<any>{
     const url =
@@ -66,5 +64,15 @@ export class SortieService {
       id:sortie.id
     }
     return this.http.post(url,body)
+  }
+
+  sortiePeriod(id: number | null | undefined, debut: Date, fin: Date):Observable<any> {
+    const url = `${this.env}`;
+    return this.http.get(url)
+  }
+
+  sortieListe(id: number | null | undefined):Observable<any>  {
+    const url =`${this.env}`
+    return this.http.get(url)
   }
 }

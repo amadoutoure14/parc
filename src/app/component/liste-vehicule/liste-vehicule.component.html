@@ -38,6 +38,6 @@
 </div>
 
 <div *ngIf="filtrevehicules.length==0">
-  <p class="non-vehicule"> {{message}}</p>
+  <p class="non-vehicule"> {{message || "Erreur de connection avec le serveur !"}}</p>
 </div>
 

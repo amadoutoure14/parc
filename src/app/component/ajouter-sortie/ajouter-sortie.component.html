@@ -2,29 +2,30 @@
   <h2>FICHE DE SORTIE</h2>
   <form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill" class="select">
-      <mat-label> Sélectionner une affectation</mat-label>
+      <mat-label>Sélectionner une affectation</mat-label>
       <mat-select formControlName="affectation">
         <mat-option *ngFor="let affectation of affectations" [value]="affectation">
-         Immatriculation : {{ affectation.vehicule?.immatriculation }} <br>
+          Immatriculation : {{ affectation.vehicule?.immatriculation }}<br>
+          Chauffeur : {{affectation.chauffeur?.nom_complet}}<br>
+          Téléphone : {{affectation.chauffeur?.telephone}}<br>
           La dernière sortie :
-          <ng-container *ngIf="derniereSortie">
-            {{ derniereSortie.date_debut | date:'dd/MM/yyyy HH:mm' }} - {{ derniereSortie.date_fin | date:'dd/MM/yyyy HH:mm' }}
+          <ng-container *ngIf="affectation.derniereSortie">
+            {{ affectation.derniereSortie.date_debut | date:'dd/MM/yyyy HH:mm' }} -
+            {{ affectation.derniereSortie.date_fin | date:'dd/MM/yyyy HH:mm' }}
           </ng-container>
-          <ng-container *ngIf="!derniereSortie">
+          <ng-container *ngIf="!affectation.derniereSortie">
             Pas de sortie récente
           </ng-container>
-
         </mat-option>
       </mat-select>
     </mat-form-field>
 
-    <!-- Objet de la sortie -->
+
     <div class="input-group">
       <label for="objet">Objet</label>
       <input id="objet" type="text" placeholder="Saisir l'objet de la sortie" formControlName="objet" class="input-large">
     </div>
 
-    <!-- Lieu de départ -->
     <div class="input-group">
       <label for="lieu_depart">Lieu de Départ</label>
       <input id="lieu_depart" type="text" placeholder="Saisir le lieu de départ" formControlName="lieu_depart" class="input-large">

@@ -6,7 +6,7 @@ import {environment} from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class PointageService {
+export class PointageVehiculeService {
   private env=environment.apiUrl;
   constructor(private http: HttpClient) {
 
