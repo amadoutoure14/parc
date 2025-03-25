@@ -10,11 +10,11 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  font-family: 'Arial', sans-serif;
 }
 
 .table th, .table td {
   padding: 12px 15px;
+  text-align: center;
   display: table-cell;
 }
 

@@ -84,6 +84,7 @@ input:focus {
 .table th, .table td {
   padding: 12px 15px;
   display: table-cell;
+  text-align: center;
 }
 
 .table th {

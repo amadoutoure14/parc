@@ -58,7 +58,6 @@ input:focus {
 .boutons button:hover {
   background-color: #3598c1;
 }
-/* Conteneur principal */
 .container {
   padding: 10px;
   background-color: transparent !important;
@@ -66,7 +65,6 @@ input:focus {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Tableau */
 .table {
   width: 100%;
   border-collapse: collapse;
