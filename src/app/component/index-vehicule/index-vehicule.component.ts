@@ -12,7 +12,7 @@ import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-imprimer-vehicule',
-  templateUrl: './imprimer-vehicule.component.html',
+  templateUrl: './index-vehicule.component.html',
   providers:[DatePipe],
     imports: [
         FormsModule,
@@ -20,12 +20,11 @@ import {MatInput} from '@angular/material/input';
         MatIcon,
         NgForOf,
         NgIf,
-        MatInput,
         NgClass
     ],
-  styleUrls: ['./imprimer-vehicule.component.css']
+  styleUrls: ['./index-vehicule.component.css']
 })
-export class ImprimerVehiculeComponent {
+export class IndexVehiculeComponent {
 
   debut: string = '';
   fin: string = '';
@@ -56,45 +55,6 @@ export class ImprimerVehiculeComponent {
         }
       }
     })
-  }
-
-  imprimerVehiculeDateEnregistrement(debut: string,fin: string,) {
-    const debutFormat = this.datePipe.transform(debut,"dd/MM/yyyy");
-    const finFormat = this.datePipe.transform(fin,"dd/MM/yyyy");
-    if (!debut && !fin) {
-      alert('Veuillez sélectionner une intervalle !.');
-      return;
-    }
-      this.service.imprimerVehiculeDateEnregistrement(debut,fin).subscribe({
-        next:response => {
-          const blob = new Blob([response], { type: 'application/pdf' });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `La liste des véhicules enregistrent entre le ${debutFormat} et le ${finFormat} .pdf`;
-          a.click();
-
-          window.URL.revokeObjectURL(url);
-
-          this.snackBar.open('Le PDF est en téléchargement.', 'Fermer', { duration: 3000 });
-
-        },
-        error:err => this.snackBar.open('Erreur de chargement'+err,'Fermer',{duration:3000})
-      })
-    }
-
-
-  filterVehicules() {
-    if (this.filterTerm) {
-      this.filtrevehicules = this.vehicules.filter(
-        vehicule =>
-          vehicule.modele.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          vehicule.immatriculation.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          (vehicule.commentaire && vehicule.commentaire.toLowerCase().includes(this.filterTerm.toLowerCase()))
-      );
-    } else {
-      this.filtrevehicules = [...this.vehicules];
-    }
   }
 
   getTotalCarburant(carburants: Carburant[] | null | undefined): number {

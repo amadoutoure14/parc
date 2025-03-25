@@ -209,7 +209,7 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
       });
 
       const today = new Date();
-      const dateString = `Fait à ............................... le : ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+      const dateString = `Imprimé le ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()} à ${today.getHours()}:${today.getMinutes()}`;
       doc.text(dateString, doc.internal.pageSize.width - 92, doc.internal.pageSize.height - 34);
       doc.save(`Pointage_${today.toISOString().split('T')[0]}.pdf`);
     };

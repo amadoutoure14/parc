@@ -1,15 +1,18 @@
-FROM node:latest as build
+FROM node:latest AS build
 
-WORKDIR /usr/local/parc
-
-COPY ./ /usr/local/parc/
+WORKDIR /app
+COPY package*.json ./
 
 RUN npm install
 
+COPY . .
+
 RUN npm run build --prod
 
-FROM nginx:latest
+FROM nginx:alpine
 
-COPY --from=build /usr/local/parc/dist/parc /usr/share/nginx/html
+COPY --from=build /app/dist/parc /usr/share/nginx/html
 
 EXPOSE 4200
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -27,10 +27,6 @@ private env=environment.apiUrl;
     return this.http.get<any>(presenceUrl);
   }
 
-  imprimerChauffeurDate(debut: Date,fin: Date) : Observable<Blob>{
-    const url = `${this.env}/chauffeur/dates/pdf/d?debut=${debut}&fin=${fin}`;
-    return this.http.get(url, { responseType: 'blob' });
-  }
 
   patch(chauffeur: Chauffeur): Observable<any> {
     const url = `${this.env}/chauffeur/${chauffeur.id}/maj`;

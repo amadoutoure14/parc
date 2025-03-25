@@ -157,7 +157,6 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         this.message = data.message || "Aucune donnée trouvée.";
         return;
       }
-
       if (data.pointage.length > 0) {
         const doc = new jsPDF();
         const logoPath = 'assets/logo.png';

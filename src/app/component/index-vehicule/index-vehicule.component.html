@@ -12,21 +12,15 @@
     <button mat-flat-button (click)="rechercherVehiculeDateEnregistrement(debut,fin)">
       <mat-icon>search</mat-icon><span>RECHERCHER</span>
     </button>
-    <button mat-flat-button (click)="imprimerVehiculeDateEnregistrement(debut,fin)">
-      <mat-icon>print</mat-icon><span>IMPRIMER</span>
-    </button>
   </div>
 
-</div>
-<div class="filter-container">
-  <input class="input-barre" matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher" />
 </div>
 
 <div *ngIf="filtrevehicules.length > 0" class="container">
   <table class="table">
     <thead>
     <tr>
-      <th>Status</th>
+      <th>Numéro</th>
       <th>Immatriculation </th>
       <th>Modèle</th>
       <th>Commentaire</th>

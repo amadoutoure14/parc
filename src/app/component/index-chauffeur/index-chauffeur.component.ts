@@ -21,10 +21,10 @@ import {Chauffeur} from '../../modeles/Chauffeur';
         NgForOf,
         DatePipe,
     ],
-  templateUrl: './imprimer-chauffeur.component.html',
-  styleUrl: './imprimer-chauffeur.component.css'
+  templateUrl: './index-chauffeur.component.html',
+  styleUrl: './index-chauffeur.component.css'
 })
-export class ImprimerChauffeurComponent {
+export class IndexChauffeurComponent {
 
   constructor(private service:ChauffeurService,private datePipe: DatePipe,private snackBar: MatSnackBar ) {
 
@@ -52,28 +52,6 @@ export class ImprimerChauffeurComponent {
         });
       }
     });
-  }
-
-
-  imprimer(debut: Date, fin: Date) {
-    if (!debut || !fin) {
-      this.snackBar.open('Veuillez sélectionner une date.', 'Fermer', { duration: 3000 });
-    }
-    this.service.imprimerChauffeurDate(debut, fin).subscribe({
-      next: (response) => {
-        const url = URL.createObjectURL(new Blob([response], { type: 'application/pdf' }));
-        Object.assign(document.createElement('a'), { href: url, download: 'La_liste_des_chauffeurs.pdf' }).click();
-        URL.revokeObjectURL(url);
-        this.snackBar.open('Le PDF est en téléchargement.', 'Fermer', { duration: 3000 });
-      },
-      error: ({ error }) => this.snackBar.open('Erreur lors de la génération du PDF: ' + error, 'Fermer', { duration: 5000 })
-    });
-  }
-
-
-
-  modifier(chauffeur: Chauffeur) {
-
   }
 
 }
