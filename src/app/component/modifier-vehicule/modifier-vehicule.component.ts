@@ -23,11 +23,9 @@ export class ModifierVehiculeComponent {
   ) {
     this.vehiculeForm = this.fb.group({
       id: [data.vehicule.id],
-      immatriculation: [data.vehicule.immatriculation, [Validators.required]],
-      modele: [data.vehicule.modele, [Validators.required]],
-      commentaire: [data.vehicule.commentaire],
-      debut_location: [data.vehicule.debut_location, [Validators.required]],
-      fin_location: [data.vehicule.fin_location, [Validators.required]]
+      immatriculation: [data.vehicule.immatriculation],
+      modele: [data.vehicule.modele],
+      commentaire: [data.vehicule.commentaire]
     });
   }
 
