@@ -1,6 +1,6 @@
 <mat-drawer-container class="container">
   <mat-drawer #drawer mode="side" class="drawer" opened>
-    <div style="background-image: url('../assets/logo.png'); background-size: cover; height: 260px; width: 260px;"></div>
+    <img src="assets/logo.png" alt="logo" height="260" width="260">
     <div class="buttons-container">
       <button mat-stroked-button routerLink="/vehicule" routerLinkActive="active-button">
         <mat-icon>directions_car</mat-icon>
@@ -37,7 +37,7 @@
 
   <mat-card-header class="header">
     <button mat-button (click)="drawer.toggle()">
-      <img src="../assets/menu.png" alt="menu" height="16" width="16">
+      <img src="assets/menu.png" alt="menu" height="16" width="16">
     </button>
     <h1 class="titre">{{titre}}</h1>
   </mat-card-header>

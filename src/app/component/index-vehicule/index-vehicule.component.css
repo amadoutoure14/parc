@@ -154,3 +154,9 @@ p{
   border: 1px solid #ddd;
   transition: all 0.3s ease-in-out;
 }
+.table td:nth-child(4) {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
