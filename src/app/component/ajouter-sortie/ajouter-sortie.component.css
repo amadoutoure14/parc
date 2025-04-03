@@ -8,8 +8,6 @@
   border-radius: 12px;
   font-family: Arial, sans-serif;
 }
-
-/* Titre */
 h2 {
   color: #3aa0cd;
   font-size: 24px;
@@ -19,7 +17,6 @@ h2 {
   text-transform: uppercase;
 }
 
-/* Champs de saisie */
 .input-group {
   width: 100%;
   margin-bottom: 15px;
@@ -37,6 +34,7 @@ label {
   width: 100%;
   text-align: center;
   padding: 12px;
+  margin-bottom: 20px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ddd;
@@ -49,7 +47,6 @@ label {
   outline: none;
 }
 
-/* Mat-Select */
 mat-form-field {
   width: 100%;
   margin-bottom: 15px;

@@ -1,5 +1,7 @@
 <div class="container">
   <h2>FICHE DE SORTIE</h2>
+  <label for="date">Selectionner une date pour les affectations</label>
+  <input id="date" type="date" class="input-large">
   <form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill" class="select">
       <mat-label>Sélectionner une affectation</mat-label>
