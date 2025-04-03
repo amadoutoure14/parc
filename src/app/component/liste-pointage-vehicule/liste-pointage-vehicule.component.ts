@@ -52,7 +52,7 @@ import {SupprimerPointageVehiculeComponent} from '../supprimer-pointage-vehicule
 export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
   pointages: PointageVehicule[] = [];
   dataSource = new MatTableDataSource<PointageVehicule>();
-  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'carburant', 'date', 'action'];
+  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'date', 'supprimer'];
   message = "";
   filterTerm = "";
 
@@ -67,7 +67,7 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
         this.dataSource.data = [...this.pointages];
         this.message = data.message;
       },
-      error: err => console.error(err)
+      error: err => console.error()
     });
 
     this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
@@ -110,7 +110,7 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
             this.dataSource.data = [...this.pointages];
             this.message = data.message;
           },
-          error: err => console.error(err)
+          error: err => console.error()
         });
       }
     })

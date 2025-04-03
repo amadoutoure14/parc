@@ -9,7 +9,7 @@ export class Vehicule {
   sortie?: boolean | null;
   carburant?:number;
   cocher?: boolean;
-  date?:Date| null;
+  date?:Date| null|undefined;
 
   constructor(id: number | null, immatriculation: string, modele: string, commentaire: string, carburants: Carburant[] | null, sortie: boolean | null, carburant: number, cocher: boolean, date: Date | null) {
     this.id = id;

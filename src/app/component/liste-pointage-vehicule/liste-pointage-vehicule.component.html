@@ -18,17 +18,12 @@
       <td mat-cell *matCellDef="let element"> {{element.vehicule.modele}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="carburant">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Carburant </th>
-      <td mat-cell *matCellDef="let element"> {{element.carburant}} Litres</td>
-    </ng-container>
-
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de pointage </th>
       <td mat-cell *matCellDef="let element"> {{element.date | date:"dd/MM/yyyy"}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="action">
+    <ng-container matColumnDef="supprimer">
       <th mat-header-cell *matHeaderCellDef> Supprimer </th>
       <td mat-cell *matCellDef="let element">
         <button mat-icon-button (click)="supprimer(element.id)"><img src="assets/delete.png" alt="supprimer"></button>

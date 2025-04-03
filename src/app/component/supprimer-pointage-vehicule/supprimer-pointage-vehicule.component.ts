@@ -38,7 +38,7 @@ export class SupprimerPointageVehiculeComponent {
         this.dialogRef.close('confirm');
       },
       error: (error) => {
-        console.error(error);
+        console.error();
       }
     });
   }

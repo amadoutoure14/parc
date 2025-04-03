@@ -1,43 +1,53 @@
 <div class="container">
   <div class="filter-container">
-    <input matInput type="text" [(ngModel)]="filterTerm" (input)="filterVehicules()" placeholder="Rechercher" />
+    <input matInput type="text" [(ngModel)]="filterTerm" (input)="applyFilter()" placeholder="Rechercher"/>
   </div>
 
-  <div  *ngIf="filtrevehicules && filtrevehicules.length > 0" class="container">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Numéro</th>
-        <th>Immatriculation </th>
-        <th>Modèle</th>
-        <th>Commentaire</th>
-        <th>Carburant</th>
-        <th>Sortie</th>
-        <th>Modifier</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let vehicule of filtrevehicules; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{ vehicule.immatriculation }}</td>
-        <td>{{ vehicule.modele }}</td>
-        <td>{{ vehicule.commentaire }}</td>
-        <td>{{getTotalCarburant(vehicule.carburants)}} Litres</td>
-        <td [ngClass]="{'disponible': vehicule.sortie, 'non-disponible': !vehicule.sortie}">
-          {{ vehicule.sortie ? 'Oui':'Non'  }}
+  <div *ngIf="dataSource.data && dataSource.data.length > 0" class="container">
+    <table mat-table [dataSource]="dataSource" class="table mat-elevation-z8" matSort>
+
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro </th>
+        <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="immatriculation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Immatriculation </th>
+        <td mat-cell *matCellDef="let vehicule">{{ vehicule.immatriculation }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="modele">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Modèle </th>
+        <td mat-cell *matCellDef="let vehicule">{{ vehicule.modele }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="commentaire">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Commentaire </th>
+        <td mat-cell *matCellDef="let vehicule">{{ vehicule.commentaire }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <td mat-cell *matCellDef="let vehicule">
+          {{ vehicule.date | date: 'dd/MM/yyyy' }}
         </td>
-        <td>
-          <button mat-icon-button (click)="modifier(vehicule)">
-            <img src="assets/edit.png" alt="modifier">
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let vehicule">
+          <button mat-button color="primary" (click)="modifier(vehicule)">
+            <img src="assets/edit.png" alt="modifier" height="24" width="24" />
           </button>
         </td>
-      </tr>
-      </tbody>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-</div>
-</div>
+  </div>
 
-<div *ngIf="filtrevehicules.length==0">
-  <p class="non-vehicule"> {{message || "Erreur de connection avec le serveur !"}}</p>
+  <div *ngIf="dataSource.data?.length === 0">
+    <p class="non-vehicule">{{ message || 'Erreur de connexion avec le serveur !' }}</p>
+  </div>
 </div>
-

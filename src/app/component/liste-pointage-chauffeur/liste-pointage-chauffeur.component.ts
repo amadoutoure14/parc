@@ -107,7 +107,7 @@ export class ListePointageChauffeurComponent  implements OnInit, AfterViewInit {
             this.dataSource.data = [...this.pointages];
             this.message = data.message;
           },
-          error: err => console.error(err)
+          error: err => console.error()
         });
       }
     })

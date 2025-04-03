@@ -18,7 +18,8 @@ import {MatListItem, MatNavList} from '@angular/material/list';
     MatCardHeader,
     MatButton,
     MatDrawer,
-    MatDrawerContainer
+    MatDrawerContainer,
+    NgOptimizedImage
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

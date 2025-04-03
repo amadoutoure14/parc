@@ -72,12 +72,12 @@ export class ModifierAffectationComponent implements OnInit {
 
   modifierAffectation(): void {
     if (!this.affectation.id) {
-      console.error('ID d\'affectation manquant');
+      console.error();
       return;
     }
 
     if (!this.selectedChauffeur || !this.selectedVehicule || !this.affectation.date) {
-      console.error('Chauffeur, Véhicule ou Date manquants');
+      console.error();
       return;
     }
 
@@ -93,7 +93,7 @@ export class ModifierAffectationComponent implements OnInit {
         this.dialogRef.close("resultat");
       },
       error: (error) => {
-        console.error('Erreur lors de la modification de l\'affectation :', error);
+        console.error();
       }
     });
   }

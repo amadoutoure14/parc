@@ -1,51 +1,61 @@
+<form [formGroup]="affectationForm">
+  <div class="affectation">
+    <div class="form-container">
+      <mat-form-field appearance="fill" class="select">
+        <mat-label>Sélectionner un chauffeur</mat-label>
+        <mat-select formControlName="chauffeur" [compareWith]="compareChauffeur">
+          <mat-option *ngFor="let chauffeur of chauffeurs" [value]="chauffeur">
+            {{ chauffeur.nom_complet }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-<div class="affectation">
-  <div class="form-container">
-    <mat-form-field appearance="fill" class="select">
-      <mat-label>Sélectionner un chauffeur</mat-label>
-      <mat-select [(value)]="affectation.chauffeur">
-        <mat-option *ngFor="let chauffeur of chauffeurs" [value]="chauffeur">
-          {{ chauffeur.nom_complet }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-card *ngIf="affectationForm.get('chauffeur')?.value" class="details">
+        <mat-card-header>
+          <mat-card-title>{{ affectationForm.get('chauffeur')?.value.nom_complet }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Permis:</strong> {{ affectationForm.get('chauffeur')?.value.permis }}</p>
+          <p><strong>Téléphone:</strong> {{ affectationForm.get('chauffeur')?.value.telephone }}</p>
+          <p><strong>Date d'enregistrement:</strong> {{ affectationForm.get('chauffeur')?.value.date | date: 'dd/MM/yyyy' }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
 
-    <mat-card *ngIf="affectation.chauffeur" class="details">
-      <mat-card-header>
-        <mat-card-title>{{ affectation.chauffeur.nom_complet }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p><strong>Permis:</strong> {{ affectation.chauffeur.permis }}</p>
-        <p><strong>Téléphone:</strong> {{ affectation.chauffeur.telephone }}</p>
-        <p><strong>Date d'enregistrement:</strong> {{ affectation.chauffeur.date  | date: 'dd/MM/yyyy' }}</p>
-      </mat-card-content>
-    </mat-card>
+    <div class="form-container">
+      <mat-form-field appearance="fill" class="select">
+        <mat-label>Sélectionner un véhicule</mat-label>
+        <mat-select formControlName="vehicule" [compareWith]="compareVehicule">
+          <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
+            {{ vehicule.immatriculation }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card *ngIf="affectationForm.get('vehicule')?.value" class="details">
+        <mat-card-header>
+          <mat-card-title>{{ affectationForm.get('vehicule')?.value.immatriculation }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Modèle:</strong> {{ affectationForm.get('vehicule')?.value.modele }}</p>
+          <p><strong>Date d'enregistrement:</strong> {{ affectationForm.get('vehicule')?.value.date | date: 'dd/MM/yyyy' }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 
-  <div class="form-container">
-    <mat-form-field appearance="fill" class="select">
-      <mat-label>Sélectionner un véhicule</mat-label>
-      <mat-select [(value)]="affectation.vehicule">
-        <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
-          {{ vehicule.immatriculation }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="input-date">
+    <label for="date">Date d'affectation</label>
+    <input type="date" id="date" formControlName="date" class="input-large">
 
-    <mat-card *ngIf="affectation.vehicule" class="details">
-      <mat-card-header>
-        <mat-card-title>{{ affectation.vehicule.immatriculation }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p><strong>Modèle:</strong> {{ affectation.vehicule.modele }}</p>
-        <p><strong>Date d'enregistrement:</strong> {{ affectation.vehicule.date  | date: 'dd/MM/yyyy' }}</p>
-      </mat-card-content>
-    </mat-card>
+    <div *ngIf="affectationForm.get('date')?.hasError('min') && affectationForm.get('date')?.touched">
+      <small class="error-text">La date ne peut pas être antérieure au 01/01/2018.</small>
+    </div>
+
+    <div *ngIf="affectationForm.get('date')?.hasError('max') && affectationForm.get('date')?.touched">
+      <small class="error-text">La date ne peut pas être supérieure à aujourd'hui.</small>
+    </div>
   </div>
-</div>
-<div class="input-date">
-  <label for="date">Date d'affectation</label>
-  <input type="date" name="date" id="date" [(ngModel)]="affectation.date">
-</div>
-<button class="affecter" mat-raised-button color="primary" (click)="affecter()" [disabled]="!affectation.chauffeur || !affectation.vehicule || !affectation.date">Affecter</button>
 
+  <button class="affecter" mat-raised-button color="primary" (click)="affecter()" [disabled]="affectationForm.invalid">Affecter</button>
+</form>

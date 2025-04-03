@@ -1,14 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
-import {Carburant} from '../../modeles/Carburant';
 import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
-import {MatIconButton} from '@angular/material/button';
-import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import {MatButton} from '@angular/material/button';
+import {DatePipe, NgIf} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.component';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable, MatTableDataSource
+} from '@angular/material/table';
+import {MatSort, MatSortModule} from '@angular/material/sort';
 
 @Component({
   selector: 'app-liste-vehicule',
@@ -16,89 +25,87 @@ import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.
   imports: [
     FormsModule,
     MatInput,
-    MatIconButton,
-    NgClass,
     NgIf,
-    NgForOf,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatSortModule,
+    MatButton,
+    MatHeaderRowDef,
+    DatePipe,
+    MatSort
   ],
   providers:[DatePipe],
   styleUrls: ['./liste-vehicule.component.css']
 })
-export class ListeVehiculeComponent implements OnInit {
-  vehicules: Vehicule[] = [];
-  filtrevehicules: Vehicule[] = [];
-  filterTerm = '';
-   message="";
+export class ListeVehiculeComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['numero', 'immatriculation', 'modele', 'commentaire', 'date', 'actions'];
+  dataSource = new MatTableDataSource<Vehicule>();
+  filterTerm: string = '';
+  message: string = '';
 
-  constructor(private snackBar: MatSnackBar, private service: VehiculeService, public dialog: MatDialog) { }
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    private snackBar: MatSnackBar,
+    private service: VehiculeService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.service.listeVehicule().subscribe({
-      next: data => {
-        if (data.vehicule && data.vehicule.length > 0) {
-          this.vehicules = data.vehicule;
-          this.filtrevehicules = [...this.vehicules];
-          this.message=data.message;
+      next: (data) => {
+        if (data?.vehicule?.length > 0) {
+          this.dataSource.data = data.vehicule;
+          this.message = data.message;
         } else {
-          this.vehicules = [];
-          this.filtrevehicules = [];
-          this.message=data.message;
+          this.dataSource.data = [];
+          this.message = data?.message || 'Aucun véhicule trouvé.';
+        }
+      },
+      error: () => {
+        this.message = 'Erreur de connexion avec le serveur.';
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort; // Associe MatSort à la table pour le tri
+    this.dataSource.filterPredicate = (data: Vehicule, filter: string) => {
+      return (
+        data.immatriculation.toLowerCase().includes(filter) ||
+        data.modele.toLowerCase().includes(filter) ||
+        data.commentaire.toLowerCase().includes(filter)
+      );
+    };
+  }
+
+  applyFilter(): void {
+    this.dataSource.filter = this.filterTerm.trim().toLowerCase(); // Applique le filtre
+  }
+
+  modifier(vehicule: Vehicule): void {
+    const dialogRef = this.dialog.open(ModifierVehiculeComponent, {
+      width: '900px',
+      height: 'auto',
+      data: { vehicule }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const index = this.dataSource.data.findIndex((v) => v.id === result.id);
+        if (index !== -1) {
+          this.dataSource.data[index] = result;
+          this.dataSource.data = [...this.dataSource.data]; // Force la mise à jour des données
+          this.dataSource._updateChangeSubscription(); // Force une nouvelle vérification après modification
         }
       }
     });
   }
-
-
-  filterVehicules() {
-    if (this.filterTerm) {
-      this.filtrevehicules = this.vehicules.filter(
-        vehicule =>
-          vehicule.modele.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          vehicule.immatriculation.toLowerCase().includes(this.filterTerm.toLowerCase()) ||
-          (vehicule.commentaire && vehicule.commentaire.toLowerCase().includes(this.filterTerm.toLowerCase()))
-      );
-    } else {
-      this.filtrevehicules = [...this.vehicules];
-    }
-  }
-
-  getTotalCarburant(carburants: Carburant[] | null | undefined): number {
-    return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);
-  }
-
-
-  modifier(vehicule: Vehicule) {
-
-    const dialogRef = this.dialog.open(ModifierVehiculeComponent, {
-      width: '900px',
-      height: 'auto',
-      data: {vehicule}
-    });
-
-    dialogRef.afterClosed().subscribe({
-      next: () => {
-        this.service.listeVehicule().subscribe({
-          next: (data: any) => {
-            if (data && data.vehicule) {
-              this.vehicules = data.vehicule;
-              this.filtrevehicules = [...this.vehicules];
-            } else {
-              this.snackBar.open('Erreur lors de la récupération des véhicules.', 'Fermer', { duration: 3000 });
-            }
-          },
-          error: (err) => {
-            console.log(err);
-            this.snackBar.open('Une erreur s\'est produite lors de la récupération des véhicules.', 'Fermer', { duration: 3000 });
-          }
-        });
-      },
-      error: (err) => {
-        console.log('Erreur lors de la fermeture du dialogue', err);
-        this.snackBar.open('Une erreur est survenue lors de la modification du véhicule.', 'Fermer', { duration: 3000 });
-      }
-    });
-  }
-
-
 }
-

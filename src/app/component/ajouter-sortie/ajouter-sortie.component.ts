@@ -56,7 +56,7 @@ export class AjouterSortieComponent implements OnInit {
                 }
               },
               error: (err) => {
-                console.error(err);
+                console.error();
                 affectation.derniereSortie = null;
               }
             });
@@ -64,7 +64,7 @@ export class AjouterSortieComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error(err);
+        console.error();
         this.showSnackbar("Erreur lors du chargement des affectations.");
       }
     });

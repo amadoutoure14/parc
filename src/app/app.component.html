@@ -1,6 +1,6 @@
 <mat-drawer-container class="container">
   <mat-drawer #drawer mode="side" class="drawer" opened>
-    <img src="assets/logo.png" alt="logo" height="260" width="260">
+    <img src="assets/logo.png" alt="logo" height="240" width="240" class="image">
     <div class="buttons-container">
       <button mat-stroked-button routerLink="/vehicule" routerLinkActive="active-button">
         <mat-icon>directions_car</mat-icon>
@@ -30,14 +30,17 @@
         <mat-icon>output</mat-icon>
         <span>Sortie</span>
       </button>
-
+      <button mat-stroked-button routerLink="/location" routerLinkActive="active-button">
+        <mat-icon>car_rental</mat-icon>
+        <span>Location Ponctuelle</span>
+      </button>
     </div>
   </mat-drawer>
 
 
   <mat-card-header class="header">
     <button mat-button (click)="drawer.toggle()">
-      <img src="assets/menu.png" alt="menu" height="16" width="16">
+      <img ngSrc="assets/menu.png" alt="menu" height="16" width="16">
     </button>
     <h1 class="titre">{{titre}}</h1>
   </mat-card-header>

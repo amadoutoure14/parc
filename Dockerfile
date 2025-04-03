@@ -1,18 +1,10 @@
 FROM node:latest AS build
-
 WORKDIR /app
-COPY package*.json ./
-
-RUN npm install
-
 COPY . .
-
+RUN npm install
 RUN npm run build --prod
 
-FROM nginx:alpine
-
-COPY --from=build /app/dist/parc /usr/share/nginx/html
-
-EXPOSE 4200
-
-CMD ["nginx", "-g", "daemon off;"]
+FROM httpd:latest
+WORKDIR /usr/local/apache2/htdocs/
+COPY --from=build /app/dist/parc/ ./
+RUN mv browser/* . && rmdir browser

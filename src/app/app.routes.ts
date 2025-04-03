@@ -38,6 +38,10 @@ import {
   ImprimerPointageChauffeurComponent
 } from './component/imprimer-pointage-chauffeur/imprimer-pointage-chauffeur.component';
 import {ListePointageChauffeurComponent} from './component/liste-pointage-chauffeur/liste-pointage-chauffeur.component';
+import {LocationPonctuelleComponent} from './pages/location-ponctuelle/location-ponctuelle.component';
+import {FicheLocationComponent} from './component/fiche-location/fiche-location.component';
+import {ListeLocationComponent} from './component/liste-location/liste-location.component';
+import {ImprimerLocationComponent} from './component/imprimer-location/imprimer-location.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -96,6 +100,14 @@ export const routes: Routes = [
       { path: 'ajouter', component: AjouterChauffeurComponent },
       { path: 'imprimer', component: IndexChauffeurComponent },
       { path: 'liste', component: ListeChauffeurComponent },
+      { path: '', redirectTo: 'liste', pathMatch: 'full' },
+    ]
+  },
+  { path: 'location', component: LocationPonctuelleComponent,
+    children: [
+      { path: 'fiche', component: FicheLocationComponent },
+      { path: 'imprimer', component:  ImprimerLocationComponent},
+      { path: 'liste', component: ListeLocationComponent },
       { path: '', redirectTo: 'liste', pathMatch: 'full' },
     ]
   },

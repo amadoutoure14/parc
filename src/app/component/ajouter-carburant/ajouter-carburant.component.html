@@ -1,26 +1,36 @@
 <div class="container">
   <h2>Formulaire d'Approvisionnement</h2>
 
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Sélectionner un véhicule</mat-label>
-    <mat-select [(ngModel)]="vehicule">
-      <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
-        {{ vehicule.immatriculation }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <form [formGroup]="approvisionnementForm" (ngSubmit)="onSubmit()">
 
-  <div class="input-group">
-    <label for="approv">Quantité de carburant (en litres)</label>
-    <input type="number" id="approv" [(ngModel)]="carburant.approv" placeholder="Saisir la quantité de carburant (litres)" class="input-large" required>
-  </div>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Sélectionner un véhicule</mat-label>
+      <mat-select formControlName="vehicule">
+        <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
+          {{ vehicule.immatriculation }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <div class="input-group">
-    <label for="date">Date d'approvisionnement</label>
-    <input type="date" id="date" [(ngModel)]="carburant.date"  class="input-large" required>
-  </div>
+    <div class="input-group">
+      <label for="approv">Quantité de carburant (en litres)</label>
+      <input type="number" id="approv" formControlName="approv" placeholder="Saisir la quantité (litres)" class="input-large">
+      <div *ngIf="approvisionnementForm.get('approv')?.invalid && approvisionnementForm.get('approv')?.touched">
+        <small class="error-text">Veuillez entrer une quantité valide (supérieure à 0).</small>
+      </div>
+    </div>
 
-  <button (click)="onSubmit()" [disabled]="!carburant.approv || !vehicule||!carburant.date">
-    SOUMETTRE
-  </button>
+    <div class="input-group">
+      <label for="date">Date d'approvisionnement</label>
+      <input type="date" id="date" formControlName="date" class="input-large">
+      <div *ngIf="approvisionnementForm.get('date')?.hasError('min') && approvisionnementForm.get('date')?.touched">
+        <small class="error-text">La date ne peut pas être antérieure au 01/01/2018.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="approvisionnementForm.invalid">
+      SOUMETTRE
+    </button>
+
+  </form>
 </div>
