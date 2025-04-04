@@ -86,3 +86,6 @@ input:focus {
   justify-content: center;
   text-align: center;
 }
+mat-paginator{
+  width: 100%;
+}

@@ -1,9 +1,8 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
 import {FormsModule} from '@angular/forms';
-import {MatInput} from '@angular/material/input';
+import {MatFormField, MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {DatePipe, NgIf} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
@@ -14,10 +13,11 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
   MatTable, MatTableDataSource
 } from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-liste-vehicule',
@@ -39,30 +39,42 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
     MatButton,
     MatHeaderRowDef,
     DatePipe,
-    MatSort
+    MatSort,
+    MatPaginator,
+    MatFormField,
+    MatNoDataRow
   ],
   providers:[DatePipe],
   styleUrls: ['./liste-vehicule.component.css']
 })
 export class ListeVehiculeComponent implements OnInit, AfterViewInit {
+  vehicules: Vehicule[] = [];
   displayedColumns: string[] = ['numero', 'immatriculation', 'modele', 'commentaire', 'date', 'actions'];
   dataSource = new MatTableDataSource<Vehicule>();
   filterTerm: string = '';
   message: string = '';
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(
-    private snackBar: MatSnackBar,
-    private service: VehiculeService,
-    public dialog: MatDialog
-  ) {}
+  constructor(private service: VehiculeService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.service.listeVehicule().subscribe({
       next: (data) => {
-        if (data?.vehicule?.length > 0) {
-          this.dataSource.data = data.vehicule;
+        if (data.vehicule.length > 0) {
+          this.vehicules = data.vehicule;
+          this.dataSource = new MatTableDataSource(this.vehicules);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.filterPredicate = (data: Vehicule, filter: string): boolean => {
+            const term = filter.trim().toLowerCase();
+            return (
+              data.immatriculation?.toLowerCase().includes(term) ||
+              data.modele?.toLowerCase().includes(term) ||
+              data.commentaire?.toLowerCase().includes(term)
+            );
+          };
           this.message = data.message;
         } else {
           this.dataSource.data = [];
@@ -70,24 +82,18 @@ export class ListeVehiculeComponent implements OnInit, AfterViewInit {
         }
       },
       error: () => {
-        this.message = 'Erreur de connexion avec le serveur.';
+        this.message = 'Erreur lors de la récupération des véhicules.';
       }
     });
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort; // Associe MatSort à la table pour le tri
-    this.dataSource.filterPredicate = (data: Vehicule, filter: string) => {
-      return (
-        data.immatriculation.toLowerCase().includes(filter) ||
-        data.modele.toLowerCase().includes(filter) ||
-        data.commentaire.toLowerCase().includes(filter)
-      );
-    };
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
-  applyFilter(): void {
-    this.dataSource.filter = this.filterTerm.trim().toLowerCase(); // Applique le filtre
+  applyFilter(term: string): void {
+    this.dataSource.filter = term.trim().toLowerCase();
   }
 
   modifier(vehicule: Vehicule): void {
@@ -102,8 +108,8 @@ export class ListeVehiculeComponent implements OnInit, AfterViewInit {
         const index = this.dataSource.data.findIndex((v) => v.id === result.id);
         if (index !== -1) {
           this.dataSource.data[index] = result;
-          this.dataSource.data = [...this.dataSource.data]; // Force la mise à jour des données
-          this.dataSource._updateChangeSubscription(); // Force une nouvelle vérification après modification
+          this.dataSource.data = [...this.dataSource.data];
+          this.dataSource._updateChangeSubscription();
         }
       }
     });

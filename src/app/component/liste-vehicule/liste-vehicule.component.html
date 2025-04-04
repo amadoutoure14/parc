@@ -1,10 +1,10 @@
 <div class="container">
   <div class="filter-container">
-    <input matInput type="text" [(ngModel)]="filterTerm" (input)="applyFilter()" placeholder="Rechercher"/>
+    <input matInput type="text" [(ngModel)]="filterTerm" (input)="applyFilter(filterTerm)" placeholder="Rechercher"/>
   </div>
 
-  <div *ngIf="dataSource.data && dataSource.data.length > 0" class="container">
-    <table mat-table [dataSource]="dataSource" class="table mat-elevation-z8" matSort>
+  <div class="mat-elevation-z8 table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
       <ng-container matColumnDef="numero">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro </th>
@@ -28,9 +28,7 @@
 
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-        <td mat-cell *matCellDef="let vehicule">
-          {{ vehicule.date | date: 'dd/MM/yyyy' }}
-        </td>
+        <td mat-cell *matCellDef="let vehicule"> {{ vehicule.date | date: 'dd/MM/yyyy' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
@@ -44,10 +42,16 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="6">Aucune donnée correspondant au filtre "{{ filterTerm }}"</td>
+      </tr>
     </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Sélection de page"></mat-paginator>
   </div>
 
-  <div *ngIf="dataSource.data?.length === 0">
+  <div *ngIf="vehicules.length === 0">
     <p class="non-vehicule">{{ message || 'Erreur de connexion avec le serveur !' }}</p>
   </div>
 </div>

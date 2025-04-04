@@ -3,7 +3,7 @@ import {PointageVehiculeService} from '../../services/pointage-vehicule.service'
 import {PointageVehicule} from '../../modeles/PointageVehicule';
 import {DatePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {MatInput} from '@angular/material/input';
+import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {
   MatCell,
   MatCellDef,
@@ -22,6 +22,8 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {MatIconButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {SupprimerPointageVehiculeComponent} from '../supprimer-pointage-vehicule/supprimer-pointage-vehicule.component';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatIcon} from '@angular/material/icon';
 
 
 @Component({
@@ -44,7 +46,8 @@ import {SupprimerPointageVehiculeComponent} from '../supprimer-pointage-vehicule
     DatePipe,
     MatSortHeader,
     MatSort,
-    MatIconButton
+    MatIconButton,
+    MatPaginator
   ],
   templateUrl: './liste-pointage-vehicule.component.html',
   styleUrl: './liste-pointage-vehicule.component.css'
@@ -57,18 +60,25 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
   filterTerm = "";
 
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private service: PointageVehiculeService, private cdRef: ChangeDetectorRef, private dialog:MatDialog) {}
+  constructor(private service: PointageVehiculeService, private cdRef: ChangeDetectorRef, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.service.liste().subscribe({
       next: (data: any) => {
         this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
         this.dataSource.data = [...this.pointages];
-        this.message = data.message;
-      },
-      error: err => console.error()
+        this.message = data.message || '';
+      }
     });
+
+    this.dataSource.filterPredicate = (data: PointageVehicule, filter: string) => {
+      const term = filter.toLowerCase();
+      const immatriculation = data.vehicule.immatriculation?.toLowerCase() || '';
+      const date = data.date ? new Date(data.date).toLocaleDateString().toLowerCase() : '';
+      return immatriculation.includes(term) || date.includes(term);
+    };
 
     this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
       if (property === 'date') {
@@ -79,6 +89,7 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.sort.active = 'date';
     this.sort.direction = 'desc';
@@ -90,30 +101,29 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
     this.filterTerm = filterValue;
     this.dataSource.filter = filterValue;
 
-    this.dataSource.filterPredicate = (data: PointageVehicule, filter: string) => {
-      const immatriculation = data.vehicule.immatriculation.toLowerCase();
-      const datePointage = data.date ? new Date(data.date).toLocaleDateString().toLowerCase() : '';
-
-      return immatriculation.includes(filter) || datePointage.includes(filter);
-    };
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   supprimer(id: number): void {
-    const dialogRef=this.dialog.open(
-      SupprimerPointageVehiculeComponent,{width:"500",maxWidth:600,data:{id}}
-    )
+    const dialogRef = this.dialog.open(SupprimerPointageVehiculeComponent, {
+      width: "500px",
+      maxWidth: "600px",
+      data: { id }
+    });
+
     dialogRef.afterClosed().subscribe(resultat => {
       if (resultat === 'confirm') {
         this.service.liste().subscribe({
           next: (data: any) => {
-            this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
+            this.pointages = data.pointage || [];
             this.dataSource.data = [...this.pointages];
-            this.message = data.message;
-          },
-          error: err => console.error()
+            this.message = data.message || '';
+          }
         });
       }
-    })
+    });
   }
-
 }
+
