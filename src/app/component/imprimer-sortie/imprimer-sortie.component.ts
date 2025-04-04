@@ -85,7 +85,7 @@ export class ImprimerSortieComponent implements OnInit {
       });
     }
     else if (sortie) {
-      this.service.sortieListe(sortie.id).subscribe({
+      this.service.sortieDate(sortie.id).subscribe({
         next: traiterReponse,
         error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });
@@ -161,7 +161,7 @@ export class ImprimerSortieComponent implements OnInit {
       });
     }
     else if (sortie) {
-      this.service.sortieListe(sortie.id).subscribe({
+      this.service.sortieDate(sortie.id).subscribe({
         next: impression,
         error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });

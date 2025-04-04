@@ -1,7 +1,15 @@
 <div class="container">
   <h2>FICHE DE SORTIE</h2>
-  <label for="date">Selectionner une date pour les affectations</label>
-  <input id="date" type="date" class="input-large">
+
+  <div class="date_affectation">
+    <div class="input">
+      <label for="date">Sélectionner une date pour les affectations</label>
+      <input id="date" type="date" class="input-large" [(ngModel)]="date" name="date">
+    </div>
+    <button (click)="submit()">Cliquer</button>
+  </div>
+
+
   <form [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill" class="select">
       <mat-label>Sélectionner une affectation</mat-label>
@@ -33,11 +41,13 @@
       <input id="lieu_depart" type="text" placeholder="Saisir le lieu de départ" formControlName="lieu_depart" class="input-large">
     </div>
 
-    <!-- Destination -->
     <div class="input-group">
       <label for="destination">Destination</label>
       <input id="destination" type="text" placeholder="Saisir la destination" formControlName="destination" class="input-large">
     </div>
+
+    <label for="date_sortie">Date de sortie</label>
+    <input id="date_sortie" type="datetime-local" class="input-large" formControlName="date_debut">
 
     <button  [disabled]="sortieForm.invalid">SOUMETTRE</button>
   </form>

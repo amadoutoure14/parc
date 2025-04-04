@@ -10,7 +10,6 @@
       <th>Chauffeur</th>
       <th>Téléphone</th>
       <th>Véhicule</th>
-      <th>Carburant</th>
       <th>Date</th>
       <th>Actions</th>
     </tr>
@@ -21,7 +20,6 @@
       <td>{{affectation.chauffeur?.nom_complet}}</td>
       <td>{{affectation.chauffeur?.telephone}}</td>
       <td>{{affectation.vehicule?.immatriculation}}</td>
-      <td>{{totalCarburant(affectation.vehicule?.carburants)}} Litres</td>
       <td>{{affectation.date | date:"dd/MM/yyyy"}}</td>
       <td>
         <button mat-icon-button (click)="modifier(affectation)">

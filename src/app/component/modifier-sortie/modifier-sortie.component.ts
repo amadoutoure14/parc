@@ -46,6 +46,7 @@ export class ModifierSortieComponent implements OnInit {
   ngOnInit(): void {
     const dateFin = this.data.sortie?.date_fin ? this.datePipe.transform(this.data.sortie.date_fin, 'yyyy-MM-ddTHH:mm') : '';
     const dateDebut = this.data.sortie?.date_debut ? this.datePipe.transform(this.data.sortie.date_debut, 'yyyy-MM-ddTHH:mm') : '';
+
     this.sortieForm = this.fb.group({
       objet: [this.data.sortie?.objet],
       destination: [this.data.sortie?.destination],
@@ -61,10 +62,14 @@ export class ModifierSortieComponent implements OnInit {
         this.setDerniereSortie();
       },
       error: (err) => {
-        console.error();
+        console.error(err);
         this.showSnackbar("Erreur lors du chargement des affectations.");
       }
     });
+  }
+
+  compareAffectations(a1: Affectation, a2: Affectation): boolean {
+    return a1 && a2 ? a1.id === a2.id : a1 === a2;
   }
 
   setDerniereSortie(): void {
@@ -73,10 +78,6 @@ export class ModifierSortieComponent implements OnInit {
       this.service.derniereSortie(affectationId).subscribe({
         next: (data) => {
           this.derniereSortie = data?.sortie || null;
-        },
-        error: (err) => {
-          console.error();
-          this.derniereSortie = null;
         }
       });
     }
@@ -88,34 +89,39 @@ export class ModifierSortieComponent implements OnInit {
       return;
     }
 
-    this.service.patch(this.data.sortie.id,this.sortieForm.value).subscribe({
+    this.service.patch(this.data.sortie.id, this.sortieForm.value).subscribe({
       next: (response) => {
         this.showSnackbar(response.message || 'Sortie modifiée avec succès.');
         this.dialogRef.close(true);
       },
       error: (err) => {
-        console.error();
+        console.error(err);
         const message = err.error?.message || "Erreur lors de la modification.";
         this.showSnackbar(message);
       }
     });
   }
 
-  private showSnackbar(message: string) {
-    this.snackbar.open(message, 'Fermer', { duration: 5000 });
-  }
-
   annuler(): void {
     this.dialogRef.close();
   }
 
-  terminer() {
+  terminer(): void {
     this.service.terminer(this.data.sortie).subscribe({
-      next:(data) => {
+      next: (data) => {
         this.dialogRef.close(true);
-        this.snackbar.open(data.message, 'Fermer', {duration: 3000})
+        this.snackbar.open(data.message, 'Fermer', { duration: 3000 });
+      },
+      error: (err) => {
+        console.error(err);
+        this.snackbar.open("Erreur lors de la terminaison de la sortie.", 'Fermer', { duration: 3000 });
       }
     });
   }
+
+  private showSnackbar(message: string): void {
+    this.snackbar.open(message, 'Fermer', { duration: 5000 });
+  }
 }
+
 

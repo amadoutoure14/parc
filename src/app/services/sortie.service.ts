@@ -3,8 +3,6 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Sortie} from '../modeles/Sortie';
 import {environment} from '../../environments/environment';
-fetch(environment.apiUrl);
-
 @Injectable({
   providedIn: 'root'
 })
@@ -71,8 +69,9 @@ export class SortieService {
     return this.http.get(url)
   }
 
-  sortieListe(id: number | null | undefined):Observable<any>  {
+  sortieDate(id: number | null | undefined):Observable<any>  {
     const url =`${this.env}`
     return this.http.get(url)
   }
+
 }

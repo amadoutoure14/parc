@@ -12,7 +12,7 @@
     <td>{{ chauffeur.nom_complet }}</td>
     <td>{{ chauffeur.telephone }}</td>
     <td>
-      <input type="checkbox" [(ngModel)]="chauffeur.cocher" (ngModelChange)="resetDate(chauffeur)">
+      <input type="checkbox" [(ngModel)]="chauffeur.cocher">
       <input type="date" [(ngModel)]="date" *ngIf="chauffeur.cocher">
     </td>
     <td>

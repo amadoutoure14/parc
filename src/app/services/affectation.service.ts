@@ -34,14 +34,13 @@ export class AffectationService {
     return this.http.get<any>(url);
   }
 
-  imprimerAffectation(debut: Date, fin: Date): Observable<Blob> {
-    const url = `${this.env}/affectation/dates/pdf/d?debut=${debut}&fin=${fin}`;
-    return this.http.get(url, { responseType: 'blob' });
-  }
-
   patch(affectation: any): Observable<any> {
     const url = `${this.env}/affectation/${affectation.id}/maj`;
     return this.http.patch<any>(url, affectation);
   }
 
+  affectationDate(date: Date): Observable<any>  {
+    const url = `${this.env}/affectation/date/d?date=${date}`;
+    return this.http.get(url);
+  }
 }

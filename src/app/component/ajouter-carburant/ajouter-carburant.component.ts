@@ -40,13 +40,7 @@ export class AjouterCarburantComponent implements OnInit {
     this.approvisionnementForm = this.fb.group({
       vehicule: [null, Validators.required],
       approv: [null, [Validators.required, Validators.min(1)]],
-      date: [
-        null,
-        [
-          Validators.required,
-          this.dateValidator.bind(this)
-        ]
-      ]
+      date: [null, [Validators.required, this.dateValidator.bind(this)]]
     });
 
     this.vehiculeService.listeVehicule().subscribe({
@@ -72,9 +66,7 @@ export class AjouterCarburantComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.vehicule && this.carburant.approv > 0) {
-
-      this.carburant.vehicule = this.vehicule;
+    this.carburant=this.approvisionnementForm.value;
       this.service.approvisionner(this.carburant).subscribe({
         next: () => {
           this.snackBar.open('Véhicule approvisionné !', 'Fermer', { duration: 3000 });
@@ -87,6 +79,5 @@ export class AjouterCarburantComponent implements OnInit {
         }
       });
     }
-  }
 }
 

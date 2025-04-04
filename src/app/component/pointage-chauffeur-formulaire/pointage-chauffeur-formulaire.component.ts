@@ -39,11 +39,10 @@ export class PointageChauffeurFormulaireComponent implements OnInit {
   }
 
   submit(chauffeur: Chauffeur) {
-    if (chauffeur.cocher) {
+    if (chauffeur.cocher && this.date) {
       this.service.pointer(this.date, chauffeur.id).subscribe({
         next: (data: any) => {
           chauffeur.cocher = false;
-          this.date = null;
           this.snackBar.open(data.message, "Fermer", { duration: 3000 });
         },
         error: (err) => {
@@ -52,14 +51,6 @@ export class PointageChauffeurFormulaireComponent implements OnInit {
           chauffeur.cocher=false
         }
       });
-    }
-    this.date = null;
-  }
-
-
-  resetDate(chauffeur: Chauffeur) {
-    if (!chauffeur.cocher) {
-      this.date = null;
     }
   }
 

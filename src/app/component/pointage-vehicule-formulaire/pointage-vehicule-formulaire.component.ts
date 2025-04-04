@@ -43,7 +43,6 @@ export class PointageVehiculeFormulaireComponent implements OnInit {
       this.service.pointer(this.date, vehicule.id).subscribe({
         next: (data: any) => {
           vehicule.cocher = false;
-          this.date = null;
           this.snackBar.open(data.message, "Fermer", { duration: 3000 });
         },
         error: (err) => {
