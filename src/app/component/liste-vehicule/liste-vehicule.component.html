@@ -1,33 +1,33 @@
 <div class="container">
   <div class="filter-container">
-    <input matInput type="text" [(ngModel)]="filterTerm" (input)="applyFilter(filterTerm)" placeholder="Rechercher"/>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher" #input />
   </div>
 
-  <div class="mat-elevation-z8 table">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <div class="mat-elevation-z8 table" *ngIf="dataSource.data.length > 0">
+    <table mat-table [dataSource]="dataSource" >
 
       <ng-container matColumnDef="numero">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Numéro </th>
+        <th mat-header-cell *matHeaderCellDef> Numéro </th>
         <td mat-cell *matCellDef="let i = index">{{ i + 1 }}</td>
       </ng-container>
 
       <ng-container matColumnDef="immatriculation">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Immatriculation </th>
+        <th mat-header-cell *matHeaderCellDef> Immatriculation </th>
         <td mat-cell *matCellDef="let vehicule">{{ vehicule.immatriculation }}</td>
       </ng-container>
 
       <ng-container matColumnDef="modele">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Modèle </th>
+        <th mat-header-cell *matHeaderCellDef> Modèle </th>
         <td mat-cell *matCellDef="let vehicule">{{ vehicule.modele }}</td>
       </ng-container>
 
       <ng-container matColumnDef="commentaire">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Commentaire </th>
+        <th mat-header-cell *matHeaderCellDef> Commentaire </th>
         <td mat-cell *matCellDef="let vehicule">{{ vehicule.commentaire }}</td>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+        <th mat-header-cell *matHeaderCellDef > Date d'enregistrement </th>
         <td mat-cell *matCellDef="let vehicule"> {{ vehicule.date | date: 'dd/MM/yyyy' }}</td>
       </ng-container>
 
@@ -35,7 +35,7 @@
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let vehicule">
           <button mat-button color="primary" (click)="modifier(vehicule)">
-            <img src="assets/edit.png" alt="modifier" height="24" width="24" />
+            <img ngSrc="assets/edit.png" alt="modifier" height="24" width="24" />
           </button>
         </td>
       </ng-container>
@@ -44,14 +44,13 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="6">Aucune donnée correspondant au filtre "{{ filterTerm }}"</td>
+        <td class="mat-cell" colspan="6">Aucun résultat pour "{{input.value}}"</td>
       </tr>
     </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Sélection de page"></mat-paginator>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons aria-label="Sélection de page"></mat-paginator>
   </div>
 
-  <div *ngIf="vehicules.length === 0">
-    <p class="non-vehicule">{{ message || 'Erreur de connexion avec le serveur !' }}</p>
+  <div *ngIf="dataSource.data.length === 0">
+    <p class="non-vehicule">{{ message }}</p>
   </div>
 </div>

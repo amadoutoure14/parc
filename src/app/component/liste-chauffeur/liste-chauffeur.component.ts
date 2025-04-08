@@ -36,26 +36,21 @@ import {MatButton} from '@angular/material/button';
     MatRowDef,
     MatColumnDef,
     MatHeaderCell,
-    MatSortHeader,
     MatHeaderCellDef,
     MatCellDef,
     MatCell,
     MatTable,
-    MatSort,
     MatButton
   ],
   templateUrl: './liste-chauffeur.component.html',
   styleUrl: './liste-chauffeur.component.css'
 })
-export class ListeChauffeurComponent implements OnInit, AfterViewInit {
+export class ListeChauffeurComponent implements OnInit {
 
   displayedColumns: string[] = ['numero', 'nom_complet', 'permis', 'telephone', 'actions'];
   dataSource = new MatTableDataSource<Chauffeur>();
   filterTerm: string = '';
   message: string = '';
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private service: ChauffeurService, private dialog: MatDialog) {}
 
@@ -80,10 +75,6 @@ export class ListeChauffeurComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
 
   applyFilter(): void {
     this.dataSource.filter = this.filterTerm.trim().toLowerCase();
@@ -101,7 +92,7 @@ export class ListeChauffeurComponent implements OnInit, AfterViewInit {
         const index = this.dataSource.data.findIndex(c => c.id === result.id);
         if (index !== -1) {
           this.dataSource.data[index] = result;
-          this.dataSource.data = [...this.dataSource.data]; // for trigger
+          this.dataSource.data = [...this.dataSource.data];
         }
       }
     });

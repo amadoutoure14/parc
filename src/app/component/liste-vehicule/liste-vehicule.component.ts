@@ -1,99 +1,150 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {
+  MatCell, MatCellDef, MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef, MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
-import {FormsModule} from '@angular/forms';
-import {MatFormField, MatInput} from '@angular/material/input';
-import {MatButton} from '@angular/material/button';
-import {DatePipe, NgIf} from '@angular/common';
-import {MatDialog} from '@angular/material/dialog';
 import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.component';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
-  MatTable, MatTableDataSource
-} from '@angular/material/table';
-import {MatSort, MatSortModule} from '@angular/material/sort';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatButton} from '@angular/material/button';
+import {DatePipe, NgIf, NgOptimizedImage} from '@angular/common';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-liste-vehicule',
   templateUrl: './liste-vehicule.component.html',
   imports: [
-    FormsModule,
-    MatInput,
-    NgIf,
-    MatTable,
-    MatColumnDef,
+    MatPaginator,
+    MatPaginatorModule,
+    MatHeaderRow,
+    MatRow,
+    MatNoDataRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatButton,
+    NgOptimizedImage,
     MatHeaderCell,
     MatCell,
     MatHeaderCellDef,
     MatCellDef,
-    MatHeaderRow,
-    MatRow,
-    MatRowDef,
-    MatSortModule,
-    MatButton,
-    MatHeaderRowDef,
+    MatColumnDef,
     DatePipe,
-    MatSort,
-    MatPaginator,
-    MatFormField,
-    MatNoDataRow
+    MatTable,
+    MatInput,
+    NgIf
   ],
-  providers:[DatePipe],
   styleUrls: ['./liste-vehicule.component.css']
 })
-export class ListeVehiculeComponent implements OnInit, AfterViewInit {
-  vehicules: Vehicule[] = [];
-  displayedColumns: string[] = ['numero', 'immatriculation', 'modele', 'commentaire', 'date', 'actions'];
-  dataSource = new MatTableDataSource<Vehicule>();
-  filterTerm: string = '';
-  message: string = '';
+export class ListeVehiculeComponent implements OnInit {
 
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  displayedColumns: string[] = ['numero', 'immatriculation', 'modele', 'commentaire', 'date', 'actions'];
+  message: string = '';
+  dataSource= new MatTableDataSource<Vehicule>();
 
   constructor(private service: VehiculeService, public dialog: MatDialog) {}
+
 
   ngOnInit(): void {
     this.service.listeVehicule().subscribe({
       next: (data) => {
-        if (data.vehicule.length > 0) {
-          this.vehicules = data.vehicule;
-          this.dataSource = new MatTableDataSource(this.vehicules);
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.filterPredicate = (data: Vehicule, filter: string): boolean => {
-            const term = filter.trim().toLowerCase();
-            return (
-              data.immatriculation?.toLowerCase().includes(term) ||
-              data.modele?.toLowerCase().includes(term) ||
-              data.commentaire?.toLowerCase().includes(term)
-            );
-          };
-          this.message = data.message;
-        } else {
-          this.dataSource.data = [];
-          this.message = data?.message || 'Aucun véhicule trouvé.';
-        }
-      },
-      error: () => {
-        this.message = 'Erreur lors de la récupération des véhicules.';
+        this.dataSource = new MatTableDataSource<Vehicule>(data.vehicule);
+        this.dataSource.filterPredicate = (vehicule: Vehicule, filter: string): boolean => {
+          const dateStr = vehicule.date ? new Date(vehicule.date).toLocaleDateString('fr-FR') : '';
+          const term = filter.trim().toLowerCase();
+          return (
+            vehicule.immatriculation?.toLowerCase().includes(term) ||
+            vehicule.modele?.toLowerCase().includes(term) ||
+            vehicule.commentaire?.toLowerCase().includes(term) ||
+            dateStr.toLowerCase().includes(term)
+          );
+        };
       }
     });
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-  applyFilter(term: string): void {
-    this.dataSource.filter = term.trim().toLowerCase();
+  modifier(vehicule: Vehicule): void {
+    const dialogRef = this.dialog.open(ModifierVehiculeComponent, {
+      width: '900px',
+      height: 'auto',
+      data: { vehicule }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const index = this.dataSource.data.findIndex((v) => v.id === result.id);
+        if (index !== -1) {
+          this.dataSource.data[index] = result;
+          this.dataSource.data = [...this.dataSource.data];
+          this.dataSource._updateChangeSubscription();
+        }
+      }
+    });
+  }
+
+}
+
+  /*
+   {
+
+  vehicules: Vehicule[]=[];
+  displayedColumns: string[] = ['numero', 'immatriculation', 'modele', 'commentaire', 'date', 'actions'];
+  dataSource=new MatTableDataSource<Vehicule>(this.vehicules);
+  message: string = '';
+
+@ViewChild(MatPaginator) paginator: MatPaginator;
+
+
+  constructor(private service: VehiculeService, public dialog: MatDialog) {}
+
+  ngAfterViewInit(): void {
+      this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnInit(): void {
+    this.service.listeVehicule().subscribe({
+      next: (data) => {
+        this.dataSource.data=data.vehicule
+        this.vehicules = data.vehicule
+        this.dataSource.filterPredicate = (data: Vehicule, filter: string): boolean => {
+          const dateStr = data.date ? new Date(data.date).toLocaleDateString('fr-FR') : '';
+          const term = filter.trim().toLowerCase();
+          return (
+            data.immatriculation?.toLowerCase().includes(term) ||
+            data.modele?.toLowerCase().includes(term) ||
+            data.commentaire?.toLowerCase().includes(term) ||
+            dateStr.toLowerCase().includes(term)
+          );
+        };
+        this.message = data.message;
+      }
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   modifier(vehicule: Vehicule): void {
@@ -115,3 +166,5 @@ export class ListeVehiculeComponent implements OnInit, AfterViewInit {
     });
   }
 }
+   */
+

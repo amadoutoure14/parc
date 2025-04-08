@@ -89,3 +89,12 @@ input:focus {
 mat-paginator{
   width: 100%;
 }
+.message{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: white;
+  font-size: 26px;
+  padding: 16%;
+}

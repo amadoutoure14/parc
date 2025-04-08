@@ -99,11 +99,10 @@ p{
   font-size: 26px;
 }
 .message-container {
-  padding-top: 12%;
+  padding: 16%;
   font-size: 26px;
   color: white;
   text-align: center;
-  font-weight: bold;
 }
 
 .no-data {

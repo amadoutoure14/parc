@@ -1,56 +1,73 @@
-import {Component, OnInit,} from '@angular/core';
+import {Component, OnInit, ViewChild,} from '@angular/core';
 import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from "@angular/forms";
-import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {AffectationService} from '../../services/affectation.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Carburant} from '../../modeles/Carburant';
 import {MatDialog} from '@angular/material/dialog';
 import {ModifierAffectationComponent} from '../modifier-affectation/modifier-affectation.component';
+import {MatPaginator} from '@angular/material/paginator';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRow,
+  MatRowDef, MatTable, MatTableDataSource
+} from '@angular/material/table';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatButton} from '@angular/material/button';
 
 
 @Component({
   selector: 'app-liste-affectations',
   imports: [
     FormsModule,
-    MatIconButton,
     MatInput,
-    NgForOf,
     NgIf,
-    DatePipe
+    MatPaginator,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatNoDataRow,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatCellDef, MatSortModule,
+    MatCell, MatTable, MatButton, NgOptimizedImage, DatePipe
   ],
   templateUrl: './liste-affectation.component.html',
   styleUrl: './liste-affectation.component.css'
 })
 export class ListeAffectationComponent implements OnInit {
-  message = "";
-  affectations: Affectation[] = [];
-  filterTerm = '';
-  affectationsFiltre: Affectation[] = [];
 
-  constructor(
-    private service: AffectationService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog
-  ) {}
+
+  message = "";
+  displayedColumns: string[]=['numero','chauffeur','telephone','immatriculation','date','modifier'];
+  dataSource= new MatTableDataSource<Affectation>;
+
+  constructor(private service: AffectationService, private snackBar: MatSnackBar, private dialog: MatDialog,) {}
 
   ngOnInit(): void {
     this.chargerAffectations();
   }
-
   private chargerAffectations(): void {
     this.service.listeAffectations().subscribe({
       next: (data) => {
-        if (Array.isArray(data.affectation)) {
-          this.affectations = data.affectation;
-          this.affectationsFiltre = [...this.affectations];
-        } else {
-          this.affectations = [];
-          this.affectationsFiltre = [];
-        }
-        this.message = data.message || "";
+        this.message=data.message
+        this.dataSource.data = data.affectation;
+        this.dataSource.filterPredicate = (data, filter) => {
+          const immat = data.vehicule?.immatriculation?.toLowerCase() || '';
+          const telephone = data.chauffeur?.telephone?.toLowerCase() || '';
+          const nom = data.chauffeur?.nom_complet?.toLowerCase() || '';
+          const dateStr = data.date ? new Date(data.date).toLocaleDateString('fr-FR') : '';
+          return immat.includes(filter) || dateStr.includes(filter)||nom.includes(filter)||telephone.includes(filter);
+        };
       },
       error: () => {
         this.snackBar.open("Erreur lors du chargement des affectations", "Fermer", { duration: 3000 });
@@ -58,23 +75,8 @@ export class ListeAffectationComponent implements OnInit {
     });
   }
 
-  filterAffectations(): void {
-    if (this.filterTerm.trim()) {
-      const term = this.filterTerm.toLowerCase();
-      this.affectationsFiltre = this.affectations.filter(affectation => {
-        return (
-          affectation.vehicule?.immatriculation?.toLowerCase().includes(term) ||
-          affectation.chauffeur?.nom_complet?.toLowerCase().includes(term) ||
-          affectation.chauffeur?.telephone?.toLowerCase().includes(term)
-        );
-      });
-    } else {
-      this.affectationsFiltre = [...this.affectations];
-    }
-  }
 
   modifier(affectation: Affectation): void {
-    console.log(affectation.date)
     const dialogRef = this.dialog.open(ModifierAffectationComponent, {
       data: affectation,
       width: "800px",
@@ -88,8 +90,12 @@ export class ListeAffectationComponent implements OnInit {
     });
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  totalCarburant(carburants: Carburant[] | null | undefined): number {
-    return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

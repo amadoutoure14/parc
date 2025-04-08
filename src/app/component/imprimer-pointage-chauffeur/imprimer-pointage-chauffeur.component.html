@@ -33,17 +33,17 @@
   <table mat-table [dataSource]="dataSource" class="table mat-elevation-z8" matSort>
 
     <ng-container matColumnDef="index">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nunéro </th>
+      <th mat-header-cell *matHeaderCellDef > Nunéro </th>
       <td mat-cell *matCellDef="let i = index"> {{i + 1}} </td>
     </ng-container>
 
     <ng-container matColumnDef="chauffeur">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Chauffeur </th>
+      <th mat-header-cell *matHeaderCellDef > Chauffeur </th>
       <td mat-cell *matCellDef="let element"> {{element.chauffeur.nom_complet}} </td>
     </ng-container>
 
     <ng-container matColumnDef="telephone">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Téléphone </th>
+      <th mat-header-cell *matHeaderCellDef > Téléphone </th>
       <td mat-cell *matCellDef="let element"> {{element.chauffeur.telephone}} </td>
     </ng-container>
 

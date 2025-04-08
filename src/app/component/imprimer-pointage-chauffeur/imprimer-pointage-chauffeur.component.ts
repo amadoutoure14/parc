@@ -3,13 +3,13 @@ import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
 import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell, MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow, MatRowDef, MatTable, MatTableDataSource
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell, MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef, MatNoDataRow,
+    MatRow, MatRowDef, MatTable, MatTableDataSource
 } from "@angular/material/table";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
@@ -26,30 +26,31 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-imprimer-pointage-chauffeur',
-  imports: [
-    DatePipe,
-    FormsModule,
-    MatButton,
-    MatCell,
-    MatCellDef,
-    MatColumnDef,
-    MatFormField,
-    MatHeaderCell,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatIcon,
-    MatLabel,
-    MatOption,
-    MatRow,
-    MatRowDef,
-    MatSelect,
-    MatSort,
-    MatTable,
-    NgForOf,
-    NgIf,
-    MatHeaderCellDef,
-    MatSortHeader,
-  ],
+    imports: [
+        DatePipe,
+        FormsModule,
+        MatButton,
+        MatCell,
+        MatCellDef,
+        MatColumnDef,
+        MatFormField,
+        MatHeaderCell,
+        MatHeaderRow,
+        MatHeaderRowDef,
+        MatIcon,
+        MatLabel,
+        MatOption,
+        MatRow,
+        MatRowDef,
+        MatSelect,
+        MatSort,
+        MatTable,
+        NgForOf,
+        NgIf,
+        MatHeaderCellDef,
+        MatSortHeader,
+        MatNoDataRow,
+    ],
   templateUrl: './imprimer-pointage-chauffeur.component.html',
   styleUrl: './imprimer-pointage-chauffeur.component.css'
 })

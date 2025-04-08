@@ -1,9 +1,9 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 import {PointageVehicule} from '../../modeles/PointageVehicule';
-import {DatePipe} from '@angular/common';
+import {DatePipe, NgIf, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatInput} from '@angular/material/input';
 import {
   MatCell,
   MatCellDef,
@@ -23,7 +23,6 @@ import {MatIconButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {SupprimerPointageVehiculeComponent} from '../supprimer-pointage-vehicule/supprimer-pointage-vehicule.component';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatIcon} from '@angular/material/icon';
 
 
 @Component({
@@ -47,22 +46,21 @@ import {MatIcon} from '@angular/material/icon';
     MatSortHeader,
     MatSort,
     MatIconButton,
-    MatPaginator
+    MatPaginator,
+    NgIf,
+    NgOptimizedImage
   ],
   templateUrl: './liste-pointage-vehicule.component.html',
   styleUrl: './liste-pointage-vehicule.component.css'
 })
-export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
+export class ListePointageVehiculeComponent implements OnInit {
   pointages: PointageVehicule[] = [];
   dataSource = new MatTableDataSource<PointageVehicule>();
   displayedColumns: string[] = ['index', 'vehicule', 'modele', 'date', 'supprimer'];
   message = "";
   filterTerm = "";
 
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  constructor(private service: PointageVehiculeService, private cdRef: ChangeDetectorRef, private dialog: MatDialog) {}
+  constructor(private service: PointageVehiculeService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.service.liste().subscribe({
@@ -86,14 +84,6 @@ export class ListePointageVehiculeComponent implements OnInit, AfterViewInit {
       }
       return (item as any)[property] ?? '';
     };
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.sort.active = 'date';
-    this.sort.direction = 'desc';
-    this.cdRef.detectChanges();
   }
 
   applyFilter(event: Event): void {

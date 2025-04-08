@@ -69,10 +69,8 @@ export class AjouterCarburantComponent implements OnInit {
     this.carburant=this.approvisionnementForm.value;
       this.service.approvisionner(this.carburant).subscribe({
         next: () => {
+          this.approvisionnementForm.reset();
           this.snackBar.open('Véhicule approvisionné !', 'Fermer', { duration: 3000 });
-          this.vehicule=null;
-          this.carburant.approv=0
-          this.carburant.date=null
         },
         error: () => {
           this.snackBar.open("Une erreur est survenue !","Fermer",{duration:3000})

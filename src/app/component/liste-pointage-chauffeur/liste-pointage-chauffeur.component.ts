@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {
   MatCell,
   MatCellDef,
@@ -37,20 +37,19 @@ import {MatPaginator} from "@angular/material/paginator";
         MatNoDataRow,
         MatHeaderCellDef,
         MatIconButton,
-        MatPaginator
+        MatPaginator,
+        NgIf
     ],
   templateUrl: './liste-pointage-chauffeur.component.html',
   styleUrl: './liste-pointage-chauffeur.component.css'
 })
-export class ListePointageChauffeurComponent implements OnInit, AfterViewInit {
+export class ListePointageChauffeurComponent implements OnInit {
   pointages: PointageChauffeur[] = [];
   dataSource = new MatTableDataSource<PointageChauffeur>();
   displayedColumns: string[] = ['index', 'chauffeur', 'telephone', 'date', 'supprimer'];
   message = "";
   filterTerm = "";
 
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator; // Ajout de la référence pour le paginator
 
   constructor(private service: PointageChauffeurService, private dialog: MatDialog) {}
 
@@ -60,8 +59,7 @@ export class ListePointageChauffeurComponent implements OnInit, AfterViewInit {
         this.pointages = data.pointage?.length > 0 ? data.pointage : [];
         this.dataSource.data = [...this.pointages];
         this.message = data.message || '';
-      },
-      error: () => this.message = "Erreur de chargement des données."
+      }
     });
 
     this.dataSource.filterPredicate = (data: PointageChauffeur, filter: string) => {
@@ -81,15 +79,6 @@ export class ListePointageChauffeurComponent implements OnInit, AfterViewInit {
     };
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;  // Lier le paginator au dataSource
-    setTimeout(() => {
-      this.sort.active = 'date';
-      this.sort.direction = 'desc';
-      this.sort.sortChange.emit();
-    });
-  }
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();

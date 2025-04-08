@@ -112,6 +112,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
       this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
       this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       this.dataSource.data = this.pointages;
+      console.log(this.pointages.forEach(value => value.vehicule.carburant))
       this.dataSource.sort = this.sort;
       this.message = data.message;
 
