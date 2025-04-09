@@ -1,7 +1,7 @@
 
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. nom, téléphone">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. nom, téléphone" #input>
 
-    <table mat-table [dataSource]="dataSource"  class="table mat-elevation-z8" *ngIf="dataSource.data.length > 0" matSort>
+  <table mat-table [dataSource]="dataSource" class="table mat-elevation-z8" *ngIf="dataSource.data.length > 0" matSort>
 
       <ng-container matColumnDef="index">
         <th mat-header-cell *matHeaderCellDef > Numéro </th>
@@ -35,12 +35,8 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-<!--      <tr class="mat-row" *matNoDataRow>-->
-<!--        <td class="mat-cell" colspan="5">Pas de résultat pour "{{ filterTerm }}"</td>-->
-<!--      </tr>-->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="5">Pas de résultat pour "{{ input.value }}"</td>
+      </tr>
     </table>
   <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons aria-label="select page"></mat-paginator>
-
-  <div class="message" *ngIf="dataSource.data.length===0">
-    {{message}}
-  </div>

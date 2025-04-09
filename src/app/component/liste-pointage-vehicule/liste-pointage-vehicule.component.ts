@@ -46,7 +46,9 @@ import {MatPaginator} from '@angular/material/paginator';
     MatPaginator,
     DatePipe,
     MatInput,
-    NgIf
+    NgIf,
+    MatIconButton,
+    NgOptimizedImage
   ],
   templateUrl: './liste-pointage-vehicule.component.html',
   styleUrl: './liste-pointage-vehicule.component.css'
@@ -59,7 +61,6 @@ export class ListePointageVehiculeComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   message = "";
-  filterTerm = "";
 
   constructor(private service: PointageVehiculeService, private dialog: MatDialog) {}
 
@@ -91,9 +92,7 @@ export class ListePointageVehiculeComponent implements OnInit {
   }
 
   applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.filterTerm = filterValue;
-    this.dataSource.filter = filterValue;
+    this.dataSource.filter = (event.target as HTMLInputElement).value.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();

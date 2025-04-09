@@ -29,7 +29,6 @@ import {MatButton} from '@angular/material/button';
     MatHeaderRowDef,
     MatHeaderRow,
     MatRow,
-    MatNoDataRow,
     MatRowDef,
     MatColumnDef,
     MatHeaderCell,
@@ -40,6 +39,8 @@ import {MatButton} from '@angular/material/button';
     MatPaginator,
     MatButton,
     NgOptimizedImage,
+    MatInput,
+    MatNoDataRow,
   ],
   templateUrl: './liste-chauffeur.component.html',
   styleUrl: './liste-chauffeur.component.css'

@@ -33,7 +33,7 @@ export class AjouterSortieComponent implements OnInit {
   id!: number;
   date!: Date;
 
-  constructor(private affectationService:AffectationService,private service: SortieService, private snackbar: MatSnackBar, private fb: FormBuilder, private datePipe: DatePipe) {}
+  constructor(private affectationService:AffectationService,private service: SortieService, private snackbar: MatSnackBar, private fb: FormBuilder) {}
   ngOnInit(): void {
     this.sortieForm = this.fb.group({
       affectation: [null, Validators.required],
@@ -43,10 +43,8 @@ export class AjouterSortieComponent implements OnInit {
       lieu_depart: ['', Validators.required]
     });
   }
-
-
-
   onSubmit() {
+    console.log(this.sortieForm.value.body)
     if (this.sortieForm.invalid) {
       this.showSnackbar('Veuillez remplir tous les champs requis.');
       return;
@@ -77,9 +75,9 @@ export class AjouterSortieComponent implements OnInit {
    }
    this.affectationService.affectationDate(this.date).subscribe({
      next: (response) => {
-       if (response.affectations){
-         this.affectations=response.affectations
-         this.snackbar.open(response.message, "Fermer",{duration: 3000})
+       if (response.affectation){
+         this.affectations=response.affectation
+         this.snackbar.open(`${response.message} disponible dans les options !`, "Fermer",{duration: 3000})
        }else {
          this.snackbar.open(response.message, "Fermer",{duration: 3000})
        }

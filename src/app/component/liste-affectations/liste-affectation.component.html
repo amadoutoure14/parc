@@ -1,12 +1,7 @@
-<div class="filter-container">
+
   <input matInput type="text"  (keyup)="applyFilter($event)" placeholder="Rechercher" #input>
-</div>
-<div *ngIf="dataSource.data.length === 0">
-  <p class="non-disponible">{{message}}</p>
-</div>
-<div class="container"  *ngIf="dataSource.data.length > 0">
-  <div class="table mat-elevation-z8">
-    <table class="mat-elevation-z8"  mat-table [dataSource]="dataSource" matSort>
+
+    <table class="mat-elevation-z8 table"  mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="numero">
         <th mat-header-cell *matHeaderCellDef > Numéro </th>
@@ -45,6 +40,5 @@
         <td class="mat-cell" colspan="4">pas de résultat pour "{{input.value}}"</td>
       </tr>
     </table>
-  </div>
-</div>
+  <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons aria-label="select of pages"></mat-paginator>
 

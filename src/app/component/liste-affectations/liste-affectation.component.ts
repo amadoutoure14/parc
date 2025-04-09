@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild,} from '@angular/core';
 import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
-import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
+import {DatePipe, NgOptimizedImage} from "@angular/common";
 import {AffectationService} from '../../services/affectation.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
@@ -28,7 +28,6 @@ import {MatButton} from '@angular/material/button';
   imports: [
     FormsModule,
     MatInput,
-    NgIf,
     MatHeaderRowDef,
     MatHeaderRow,
     MatRow,
@@ -38,14 +37,14 @@ import {MatButton} from '@angular/material/button';
     MatHeaderCell,
     MatHeaderCellDef,
     MatCellDef, MatSortModule,
-    MatCell, MatTable, MatButton, NgOptimizedImage, DatePipe
+    MatCell, MatTable, MatButton, NgOptimizedImage, DatePipe, MatPaginator
   ],
   templateUrl: './liste-affectation.component.html',
   styleUrl: './liste-affectation.component.css'
 })
 export class ListeAffectationComponent implements OnInit {
-
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   message = "";
   displayedColumns: string[]=['numero','chauffeur','telephone','immatriculation','date','modifier'];
   dataSource= new MatTableDataSource<Affectation>;
@@ -60,6 +59,10 @@ export class ListeAffectationComponent implements OnInit {
       next: (data) => {
         this.message=data.message
         this.dataSource.data = data.affectation;
+        this.dataSource.paginator = this.paginator;
+        this.sort.active='date'
+        this.sort.direction='desc'
+        this.dataSource.sort = this.sort;
         this.dataSource.filterPredicate = (data, filter) => {
           const immat = data.vehicule?.immatriculation?.toLowerCase() || '';
           const telephone = data.chauffeur?.telephone?.toLowerCase() || '';
