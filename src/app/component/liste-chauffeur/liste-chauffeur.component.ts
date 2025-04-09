@@ -28,7 +28,6 @@ import {MatButton} from '@angular/material/button';
     NgIf,
     FormsModule,
     MatInput,
-    MatPaginator,
     MatHeaderRowDef,
     MatHeaderRow,
     MatRow,

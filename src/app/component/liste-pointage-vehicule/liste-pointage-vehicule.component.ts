@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 import {PointageVehicule} from '../../modeles/PointageVehicule';
 import {DatePipe, NgIf, NgOptimizedImage} from '@angular/common';
@@ -38,25 +38,25 @@ import {MatPaginator} from '@angular/material/paginator';
     MatCellDef,
     MatHeaderRow,
     MatRow,
+    MatSortHeader,
     MatHeaderRowDef,
     MatRowDef,
-    MatInput,
     MatNoDataRow,
-    DatePipe,
-    MatSortHeader,
     MatSort,
-    MatIconButton,
     MatPaginator,
-    NgIf,
-    NgOptimizedImage
+    DatePipe,
+    MatInput
   ],
   templateUrl: './liste-pointage-vehicule.component.html',
   styleUrl: './liste-pointage-vehicule.component.css'
 })
 export class ListePointageVehiculeComponent implements OnInit {
+
   pointages: PointageVehicule[] = [];
   dataSource = new MatTableDataSource<PointageVehicule>();
-  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'date', 'supprimer'];
+  displayedColumns: string[] = ['num','immatriculation','modele','date'];
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   message = "";
   filterTerm = "";
 
@@ -65,8 +65,11 @@ export class ListePointageVehiculeComponent implements OnInit {
   ngOnInit(): void {
     this.service.liste().subscribe({
       next: (data: any) => {
-        this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
-        this.dataSource.data = [...this.pointages];
+        this.dataSource.data =data.pointage
+        this.dataSource.paginator=this.paginator
+        this.sort.active='date'
+        this.sort.direction='desc'
+        this.dataSource.sort = this.sort;
         this.message = data.message || '';
       }
     });

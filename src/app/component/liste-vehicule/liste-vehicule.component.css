@@ -1,4 +1,8 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
   background-color: transparent !important;
   border-radius: 10px;

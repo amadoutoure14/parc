@@ -37,7 +37,6 @@ import {MatPaginator} from "@angular/material/paginator";
         MatNoDataRow,
         MatHeaderCellDef,
         MatIconButton,
-        MatPaginator,
         NgIf
     ],
   templateUrl: './liste-pointage-chauffeur.component.html',

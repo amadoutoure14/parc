@@ -46,7 +46,7 @@ import {PointageVehicule} from '../../modeles/PointageVehicule';
     MatSortHeader,
     MatTable,
     MatHeaderCellDef,
-    NgIf
+    NgIf,
   ],
   templateUrl: './imprimer-pointage-vehicule.component.html',
   styleUrl: './imprimer-pointage-vehicule.component.css'
@@ -68,10 +68,8 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
   constructor(private service: PointageVehiculeService, private vehiculeService: VehiculeService) {}
 
   ngOnInit(): void {
-
     this.vehiculeService.listeVehicule().subscribe({
       next: data => { this.vehicules = data.vehicule; },
-      error: err => { console.error(); }
     });
     this.service.liste().subscribe({
       next: (data: any) => {
