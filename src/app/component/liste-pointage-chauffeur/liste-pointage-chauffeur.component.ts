@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {
   MatCell,
   MatCellDef,
@@ -20,25 +20,27 @@ import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-liste-pointage-chauffeur',
-    imports: [
-        DatePipe,
-        MatCell,
-        MatCellDef,
-        MatColumnDef,
-        MatHeaderCell,
-        MatHeaderRow,
-        MatHeaderRowDef,
-        MatInput,
-        MatRow,
-        MatRowDef,
-        MatSort,
-        MatSortHeader,
-        MatTable,
-        MatNoDataRow,
-        MatHeaderCellDef,
-        MatIconButton,
-        NgIf
-    ],
+  imports: [
+    DatePipe,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatInput,
+    MatRow,
+    MatRowDef,
+    MatSort,
+    MatSortHeader,
+    MatTable,
+    MatNoDataRow,
+    MatHeaderCellDef,
+    MatIconButton,
+    NgIf,
+    MatPaginator,
+    NgOptimizedImage
+  ],
   templateUrl: './liste-pointage-chauffeur.component.html',
   styleUrl: './liste-pointage-chauffeur.component.css'
 })
@@ -47,7 +49,8 @@ export class ListePointageChauffeurComponent implements OnInit {
   dataSource = new MatTableDataSource<PointageChauffeur>();
   displayedColumns: string[] = ['index', 'chauffeur', 'telephone', 'date', 'supprimer'];
   message = "";
-  filterTerm = "";
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
 
   constructor(private service: PointageChauffeurService, private dialog: MatDialog) {}
@@ -55,8 +58,12 @@ export class ListePointageChauffeurComponent implements OnInit {
   ngOnInit(): void {
     this.service.liste().subscribe({
       next: (data: any) => {
-        this.pointages = data.pointage?.length > 0 ? data.pointage : [];
-        this.dataSource.data = [...this.pointages];
+        this.dataSource.data = data.pointage;
+        this.dataSource.paginator=this.paginator ;
+        this.sort.active='date'
+        this.sort.direction='desc'
+        this.dataSource.sort=this.sort;
+
         this.message = data.message || '';
       }
     });
@@ -81,7 +88,6 @@ export class ListePointageChauffeurComponent implements OnInit {
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-    this.filterTerm = filterValue;
     this.dataSource.filter = filterValue;
   }
 

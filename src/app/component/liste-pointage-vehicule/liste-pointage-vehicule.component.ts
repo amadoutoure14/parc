@@ -45,7 +45,8 @@ import {MatPaginator} from '@angular/material/paginator';
     MatSort,
     MatPaginator,
     DatePipe,
-    MatInput
+    MatInput,
+    NgIf
   ],
   templateUrl: './liste-pointage-vehicule.component.html',
   styleUrl: './liste-pointage-vehicule.component.css'

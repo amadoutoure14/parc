@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {NgIf} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {ChauffeurService} from '../../services/chauffeur.service';
 import {Chauffeur} from '../../modeles/Chauffeur';
 import {FormsModule} from '@angular/forms';
@@ -25,9 +25,7 @@ import {MatButton} from '@angular/material/button';
   selector: 'app-liste-chauffeur',
   standalone: true,
   imports: [
-    NgIf,
     FormsModule,
-    MatInput,
     MatHeaderRowDef,
     MatHeaderRow,
     MatRow,
@@ -39,26 +37,27 @@ import {MatButton} from '@angular/material/button';
     MatCellDef,
     MatCell,
     MatTable,
-    MatButton
+    MatPaginator,
+    MatButton,
+    NgOptimizedImage,
   ],
   templateUrl: './liste-chauffeur.component.html',
   styleUrl: './liste-chauffeur.component.css'
 })
-export class ListeChauffeurComponent implements OnInit {
+export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
 
-  displayedColumns: string[] = ['numero', 'nom_complet', 'permis', 'telephone', 'actions'];
+  displayedColumns: string[] = ['numero', 'nom','permis','telephone','actions'];
   dataSource = new MatTableDataSource<Chauffeur>();
-  filterTerm: string = '';
   message: string = '';
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private service: ChauffeurService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.service.listeChauffeur().subscribe({
       next: (data) => {
-        const chauffeurs = data.chauffeur || [];
-        this.dataSource.data = chauffeurs;
-        this.message = chauffeurs.length ? '' : (data.message || 'Aucun chauffeur trouvé.');
+        this.dataSource.data =  data.chauffeur;
+        this.message = data.message
+        this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (chauffeur: Chauffeur, filter: string): boolean => {
           const term = filter.trim().toLowerCase();
           return (
@@ -73,10 +72,17 @@ export class ListeChauffeurComponent implements OnInit {
       }
     });
   }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  applyFilter(): void {
-    this.dataSource.filter = this.filterTerm.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   modifier(chauffeur: Chauffeur): void {

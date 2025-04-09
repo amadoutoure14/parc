@@ -10,7 +10,7 @@ import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
 import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.component';
 import {MatDialog} from '@angular/material/dialog';
-import {NgOptimizedImage} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 
@@ -32,7 +32,8 @@ import {MatInput} from '@angular/material/input';
     NgOptimizedImage,
     MatButton,
     MatInput,
-    MatNoDataRow
+    MatNoDataRow,
+    NgIf
   ],
   styleUrls: ['./liste-vehicule.component.css']
 })

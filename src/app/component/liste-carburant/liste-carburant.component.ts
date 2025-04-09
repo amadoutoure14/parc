@@ -22,6 +22,7 @@ import {MatInput} from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {DatePipe, NgIf, NgOptimizedImage} from '@angular/common';
 import {MatIconButton} from '@angular/material/button';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-liste-carburant',
@@ -36,7 +37,7 @@ import {MatIconButton} from '@angular/material/button';
     MatHeaderCellDef,
     MatCell,
     MatCellDef,
-    DatePipe, MatSortModule, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatRow, NgOptimizedImage, MatIconButton, MatNoDataRow
+    DatePipe, MatSortModule, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatRow, NgOptimizedImage, MatIconButton, MatNoDataRow, MatPaginator,
   ],
   templateUrl: './liste-carburant.component.html',
   styleUrl: './liste-carburant.component.css'
@@ -45,6 +46,8 @@ export class ListeCarburantComponent implements OnInit {
   displayedColumns: string[] = ['numero', 'immatriculation', 'carburant', 'date', 'actions'];
   dataSource = new MatTableDataSource<Carburant>()
   message!: string;
+  @ViewChild(MatPaginator) paginator:MatPaginator
+  @ViewChild(MatSort) sort:MatSort
   constructor(private service: CarburantService, private dialog: MatDialog) {
   }
 
@@ -55,12 +58,16 @@ export class ListeCarburantComponent implements OnInit {
   liste():void{
     this.service.listeApprov().subscribe({
       next: data => {
+        this.dataSource.data = data.carburant;
+        this.dataSource.paginator = this.paginator;
         this.dataSource.filterPredicate = (data, filter) => {
           const immat = data.vehicule?.immatriculation?.toLowerCase() || '';
           const dateStr = data.date ? new Date(data.date).toLocaleDateString('fr-FR') : '';
           return immat.includes(filter) || dateStr.includes(filter);
         };
-        this.dataSource.data = data.carburant;
+        this.sort.active='date'
+        this.sort.direction='desc';
+        this.dataSource.sort=this.sort;
       }
     })
   }
