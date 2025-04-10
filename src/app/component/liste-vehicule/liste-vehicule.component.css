@@ -64,15 +64,6 @@
   font-size: xx-large;
 }
 
-.filter-container {
-  padding-top: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  margin: 0 auto;
-}
-
 input {
   text-align: center;
   width: 50%;

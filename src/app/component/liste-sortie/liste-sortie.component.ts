@@ -1,19 +1,42 @@
-import {Component, OnInit} from '@angular/core';
-import {MatIconButton} from '@angular/material/button';
-import {DatePipe, NgForOf, NgIf, NgStyle} from '@angular/common';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {DatePipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
 import {ModifierSortieComponent} from '../modifier-sortie/modifier-sortie.component';
 import {MatDialog} from '@angular/material/dialog';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatButton} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-liste-sortie',
   imports: [
-    MatIconButton,
-    NgIf,
-    NgForOf,
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatCell,
+    MatCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    NgClass,
+    MatButton,
+    NgOptimizedImage,
     DatePipe,
-    NgStyle
+    MatInput,
+    MatNoDataRow
   ],
   providers: [
     DatePipe
@@ -23,30 +46,30 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class ListeSortieComponent implements OnInit {
 
-  sorties: Sortie[] = [];
-  filtreSorties: Sortie[] = [];
   message="";
+  dataSource=new MatTableDataSource<Sortie>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns: string[] = ['status','chauffeur','vehicule','objet','depart','destination','debut','fin','duree','modifier'];
   constructor(private service: SortieService, private dialog: MatDialog) {}
   ngOnInit(): void {
     this.service.listeSortie().subscribe({
       next: data => {
-        if (data && data.sortie && Array.isArray(data.sortie) && data.sortie.length > 0) {
-          this.sorties = data.sortie;
-          this.filtreSorties = [...this.sorties];
-          this.message = data.message;
-        } else {
-          this.sorties = [];
-          this.filtreSorties = [];
-          this.message = data?.message || "Aucune sortie trouvée.";
-        }
-      },
-      error: err => {
-        console.error();
-        this.message = "Erreur lors du chargement des sorties.";
+        this.dataSource.data=data.sortie
+
+        this.dataSource.paginator=this.paginator;
+        this.dataSource.sort=this.sort;
       }
     });
   }
 
+  getStatusText(status: boolean): string {
+    return status ? 'En cours' : 'Terminée';
+  }
+
+  getStatusClass(status: boolean): string {
+    return status ? 'bg-vert' : 'bg-rouge';
+  }
 
   modifier(sortie: Sortie): void {
     const dialogRef = this.dialog.open(
@@ -59,7 +82,12 @@ export class ListeSortieComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.ngOnInit();
+        this.dataSource._updateChangeSubscription()
       }
     });
+  }
+
+  applyFilter($event: KeyboardEvent) {
+
   }
 }
