@@ -69,7 +69,6 @@ export class ListePointageChauffeurComponent implements OnInit {
         this.sort.start='desc'
         this.sort.direction = 'desc';
         this.dataSource.sort = this.sort;
-        console.log( this.dataSource.sort);
         this.dataSource.filterPredicate = (data: PointageChauffeur, filter: string) => {
           const terme = filter.toLowerCase();
           const nom = data.chauffeur.nom_complet?.toLowerCase() || '';

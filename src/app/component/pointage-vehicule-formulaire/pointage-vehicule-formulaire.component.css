@@ -58,6 +58,7 @@ button:disabled {
   background-color: black;
   opacity: 0.1;
 }
+
 input[type="date"] {
   text-align: center;
   padding: 12px;

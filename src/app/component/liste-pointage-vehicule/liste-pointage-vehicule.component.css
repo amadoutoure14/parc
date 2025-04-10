@@ -1,15 +1,16 @@
-.container {
-  display: flex;
+.container{
+  margin-top: 2%;
+  width: 98%;
+  margin-left: 1%;
   flex-direction: column;
-  margin: 1%;
-  justify-content: center;
-  align-items: center;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  border: 1px solid #ddd;
+  overflow: hidden;
 }
 
 .table th, .table td {
@@ -35,11 +36,6 @@
   background-color: #f1f1f1;
 }
 
-.table {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-}
 
 .table td, .table th {
   border-left: 1px solid #ddd;

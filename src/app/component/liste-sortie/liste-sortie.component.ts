@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
@@ -12,7 +12,7 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, MatSortHeader, MatSortModule} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
@@ -36,7 +36,10 @@ import {MatInput} from '@angular/material/input';
     NgOptimizedImage,
     DatePipe,
     MatInput,
-    MatNoDataRow
+    MatNoDataRow,
+    MatPaginator,
+    MatSortHeader,
+    MatSortModule
   ],
   providers: [
     DatePipe
@@ -44,7 +47,7 @@ import {MatInput} from '@angular/material/input';
   templateUrl: './liste-sortie.component.html',
   styleUrl: './liste-sortie.component.css'
 })
-export class ListeSortieComponent implements OnInit {
+export class ListeSortieComponent implements OnInit,AfterViewInit {
 
   message="";
   dataSource=new MatTableDataSource<Sortie>;
@@ -56,9 +59,24 @@ export class ListeSortieComponent implements OnInit {
     this.service.listeSortie().subscribe({
       next: data => {
         this.dataSource.data=data.sortie
-
+        this.dataSource.filterPredicate = (data: Sortie, filter: string) => {
+          const term = filter.toLowerCase();
+          const chauffeur = data.affectation.chauffeur.nom_complet.toLowerCase();
+          const vehicule = data.affectation.vehicule.immatriculation.toLowerCase();
+          const destination = data.destination.toLowerCase();
+          const depart = data.lieu_depart.toLowerCase();
+          return chauffeur.includes(term)||vehicule.includes(term)||destination.includes(term)||depart.includes(term);
+        }
         this.dataSource.paginator=this.paginator;
+        this.sort.active='date'
+        this.sort.direction='desc'
         this.dataSource.sort=this.sort;
+        this.dataSource.sortingDataAccessor = (item: Sortie, property: string) => {
+          if (property === 'date_fin') {
+            return new Date(item.date_fin).getTime();
+          }
+          return (item as any)[property] ?? '';
+        };
       }
     });
   }
@@ -87,7 +105,16 @@ export class ListeSortieComponent implements OnInit {
     });
   }
 
-  applyFilter($event: KeyboardEvent) {
+  applyFilter(event: KeyboardEvent) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort=this.sort
   }
 }

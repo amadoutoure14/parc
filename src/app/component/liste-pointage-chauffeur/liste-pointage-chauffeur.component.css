@@ -1,3 +1,10 @@
+.container{
+  margin-top: 2%;
+  width: 98%;
+  margin-left: 1%;
+  flex-direction: column;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;

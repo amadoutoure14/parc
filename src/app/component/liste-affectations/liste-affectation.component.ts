@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild,} from '@angular/core';
 import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
-import {DatePipe, NgOptimizedImage} from "@angular/common";
+import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {AffectationService} from '../../services/affectation.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
@@ -37,7 +37,7 @@ import {MatButton} from '@angular/material/button';
     MatHeaderCell,
     MatHeaderCellDef,
     MatCellDef, MatSortModule,
-    MatCell, MatTable, MatButton, NgOptimizedImage, DatePipe, MatPaginator
+    MatCell, MatTable, MatButton, NgOptimizedImage, DatePipe, MatPaginator, NgIf
   ],
   templateUrl: './liste-affectation.component.html',
   styleUrl: './liste-affectation.component.css'
@@ -70,9 +70,6 @@ export class ListeAffectationComponent implements OnInit {
           const dateStr = data.date ? new Date(data.date).toLocaleDateString('fr-FR') : '';
           return immat.includes(filter) || dateStr.includes(filter)||nom.includes(filter)||telephone.includes(filter);
         };
-      },
-      error: () => {
-        this.snackBar.open("Erreur lors du chargement des affectations", "Fermer", { duration: 3000 });
       }
     });
   }

@@ -1,8 +1,8 @@
-.container {
-  padding: 10px;
-  background-color: transparent !important;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.container{
+  margin-top: 2%;
+  width: 98%;
+  margin-left: 1%;
+  flex-direction: column;
 }
 
 .table {
@@ -73,3 +73,22 @@ p{
   color: white;
 }
 
+input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+  margin: 0 auto;
+}
+
+input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+  outline: none;
+}

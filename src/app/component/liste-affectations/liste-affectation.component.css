@@ -1,9 +1,10 @@
-.container {
-  padding: 10px;
-  background-color: transparent !important;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.container{
+  margin-top: 2%;
+  width: 98%;
+  margin-left: 1%;
+  flex-direction: column;
 }
+
 
 .table {
   width: 100%;
@@ -51,24 +52,18 @@
   border-bottom: none;
 }
 
-
-.filter-container {
-  padding-top: 25px;
+input {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  margin: 0 auto;
-}
-
-input {
   text-align: center;
-  width: 50%;
+  width: 80%;
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ddd;
   transition: all 0.3s ease-in-out;
+  margin: 0 auto;
 }
 
 input:focus {
@@ -76,6 +71,7 @@ input:focus {
   box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
   outline: none;
 }
+
 .non-disponible{
   padding-top: 12%;
   color: white;

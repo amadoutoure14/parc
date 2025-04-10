@@ -46,7 +46,6 @@ import {MatPaginator} from '@angular/material/paginator';
     MatPaginator,
     DatePipe,
     MatInput,
-    NgIf,
     MatIconButton,
     NgOptimizedImage
   ],
@@ -57,7 +56,7 @@ export class ListePointageVehiculeComponent implements OnInit {
 
   pointages: PointageVehicule[] = [];
   dataSource = new MatTableDataSource<PointageVehicule>();
-  displayedColumns: string[] = ['num','immatriculation','modele','date'];
+  displayedColumns: string[] = ['num','immatriculation','modele','date','supprimer'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   message = "";
@@ -79,8 +78,8 @@ export class ListePointageVehiculeComponent implements OnInit {
     this.dataSource.filterPredicate = (data: PointageVehicule, filter: string) => {
       const term = filter.toLowerCase();
       const immatriculation = data.vehicule.immatriculation?.toLowerCase() || '';
-      const date = data.date ? new Date(data.date).toLocaleDateString().toLowerCase() : '';
-      return immatriculation.includes(term) || date.includes(term);
+      const date = data.date ? new Date(data.date).toLocaleDateString('FR-fr').toLowerCase() : '';
+      return immatriculation.includes(term) || date.includes(term) ;
     };
 
     this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
