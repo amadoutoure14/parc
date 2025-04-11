@@ -21,10 +21,10 @@ import {Chauffeur} from '../../modeles/Chauffeur';
         NgForOf,
         DatePipe,
     ],
-  templateUrl: './index-chauffeur.component.html',
-  styleUrl: './index-chauffeur.component.css'
+  templateUrl: './imprimer-chauffeur.component.html',
+  styleUrl: './imprimer-chauffeur.component.css'
 })
-export class IndexChauffeurComponent {
+export class ImprimerChauffeurComponent {
 
   constructor(private service:ChauffeurService,private datePipe: DatePipe,private snackBar: MatSnackBar ) {
 

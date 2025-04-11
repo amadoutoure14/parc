@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {Vehicule} from '../../modeles/Vehicule';
@@ -23,7 +23,7 @@ import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-imprimer-vehicule',
-  templateUrl: './index-vehicule.component.html',
+  templateUrl: './imprimer-vehicule.component.html',
   providers:[DatePipe],
   imports: [
     FormsModule,
@@ -33,7 +33,6 @@ import {MatPaginator} from '@angular/material/paginator';
     MatTable,
     MatSort,
     MatColumnDef,
-    MatSortHeader,
     MatHeaderCellDef,
     MatHeaderCell,
     MatCell,
@@ -44,14 +43,15 @@ import {MatPaginator} from '@angular/material/paginator';
     MatHeaderRowDef,
     MatPaginator,
   ],
-  styleUrls: ['./index-vehicule.component.css']
+  styleUrls: ['./imprimer-vehicule.component.css']
 })
-export class IndexVehiculeComponent {
+export class ImprimerVehiculeComponent implements OnInit,AfterViewInit {
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   debut: string = '';
   fin: string = '';
   message="";
-  displayedColumns: string[]=['numero','immatriculation',];
+  displayedColumns: string[]=['numero','immatriculation','modele','commentaire','sortie'];
   dataSource= new MatTableDataSource<Vehicule>;
 
   constructor(private service: VehiculeService,private snackBar:MatSnackBar) { }
@@ -66,13 +66,19 @@ export class IndexVehiculeComponent {
     this.service.vehiculeDatesEnregistrement(debut,fin).subscribe({
       next: (data) => {
         this.dataSource.data = data.vehicule;
+        this.dataSource.paginator=this.paginator;
         this.message = data.message;
         this.snackBar.open(data.message, 'Fermer', {duration: 3000});
       }
     })
   }
 
-  getTotalCarburant(carburants: Carburant[] | null | undefined): number {
-    return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);
+  ngOnInit(): void {
+    this.dataSource.paginator=this.paginator;
   }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator=this.paginator;
+  }
+
 }

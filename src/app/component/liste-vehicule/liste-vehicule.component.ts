@@ -10,7 +10,7 @@ import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
 import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.component';
 import {MatDialog} from '@angular/material/dialog';
-import {NgIf, NgOptimizedImage} from '@angular/common';
+import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 
@@ -33,6 +33,7 @@ import {MatInput} from '@angular/material/input';
     MatButton,
     MatInput,
     MatNoDataRow,
+    NgClass,
   ],
   styleUrls: ['./liste-vehicule.component.css']
 })
@@ -42,7 +43,7 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
 
   dataSource= new MatTableDataSource<Vehicule>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[]=['num','vehicule','modele','commentaire','modifier'];
+  displayedColumns: string[]=['num','vehicule','modele','commentaire','sortie','modifier'];
   message="";
 
   ngOnInit(): void {

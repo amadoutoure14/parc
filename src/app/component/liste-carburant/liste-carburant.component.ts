@@ -35,7 +35,7 @@ import {MatPaginator} from '@angular/material/paginator';
     MatHeaderCellDef,
     MatCell,
     MatCellDef,
-    DatePipe, MatSortModule, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatRow, NgOptimizedImage, MatIconButton, MatPaginator, MatInput, MatNoDataRow, NgIf,
+    DatePipe, MatSortModule, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatRow, NgOptimizedImage, MatIconButton, MatPaginator, MatInput, MatNoDataRow,
   ],
   templateUrl: './liste-carburant.component.html',
   styleUrl: './liste-carburant.component.css'
