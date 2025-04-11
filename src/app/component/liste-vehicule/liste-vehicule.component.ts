@@ -33,7 +33,6 @@ import {MatInput} from '@angular/material/input';
     MatButton,
     MatInput,
     MatNoDataRow,
-    NgIf
   ],
   styleUrls: ['./liste-vehicule.component.css']
 })

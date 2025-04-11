@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {  Component, OnInit, ViewChild} from '@angular/core';
 import {DatePipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
@@ -12,7 +12,7 @@ import {
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
-import {MatSort, MatSortHeader, MatSortModule} from '@angular/material/sort';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
@@ -38,8 +38,7 @@ import {MatInput} from '@angular/material/input';
     MatInput,
     MatNoDataRow,
     MatPaginator,
-    MatSortHeader,
-    MatSortModule
+    MatSortHeader
   ],
   providers: [
     DatePipe
@@ -47,18 +46,20 @@ import {MatInput} from '@angular/material/input';
   templateUrl: './liste-sortie.component.html',
   styleUrl: './liste-sortie.component.css'
 })
-export class ListeSortieComponent implements OnInit,AfterViewInit {
-
+export class ListeSortieComponent implements OnInit {
   message="";
   dataSource=new MatTableDataSource<Sortie>;
-  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[] = ['status','chauffeur','vehicule','objet','depart','destination','debut','fin','duree','modifier'];
   constructor(private service: SortieService, private dialog: MatDialog) {}
   ngOnInit(): void {
     this.service.listeSortie().subscribe({
       next: data => {
         this.dataSource.data=data.sortie
+        this.sort.active='date'
+        this.sort.direction='desc'
+        this.dataSource.sort=this.sort;
         this.dataSource.filterPredicate = (data: Sortie, filter: string) => {
           const term = filter.toLowerCase();
           const chauffeur = data.affectation.chauffeur.nom_complet.toLowerCase();
@@ -68,15 +69,7 @@ export class ListeSortieComponent implements OnInit,AfterViewInit {
           return chauffeur.includes(term)||vehicule.includes(term)||destination.includes(term)||depart.includes(term);
         }
         this.dataSource.paginator=this.paginator;
-        this.sort.active='date'
-        this.sort.direction='desc'
-        this.dataSource.sort=this.sort;
-        this.dataSource.sortingDataAccessor = (item: Sortie, property: string) => {
-          if (property === 'date_fin') {
-            return new Date(item.date_fin).getTime();
-          }
-          return (item as any)[property] ?? '';
-        };
+
       }
     });
   }
@@ -114,7 +107,4 @@ export class ListeSortieComponent implements OnInit,AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort=this.sort
-  }
 }

@@ -35,7 +35,7 @@ import {MatPaginator} from '@angular/material/paginator';
     MatHeaderCellDef,
     MatCell,
     MatCellDef,
-    DatePipe, MatSortModule, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatRow, NgOptimizedImage, MatIconButton, MatPaginator, MatInput, MatNoDataRow,
+    DatePipe, MatSortModule, MatHeaderRow, MatHeaderRowDef, MatRowDef, MatRow, NgOptimizedImage, MatIconButton, MatPaginator, MatInput, MatNoDataRow, NgIf,
   ],
   templateUrl: './liste-carburant.component.html',
   styleUrl: './liste-carburant.component.css'
@@ -101,4 +101,9 @@ export class ListeCarburantComponent implements OnInit {
       }
     });
   }
+  getTotalApprovisionnement(): number {
+    return this.dataSource.filteredData
+      .reduce((total, item) => total + (item.approv || 0), 0);
+  }
+
 }
