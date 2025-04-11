@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
 import {VehiculeService} from '../../services/vehicule.service';
@@ -14,6 +14,7 @@ import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carbura
 import {MatDialog} from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   providers: [
@@ -25,25 +26,23 @@ import autoTable from 'jspdf-autotable';
     FormsModule,
     MatIcon,
     NgForOf,
-    NgIf,
     MatButton,
     MatFormField,
     MatLabel,
     MatOption,
-    MatSelect,
-    DatePipe
+    MatSelect
   ],
   templateUrl: './imprimer-carburant.component.html',
   styleUrl: './imprimer-carburant.component.css'
 })
 export class ImprimerCarburantComponent implements OnInit {
-  vehicules: Vehicule[] = [];
-  carburants: Carburant[] = [];
-  carburantsFiltre: Carburant[] = [];
+
+  dataSource=new MatTableDataSource<Vehicule>;
   vehicule!: Vehicule;
   debut!: Date;
   fin!: Date;
   message="";
+
 
   constructor(
     private serviceVehicule: VehiculeService,
@@ -59,7 +58,7 @@ export class ImprimerCarburantComponent implements OnInit {
   loadVehicules(): void {
     this.serviceVehicule.listeVehicule().subscribe({
       next: (data) => {
-        this.vehicules = data.vehicule;
+ data.vehicule;
       }
     });
   }
@@ -67,10 +66,8 @@ export class ImprimerCarburantComponent implements OnInit {
   loadCarburants(): void {
     this.service.listeApprov().subscribe({
       next: (data) => {
-        this.carburants = data.carburant || [];
-        this.carburantsFiltre = [...this.carburants];
-      },
-      error: (error) => console.error()
+        data.carburant || [];
+      }
     });
   }
 
@@ -109,7 +106,7 @@ export class ImprimerCarburantComponent implements OnInit {
           data.carburant.sort((a: { date: string | number | Date }, b: { date: string | number | Date }) =>
             new Date(b.date).getTime() - new Date(a.date).getTime()
           );
-          const header = ["Numéro", "Carburant", "Véhicule","Date"];
+          const header = ["Numéro", "Véhicule","Carburant", "Date"];
 
           const carburant = data.carburant.map(
             (p: { id: number; approv: number; date: string;vehicule:Vehicule }, index: number) => [
@@ -164,23 +161,25 @@ export class ImprimerCarburantComponent implements OnInit {
       if (debut && fin) {
         this.service.vehiculeDates(vehicule, debut, fin).subscribe({
           next: (data) => {
-            this.carburantsFiltre = data.carburant || [];
+    data.carburant || [];
           }
         });
       } else {
         this.service.vehicule(vehicule.id).subscribe({
           next: (data) => {
-            this.carburantsFiltre = data.carburant || [];
-          },
-          error: (error) => console.error()
+            data.carburant || [];
+          }
         });
       }
     } else if (debut && fin) {
       this.service.periode(debut, fin).subscribe({
         next: (data:any) => {
-          this.carburantsFiltre = data.carburant || [];
+       data.carburant || [];
         }
       });
     }
+  }
+  getTotalCarburant(carburants: Carburant[] | null | undefined): number {
+    return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);
   }
 }

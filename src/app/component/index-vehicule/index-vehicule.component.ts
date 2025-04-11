@@ -8,32 +8,53 @@ import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Carburant} from '../../modeles/Carburant';
 import {MatInput} from '@angular/material/input';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatTable, MatTableDataSource
+} from '@angular/material/table';
+import {MatSort, MatSortHeader} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 @Component({
   selector: 'app-imprimer-vehicule',
   templateUrl: './index-vehicule.component.html',
   providers:[DatePipe],
-    imports: [
-        FormsModule,
-        MatButton,
-        MatIcon,
-        NgForOf,
-        NgIf,
-        NgClass
-    ],
+  imports: [
+    FormsModule,
+    MatButton,
+    MatIcon,
+    NgClass,
+    MatTable,
+    MatSort,
+    MatColumnDef,
+    MatSortHeader,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCell,
+    MatCellDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatHeaderRowDef,
+    MatPaginator,
+  ],
   styleUrls: ['./index-vehicule.component.css']
 })
 export class IndexVehiculeComponent {
 
   debut: string = '';
   fin: string = '';
-  vehicules: Vehicule[] = [];
-  filtrevehicules: Vehicule[] = [];
-  filterTerm = '';
   message="";
+  displayedColumns: string[]=['numero','immatriculation',];
+  dataSource= new MatTableDataSource<Vehicule>;
 
-  constructor(private service: VehiculeService,private datePipe:DatePipe, private snackBar:MatSnackBar) { }
+  constructor(private service: VehiculeService,private snackBar:MatSnackBar) { }
 
 
   rechercherVehiculeDateEnregistrement(debut: string, fin: string) {
@@ -44,15 +65,9 @@ export class IndexVehiculeComponent {
 
     this.service.vehiculeDatesEnregistrement(debut,fin).subscribe({
       next: (data) => {
-        if (data.vehicule.length === 0) {
-          this.vehicules=[]
-          this.message=data.message;
-        }else {
-          this.vehicules = data.vehicule;
-          this.filtrevehicules = this.vehicules;
-          this.message=data.message;
-          this.snackBar.open(data.message,'Fermer',  { duration: 3000 });
-        }
+        this.dataSource.data = data.vehicule;
+        this.message = data.message;
+        this.snackBar.open(data.message, 'Fermer', {duration: 3000});
       }
     })
   }

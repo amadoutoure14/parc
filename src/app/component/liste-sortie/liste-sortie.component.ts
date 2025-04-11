@@ -47,29 +47,31 @@ import {MatInput} from '@angular/material/input';
   styleUrl: './liste-sortie.component.css'
 })
 export class ListeSortieComponent implements OnInit {
-  message="";
-  dataSource=new MatTableDataSource<Sortie>;
+  message = "";
+  dataSource = new MatTableDataSource<Sortie>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['status','chauffeur','vehicule','objet','depart','destination','debut','fin','duree','modifier'];
+
+  displayedColumns: string[] = ['status', 'chauffeur', 'vehicule', 'objet', 'depart', 'destination', 'debut', 'fin', 'duree', 'modifier'];
+
   constructor(private service: SortieService, private dialog: MatDialog) {}
+
   ngOnInit(): void {
     this.service.listeSortie().subscribe({
       next: data => {
-        this.dataSource.data=data.sortie
-        this.sort.active='date'
-        this.sort.direction='desc'
-        this.dataSource.sort=this.sort;
+        this.dataSource.data = data.sortie;
         this.dataSource.filterPredicate = (data: Sortie, filter: string) => {
           const term = filter.toLowerCase();
           const chauffeur = data.affectation.chauffeur.nom_complet.toLowerCase();
           const vehicule = data.affectation.vehicule.immatriculation.toLowerCase();
           const destination = data.destination.toLowerCase();
           const depart = data.lieu_depart.toLowerCase();
-          return chauffeur.includes(term)||vehicule.includes(term)||destination.includes(term)||depart.includes(term);
-        }
-        this.dataSource.paginator=this.paginator;
-
+          return chauffeur.includes(term) || vehicule.includes(term) || destination.includes(term) || depart.includes(term);
+        };
+        setTimeout(() => {
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        });
       }
     });
   }
@@ -83,17 +85,16 @@ export class ListeSortieComponent implements OnInit {
   }
 
   modifier(sortie: Sortie): void {
-    const dialogRef = this.dialog.open(
-      ModifierSortieComponent, {
-        width: '95vw',
-        height: '92vh',
-        data: { sortie }
+    const dialogRef = this.dialog.open(ModifierSortieComponent, {
+      width: '95vw',
+      height: '92vh',
+      data: { sortie }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.ngOnInit();
-        this.dataSource._updateChangeSubscription()
+        this.dataSource._updateChangeSubscription();
       }
     });
   }
@@ -101,10 +102,8 @@ export class ListeSortieComponent implements OnInit {
   applyFilter(event: KeyboardEvent) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }

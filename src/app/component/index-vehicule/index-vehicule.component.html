@@ -16,33 +16,39 @@
 
 </div>
 
-<div *ngIf="filtrevehicules.length > 0" class="container">
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Numéro</th>
-      <th>Immatriculation </th>
-      <th>Modèle</th>
-      <th>Commentaire</th>
-      <th>Carburant</th>
-      <th>Sortie</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let vehicule of filtrevehicules; let i = index">
-      <td>{{i+1}}</td>
-      <td>{{ vehicule.immatriculation }}</td>
-      <td>{{ vehicule.modele }}</td>
-      <td>{{ vehicule.commentaire }}</td>
-      <td>{{getTotalCarburant(vehicule.carburants)}} Litres</td>
-      <td [ngClass]="{'disponible': vehicule.sortie, 'non-disponible': !vehicule.sortie}">
-        {{ vehicule.sortie ? 'Oui':'Non'  }}
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<table mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="numero">
+    <th mat-header-cell *matHeaderCellDef > Numéro </th>
+    <td mat-cell *matCellDef="let i = index"> {{i +1}} </td>
+  </ng-container>
 
-<div *ngIf="filtrevehicules.length==0">
-  <p class="non-vehicule"> {{message}}</p>
-</div>
+  <ng-container matColumnDef="immatriculation">
+    <th mat-header-cell *matHeaderCellDef > Immatriculation </th>
+    <td mat-cell *matCellDef="let vehicule"> {{vehicule.immatriculation}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="modele">
+    <th mat-header-cell *matHeaderCellDef > Modèle </th>
+    <td mat-cell *matCellDef="let vehicule"> {{vehicule.modele}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="commentaire">
+    <th mat-header-cell *matHeaderCellDef > Commentaire </th>
+    <td mat-cell *matCellDef="let vehicule"> {{vehicule.commentaire}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="carburant">
+    <th mat-header-cell *matHeaderCellDef > Carburant </th>
+    <td mat-cell *matCellDef="let vehicule"> {{vehicule.carburant}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="sortie">
+    <th mat-header-cell *matHeaderCellDef > Sortie </th>
+    <td  mat-cell *matCellDef="let vehicule" [ngClass]="{'disponible': vehicule.sortie, 'non-disponible': !vehicule.sortie}">{{ vehicule.sortie ? 'Oui':'Non'  }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator showFirstLastButtons [pageSizeOptions]="[5,10,20,100]"></mat-paginator>
+
