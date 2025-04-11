@@ -38,7 +38,7 @@ export class PointageVehiculeService {
   }
 
   vehicule(vehicule: number | null | undefined): Observable<any> {
-    const url = `${this.env}/pointage/vehicule/${vehicule}`;
+    const url = `${this.env}/pointage/vehicule/index/${vehicule}`;
     return this.http.get(url)
   }
 

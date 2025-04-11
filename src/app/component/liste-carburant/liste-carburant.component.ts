@@ -91,7 +91,7 @@ export class ListeCarburantComponent implements OnInit {
 
   supprimer(carburant: Carburant): void {
     const dialogRef = this.dialog.open( SuppressionCarburantComponent, {
-      width: "500px",
+      width: "520px",
       maxWidth: "600px",
       data: { carburant }
     });

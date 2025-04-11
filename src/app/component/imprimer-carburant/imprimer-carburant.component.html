@@ -1,10 +1,10 @@
-<div class="container">
+
   <div class="recherche">
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Sélectionner un véhicule</mat-label>
       <mat-select [(ngModel)]="vehicule">
         <mat-option [value]="null">Aucun</mat-option>
-        <mat-option *ngFor="let vehicule of dataSource.data" [value]="vehicule">
+        <mat-option *ngFor="let vehicule of dataSourceVehicule.data" [value]="vehicule">
           {{ vehicule.immatriculation }}
         </mat-option>
       </mat-select>
@@ -27,20 +27,33 @@
       </button>
     </div>
   </div>
+  <div class="container">
+    <table mat-table [dataSource]="dataSource" class="table">
 
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Numéro</th>
-        <th>Véhicule</th>
-        <th>Date</th>
-        <th>Carburant</th>
-      </tr>
-      </thead>
-      <tbody>
+      <ng-container matColumnDef="numero">
+        <th mat-header-cell *matHeaderCellDef> Numéro </th>
+        <td mat-cell *matCellDef="let i= index"> {{i+1}} </td>
+      </ng-container>
 
+      <ng-container matColumnDef="vehicule">
+        <th mat-header-cell *matHeaderCellDef> Véhicule </th>
+        <td mat-cell *matCellDef="let carburant"> {{carburant.vehicule.immatriculation}} </td>
+      </ng-container>
 
-      </tbody>
+      <ng-container matColumnDef="carburant">
+        <th mat-header-cell *matHeaderCellDef> Quantité </th>
+        <td mat-cell *matCellDef="let carburant">{{ carburant.approv }} {{ carburant.approv > 1 ? 'litres' : 'litre' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef > Date </th>
+        <td mat-cell *matCellDef="let carburant"> {{ carburant.date | date:'dd/MM/yyyy' }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20,100]" showFirstLastButtons></mat-paginator>
   </div>
+
 

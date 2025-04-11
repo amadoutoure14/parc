@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {MatButton} from "@angular/material/button";
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Carburant} from '../../modeles/Carburant';
 import {VehiculeService} from '../../services/vehicule.service';
@@ -14,7 +14,18 @@ import {ModifierCarburantComponent} from '../modifier-carburant/modifier-carbura
 import {MatDialog} from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import {MatTableDataSource} from '@angular/material/table';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef, MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 
 @Component({
   providers: [
@@ -30,18 +41,34 @@ import {MatTableDataSource} from '@angular/material/table';
     MatFormField,
     MatLabel,
     MatOption,
-    MatSelect
+    MatSelect,
+    MatTable,
+    MatPaginator,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRow,
+    MatRowDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderCellDef,
+    MatCell,
+    MatCellDef,
+    DatePipe,
   ],
   templateUrl: './imprimer-carburant.component.html',
   styleUrl: './imprimer-carburant.component.css'
 })
 export class ImprimerCarburantComponent implements OnInit {
 
-  dataSource=new MatTableDataSource<Vehicule>;
+  dataSource=new MatTableDataSource<Carburant>;
+  dataSourceVehicule=new MatTableDataSource<Vehicule>;
   vehicule!: Vehicule;
   debut!: Date;
   fin!: Date;
   message="";
+  @ViewChild(MatPaginator) paginator : MatPaginator;
+  @ViewChild(MatSort) sort : MatSort;
+  displayedColumns: string[]=['numero','vehicule','carburant','date'];
 
 
   constructor(
@@ -51,6 +78,8 @@ export class ImprimerCarburantComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.loadVehicules();
     this.loadCarburants();
   }
@@ -58,7 +87,7 @@ export class ImprimerCarburantComponent implements OnInit {
   loadVehicules(): void {
     this.serviceVehicule.listeVehicule().subscribe({
       next: (data) => {
- data.vehicule;
+        this.dataSourceVehicule.data=data.vehicule;
       }
     });
   }
@@ -66,7 +95,8 @@ export class ImprimerCarburantComponent implements OnInit {
   loadCarburants(): void {
     this.service.listeApprov().subscribe({
       next: (data) => {
-        data.carburant || [];
+        this.dataSource.data=data.carburant || [];
+        this.dataSource.paginator = this.paginator;
       }
     });
   }
@@ -106,13 +136,13 @@ export class ImprimerCarburantComponent implements OnInit {
           data.carburant.sort((a: { date: string | number | Date }, b: { date: string | number | Date }) =>
             new Date(b.date).getTime() - new Date(a.date).getTime()
           );
-          const header = ["Numéro", "Véhicule","Carburant", "Date"];
+          const header = ["Numéro", "Véhicule","Quantité", "Date"];
 
           const carburant = data.carburant.map(
             (p: { id: number; approv: number; date: string;vehicule:Vehicule }, index: number) => [
               index + 1,
-              p.approv,
               p.vehicule.immatriculation,
+              `${p.approv} ${p.approv === 1 ? 'litre' : 'litres'}`,
               new Date(p.date).toLocaleDateString('fr-FR')
             ]
           );
@@ -121,6 +151,7 @@ export class ImprimerCarburantComponent implements OnInit {
             head: [header],
             body: carburant
           });
+
           const today = new Date();
           const dateString = `Imprimé le ${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()} à ${today.getHours()}:${today.getMinutes()}`;
           doc.text(dateString, pdfWidth - 75, doc.internal.pageSize.height - 34);
@@ -135,7 +166,6 @@ export class ImprimerCarburantComponent implements OnInit {
     if (vehicule && debut && fin) {
       this.service.vehiculeDates(vehicule, debut, fin).subscribe({
         next: impression,
-        error: () => { this.message = "Erreur lors de la récupération des carburants."; }
       });
     }
 
@@ -161,25 +191,22 @@ export class ImprimerCarburantComponent implements OnInit {
       if (debut && fin) {
         this.service.vehiculeDates(vehicule, debut, fin).subscribe({
           next: (data) => {
-    data.carburant || [];
+            this.dataSource=data.carburant || [];
           }
         });
       } else {
         this.service.vehicule(vehicule.id).subscribe({
           next: (data) => {
-            data.carburant || [];
+            this.dataSource.data=data.carburant || [];
           }
         });
       }
     } else if (debut && fin) {
       this.service.periode(debut, fin).subscribe({
         next: (data:any) => {
-       data.carburant || [];
+          this.dataSource.data= data.carburant || [];
         }
       });
     }
-  }
-  getTotalCarburant(carburants: Carburant[] | null | undefined): number {
-    return (carburants ?? []).reduce((total, carburant) => total + carburant.approv, 0);
   }
 }

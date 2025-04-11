@@ -1,4 +1,11 @@
-.container,header{
+.container{
+  margin-top: 1%;
+  width: 98%;
+  margin-left: 1%;
+  flex-direction: column;
+}
+
+header{
   display: flex;
   justify-content: center;
   align-items: center;

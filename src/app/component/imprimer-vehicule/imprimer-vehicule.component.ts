@@ -1,13 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {MatButton} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {Vehicule} from '../../modeles/Vehicule';
 import {MatIcon} from '@angular/material/icon';
 import {VehiculeService} from '../../services/vehicule.service';
-import {DatePipe, NgClass, NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Carburant} from '../../modeles/Carburant';
-import {MatInput} from '@angular/material/input';
 import {
   MatCell,
   MatCellDef,
@@ -31,7 +29,6 @@ import {MatPaginator} from '@angular/material/paginator';
     MatIcon,
     NgClass,
     MatTable,
-    MatSort,
     MatColumnDef,
     MatHeaderCellDef,
     MatHeaderCell,

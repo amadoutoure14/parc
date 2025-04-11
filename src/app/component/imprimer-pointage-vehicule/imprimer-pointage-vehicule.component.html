@@ -4,7 +4,7 @@
       <mat-label>Sélectionner un véhicule</mat-label>
       <mat-select [(ngModel)]="vehicule">
         <mat-option [value]="null">Aucun</mat-option>
-        <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
+        <mat-option *ngFor="let vehicule of dataSourceVehicule.data" [value]="vehicule">
           {{ vehicule.immatriculation }}
         </mat-option>
       </mat-select>
@@ -30,7 +30,8 @@
   </div>
 
 </div>
-<div class="container" *ngIf="dataSource.data.length > 0">
+
+<div class="container">
   <table mat-table [dataSource]="dataSource" class="table mat-elevation-z8" matSort>
     <ng-container matColumnDef="index">
       <th mat-header-cell *matHeaderCellDef > Nunéro </th>
@@ -49,18 +50,17 @@
 
     <ng-container matColumnDef="carburant">
       <th mat-header-cell *matHeaderCellDef > Carburant </th>
-      <td mat-cell *matCellDef="let element"> {{element.carburant}} Litres</td>
+      <td mat-cell *matCellDef="let element">{{ element.carburant }} {{ element.carburant === 1 ? 'Litre' : 'Litres' }}</td>
     </ng-container>
 
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de pointage </th>
+      <th mat-header-cell *matHeaderCellDef > Date de pointage </th>
       <td mat-cell *matCellDef="let element"> {{element.date | date:"dd/MM/yyyy"}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator showFirstLastButtons [pageSizeOptions]="[5,10,20,100]"></mat-paginator>
 </div>
-<div class="message" *ngIf="dataSource.data.length === 0 && message">
-  <p>{{ message }}</p>
-</div>
+

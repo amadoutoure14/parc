@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf} from "@angular/common";
 import {FormsModule} from '@angular/forms';
 import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 import {
@@ -21,6 +21,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import {Vehicule} from '../../modeles/Vehicule';
 import {PointageVehicule} from '../../modeles/PointageVehicule';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-imprimer-pointage',
@@ -43,45 +44,38 @@ import {PointageVehicule} from '../../modeles/PointageVehicule';
     MatRow,
     MatRowDef,
     MatSort,
-    MatSortHeader,
     MatTable,
     MatHeaderCellDef,
-    NgIf,
+    MatPaginator
   ],
   templateUrl: './imprimer-pointage-vehicule.component.html',
   styleUrl: './imprimer-pointage-vehicule.component.css'
 })
-export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit {
+export class ImprimerPointageVehiculeComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<PointageVehicule>();
+  dataSource = new MatTableDataSource<PointageVehicule>;
+  dataSourceVehicule = new MatTableDataSource<Vehicule>;
   displayedColumns: string[] = ['index', 'vehicule', 'modele', 'carburant', 'date'];
   message = "";
-  filterTerm = "";
 
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   debut: any;
   fin: any;
   vehicule!: Vehicule;
-  vehicules: Vehicule[] = [];
-  pointages: PointageVehicule[] = [];
 
   constructor(private service: PointageVehiculeService, private vehiculeService: VehiculeService) {}
 
   ngOnInit(): void {
     this.vehiculeService.listeVehicule().subscribe({
-      next: data => { this.vehicules = data.vehicule; },
+      next: data => {
+        this.dataSourceVehicule.data = data.vehicule;
+        },
     });
     this.service.liste().subscribe({
       next: (data: any) => {
-        this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
-        this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-        this.dataSource.data = this.pointages;
-        this.dataSource.sort = this.sort;
+        this.dataSource.data = data.pointage && data.pointage.length > 0 ? data.pointage : [];
+        this.dataSource.paginator=this.paginator;
         this.message = data.message;
-      },
-      error: err => {
-        this.message = "Erreur lors du chargement des pointages.";
-        console.error();
       }
     });
     this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
@@ -93,12 +87,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
 
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-  }
-
   rechercher(vehicule: Vehicule, debut: Date | null, fin: Date | null): void {
-    this.pointages = [];
     this.dataSource.data = [];
     this.message = "";
 
@@ -107,11 +96,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
         this.message = data.message || "Aucune donnée trouvée.";
         return;
       }
-      this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
-      this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-      this.dataSource.data = this.pointages;
-      console.log(this.pointages.forEach(value => value.vehicule.carburant))
-      this.dataSource.sort = this.sort;
+      this.dataSource.data = data.pointage && data.pointage.length > 0 ? data.pointage : [];
       this.message = data.message;
 
     };
@@ -123,10 +108,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
             this.message = data.message || "Aucune donnée trouvée.";
             return;
           }
-          this.pointages = data.pointage && data.pointage.length > 0 ? data.pointage : [];
-          this.pointages.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-          this.dataSource.data = this.pointages;
-          this.dataSource.sort = this.sort;
+          this.dataSource.data = data.pointage && data.pointage.length > 0 ? data.pointage : [];
           this.message = data.message;
 
         },
@@ -136,13 +118,11 @@ export class ImprimerPointageVehiculeComponent implements OnInit, AfterViewInit 
     else if (debut && fin) {
       this.service.listePeriode(debut, fin).subscribe({
         next: traiterReponse,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });
     }
     else if (vehicule) {
       this.service.vehicule(vehicule.id).subscribe({
-        next: traiterReponse,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        next: traiterReponse
       });
     }
     else {

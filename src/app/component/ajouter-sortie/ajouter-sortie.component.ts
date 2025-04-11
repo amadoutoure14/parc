@@ -44,7 +44,6 @@ export class AjouterSortieComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log(this.sortieForm.value.body)
     if (this.sortieForm.invalid) {
       this.showSnackbar('Veuillez remplir tous les champs requis.');
       return;
@@ -56,10 +55,6 @@ export class AjouterSortieComponent implements OnInit {
       next: (response) => {
         this.showSnackbar(response.message || 'Sortie enregistrée avec succès.');
         this.sortieForm.reset();
-      },
-      error: (err) => {
-        const message = err.error?.message || "Erreur lors de l'enregistrement.";
-        this.showSnackbar(message);
       }
     });
   }
