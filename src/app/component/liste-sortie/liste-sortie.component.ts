@@ -60,6 +60,23 @@ export class ListeSortieComponent implements OnInit {
     this.service.listeSortie().subscribe({
       next: data => {
         this.dataSource.data = data.sortie;
+        this.dataSource.paginator=this.paginator;
+        this.dataSource.sortingDataAccessor = (item, property) => {
+          switch (property) {
+            case 'debut':
+              return new Date(item.date_debut);
+            case 'chauffeur':
+              return item.affectation.chauffeur.nom_complet.toLowerCase();
+            case 'vehicule':
+              return item.affectation.vehicule.immatriculation.toLowerCase();
+            default:
+              return item[property];
+          }
+        };
+        this.sort.active='debut'
+        this.sort.direction='desc'
+        this.sort.start='desc'
+        this.dataSource.sort = this.sort;
         this.dataSource.filterPredicate = (data: Sortie, filter: string) => {
           const term = filter.toLowerCase();
           const chauffeur = data.affectation.chauffeur.nom_complet.toLowerCase();
@@ -68,10 +85,6 @@ export class ListeSortieComponent implements OnInit {
           const depart = data.lieu_depart.toLowerCase();
           return chauffeur.includes(term) || vehicule.includes(term) || destination.includes(term) || depart.includes(term);
         };
-        setTimeout(() => {
-          this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
-        });
       }
     });
   }

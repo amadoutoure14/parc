@@ -40,7 +40,7 @@
     </ng-container>
 
     <ng-container matColumnDef="fin">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fin </th>
+      <th mat-header-cell *matHeaderCellDef > Fin </th>
       <td mat-cell *matCellDef="let sortie">{{ sortie.date_fin == null ? "A déterminer" : (sortie.date_fin | date: 'dd/MM/yyyy HH:mm') }}</td>
     </ng-container>
 
