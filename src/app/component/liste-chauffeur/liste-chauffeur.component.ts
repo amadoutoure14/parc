@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {NgIf, NgOptimizedImage} from '@angular/common';
+import {NgOptimizedImage} from '@angular/common';
 import {ChauffeurService} from '../../services/chauffeur.service';
 import {Chauffeur} from '../../modeles/Chauffeur';
 import {FormsModule} from '@angular/forms';
@@ -18,8 +18,7 @@ import {
   MatRow,
   MatRowDef, MatTable, MatTableDataSource
 } from '@angular/material/table';
-import {MatSort, MatSortHeader} from '@angular/material/sort';
-import {MatButton} from '@angular/material/button';
+import {MatIconButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-liste-chauffeur',
@@ -37,10 +36,10 @@ import {MatButton} from '@angular/material/button';
     MatCell,
     MatTable,
     MatPaginator,
-    MatButton,
     NgOptimizedImage,
     MatInput,
     MatNoDataRow,
+    MatIconButton,
   ],
   templateUrl: './liste-chauffeur.component.html',
   styleUrl: './liste-chauffeur.component.css'
@@ -102,6 +101,10 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
         }
       }
     });
+  }
+
+  supprimer(chauffeur) {
+
   }
 }
 

@@ -42,8 +42,7 @@ export class ImprimerSortieComponent implements OnInit {
 
   debut!:Date;
   sorties:Sortie[]=[]
-  filtreSorties:Sortie[]=[]
-  filterTerm='';
+  sortiesFiltre:Sortie[]=[]
   fin!: Date;
   sortie!: Sortie;
 
@@ -52,6 +51,7 @@ export class ImprimerSortieComponent implements OnInit {
     this.service.listeSortie().subscribe({
       next: data => {
         this.sorties=data.sortie;
+        this.sortiesFiltre=[...this.sorties];
       }
     })
   }
@@ -75,19 +75,16 @@ export class ImprimerSortieComponent implements OnInit {
           this.message = data.message;
 
         },
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });
     }
     else if (debut && fin) {
       this.service.sortieDates(debut, fin).subscribe({
-        next: traiterReponse,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        next: traiterReponse
       });
     }
     else if (sortie) {
-      this.service.sortieDate(sortie.id).subscribe({
-        next: traiterReponse,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+      this.service.idSortie(sortie.id).subscribe({
+        next: traiterReponse
       });
     }
     else {
@@ -161,7 +158,7 @@ export class ImprimerSortieComponent implements OnInit {
       });
     }
     else if (sortie) {
-      this.service.sortieDate(sortie.id).subscribe({
+      this.service.idSortie(sortie.id).subscribe({
         next: impression,
         error: () => { this.message = "Erreur lors de la récupération des pointages."; }
       });

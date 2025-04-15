@@ -37,9 +37,6 @@ export class SuppressionCarburantComponent {
     this.service.supprimer(this.data.carburant).subscribe({
       next: () => {
         this.dialogRef.close('confirm');
-      },
-      error: (error) => {
-        console.error();
       }
     });
   }

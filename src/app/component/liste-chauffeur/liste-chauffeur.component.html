@@ -24,8 +24,11 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let chauffeur">
-        <button mat-button color="primary" (click)="modifier(chauffeur)">
+        <button mat-icon-button color="primary" (click)="modifier(chauffeur)">
           <img ngSrc="assets/edit.png" alt="modifier" height="24" width="24" />
+        </button>
+        <button mat-icon-button color="warn" (click)="supprimer(chauffeur)">
+          <img ngSrc="assets/delete.png" alt="Supprimer" width="24" height="24" />
         </button>
       </td>
     </ng-container>

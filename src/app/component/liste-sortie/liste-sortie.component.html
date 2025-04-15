@@ -50,11 +50,12 @@
     </ng-container>
 
     <ng-container matColumnDef="modifier">
-      <th mat-header-cell *matHeaderCellDef> Modifier </th>
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let sortie">
-        <button mat-button (click)="modifier(sortie)">
-          <img ngSrc="assets/edit.png" alt="edit" height="26" width="26">
-        </button>
+        <div class="actions">
+          <button mat-button (click)="modifier(sortie)"><img ngSrc="assets/edit.png" alt="edit" height="24" width="24"></button>
+          <button mat-button (click)="supprimer(sortie)"><img ngSrc="assets/delete.png" alt="edit" height="24" width="24"></button>
+        </div>
       </td>
     </ng-container>
 

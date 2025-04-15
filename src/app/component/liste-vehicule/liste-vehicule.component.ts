@@ -11,30 +11,30 @@ import {VehiculeService} from '../../services/vehicule.service';
 import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.component';
 import {MatDialog} from '@angular/material/dialog';
 import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-liste-vehicule',
   templateUrl: './liste-vehicule.component.html',
-  imports: [
-    MatTable,
-    MatColumnDef,
-    MatHeaderCell,
-    MatCell,
-    MatHeaderCellDef,
-    MatCellDef,
-    MatPaginator,
-    MatHeaderRow,
-    MatRow,
-    MatHeaderRowDef,
-    MatRowDef,
-    NgOptimizedImage,
-    MatButton,
-    MatInput,
-    MatNoDataRow,
-    NgClass,
-  ],
+    imports: [
+        MatTable,
+        MatColumnDef,
+        MatHeaderCell,
+        MatCell,
+        MatHeaderCellDef,
+        MatCellDef,
+        MatPaginator,
+        MatHeaderRow,
+        MatRow,
+        MatHeaderRowDef,
+        MatRowDef,
+        NgOptimizedImage,
+        MatInput,
+        MatNoDataRow,
+        NgClass,
+        MatIconButton,
+    ],
   styleUrls: ['./liste-vehicule.component.css']
 })
 export class ListeVehiculeComponent implements OnInit,AfterViewInit {
@@ -87,4 +87,7 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
   }
 
 
+  supprimer(vehicule) {
+
+  }
 }

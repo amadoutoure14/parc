@@ -16,6 +16,7 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
+import {SupprimerSortieComponent} from '../supprimer-sortie/supprimer-sortie.component';
 
 @Component({
   selector: 'app-liste-sortie',
@@ -118,5 +119,20 @@ export class ListeSortieComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  supprimer(sortie):void{
+    const dialogRef = this.dialog.open(SupprimerSortieComponent, {
+      width: "520px",
+      maxWidth: "600px",
+      data: { sortie }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ngOnInit();
+        this.dataSource._updateChangeSubscription();
+      }
+    });
   }
 }

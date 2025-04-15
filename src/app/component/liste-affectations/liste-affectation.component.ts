@@ -2,9 +2,8 @@ import {Component, OnInit, ViewChild,} from '@angular/core';
 import {Affectation} from '../../modeles/Affectation';
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
-import {DatePipe, NgIf, NgOptimizedImage} from "@angular/common";
+import {DatePipe, NgOptimizedImage} from "@angular/common";
 import {AffectationService} from '../../services/affectation.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {ModifierAffectationComponent} from '../modifier-affectation/modifier-affectation.component';
 import {MatPaginator} from '@angular/material/paginator';
@@ -20,7 +19,7 @@ import {
   MatRowDef, MatTable, MatTableDataSource
 } from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
-import {MatButton} from '@angular/material/button';
+import {MatIconButton} from '@angular/material/button';
 
 
 @Component({
@@ -37,7 +36,7 @@ import {MatButton} from '@angular/material/button';
     MatHeaderCell,
     MatHeaderCellDef,
     MatCellDef, MatSortModule,
-    MatCell, MatTable, MatButton, NgOptimizedImage, DatePipe, MatPaginator, NgIf
+    MatCell, MatTable, NgOptimizedImage, DatePipe, MatPaginator, MatIconButton
   ],
   templateUrl: './liste-affectation.component.html',
   styleUrl: './liste-affectation.component.css'
@@ -49,7 +48,7 @@ export class ListeAffectationComponent implements OnInit {
   displayedColumns: string[]=['numero','chauffeur','telephone','immatriculation','date','modifier'];
   dataSource= new MatTableDataSource<Affectation>;
 
-  constructor(private service: AffectationService, private snackBar: MatSnackBar, private dialog: MatDialog,) {}
+  constructor(private service: AffectationService, private dialog: MatDialog,) {}
 
   ngOnInit(): void {
     this.chargerAffectations();
@@ -96,5 +95,9 @@ export class ListeAffectationComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  supprimer(affectation) {
+
   }
 }

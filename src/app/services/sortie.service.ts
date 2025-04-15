@@ -68,10 +68,13 @@ export class SortieService {
     const url = `${this.env}`;
     return this.http.get(url)
   }
-
-  sortieDate(id: number | null | undefined):Observable<any>  {
-    const url =`${this.env}`
+  idSortie(id: number | null | undefined):Observable<any>  {
+    const url =`${this.env}/sortie/${id}`
     return this.http.get(url)
   }
 
+  supprimer(sortie: Sortie):Observable<any> {
+    const url =`${this.env}`
+    return this.http.get(url)
+  }
 }

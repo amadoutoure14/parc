@@ -40,11 +40,6 @@
       <td class="mat-cell" colspan="4">pas de résultat pour  "{{input.value}}"</td>
     </tr>
   </table>
-
-  <div class="total-appro">
-    Total : {{ getTotalApprovisionnement() }} {{ getTotalApprovisionnement() > 1 ? 'litres' : 'litre' }}
-  </div>
-
-  <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons aria-label="select of page"></mat-paginator>
+     <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons aria-label="select of page"></mat-paginator>
 
 </div>

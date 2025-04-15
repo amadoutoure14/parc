@@ -15,17 +15,7 @@
       <mat-label>Sélectionner une affectation</mat-label>
       <mat-select formControlName="affectation">
         <mat-option *ngFor="let affectation of affectations" [value]="affectation">
-          Immatriculation : {{ affectation.vehicule?.immatriculation }}<br>
-          Chauffeur : {{affectation.chauffeur?.nom_complet}}<br>
-          Téléphone : {{affectation.chauffeur?.telephone}}<br>
-          La dernière sortie :
-          <ng-container *ngIf="affectation.derniereSortie">
-            {{ affectation.derniereSortie.date_debut | date:'dd/MM/yyyy HH:mm' }} -
-            {{ affectation.derniereSortie.date_fin | date:'dd/MM/yyyy HH:mm' }}
-          </ng-container>
-          <ng-container *ngIf="!affectation.derniereSortie">
-            Pas de sortie récente
-          </ng-container>
+          {{ affectation.vehicule?.immatriculation }} | {{affectation.chauffeur?.nom_complet}}<br>
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -46,8 +36,8 @@
       <input id="destination" type="text" placeholder="Saisir la destination" formControlName="destination" class="input-large">
     </div>
 
-    <label for="date_sortie">Date de sortie</label>
-    <input id="date_sortie" type="datetime-local" class="input-large" formControlName="date_debut">
+    <label for="date_sortie">Date de début de sortie</label>
+    <input id="date_sortie" type="datetime-local" class="input-large" formControlName="date_debut" [readonly]="true">
 
     <button  [disabled]="sortieForm.invalid">SOUMETTRE</button>
   </form>

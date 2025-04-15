@@ -91,3 +91,10 @@ button:hover {
 .date_affectation button{
   width: 20%;
 }
+mat-option{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: 10px 0;
+}

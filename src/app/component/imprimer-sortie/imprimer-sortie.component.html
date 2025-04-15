@@ -3,7 +3,7 @@
     <mat-label>Sélectionner un véhicule</mat-label>
     <mat-select [(ngModel)]="sortie">
       <mat-option [value]="null">Aucun</mat-option>
-      <mat-option *ngFor="let sortie of sorties" [value]="sortie">
+      <mat-option *ngFor="let sortie of sortiesFiltre" [value]="sortie">
         {{ sortie.affectation?.vehicule?.immatriculation }}
       </mat-option>
     </mat-select>
