@@ -34,13 +34,6 @@ export class SortieService {
     return this.http.get<any>(url)
   }
 
-
-  derniereSortie(id:number) : Observable<any>{
-    const url =
-      `${this.env}/sortie/dernier/${id}`;
-    return this.http.get(url);
-  }
-
   patch(id: number | null | undefined, sortie: any):Observable<any> {
     const body = {
       id:sortie.id,
@@ -48,10 +41,8 @@ export class SortieService {
       destination:sortie.destination,
       date_debut: sortie.date_debut,
       date_fin: sortie.date_fin,
-      objet: sortie.objet,
-      affectation: sortie.affectation?.id
+      objet: sortie.objet
     }
-    console.log(body)
    const url = `${this.env}/sortie/${id}/maj`
     return this.http.patch(url,body)
   }

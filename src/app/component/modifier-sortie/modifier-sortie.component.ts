@@ -3,10 +3,9 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {SortieService} from '../../services/sortie.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
-import {MatOption, MatSelect} from '@angular/material/select';
+import {MatError } from '@angular/material/form-field';
 import {Affectation} from '../../modeles/Affectation';
-import {DatePipe, NgForOf, NgIf, TitleCasePipe} from '@angular/common';
+import {DatePipe, NgIf } from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {AffectationService} from '../../services/affectation.service';
 
@@ -14,16 +13,9 @@ import {AffectationService} from '../../services/affectation.service';
   selector: 'app-modifier-sortie',
   providers: [DatePipe],
   imports: [
-    MatFormField,
     ReactiveFormsModule,
-    MatSelect,
-    MatOption,
-    NgForOf,
     NgIf,
-    MatLabel,
-    MatError,
-    TitleCasePipe,
-    MatOption
+    MatError
   ],
   templateUrl: './modifier-sortie.component.html',
   styleUrl: './modifier-sortie.component.css'
@@ -31,7 +23,6 @@ import {AffectationService} from '../../services/affectation.service';
 export class ModifierSortieComponent implements OnInit {
   sortieForm!: FormGroup;
   affectations: Affectation[] = [];
-  derniereSortie: Sortie | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<ModifierSortieComponent>,
@@ -53,34 +44,13 @@ export class ModifierSortieComponent implements OnInit {
       lieu_depart: [this.data.sortie?.lieu_depart],
       date_debut: [dateDebut],
       date_fin: [dateFin],
-      affectation: [this.data.sortie?.affectation]
     });
 
     this.affectationService.listeAffectations().subscribe({
       next: (data) => {
         this.affectations = data.affectation;
-        this.setDerniereSortie();
       },
-      error: (err) => {
-        console.error(err);
-        this.showSnackbar("Erreur lors du chargement des affectations.");
-      }
     });
-  }
-
-  compareAffectations(a1: Affectation, a2: Affectation): boolean {
-    return a1 && a2 ? a1.id === a2.id : a1 === a2;
-  }
-
-  setDerniereSortie(): void {
-    const affectationId = this.sortieForm.get('affectation')?.value?.id;
-    if (affectationId) {
-      this.service.derniereSortie(affectationId).subscribe({
-        next: (data) => {
-          this.derniereSortie = data?.sortie || null;
-        }
-      });
-    }
   }
 
   onSubmit(): void {
@@ -93,11 +63,6 @@ export class ModifierSortieComponent implements OnInit {
       next: (response) => {
         this.showSnackbar(response.message || 'Sortie modifiée avec succès.');
         this.dialogRef.close(true);
-      },
-      error: (err) => {
-        console.error(err);
-        const message = err.error?.message || "Erreur lors de la modification.";
-        this.showSnackbar(message);
       }
     });
   }
@@ -111,10 +76,6 @@ export class ModifierSortieComponent implements OnInit {
       next: (data) => {
         this.dialogRef.close(true);
         this.snackbar.open(data.message, 'Fermer', { duration: 3000 });
-      },
-      error: (err) => {
-        console.error(err);
-        this.snackbar.open("Erreur lors de la terminaison de la sortie.", 'Fermer', { duration: 3000 });
       }
     });
   }

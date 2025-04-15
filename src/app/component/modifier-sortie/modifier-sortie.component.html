@@ -1,29 +1,85 @@
 <form *ngIf="sortieForm" [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
-  <div class="mat-form-field-container">
-    <mat-form-field appearance="fill" class="select">
-      <mat-label>Sélectionner une affectation</mat-label>
-      <mat-select formControlName="affectation" [compareWith]="compareAffectations">
-        <mat-option *ngFor="let affectation of affectations" [value]="affectation">
-          Immatriculation : {{ affectation.vehicule?.immatriculation }} <br>
-          Chauffeur : {{affectation.chauffeur?.nom_complet}}<br>
-          Téléphone : {{affectation.chauffeur?.telephone}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-error *ngIf="sortieForm.get('affectation')?.hasError('required')">Ce champ est requis.</mat-error>
+
+  <div class="select">
+    {{ data.sortie?.affectation?.vehicule.immatriculation }} |
+    {{ data.sortie?.affectation?.chauffeur.nom_complet }}
   </div>
 
-  <div class="input-group" *ngFor="let field of ['objet', 'lieu_depart', 'destination', 'date_debut', 'date_fin']">
-    <label [for]="field">{{ field==='date_debut' ?'Date de debut' : field === 'lieu_depart' ? 'Lieu de départ' : field === 'date_fin' ? 'Date de fin' : field | titlecase }}</label>
-    <input [id]="field" [type]="field.includes('date') ? 'datetime-local' : 'text'"
-           [placeholder]="'Saisir ' + (field === 'lieu_depart' ? 'Lieu de départ' : field === 'date_fin' ? 'Date de fin' : field | titlecase)"
-           formControlName="{{ field }}" class="input-large">
-    <mat-error *ngIf="sortieForm.get(field)?.hasError('required')">Ce champ est requis.</mat-error>
+  <div class="input-group">
+    <label for="objet">Objet</label>
+    <input
+      id="objet"
+      type="text"
+      placeholder="Saisir Objet"
+      formControlName="objet"
+      class="input-large"
+    />
+    <mat-error *ngIf="sortieForm.get('objet')?.hasError('required')">
+      Ce champ est requis.
+    </mat-error>
+  </div>
+
+  <div class="input-group">
+    <label for="lieu_depart">Lieu de départ</label>
+    <input
+      id="lieu_depart"
+      type="text"
+      placeholder="Saisir Lieu de départ"
+      formControlName="lieu_depart"
+      class="input-large"
+    />
+    <mat-error *ngIf="sortieForm.get('lieu_depart')?.hasError('required')">
+      Ce champ est requis.
+    </mat-error>
+  </div>
+
+  <div class="input-group">
+    <label for="destination">Destination</label>
+    <input
+      id="destination"
+      type="text"
+      placeholder="Saisir Destination"
+      formControlName="destination"
+      class="input-large"
+    />
+    <mat-error *ngIf="sortieForm.get('destination')?.hasError('required')">
+      Ce champ est requis.
+    </mat-error>
+  </div>
+
+  <div class="input-group">
+    <label for="date_debut">Date de début</label>
+    <input
+      id="date_debut"
+      type="datetime-local"
+      placeholder="Saisir Date de début"
+      formControlName="date_debut"
+      class="input-large"
+      readonly
+    />
+  </div>
+
+  <div class="input-group">
+    <label for="date_fin">Date de fin</label>
+    <input
+      id="date_fin"
+      type="datetime-local"
+      placeholder="Saisir Date de fin"
+      formControlName="date_fin"
+      class="input-large"
+    />
+    <mat-error *ngIf="sortieForm.get('date_fin')?.hasError('required')">
+      Ce champ est requis.
+    </mat-error>
   </div>
 
   <div class="boutons">
     <button class="soumettre">SOUMETTRE</button>
     <button type="button" (click)="annuler()" class="annuler">Annuler</button>
   </div>
-  <button class="terminer" type="button" (click)="terminer()">Terminer la sortie</button>
+
+  <button class="terminer" type="button" (click)="terminer()">
+    Terminer la sortie
+  </button>
+
 </form>
