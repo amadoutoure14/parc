@@ -37,4 +37,8 @@ private env=environment.apiUrl;
     });
   }
 
+  supprimer(chauffeur: Chauffeur): Observable<any> {
+    const presenceUrl=`${this.env}`;
+    return this.http.get<any>(presenceUrl);
+  }
 }

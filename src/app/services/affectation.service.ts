@@ -43,4 +43,9 @@ export class AffectationService {
     const url = `${this.env}/affectation/date/d?date=${date}`;
     return this.http.get(url);
   }
+
+  supprimer(affectation: Affectation): Observable<any> {
+    const url = `${this.env}`;
+    return this.http.get(url);
+  }
 }

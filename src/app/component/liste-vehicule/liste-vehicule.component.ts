@@ -13,6 +13,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
+import {Chauffeur} from '../../modeles/Chauffeur';
+import {SupprimerChauffeurComponent} from '../supprimer-chauffeur/supprimer-chauffeur.component';
+import {SupprimerVehiculeComponent} from '../supprimer-vehicule/supprimer-vehicule.component';
 
 @Component({
   selector: 'app-liste-vehicule',
@@ -86,8 +89,22 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
     }
   }
 
+  supprimer(vehicule:Vehicule){
+    const dialogRef = this.dialog.open( SupprimerVehiculeComponent, {
+      width: "520px",
+      maxWidth: "600px",
+      data: { vehicule }
+    });
 
-  supprimer(vehicule) {
-
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const index = this.dataSource.data.findIndex(c => c.id === result.id);
+        if (index !== -1) {
+          this.dataSource.data[index] = result;
+          this.dataSource.data = [...this.dataSource.data];
+        }
+      }
+    });
   }
+
 }

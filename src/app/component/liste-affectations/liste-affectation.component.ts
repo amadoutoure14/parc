@@ -20,6 +20,8 @@ import {
 } from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatIconButton} from '@angular/material/button';
+import {SuppressionCarburantComponent} from '../suppression-carburant/suppression-carburant.component';
+import {SupprimerAffectationComponent} from '../supprimer-affectation/supprimer-affectation.component';
 
 
 @Component({
@@ -97,7 +99,16 @@ export class ListeAffectationComponent implements OnInit {
     }
   }
 
-  supprimer(affectation) {
-
+  supprimer(affectation:Affectation)  {
+    const dialogRef = this.dialog.open( SupprimerAffectationComponent, {
+      width: "520px",
+      maxWidth: "600px",
+      data: { affectation }
+    });
+    dialogRef.afterClosed().subscribe(resultat => {
+      if (resultat==="resultat") {
+        this.chargerAffectations();
+      }
+    });
   }
 }

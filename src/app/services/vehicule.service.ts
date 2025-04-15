@@ -28,25 +28,6 @@ export class VehiculeService {
    return this.http.get<any>(url);
   }
 
-  imprimerVehiculeDateEnregistrement(debut: string,fin: string) : Observable<Blob>{
-    const url = `${this.apiUrl}/vehicule/enregistement/dates/pdf/d?debut=${debut}&fin=${fin}`;
-    return this.http.get(url, { responseType: 'blob' })
-  }
-
-
-  /*
-   rechercherVehiculeDisponibleDate(formatted: string | null):Observable<Vehicule[]> {
-     const url = `${this.apiUrl}/vehicule/index/date/disponible/d?date=${formatted}`;
-     return this.http.get<Vehicule[]>(url);
-   }
-
-   imprimerVehiculeDisponibleDate(formatted: string):Observable<Blob>{
-     const url = `${this.apiUrl}/vehicule/index/date/disponible/pdf/d?date=${formatted}`;
-     return this.http.get(url, { responseType:'blob'});
-   }
-
-  */
-
   vehicule(id: number) :Observable<Vehicule> {
     return this.http.get<Vehicule>(`${this.apiUrl}/sortie/index/id/${id}/info`);
   }
@@ -58,5 +39,10 @@ export class VehiculeService {
   patchVehicule(vehicule: Vehicule):Observable<any> {
     const url = `${this.apiUrl}/vehicule/${vehicule.id}/maj`;
     return this.http.patch<any>(url, vehicule);
+  }
+
+  supprimer(vehicule: Vehicule) {
+    const url=`${this.apiUrl}`
+    return this.http.get<any>(url);
   }
 }

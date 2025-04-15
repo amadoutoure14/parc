@@ -12,7 +12,6 @@ import {AjouterVehiculeComponent} from './component/ajouter-vehicule/ajouter-veh
 import {ListeVehiculeComponent} from './component/liste-vehicule/liste-vehicule.component';
 import {AjouterSortieComponent} from './component/ajouter-sortie/ajouter-sortie.component';
 import {ListeSortieComponent} from './component/liste-sortie/liste-sortie.component';
-import {VehiculeDisponibleComponent} from './component/vehicule-disponible/vehicule-disponible.component';
 import {ImprimerVehiculeComponent} from './component/imprimer-vehicule/imprimer-vehicule.component';
 import {ImprimerChauffeurComponent} from './component/imprimer-chauffeur/imprimer-chauffeur.component';
 import {ImprimerAffectationComponent} from './component/imprimer-affectation/imprimer-affectation.component';
@@ -49,7 +48,6 @@ export const routes: Routes = [
     children: [
       {path: 'ajouter',component: AjouterVehiculeComponent},
       { path: 'modifier', component: ModifierVehiculeComponent },
-      {path: 'disponible',component: VehiculeDisponibleComponent},
       {path: 'imprimer',component: ImprimerVehiculeComponent},
       {path: 'liste',component: ListeVehiculeComponent},
       {path: '',redirectTo:'liste',pathMatch: 'full'},

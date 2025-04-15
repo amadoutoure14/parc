@@ -19,6 +19,8 @@ import {
   MatRowDef, MatTable, MatTableDataSource
 } from '@angular/material/table';
 import {MatIconButton} from '@angular/material/button';
+import {SuppressionCarburantComponent} from '../suppression-carburant/suppression-carburant.component';
+import {SupprimerChauffeurComponent} from '../supprimer-chauffeur/supprimer-chauffeur.component';
 
 @Component({
   selector: 'app-liste-chauffeur',
@@ -103,8 +105,23 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
     });
   }
 
-  supprimer(chauffeur) {
+  supprimer(chauffeur:Chauffeur){
+    const dialogRef = this.dialog.open( SupprimerChauffeurComponent, {
+      width: "520px",
+      maxWidth: "600px",
+      data: { chauffeur }
+    });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const index = this.dataSource.data.findIndex(c => c.id === result.id);
+        if (index !== -1) {
+          this.dataSource.data[index] = result;
+          this.dataSource.data = [...this.dataSource.data];
+        }
+      }
+    });
   }
+
 }
 

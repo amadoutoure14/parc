@@ -101,9 +101,5 @@ export class ListeCarburantComponent implements OnInit {
       }
     });
   }
-  getTotalApprovisionnement(): number {
-    return this.dataSource.filteredData
-      .reduce((total, item) => total + (item.approv || 0), 0);
-  }
 
 }
