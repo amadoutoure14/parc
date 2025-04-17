@@ -30,21 +30,16 @@ export class ModifierVehiculeComponent {
   }
 
   saveChanges() {
-    console.log(this.vehiculeForm.value);
     this.submitted = true;
 
     if (this.vehiculeForm.valid) {
       const changes = this.getModifiedFields();
 
-      // Ajouter l'id au tableau des modifications
       if (Object.keys(changes).length > 0) {
         this.service.patchVehicule(changes).subscribe({
           next: (data) => {
             this.snackBar.open(data.message, "Fermer", { duration: 3000 });
-            this.dialogRef.close();
-          },
-          error: (err) => {
-            this.snackBar.open(err, "Fermer", { duration: 3000 });
+            this.dialogRef.close('confirm');
           }
         });
       } else {
@@ -57,13 +52,11 @@ export class ModifierVehiculeComponent {
     this.dialogRef.close();
   }
 
-  // Fonction pour récupérer les champs modifiés
   private getModifiedFields() {
     const modifiedFields: any = {
       id: this.vehiculeForm.value.id,
     };
 
-    // Vérification et ajout des champs modifiés
     if (this.vehiculeForm.value.immatriculation !== this.data.vehicule.immatriculation) {
       modifiedFields.immatriculation = this.vehiculeForm.value.immatriculation;
     }

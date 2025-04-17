@@ -54,10 +54,11 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
       next: data => {
         this.dataSource.data = data.vehicule;
         this.dataSource.paginator = this.paginator;
-        this.message=data.message;
+        this.message = data.message;
       }
     })
   }
+
 
   ngAfterViewInit(): void {
     this.dataSource.paginator=this.paginator
@@ -71,12 +72,13 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const index = this.dataSource.data.findIndex((v) => v.id === result.id);
-        if (index !== -1) {
-          this.dataSource.data[index] = result;
-          this.dataSource.data = [...this.dataSource.data];
-          this.dataSource._updateChangeSubscription();
-        }
+        this.service.listeVehicule().subscribe({
+          next: data => {
+            this.dataSource.data = data.vehicule;
+            this.dataSource.paginator = this.paginator;
+            this.message = data.message;
+          }
+        })
       }
     });
   }
@@ -98,11 +100,13 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const index = this.dataSource.data.findIndex(c => c.id === result.id);
-        if (index !== -1) {
-          this.dataSource.data[index] = result;
-          this.dataSource.data = [...this.dataSource.data];
-        }
+        this.service.listeVehicule().subscribe({
+          next: data => {
+            this.dataSource.data = data.vehicule;
+            this.dataSource.paginator = this.paginator;
+            this.message = data.message;
+          }
+        })
       }
     });
   }

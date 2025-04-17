@@ -19,7 +19,6 @@ import {
   MatRowDef, MatTable, MatTableDataSource
 } from '@angular/material/table';
 import {MatIconButton} from '@angular/material/button';
-import {SuppressionCarburantComponent} from '../suppression-carburant/suppression-carburant.component';
 import {SupprimerChauffeurComponent} from '../supprimer-chauffeur/supprimer-chauffeur.component';
 
 @Component({
@@ -68,9 +67,6 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
             chauffeur.telephone?.toLowerCase().includes(term)
           );
         };
-      },
-      error: () => {
-        this.message = 'Erreur de connexion avec le serveur.';
       }
     });
   }
@@ -95,12 +91,22 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        const index = this.dataSource.data.findIndex(c => c.id === result.id);
-        if (index !== -1) {
-          this.dataSource.data[index] = result;
-          this.dataSource.data = [...this.dataSource.data];
-        }
+      if (result==="confirm") {
+        this.service.listeChauffeur().subscribe({
+          next: (data) => {
+            this.dataSource.data =  data.chauffeur;
+            this.message = data.message
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.filterPredicate = (chauffeur: Chauffeur, filter: string): boolean => {
+              const term = filter.trim().toLowerCase();
+              return (
+                chauffeur.nom_complet?.toLowerCase().includes(term) ||
+                chauffeur.permis?.toLowerCase().includes(term) ||
+                chauffeur.telephone?.toLowerCase().includes(term)
+              );
+            };
+          }
+        });
       }
     });
   }
@@ -113,12 +119,22 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        const index = this.dataSource.data.findIndex(c => c.id === result.id);
-        if (index !== -1) {
-          this.dataSource.data[index] = result;
-          this.dataSource.data = [...this.dataSource.data];
-        }
+      if (result==="confirm") {
+        this.service.listeChauffeur().subscribe({
+          next: (data) => {
+            this.dataSource.data =  data.chauffeur;
+            this.message = data.message
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.filterPredicate = (chauffeur: Chauffeur, filter: string): boolean => {
+              const term = filter.trim().toLowerCase();
+              return (
+                chauffeur.nom_complet?.toLowerCase().includes(term) ||
+                chauffeur.permis?.toLowerCase().includes(term) ||
+                chauffeur.telephone?.toLowerCase().includes(term)
+              );
+            };
+          }
+        });
       }
     });
   }

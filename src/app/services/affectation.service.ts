@@ -45,7 +45,7 @@ export class AffectationService {
   }
 
   supprimer(affectation: Affectation): Observable<any> {
-    const url = `${this.env}`;
-    return this.http.get(url);
+    const url = `${this.env}/affectation/del/${affectation.id}`;
+    return this.http.delete(url);
   }
 }

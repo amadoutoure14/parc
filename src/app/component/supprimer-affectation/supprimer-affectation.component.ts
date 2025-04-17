@@ -38,7 +38,7 @@ export class SupprimerAffectationComponent {
   onConfirmClick(): void {
     this.service.supprimer(this.data.affectation).subscribe({
       next: () => {
-        this.dialogRef.close('confirm');
+        this.dialogRef.close('resultat');
       }
     });
   }

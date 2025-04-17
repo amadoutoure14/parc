@@ -3,7 +3,7 @@ import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {VehiculeComponent} from './pages/vehicule/vehicule.component';
 import {ChauffeurComponent} from './pages/chauffeur/chauffeur.component';
 import {AffectationComponent} from './pages/affectation/affectation.component';
-import {ListeAffectationComponent} from './component/liste-affectations/liste-affectation.component';
+import {ListeAffectationComponent} from './component/liste-affectation/liste-affectation.component';
 import {AffectationFormulaireComponent} from './component/affectation-formulaire/affectation-formulaire.component';
 import {AjouterChauffeurComponent} from './component/ajouter-chauffeur/ajouter-chauffeur.component';
 import {ListeChauffeurComponent} from './component/liste-chauffeur/liste-chauffeur.component';

@@ -38,7 +38,7 @@ private env=environment.apiUrl;
   }
 
   supprimer(chauffeur: Chauffeur): Observable<any> {
-    const presenceUrl=`${this.env}`;
-    return this.http.get<any>(presenceUrl);
+    const presenceUrl=`${this.env}/chauffeur/${chauffeur.id}/alter`;
+    return this.http.post<any>(presenceUrl,{});
   }
 }

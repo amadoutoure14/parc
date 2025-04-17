@@ -147,8 +147,7 @@ export class ImprimerSortieComponent implements OnInit {
     };
     if (sortie && debut && fin) {
       this.service.sortiePeriod(sortie.id, debut, fin).subscribe({
-        next: impression,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        next: impression
       });
     }
     else if (debut && fin) {

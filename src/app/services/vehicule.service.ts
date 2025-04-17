@@ -32,17 +32,13 @@ export class VehiculeService {
     return this.http.get<Vehicule>(`${this.apiUrl}/sortie/index/id/${id}/info`);
   }
 
-  vehiculeDispo():Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/vehicule/liste/dispo`);
-  }
-
   patchVehicule(vehicule: Vehicule):Observable<any> {
     const url = `${this.apiUrl}/vehicule/${vehicule.id}/maj`;
     return this.http.patch<any>(url, vehicule);
   }
 
-  supprimer(vehicule: Vehicule) {
-    const url=`${this.apiUrl}`
-    return this.http.get<any>(url);
+  supprimer(vehicule: Vehicule):Observable<any>  {
+    const url=`${this.apiUrl}/vehicule/del/${vehicule.id}`
+    return this.http.post<any>(url,{});
   }
 }
