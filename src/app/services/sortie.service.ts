@@ -56,7 +56,7 @@ export class SortieService {
   }
 
   sortiePeriod(id: number | null | undefined, debut: Date, fin: Date):Observable<any> {
-    const url = `${this.env}`;
+    const url = `${this.env}/sortie/${id}/dates/d?debut=${debut}&fin=${fin}`;
     return this.http.get(url)
   }
 

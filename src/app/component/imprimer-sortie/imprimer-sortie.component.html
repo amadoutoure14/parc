@@ -12,10 +12,10 @@
 
   <div class="input">
     <label for="debut">Début</label>
-    <input id="debut" type="date" [(ngModel)]="debut" name="debut">
+    <input id="debut" type="datetime-local" [(ngModel)]="debut" name="debut">
 
     <label for="fin">Fin</label>
-    <input id="fin" type="date" [(ngModel)]="fin" name="fin">
+    <input id="fin" type="datetime-local" [(ngModel)]="fin" name="fin">
   </div>
 
   <div class="boutons">
@@ -51,8 +51,8 @@
       <td>{{ sortie.objet }}</td>
       <td>{{ sortie.lieu_depart }}</td>
       <td>{{ sortie.destination }}</td>
-      <td>{{ sortie.date_debut  ? ( sortie.date_debut  | date: 'dd/MM/yyyy') : 'Non précisé' }}</td>
-      <td>{{ sortie.date_fin ? (sortie.date_fin | date: 'dd/MM/yyyy') : 'Non précisé' }}</td>
+      <td>{{ sortie.date_debut  ? ( sortie.date_debut  | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }}</td>
+      <td>{{ sortie.date_fin ? (sortie.date_fin | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }}</td>
     </tr>
     </tbody>
   </table>

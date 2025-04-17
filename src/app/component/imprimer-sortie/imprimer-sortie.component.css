@@ -1,7 +1,7 @@
 .recherche{
   margin-top:2%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-direction: row;
   width: 100%;
   align-items: center;
@@ -121,21 +121,6 @@ p{
   padding-top: 12px;
 }
 
-input {
-  text-align: center;
-  width: 54%;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  transition: all 0.3s ease-in-out;
-}
-
-input:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
-  outline: none;
-}
 .full-width{
-  width: 28%;
+  width: 20%;
 }
