@@ -10,11 +10,9 @@ import {Vehicule} from '../../modeles/Vehicule';
 import {VehiculeService} from '../../services/vehicule.service';
 import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.component';
 import {MatDialog} from '@angular/material/dialog';
-import {NgClass, NgIf, NgOptimizedImage} from '@angular/common';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {NgClass, NgOptimizedImage} from '@angular/common';
+import {MatIconButton} from '@angular/material/button';
 import {MatInput} from '@angular/material/input';
-import {Chauffeur} from '../../modeles/Chauffeur';
-import {SupprimerChauffeurComponent} from '../supprimer-chauffeur/supprimer-chauffeur.component';
 import {SupprimerVehiculeComponent} from '../supprimer-vehicule/supprimer-vehicule.component';
 
 @Component({
@@ -64,14 +62,15 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
     this.dataSource.paginator=this.paginator
   }
   modifier(vehicule: Vehicule): void {
-    const dialogRef = this.dialog.open(ModifierVehiculeComponent, {
+    const dialogRef = this.dialog.open(
+      ModifierVehiculeComponent, {
       width: '900px',
       height: 'auto',
       data: { vehicule }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+      if (result==="confirm") {
         this.service.listeVehicule().subscribe({
           next: data => {
             this.dataSource.data = data.vehicule;
@@ -99,7 +98,7 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+      if (result==="confirm") {
         this.service.listeVehicule().subscribe({
           next: data => {
             this.dataSource.data = data.vehicule;

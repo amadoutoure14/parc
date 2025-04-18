@@ -1,7 +1,5 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
-import {MatIcon} from '@angular/material/icon';
 import {NgIf} from '@angular/common';
 import {ChauffeurService} from '../../services/chauffeur.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -44,12 +42,8 @@ export class ModifierChauffeurComponent {
     const updatedChauffeur = { ...this.chauffeur, ...this.chauffeurForm.value };
     this.service.patch(updatedChauffeur).subscribe({
       next: () => {
-        this.dialogRef.close();
+        this.dialogRef.close("confirm");
         this.snackBar.open("Chauffeur modifié avec succès !", "Fermer", { duration: 3000 });
-      },
-      error: err => {
-        console.error();
-        this.snackBar.open("Échec de la modification", "Fermer", { duration: 3000 });
       }
     });
   }

@@ -34,7 +34,6 @@ export class ModifierVehiculeComponent {
 
     if (this.vehiculeForm.valid) {
       const changes = this.getModifiedFields();
-
       if (Object.keys(changes).length > 0) {
         this.service.patchVehicule(changes).subscribe({
           next: (data) => {
@@ -42,8 +41,6 @@ export class ModifierVehiculeComponent {
             this.dialogRef.close('confirm');
           }
         });
-      } else {
-        this.snackBar.open("Aucune modification détectée", "Fermer", { duration: 3000 });
       }
     }
   }
