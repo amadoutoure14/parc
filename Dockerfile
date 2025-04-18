@@ -1,8 +1,7 @@
 FROM node:latest AS build
 WORKDIR /app
 COPY . .
+RUN npm install -g @angular/cli
 RUN npm install
-RUN npm run build --prod
-FROM nginx:latest
-COPY --from=build /app/dist/parc/ /usr/share/nginx/html/
+CMD ["ng", "serve", "--host", "0.0.0.0", "--configuration=production"]
 EXPOSE 4300
