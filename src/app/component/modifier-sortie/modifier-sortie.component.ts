@@ -22,7 +22,6 @@ import {AffectationService} from '../../services/affectation.service';
 })
 export class ModifierSortieComponent implements OnInit {
   sortieForm!: FormGroup;
-  affectations: Affectation[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<ModifierSortieComponent>,
@@ -30,7 +29,6 @@ export class ModifierSortieComponent implements OnInit {
     private fb: FormBuilder,
     private service: SortieService,
     private snackbar: MatSnackBar,
-    private affectationService: AffectationService,
     private datePipe: DatePipe
   ) {}
 
@@ -46,11 +44,6 @@ export class ModifierSortieComponent implements OnInit {
       date_fin: [dateFin],
     });
 
-    this.affectationService.listeAffectations().subscribe({
-      next: (data) => {
-        this.affectations = data.affectation;
-      },
-    });
   }
 
   onSubmit(): void {

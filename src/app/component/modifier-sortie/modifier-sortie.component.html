@@ -7,13 +7,7 @@
 
   <div class="input-group">
     <label for="objet">Objet</label>
-    <input
-      id="objet"
-      type="text"
-      placeholder="Saisir Objet"
-      formControlName="objet"
-      class="input-large"
-    />
+    <input id="objet" type="text" placeholder="Saisir Objet" formControlName="objet" class="input-large"/>
     <mat-error *ngIf="sortieForm.get('objet')?.hasError('required')">
       Ce champ est requis.
     </mat-error>
@@ -21,13 +15,7 @@
 
   <div class="input-group">
     <label for="lieu_depart">Lieu de départ</label>
-    <input
-      id="lieu_depart"
-      type="text"
-      placeholder="Saisir Lieu de départ"
-      formControlName="lieu_depart"
-      class="input-large"
-    />
+    <input id="lieu_depart" type="text" placeholder="Saisir Lieu de départ" formControlName="lieu_depart" class="input-large"/>
     <mat-error *ngIf="sortieForm.get('lieu_depart')?.hasError('required')">
       Ce champ est requis.
     </mat-error>
@@ -35,13 +23,7 @@
 
   <div class="input-group">
     <label for="destination">Destination</label>
-    <input
-      id="destination"
-      type="text"
-      placeholder="Saisir Destination"
-      formControlName="destination"
-      class="input-large"
-    />
+    <input id="destination" type="text" placeholder="Saisir Destination" formControlName="destination" class="input-large"/>
     <mat-error *ngIf="sortieForm.get('destination')?.hasError('required')">
       Ce champ est requis.
     </mat-error>
@@ -49,25 +31,12 @@
 
   <div class="input-group">
     <label for="date_debut">Date de début</label>
-    <input
-      id="date_debut"
-      type="datetime-local"
-      placeholder="Saisir Date de début"
-      formControlName="date_debut"
-      class="input-large"
-      readonly
-    />
+    <input id="date_debut" type="datetime-local" placeholder="Saisir Date de début" formControlName="date_debut" class="input-large"/>
   </div>
 
   <div class="input-group">
     <label for="date_fin">Date de fin</label>
-    <input
-      id="date_fin"
-      type="datetime-local"
-      placeholder="Saisir Date de fin"
-      formControlName="date_fin"
-      class="input-large"
-    />
+    <input id="date_fin" type="datetime-local" placeholder="Saisir Date de fin" formControlName="date_fin" class="input-large"/>
     <mat-error *ngIf="sortieForm.get('date_fin')?.hasError('required')">
       Ce champ est requis.
     </mat-error>

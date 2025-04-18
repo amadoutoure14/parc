@@ -121,7 +121,7 @@ export class ListeSortieComponent implements OnInit {
     }
   }
 
-  supprimer(sortie):void{
+  supprimer(sortie: any):void{
     const dialogRef = this.dialog.open(SupprimerSortieComponent, {
       width: "520px",
       maxWidth: "600px",
