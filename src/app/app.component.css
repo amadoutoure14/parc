@@ -97,6 +97,9 @@
   width: 100vw;
   color: white;
   display: flex;
-  padding-left: 526px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /*padding-left: 20%;*/
   text-transform: uppercase;
 }
