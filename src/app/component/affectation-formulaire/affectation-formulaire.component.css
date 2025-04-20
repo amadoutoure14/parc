@@ -91,3 +91,7 @@ button.affecter:disabled {
   box-shadow: none;
   opacity: 0.6;
 }
+mat-option{
+  margin: 2% 3%;
+  border-radius: 1%;
+}

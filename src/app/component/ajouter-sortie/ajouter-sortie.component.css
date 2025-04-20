@@ -92,9 +92,6 @@ button:hover {
   width: 20%;
 }
 mat-option{
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  margin: 10px 0;
+  margin: 2% 3%;
+  border-radius: 1%;
 }
