@@ -85,3 +85,7 @@ button:hover {
   text-align: left;
   width: 100%;
 }
+mat-option{
+  margin: 2% 3%;
+  border-radius: 1%;
+}

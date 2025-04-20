@@ -7,7 +7,7 @@
       <mat-label>Sélectionner un véhicule</mat-label>
       <mat-select formControlName="vehicule">
         <mat-option *ngFor="let vehicule of vehicules" [value]="vehicule">
-          {{ vehicule.immatriculation }}
+          {{ vehicule.immatriculation }} | {{vehicule.modele}}
         </mat-option>
       </mat-select>
     </mat-form-field>
