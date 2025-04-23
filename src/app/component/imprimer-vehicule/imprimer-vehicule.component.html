@@ -15,7 +15,7 @@
   </div>
 
 </div>
-
+<div class="container">
   <table class="table" mat-table [dataSource]="dataSource" >
     <ng-container matColumnDef="numero">
       <th mat-header-cell *matHeaderCellDef > Numéro </th>
@@ -46,4 +46,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator showFirstLastButtons [pageSizeOptions]="[5,10,20,100]"></mat-paginator>
+</div>
+
 

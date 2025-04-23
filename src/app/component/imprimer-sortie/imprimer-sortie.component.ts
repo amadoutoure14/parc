@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import {DatePipe, NgForOf} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
 import {MatFormField, MatLabel} from '@angular/material/input';
@@ -48,8 +48,7 @@ import {MatPaginator} from '@angular/material/paginator';
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    MatPaginator,
-    NgIf
+    MatPaginator
   ],
   providers: [DatePipe],
   templateUrl: './imprimer-sortie.component.html',
