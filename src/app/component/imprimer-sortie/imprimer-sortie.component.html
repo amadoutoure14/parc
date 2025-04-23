@@ -3,12 +3,11 @@
     <mat-label>Sélectionner un véhicule</mat-label>
     <mat-select [(ngModel)]="sortie">
       <mat-option [value]="null">Aucun</mat-option>
-      <mat-option *ngFor="let sortie of sortiesFiltre" [value]="sortie">
-        {{ sortie.affectation?.vehicule?.immatriculation }}
+      <mat-option *ngFor="let v of vehicules" [value]="v">
+        {{ v.immatriculation }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-
 
   <div class="input">
     <label for="debut">Début</label>
@@ -19,44 +18,69 @@
   </div>
 
   <div class="boutons">
-    <button mat-flat-button (click)="rechercher(sortie,debut,fin)">
+    <button mat-flat-button color="primary" (click)="rechercher(sortie, debut, fin)">
       <mat-icon>search</mat-icon><span>RECHERCHER</span>
     </button>
-    <button mat-flat-button (click)="imprimer(sortie,debut,fin)">
+    <button mat-flat-button color="accent" (click)="imprimer(sortie, debut, fin)">
       <mat-icon>print</mat-icon><span>IMPRIMER</span>
     </button>
   </div>
 </div>
+
 <div class="container">
-  <table class="table">
-    <thead>
-    <tr *ngIf="sorties && sorties.length>0">
-      <th>Numéro</th>
-      <th>Chauffeur</th>
-      <th>Téléphone</th>
-      <th>Véhicule</th>
-      <th>Objet</th>
-      <th>Lieu de départ</th>
-      <th>Destination</th>
-      <th>Départ</th>
-      <th>Arrivée</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let sortie of sorties; let i = index">
-      <td> {{i+1}} </td>
-      <td>{{ sortie.affectation?.chauffeur?.nom_complet }}</td>
-      <td>{{ sortie.affectation?.chauffeur?.telephone }}</td>
-      <td>{{ sortie.affectation?.vehicule?.immatriculation }}</td>
-      <td>{{ sortie.objet }}</td>
-      <td>{{ sortie.lieu_depart }}</td>
-      <td>{{ sortie.destination }}</td>
-      <td>{{ sortie.date_debut  ? ( sortie.date_debut  | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }}</td>
-      <td>{{ sortie.date_fin ? (sortie.date_fin | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }}</td>
-    </tr>
-    </tbody>
+  <table class="table" mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+    <ng-container matColumnDef="numero">
+      <th mat-header-cell *matHeaderCellDef> Numéro </th>
+      <td mat-cell *matCellDef="let i = index"> {{ i + 1 }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef> Chauffeur </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.affectation?.chauffeur?.nom_complet }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="telephone">
+      <th mat-header-cell *matHeaderCellDef> Téléphone </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.affectation?.chauffeur?.telephone }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="vehicule">
+      <th mat-header-cell *matHeaderCellDef> Véhicule </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.affectation?.vehicule?.immatriculation }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="objet">
+      <th mat-header-cell *matHeaderCellDef> Objet </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.objet }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="depart">
+      <th mat-header-cell *matHeaderCellDef> Lieu de départ </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.lieu_depart }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="destination">
+      <th mat-header-cell *matHeaderCellDef> Destination </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.destination }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="debut">
+      <th mat-header-cell *matHeaderCellDef> Date de début </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.date_debut ? (sortie.date_debut | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fin">
+      <th mat-header-cell *matHeaderCellDef> Date de fin </th>
+      <td mat-cell *matCellDef="let sortie"> {{ sortie.date_fin ? (sortie.date_fin | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-</div>
-<div *ngIf="sorties && sorties.length === 0">
-  <p >Aucune sortie trouvée !</p>
+
+  <div *ngIf="dataSource.data.length === 0" class="no-data-message">
+    <p style="text-align: center; font-style: italic; margin-top: 20px;">Aucune sortie trouvée pour les critères sélectionnés.</p>
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
