@@ -22,7 +22,6 @@ export class AjouterChauffeurComponent {
   constructor(private fb: FormBuilder, private chauffeurService: ChauffeurService, private snackBar: MatSnackBar) {
     this.chauffeurForm = this.fb.group({
       nom_complet: ['', Validators.required],
-      permis: ['', Validators.required],
       telephone: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]]
     });
   }
