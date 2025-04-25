@@ -85,7 +85,8 @@
   justify-content: flex-start !important;
   background-color: #169dd4;
   width: 100vw;
-  height: 8vh;
+  height: 40px;
+  margin-bottom: 10px;
 }
 
 .header mat-icon{
@@ -96,10 +97,6 @@
 .titre{
   width: 100vw;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  /*padding-left: 20%;*/
+  padding-right: 4%;
   text-transform: uppercase;
 }

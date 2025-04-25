@@ -7,12 +7,6 @@
       Nom complet requis
     </div>
 
-    <label for="permis">Permis</label>
-    <input id="permis" formControlName="permis" [value]="chauffeur.permis" />
-    <div class="error" *ngIf="chauffeurForm.get('permis')?.invalid && chauffeurForm.get('permis')?.touched">
-      Numéro du permis requis
-    </div>
-
     <label for="telephone">Téléphone</label>
     <input id="telephone" formControlName="telephone" [value]="chauffeur.telephone" />
     <div class="error" *ngIf="chauffeurForm.get('telephone')?.invalid && chauffeurForm.get('telephone')?.touched">

@@ -47,7 +47,7 @@ import {SupprimerChauffeurComponent} from '../supprimer-chauffeur/supprimer-chau
 })
 export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
 
-  displayedColumns: string[] = ['numero', 'nom','permis','telephone','actions'];
+  displayedColumns: string[] = ['numero', 'nom','telephone','actions'];
   dataSource = new MatTableDataSource<Chauffeur>();
   message: string = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -63,7 +63,6 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
           const term = filter.trim().toLowerCase();
           return (
             chauffeur.nom_complet?.toLowerCase().includes(term) ||
-            chauffeur.permis?.toLowerCase().includes(term) ||
             chauffeur.telephone?.toLowerCase().includes(term)
           );
         };
@@ -101,7 +100,6 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
               const term = filter.trim().toLowerCase();
               return (
                 chauffeur.nom_complet?.toLowerCase().includes(term) ||
-                chauffeur.permis?.toLowerCase().includes(term) ||
                 chauffeur.telephone?.toLowerCase().includes(term)
               );
             };
@@ -129,7 +127,6 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
               const term = filter.trim().toLowerCase();
               return (
                 chauffeur.nom_complet?.toLowerCase().includes(term) ||
-                chauffeur.permis?.toLowerCase().includes(term) ||
                 chauffeur.telephone?.toLowerCase().includes(term)
               );
             };

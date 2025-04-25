@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
 import {Vehicule} from '../../modeles/Vehicule';
 import {MatIcon} from '@angular/material/icon';
 import {VehiculeService} from '../../services/vehicule.service';
-import {DatePipe, NgClass} from '@angular/common';
+import {DatePipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {
   MatCell,
@@ -12,11 +12,11 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
   MatTable, MatTableDataSource
 } from '@angular/material/table';
-import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatInput} from '@angular/material/input';
 
 
 @Component({
@@ -39,6 +39,9 @@ import {MatPaginator} from '@angular/material/paginator';
     MatRowDef,
     MatHeaderRowDef,
     MatPaginator,
+    MatIconButton,
+    MatInput,
+    NgOptimizedImage,
   ],
   styleUrls: ['./imprimer-vehicule.component.css']
 })
@@ -49,7 +52,7 @@ export class ImprimerVehiculeComponent implements OnInit,AfterViewInit {
   fin: string = '';
   message="";
   displayedColumns: string[]=['numero','immatriculation','modele','commentaire','sortie'];
-  dataSource= new MatTableDataSource<Vehicule>;
+  dataSource = new MatTableDataSource<Vehicule>();
 
   constructor(private service: VehiculeService,private snackBar:MatSnackBar) { }
 
@@ -71,11 +74,31 @@ export class ImprimerVehiculeComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator=this.paginator;
+    this.service.listeVehicule().subscribe({
+      next: (data) => {
+        this.dataSource.data = data.vehicule;
+      }
+    });
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator=this.paginator;
   }
+  applyFilter(event: KeyboardEvent) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  modifier(vehicule) {
+
+  }
+
+  supprimer(vehicule) {
+
+  }
 }

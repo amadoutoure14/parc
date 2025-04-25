@@ -144,22 +144,27 @@ p{
   color: red;
   font-weight: bold;
 }
-.filter-container {
-  padding-top: 25px;
+.input{
+  text-transform: uppercase;
+}
+input {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  margin: 0 auto;
-}
-.input-barre {
   text-align: center;
-  width: 50%;
+  width: 40%;
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ddd;
   transition: all 0.3s ease-in-out;
+  margin: 0 auto;
+}
+
+input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+  outline: none;
 }
 .table td:nth-child(4) {
   max-width: 200px;

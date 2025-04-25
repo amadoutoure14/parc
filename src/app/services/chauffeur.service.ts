@@ -32,7 +32,6 @@ private env=environment.apiUrl;
     const url = `${this.env}/chauffeur/${chauffeur.id}/maj`;
     return this.http.patch(url, {
       nom_complet: chauffeur.nom_complet,
-      permis: chauffeur.permis,
       telephone: chauffeur.telephone
     });
   }

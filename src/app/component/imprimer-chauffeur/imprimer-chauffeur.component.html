@@ -35,7 +35,6 @@
         <tr *ngFor="let chauffeur of chauffeurs; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ chauffeur.nom_complet }}</td>
-            <td>{{ chauffeur.permis }}</td>
             <td>{{ chauffeur.telephone }}</td>
             <td>{{ chauffeur.date  | date: 'dd/MM/yyyy' }}</td>
         </tr>

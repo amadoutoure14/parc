@@ -30,7 +30,6 @@ export class ModifierChauffeurComponent {
     this.chauffeur = data.chauffeur;
     this.chauffeurForm = this.fb.group({
       nom_complet: [this.chauffeur.nom_complet || '', Validators.required],
-      permis: [this.chauffeur.permis || '', Validators.required],
       telephone: [
         this.chauffeur.telephone || '',
         [Validators.required, Validators.pattern('^[0-9]{8}$')],
