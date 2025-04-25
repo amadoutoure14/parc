@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DatePipe, NgForOf} from '@angular/common';
 import {Sortie} from '../../modeles/Sortie';
 import {SortieService} from '../../services/sortie.service';
-import {MatFormField, MatLabel} from '@angular/material/input';
+import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatOption} from '@angular/material/core';
 import {MatSelect} from '@angular/material/select';
@@ -17,7 +17,7 @@ import {
   MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
   MatTable,
   MatTableDataSource
 } from '@angular/material/table';
@@ -48,7 +48,9 @@ import {MatPaginator} from '@angular/material/paginator';
     MatHeaderRowDef,
     MatRow,
     MatRowDef,
-    MatPaginator
+    MatPaginator,
+    MatInput,
+    MatNoDataRow
   ],
   providers: [DatePipe],
   templateUrl: './imprimer-sortie.component.html',
@@ -109,7 +111,14 @@ export class ImprimerSortieComponent implements OnInit {
       this.message = 'Veuillez sélectionner un véhicule.';
     }
   }
+  applyFilter(event: KeyboardEvent) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   imprimer(sortie: Sortie, debut: Date, fin: Date) {
     const impression = (data: any) => {
       if (!data || !data.pointage || data.pointage.length === 0) {

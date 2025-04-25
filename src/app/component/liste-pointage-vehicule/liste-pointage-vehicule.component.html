@@ -34,9 +34,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="5">
-        Pas de résultat pour "{{ input.value }}"
-      </td>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">Pas de résultat pour "{{input.value}}"</td>
     </tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons></mat-paginator>

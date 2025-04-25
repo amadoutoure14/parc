@@ -12,11 +12,14 @@ import {
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
   MatTable, MatTableDataSource
 } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatInput} from '@angular/material/input';
+import {SupprimerVehiculeComponent} from '../supprimer-vehicule/supprimer-vehicule.component';
+import {ModifierVehiculeComponent} from '../modifier-vehicule/modifier-vehicule.component';
+import {MatDialog} from '@angular/material/dialog';
 
 
 @Component({
@@ -42,6 +45,7 @@ import {MatInput} from '@angular/material/input';
     MatIconButton,
     MatInput,
     NgOptimizedImage,
+    MatNoDataRow,
   ],
   styleUrls: ['./imprimer-vehicule.component.css']
 })
@@ -51,15 +55,15 @@ export class ImprimerVehiculeComponent implements OnInit,AfterViewInit {
   debut: string = '';
   fin: string = '';
   message="";
-  displayedColumns: string[]=['numero','immatriculation','modele','commentaire','sortie'];
+  displayedColumns: string[]=['numero','immatriculation','modele','commentaire','sortie','modifier'];
   dataSource = new MatTableDataSource<Vehicule>();
 
-  constructor(private service: VehiculeService,private snackBar:MatSnackBar) { }
+  constructor(private service: VehiculeService,private snackBar:MatSnackBar,private dialog:MatDialog) { }
 
 
   rechercherVehiculeDateEnregistrement(debut: string, fin: string) {
     if (!debut && !fin) {
-      alert('Veuillez sélectionner une intervalle !');
+      this.snackBar.open('Veuillez sélectionner une intervalle !','Fermer',{duration:3000});
       return;
     }
 
@@ -93,12 +97,44 @@ export class ImprimerVehiculeComponent implements OnInit,AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  supprimer(vehicule:Vehicule){
+    const dialogRef = this.dialog.open( SupprimerVehiculeComponent, {
+      width: "520px",
+      maxWidth: "600px",
+      data: { vehicule }
+    });
 
-  modifier(vehicule) {
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result==="confirm") {
+        this.service.listeVehicule().subscribe({
+          next: data => {
+            this.dataSource.data = data.vehicule;
+            this.dataSource.paginator = this.paginator;
+            this.message = data.message;
+          }
+        })
+      }
+    });
+  }
+  modifier(vehicule: Vehicule): void {
+    const dialogRef = this.dialog.open(
+      ModifierVehiculeComponent, {
+        width: '900px',
+        height: 'auto',
+        data: { vehicule }
+      });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result==="confirm") {
+        this.service.listeVehicule().subscribe({
+          next: data => {
+            this.dataSource.data = data.vehicule;
+            this.dataSource.paginator = this.paginator;
+            this.message = data.message;
+          }
+        })
+      }
+    });
   }
 
-  supprimer(vehicule) {
-
-  }
 }

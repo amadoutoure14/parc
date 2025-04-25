@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatOption} from "@angular/material/core";
 import {MatSelect} from "@angular/material/select";
-import {DatePipe, NgForOf} from "@angular/common";
+import {DatePipe, NgForOf, NgOptimizedImage} from "@angular/common";
 import {FormsModule} from '@angular/forms';
 import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 import {
@@ -13,7 +13,7 @@ import {
   MatColumnDef,
   MatHeaderCell, MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatTableDataSource
+  MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef, MatTable, MatTableDataSource
 } from '@angular/material/table';
 import {MatSort, MatSortHeader} from '@angular/material/sort';
 import {VehiculeService} from '../../services/vehicule.service';
@@ -22,7 +22,9 @@ import autoTable from 'jspdf-autotable';
 import {Vehicule} from '../../modeles/Vehicule';
 import {PointageVehicule} from '../../modeles/PointageVehicule';
 import {MatPaginator} from '@angular/material/paginator';
-
+import {SupprimerPointageVehiculeComponent} from '../supprimer-pointage-vehicule/supprimer-pointage-vehicule.component';
+import {MatDialog} from '@angular/material/dialog';
+import {MatInput} from '@angular/material/input';
 @Component({
   selector: 'app-imprimer-pointage',
   imports: [
@@ -46,7 +48,12 @@ import {MatPaginator} from '@angular/material/paginator';
     MatSort,
     MatTable,
     MatHeaderCellDef,
-    MatPaginator
+    MatPaginator,
+    MatIconButton,
+    MatInput,
+    MatSortHeader,
+    NgOptimizedImage,
+    MatNoDataRow
   ],
   templateUrl: './imprimer-pointage-vehicule.component.html',
   styleUrl: './imprimer-pointage-vehicule.component.css'
@@ -55,16 +62,21 @@ export class ImprimerPointageVehiculeComponent implements OnInit {
 
   dataSource = new MatTableDataSource<PointageVehicule>;
   dataSourceVehicule = new MatTableDataSource<Vehicule>;
-  displayedColumns: string[] = ['index', 'vehicule', 'modele', 'carburant', 'date'];
+  displayedColumns: string[] = ['num','immatriculation','modele','date','supprimer'];
   message = "";
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   debut: any;
   fin: any;
   vehicule!: Vehicule;
+  constructor(private service: PointageVehiculeService, private vehiculeService: VehiculeService,private dialog:MatDialog) {}
+  applyFilter(event: Event): void {
+    this.dataSource.filter = (event.target as HTMLInputElement).value.trim().toLowerCase();
 
-  constructor(private service: PointageVehiculeService, private vehiculeService: VehiculeService) {}
-
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   ngOnInit(): void {
     this.vehiculeService.listeVehicule().subscribe({
       next: data => {
@@ -110,9 +122,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit {
           }
           this.dataSource.data = data.pointage && data.pointage.length > 0 ? data.pointage : [];
           this.message = data.message;
-
-        },
-          error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        }
       });
     }
     else if (debut && fin) {
@@ -184,25 +194,40 @@ export class ImprimerPointageVehiculeComponent implements OnInit {
     };
     if (vehicule && debut && fin) {
       this.service.listeDates(vehicule.id, debut, fin).subscribe({
-        next: impression,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        next: impression
       });
     }
     else if (debut && fin) {
       this.service.listePeriode(debut, fin).subscribe({
-        next: impression,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        next: impression
       });
     }
     else if (vehicule) {
       this.service.vehicule(vehicule.id).subscribe({
-        next: impression,
-        error: () => { this.message = "Erreur lors de la récupération des pointages."; }
+        next: impression
       });
     }
     else {
       this.message = "Veuillez sélectionner un véhicule.";
     }
+  }
+  supprimer(id: number): void {
+    const dialogRef = this.dialog.open(SupprimerPointageVehiculeComponent, {
+      width: "500px",
+      maxWidth: "600px",
+      data: { id }
+    });
+
+    dialogRef.afterClosed().subscribe(resultat => {
+      if (resultat === 'confirm') {
+        this.service.liste().subscribe({
+          next: (data: any) => {
+            this.dataSource.data =  data.pointage;
+            this.message = data.message || '';
+          }
+        });
+      }
+    });
   }
 
 }

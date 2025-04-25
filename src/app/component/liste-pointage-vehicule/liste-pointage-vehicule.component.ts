@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PointageVehiculeService} from '../../services/pointage-vehicule.service';
 import {PointageVehicule} from '../../modeles/PointageVehicule';
-import {DatePipe, NgIf, NgOptimizedImage} from '@angular/common';
+import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {MatInput} from '@angular/material/input';
 import {
@@ -23,8 +23,6 @@ import {MatIconButton} from '@angular/material/button';
 import {MatDialog} from '@angular/material/dialog';
 import {SupprimerPointageVehiculeComponent} from '../supprimer-pointage-vehicule/supprimer-pointage-vehicule.component';
 import {MatPaginator} from '@angular/material/paginator';
-
-
 @Component({
   selector: 'app-liste-pointage',
   providers: [DatePipe],
@@ -97,7 +95,6 @@ export class ListePointageVehiculeComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
   supprimer(id: number): void {
     const dialogRef = this.dialog.open(SupprimerPointageVehiculeComponent, {
       width: "500px",

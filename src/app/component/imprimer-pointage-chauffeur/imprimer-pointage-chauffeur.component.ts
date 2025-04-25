@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgOptimizedImage} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatIconButton} from "@angular/material/button";
 import {
     MatCell,
     MatCellDef,
@@ -23,52 +23,57 @@ import {ChauffeurService} from '../../services/chauffeur.service';
 import {PointageChauffeurService} from '../../services/pointage-chauffeur.service';
 import {PointageChauffeur} from '../../modeles/PointageChauffeur';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {SupprimerPointageChaffeurComponent} from '../supprimer-pointage-chaffeur/supprimer-pointage-chaffeur.component';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatInput} from '@angular/material/input';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-imprimer-pointage-chauffeur',
-    imports: [
-        DatePipe,
-        FormsModule,
-        MatButton,
-        MatCell,
-        MatCellDef,
-        MatColumnDef,
-        MatFormField,
-        MatHeaderCell,
-        MatHeaderRow,
-        MatHeaderRowDef,
-        MatIcon,
-        MatLabel,
-        MatOption,
-        MatRow,
-        MatRowDef,
-        MatSelect,
-        MatSort,
-        MatTable,
-        NgForOf,
-        NgIf,
-        MatHeaderCellDef,
-        MatSortHeader,
-        MatNoDataRow,
-    ],
+  imports: [
+    DatePipe,
+    FormsModule,
+    MatButton,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatFormField,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatIcon,
+    MatLabel,
+    MatOption,
+    MatRow,
+    MatRowDef,
+    MatSelect,
+    MatSort,
+    MatTable,
+    NgForOf,
+    MatHeaderCellDef,
+    MatSortHeader,
+    MatNoDataRow,
+    MatPaginator,
+    MatInput,
+    MatIconButton,
+    NgOptimizedImage
+  ],
   templateUrl: './imprimer-pointage-chauffeur.component.html',
   styleUrl: './imprimer-pointage-chauffeur.component.css'
 })
 export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit {
   pointages: PointageChauffeur[] = [];
   dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['index', 'chauffeur', 'telephone', 'date'];
+  displayedColumns: string[] = ['index', 'chauffeur', 'telephone', 'date', 'supprimer'];
   message = "";
-  filterTerm = "";
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   debut: any;
   fin: any;
   chauffeur!: Chauffeur;
   chauffeurs: Chauffeur[] = [];
 
-  constructor(private service: PointageChauffeurService, private chauffeurService: ChauffeurService, private snackbar: MatSnackBar) {
+  constructor(private service: PointageChauffeurService, private chauffeurService: ChauffeurService, private snackbar: MatSnackBar,private dialog:MatDialog) {
     this.dataSource = new MatTableDataSource<any>();
     this.dataSource.sortingDataAccessor = (item, property) => {
       if (property === 'date') {
@@ -80,12 +85,15 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
 
 
   ngOnInit(): void {
+    this.service.liste().subscribe({
+      next: data => {
+        this.dataSource.data = data.pointage;
+        this.dataSource.paginator=this.paginator;
+      }
+    })
     this.chauffeurService.listeChauffeur().subscribe({
       next: data => {
         this.chauffeurs = data.chauffeur || [];
-      },
-      error: err => {
-        console.error();
       }
     });
 
@@ -93,10 +101,6 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
     this.service.liste().subscribe({
       next: (data: any) => {
         this.mettreAJourDonnees(data);
-      },
-      error: err => {
-        this.message = "Erreur lors du chargement des pointages.";
-        console.error();
       }
     });
 
@@ -230,6 +234,28 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  supprimer(id: number): void {
+    const dialogRef = this.dialog.open(SupprimerPointageChaffeurComponent, {
+      width: "500px",
+      maxWidth: "600px",
+      data: { id }
+    });
+
+    dialogRef.afterClosed().subscribe(resultat => {
+      if (resultat === 'confirm') {
+        this.service.liste().subscribe({
+          next: (data: any) => {
+            this.dataSource.data = data.pointage;
+            this.dataSource.paginator=this.paginator;
+            this.message = data.message || '';
+          }
+        });
+      }
+    });
+  }
+
 }
-
-

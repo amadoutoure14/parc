@@ -18,7 +18,7 @@ import {
   MatCell, MatCellDef,
   MatColumnDef, MatHeaderCell, MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef,
+  MatHeaderRowDef, MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -26,6 +26,7 @@ import {
 } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   providers: [
@@ -54,6 +55,8 @@ import {MatSort} from '@angular/material/sort';
     MatCell,
     MatCellDef,
     DatePipe,
+    MatInput,
+    MatNoDataRow,
   ],
   templateUrl: './imprimer-carburant.component.html',
   styleUrl: './imprimer-carburant.component.css'
@@ -83,7 +86,13 @@ export class ImprimerCarburantComponent implements OnInit {
     this.loadVehicules();
     this.loadCarburants();
   }
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   loadVehicules(): void {
     this.serviceVehicule.listeVehicule().subscribe({
       next: (data) => {

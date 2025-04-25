@@ -85,7 +85,6 @@ export class ListePointageChauffeurComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
   supprimer(id: number): void {
     const dialogRef = this.dialog.open(SupprimerPointageChaffeurComponent, {
       width: "500px",

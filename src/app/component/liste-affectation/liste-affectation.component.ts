@@ -20,7 +20,6 @@ import {
 } from '@angular/material/table';
 import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatIconButton} from '@angular/material/button';
-import {SuppressionCarburantComponent} from '../suppression-carburant/suppression-carburant.component';
 import {SupprimerAffectationComponent} from '../supprimer-affectation/supprimer-affectation.component';
 
 

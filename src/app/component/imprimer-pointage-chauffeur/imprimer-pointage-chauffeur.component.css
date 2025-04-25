@@ -1,4 +1,10 @@
-.container,header{
+.container{
+  margin-top: 2%;
+  width: 98%;
+  margin-left: 1%;
+  flex-direction: column;
+}
+header{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,6 +37,7 @@
   justify-content: center;
   flex-direction: row;
   align-items: center;
+  text-transform: uppercase;
 }
 label{
   color:white;
@@ -78,6 +85,7 @@ input:focus {
 }
 
 .table {
+  margin-top: 1%;
   border-collapse: collapse;
 }
 
@@ -123,12 +131,12 @@ input:focus {
   border-bottom: none;
 }
 
-input {
+.filtre {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 80%;
+  width: 50%;
   padding: 12px;
   font-size: 16px;
   border-radius: 8px;

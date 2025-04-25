@@ -56,16 +56,21 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
       }
     })
   }
-
-
   ngAfterViewInit(): void {
     this.dataSource.paginator=this.paginator
   }
-  modifier(vehicule: Vehicule): void {
-    const dialogRef = this.dialog.open(
-      ModifierVehiculeComponent, {
-      width: '900px',
-      height: 'auto',
+  applyFilter(event: KeyboardEvent) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  supprimer(vehicule:Vehicule){
+    const dialogRef = this.dialog.open( SupprimerVehiculeComponent, {
+      width: "520px",
+      maxWidth: "600px",
       data: { vehicule }
     });
 
@@ -81,21 +86,13 @@ export class ListeVehiculeComponent implements OnInit,AfterViewInit {
       }
     });
   }
-  applyFilter(event: KeyboardEvent) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  supprimer(vehicule:Vehicule){
-    const dialogRef = this.dialog.open( SupprimerVehiculeComponent, {
-      width: "520px",
-      maxWidth: "600px",
-      data: { vehicule }
-    });
+  modifier(vehicule: Vehicule): void {
+    const dialogRef = this.dialog.open(
+      ModifierVehiculeComponent, {
+        width: '900px',
+        height: 'auto',
+        data: { vehicule }
+      });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result==="confirm") {
