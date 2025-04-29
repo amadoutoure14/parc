@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
@@ -58,47 +58,59 @@ import {MatInput} from '@angular/material/input';
   templateUrl: './imprimer-pointage-vehicule.component.html',
   styleUrl: './imprimer-pointage-vehicule.component.css'
 })
-export class ImprimerPointageVehiculeComponent implements OnInit {
+export class ImprimerPointageVehiculeComponent implements OnInit,AfterViewInit {
 
   dataSource = new MatTableDataSource<PointageVehicule>;
   dataSourceVehicule = new MatTableDataSource<Vehicule>;
   displayedColumns: string[] = ['num','immatriculation','modele','date','supprimer'];
   message = "";
-
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   debut: any;
   fin: any;
   vehicule!: Vehicule;
   constructor(private service: PointageVehiculeService, private vehiculeService: VehiculeService,private dialog:MatDialog) {}
-  applyFilter(event: Event): void {
-    this.dataSource.filter = (event.target as HTMLInputElement).value.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
   ngOnInit(): void {
     this.vehiculeService.listeVehicule().subscribe({
       next: data => {
         this.dataSourceVehicule.data = data.vehicule;
-        },
+      }
     });
     this.service.liste().subscribe({
       next: (data: any) => {
-        this.dataSource.data = data.pointage && data.pointage.length > 0 ? data.pointage : [];
-        this.dataSource.paginator=this.paginator;
+        this.dataSource.data = data.pointage || [];
         this.message = data.message;
       }
     });
-    this.dataSource.sortingDataAccessor = (item: PointageVehicule, property: string) => {
-      if (property === 'date') {
-        return new Date(item.date).getTime();
-      }
-      return (item as any)[property] ?? '';
+    this.sort.active='desc'
+    this.sort.direction='desc';
+    this.dataSource.filterPredicate = (data: PointageVehicule, filter: string) => {
+      const dataStr = `
+      ${data.vehicule?.immatriculation ?? ''}
+      ${data.vehicule?.modele ?? ''}
+      ${new Date(data.date).toLocaleDateString('fr-FR')}
+    `.toLowerCase();
+      return dataStr.includes(filter);
     };
 
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.sort.active='desc'
+      this.sort.direction='desc';
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   rechercher(vehicule: Vehicule, debut: Date | null, fin: Date | null): void {
     this.dataSource.data = [];
     this.message = "";
@@ -109,6 +121,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit {
         return;
       }
       this.dataSource.data = data.pointage && data.pointage.length > 0 ? data.pointage : [];
+      this.dataSource.sort=this.sort;
       this.message = data.message;
 
     };
@@ -121,6 +134,7 @@ export class ImprimerPointageVehiculeComponent implements OnInit {
             return;
           }
           this.dataSource.data = data.pointage && data.pointage.length > 0 ? data.pointage : [];
+          this.dataSource.sort=this.sort;
           this.message = data.message;
         }
       });
@@ -139,7 +153,6 @@ export class ImprimerPointageVehiculeComponent implements OnInit {
       this.message = "Veuillez sélectionner un véhicule.";
     }
   }
-
   imprimer(vehicule: any, debut: Date | null, fin: Date | null): void {
     const impression = (data: any) => {
       if (!data || !data.pointage) {
@@ -229,6 +242,5 @@ export class ImprimerPointageVehiculeComponent implements OnInit {
       }
     });
   }
-
 }
 

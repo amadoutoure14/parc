@@ -27,6 +27,7 @@ import {
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatInput} from '@angular/material/input';
+import {PointageChauffeur} from '../../modeles/PointageChauffeur';
 
 @Component({
   providers: [
@@ -74,17 +75,13 @@ export class ImprimerCarburantComponent implements OnInit {
   displayedColumns: string[]=['numero','vehicule','carburant','date'];
 
 
-  constructor(
-    private serviceVehicule: VehiculeService,
-    private service: CarburantService,
-    public dialog: MatDialog
-  ) {}
-
+  constructor(private serviceVehicule: VehiculeService, private service: CarburantService, public dialog: MatDialog) {}
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loadVehicules();
     this.loadCarburants();
+    this.dataSource.filterPredicate = this.createFilterPredicate();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -100,7 +97,6 @@ export class ImprimerCarburantComponent implements OnInit {
       }
     });
   }
-
   loadCarburants(): void {
     this.service.listeApprov().subscribe({
       next: (data) => {
@@ -109,7 +105,6 @@ export class ImprimerCarburantComponent implements OnInit {
       }
     });
   }
-
   modifier(carburant: Carburant): void {
     const dialogRef = this.dialog.open(ModifierCarburantComponent, { data: carburant });
     dialogRef.afterClosed().subscribe((result) => {
@@ -118,14 +113,12 @@ export class ImprimerCarburantComponent implements OnInit {
       }
     });
   }
-
   imprimer(vehicule: any, debut: Date | null, fin: Date | null): void {
     const impression = (data: any) => {
       if (!data || !data.carburant) {
         this.message = data.message || "Aucune donnée trouvée.";
         return;
       }
-
       if (data.carburant.length > 0) {
         const doc = new jsPDF();
         const logoPath = 'assets/logo.png';
@@ -194,7 +187,6 @@ export class ImprimerCarburantComponent implements OnInit {
       this.message = "Veuillez sélectionner un véhicule.";
     }
   }
-
   rechercher(vehicule: Vehicule, debut: Date, fin: Date): void {
     if (vehicule) {
       if (debut && fin) {
@@ -218,4 +210,15 @@ export class ImprimerCarburantComponent implements OnInit {
       });
     }
   }
+  private createFilterPredicate(): (data: Carburant, filter: string) => boolean {
+    return (data: Carburant, filter: string): boolean => {
+      const dataStr = `
+      ${data.approv}
+      ${data.vehicule?.immatriculation}
+      ${new Date(data.date).toLocaleDateString('fr-FR')}
+    `.toLowerCase();
+      return dataStr.includes(filter);
+    };
+  }
+
 }

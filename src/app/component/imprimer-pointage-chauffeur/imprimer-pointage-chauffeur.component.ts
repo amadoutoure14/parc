@@ -72,7 +72,6 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
   fin: any;
   chauffeur!: Chauffeur;
   chauffeurs: Chauffeur[] = [];
-
   constructor(private service: PointageChauffeurService, private chauffeurService: ChauffeurService, private snackbar: MatSnackBar,private dialog:MatDialog) {
     this.dataSource = new MatTableDataSource<any>();
     this.dataSource.sortingDataAccessor = (item, property) => {
@@ -82,46 +81,36 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
       return item[property];
     };
   }
-
-
   ngOnInit(): void {
     this.service.liste().subscribe({
-      next: data => {
-        this.dataSource.data = data.pointage;
-        this.dataSource.paginator=this.paginator;
+      next: (data: any) => {
+        this.dataCarburants(data);
       }
-    })
+    });
     this.chauffeurService.listeChauffeur().subscribe({
       next: data => {
         this.chauffeurs = data.chauffeur || [];
       }
     });
-
-
-    this.service.liste().subscribe({
-      next: (data: any) => {
-        this.mettreAJourDonnees(data);
-      }
-    });
-
     this.dataSource.sortingDataAccessor = (item, property) => {
       if (property === 'date') {
         return item.date ? new Date(item.date).getTime() : 0;
       }
       return item[property];
     };
-  }
+    this.dataSource.filterPredicate = this.createFilterPredicate();
 
+  }
   ngAfterViewInit(): void {
     setTimeout(() => {
-      if (this.sort) {
+      if (this.sort && this.paginator) {
+        this.sort.active = 'date';
+        this.sort.direction = 'desc';
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     });
   }
-
-
-
   rechercher(chauffeur: Chauffeur, debut: Date | null, fin: Date | null): void {
     if (!chauffeur && !debut && !fin) {
       this.message = "Veuillez sélectionner au moins un critère de recherche.";
@@ -133,7 +122,7 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
     this.message = "";
 
     const traiterReponse = (data: any) => {
-      this.mettreAJourDonnees(data);
+      this.dataCarburants(data);
     };
 
     if (chauffeur && debut && fin) {
@@ -149,7 +138,6 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
       this.message = "Veuillez sélectionner un chauffeur.";
     }
   }
-
   imprimer(chauffeur: Chauffeur, debut: Date, fin: Date): void {
     if (chauffeur && debut && fin) {
       this.service.listeDates(chauffeur.id, debut, fin).subscribe({
@@ -170,8 +158,6 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
       this.snackbar.open("Sélectionner une option de recherche !", 'Fermer', { duration: 3000 });
     }
   }
-
-
   impression(data: any): void {
     if (!data || !data.pointage) {
       this.message = data.message || "Aucune donnée trouvée.";
@@ -219,9 +205,7 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
       doc.save(`Pointage_${today.toISOString().split('T')[0]}.pdf`);
     };
   }
-
-
-  private mettreAJourDonnees(data: any): void {
+  private dataCarburants(data: any): void {
     if (!data || !data.pointage) {
       this.message = data.message || "Aucune donnée trouvée.";
       return;
@@ -229,11 +213,11 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
     this.pointages = data.pointage.sort((a: PointageChauffeur, b: PointageChauffeur) =>
       new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-
     this.dataSource.data = this.pointages;
     this.dataSource.sort = this.sort;
+    this.sort.active='desc'
+    this.sort.direction='desc';
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -256,6 +240,16 @@ export class ImprimerPointageChauffeurComponent implements OnInit, AfterViewInit
         });
       }
     });
+  }
+  private createFilterPredicate(): (data: PointageChauffeur, filter: string) => boolean {
+    return (data: PointageChauffeur, filter: string): boolean => {
+      const dataStr = `
+      ${data.chauffeur?.nom_complet ?? ''}
+      ${data.chauffeur?.telephone ?? ''}
+      ${new Date(data.date).toLocaleDateString('fr-FR')}
+    `.toLowerCase();
+      return dataStr.includes(filter);
+    };
   }
 
 }

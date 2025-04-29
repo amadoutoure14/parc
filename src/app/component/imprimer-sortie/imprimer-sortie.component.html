@@ -66,12 +66,12 @@
     </ng-container>
 
     <ng-container matColumnDef="debut">
-      <th mat-header-cell *matHeaderCellDef> Date de début </th>
+      <th mat-header-cell *matHeaderCellDef> Début </th>
       <td mat-cell *matCellDef="let sortie"> {{ sortie.date_debut ? (sortie.date_debut | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="fin">
-      <th mat-header-cell *matHeaderCellDef> Date de fin </th>
+      <th mat-header-cell *matHeaderCellDef>  Fin </th>
       <td mat-cell *matCellDef="let sortie"> {{ sortie.date_fin ? (sortie.date_fin | date: 'dd/MM/yyyy HH:mm') : 'Non précisé' }} </td>
     </ng-container>
 

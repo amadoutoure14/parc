@@ -57,27 +57,37 @@ export class ImprimerAffectationComponent implements OnInit {
   fin!: Date;
   message="";
 @ViewChild(MatPaginator) paginator: MatPaginator;
+@ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[]=['numero','chauffeur','telephone','immatriculation','date','modifier'];
   constructor(private service: AffectationService, private snackBar: MatSnackBar,private dialog:MatDialog) {}
-
   ngOnInit(): void {
     this.chargerAffectations();
   }
+
+  ngAfterViewInit():void {
+    this.sort.active='desc'
+    this.sort.direction='desc'
+    this.dataSource.sort=this.sort
+  }
+
   private chargerAffectations(): void {
     this.service.listeAffectations().subscribe({
-      next: (data) => {
-        this.message=data.message
-        this.dataSource.data = data.affectation;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.filterPredicate = (data, filter) => {
-          const immat = data.vehicule?.immatriculation?.toLowerCase() || '';
-          const telephone = data.chauffeur?.telephone?.toLowerCase() || '';
-          const nom = data.chauffeur?.nom_complet?.toLowerCase() || '';
-          const dateStr = data.date ? new Date(data.date).toLocaleDateString('fr-FR') : '';
-          return immat.includes(filter) || dateStr.includes(filter)||nom.includes(filter)||telephone.includes(filter);
-        };
-      }
+      next: (data) => this.traitementData(data)
     });
+  }
+  private traitementData(data:any){
+    this.message=data.message
+    this.dataSource.data = data.affectation;
+    this.dataSource.paginator = this.paginator;
+    this.sort.active='desc'
+    this.sort.direction='desc'
+    this.dataSource.filterPredicate = (data, filter) => {
+      const immat = data.vehicule?.immatriculation?.toLowerCase() || '';
+      const telephone = data.chauffeur?.telephone?.toLowerCase() || '';
+      const nom = data.chauffeur?.nom_complet?.toLowerCase() || '';
+      const dateStr = data.date ? new Date(data.date).toLocaleDateString('fr-FR') : '';
+      return immat.includes(filter) || dateStr.includes(filter)||nom.includes(filter)||telephone.includes(filter);
+    };
   }
   rechercher(debut: Date, fin: Date) {
     this.service.dateAffectation(debut, fin).subscribe({
@@ -106,7 +116,6 @@ export class ImprimerAffectationComponent implements OnInit {
       }
     });
   }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -115,7 +124,6 @@ export class ImprimerAffectationComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
   supprimer(affectation:Affectation)  {
     const dialogRef = this.dialog.open( SupprimerAffectationComponent, {
       width: "520px",
