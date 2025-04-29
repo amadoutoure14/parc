@@ -62,6 +62,7 @@ export class ImprimerSortieComponent implements OnInit {
   fin!: Date;
   sortie!: Sortie;
   vehicules: Vehicule[] = [];
+  vehicule!: Vehicule;
   dataSource = new MatTableDataSource<Sortie>();
   displayedColumns: string[] = ['numero', 'nom', 'telephone', 'vehicule', 'objet', 'depart', 'destination', 'debut', 'fin'];
 

@@ -1,7 +1,7 @@
 <div class="recherche">
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Sélectionner un véhicule</mat-label>
-    <mat-select [(ngModel)]="sortie">
+    <mat-select [(ngModel)]="vehicule">
       <mat-option [value]="null">Aucun</mat-option>
       <mat-option *ngFor="let v of vehicules" [value]="v">
         {{ v.immatriculation }}
