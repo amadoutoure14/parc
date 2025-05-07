@@ -73,6 +73,7 @@ button {
   transition: background-color 0.3s ease-in-out;
   width: 40%;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
 }
 
 button:disabled {

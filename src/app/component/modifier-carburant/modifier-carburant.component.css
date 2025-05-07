@@ -1,4 +1,18 @@
-/* Container global */
+.titre{
+  text-align: center;
+  font-size: 26px;
+  padding-bottom: 2%;
+  text-transform: uppercase;
+  color: #3faad8;
+}
+.vehicule{
+  padding-top: 2%;
+  text-transform: uppercase;
+  font-size: 25px;
+  color: #333;
+  text-align: center;
+  font-weight: bold;
+}
 .container {
   width: 100%;
   padding: 10% 3%;
@@ -7,12 +21,11 @@
   border-radius: 12px;
   font-family: Arial, sans-serif;
 }
-
-
 .input-group {
   text-align: center;
   width: 100%;
-  padding: 12% 0;
+  padding-top: 2%;
+  padding-bottom: 4%;
 }
 
 label {
@@ -39,7 +52,6 @@ label {
   outline: none;
 }
 
-/* Mat-Select */
 mat-form-field {
   width: 100%;
   margin-bottom: 15px;
@@ -50,7 +62,6 @@ mat-form-field {
   width: 100%;
 }
 
-/* Bouton */
 button {
   padding: 12px;
   text-transform: uppercase;
@@ -62,6 +73,7 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   width: 100%;
+  font-weight: bold;
 }
 
 button:disabled {

@@ -101,7 +101,7 @@ export class ListeSortieComponent implements OnInit {
   modifier(sortie: Sortie): void {
     const dialogRef = this.dialog.open(ModifierSortieComponent, {
       width: '95vw',
-      height: '92vh',
+      height: '670px',
       data: { sortie }
     });
 

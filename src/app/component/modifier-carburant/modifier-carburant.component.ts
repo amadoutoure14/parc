@@ -6,7 +6,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {VehiculeService} from '../../services/vehicule.service';
 import {CarburantService} from '../../services/carburant.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-modifier-carburant',
@@ -40,19 +39,13 @@ export class ModifierCarburantComponent implements OnInit {
       approv: [this.carburant.approv || '', [Validators.required]]
     });
 
-    // Load the list of vehicles
     this.vehiculeService.listeVehicule().subscribe({
       next: (data) => {
         this.vehicules = data?.vehicule || [];
-      },
-      error: (error) => {
-        console.error();
-        this.snackbar.open("Erreur de chargement des véhicules", "Fermer", { duration: 3000 });
       }
     });
   }
 
-  // Handle the form submission
   onSubmit(): void {
     if (this.approvForm.invalid) return;
 

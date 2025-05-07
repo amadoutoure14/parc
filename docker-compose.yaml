@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  api:
+    image: parc_api:1.3
+    container_name: api-container
+    ports:
+      - "9080:9080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/parc
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      db:
+        condition: service_healthy
+
+  angular:
+    image: parc_angular:1.2
+    container_name: angular-container
+    ports:
+      - "4300:4300"
+
+  db:
+    image: mysql:8
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: parc
+    ports:
+      - "3400:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db_backup:
+    image: mysql:8
+    container_name: db-backup-container
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql:ro
+      - ./backups:/backups
+      - ./scripts:/scripts
+    entrypoint: ["/bin/bash", "-c", "/scripts/backup.sh"]
+
+  db_restore:
+    image: mysql:8
+    container_name: db-restore-container
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backups:/backups
+      - ./scripts:/scripts
+    entrypoint: ["/bin/bash", "-c", "/scripts/restore.sh"]
+
+volumes:
+  mysql_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /host_mnt/c/Users/amado/OneDrive/Belgeler/parc_db
+      o: bind

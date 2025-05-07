@@ -85,7 +85,7 @@ export class ListeChauffeurComponent implements OnInit ,AfterViewInit{
   modifier(chauffeur: Chauffeur): void {
     const dialogRef = this.dialog.open(ModifierChauffeurComponent, {
       width: "700px",
-      height: "385px",
+      height: "330px",
       data: { chauffeur }
     });
 

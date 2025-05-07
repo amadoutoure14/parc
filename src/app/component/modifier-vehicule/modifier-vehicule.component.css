@@ -1,4 +1,10 @@
-/* Container du formulaire */
+.titre{
+  text-align: center;
+  font-size: 26px;
+  padding-bottom: 2%;
+  text-transform: uppercase;
+  color: #3faad8;
+}
 .form-container {
   width: 100%;
   padding: 30px;
@@ -43,15 +49,6 @@ input:focus {
   outline: none;
 }
 
-/* Message d'erreur */
-.error {
-  color: #f44336;
-  font-size: 14px;
-  margin-top: 5px;
-  text-align: left;
-}
-
-/* Boutons */
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -69,6 +66,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   width: 48%;
+  font-weight: bold;
 }
 .annuler{
   background-color: #f44336;

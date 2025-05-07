@@ -1,6 +1,6 @@
 <div class="container">
-  <p>Véhicule : {{ carburant.vehicule.immatriculation }}</p>
-
+  <h2 class="titre">Modifier quantité de carburant</h2>
+  <p class="vehicule">{{ carburant.vehicule.immatriculation }}</p>
   <form [formGroup]="approvForm" (ngSubmit)="onSubmit()">
     <div class="input-group">
       <label for="approv">Quantité de carburant (en litres)</label>

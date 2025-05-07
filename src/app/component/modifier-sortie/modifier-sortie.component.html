@@ -1,5 +1,5 @@
 <form *ngIf="sortieForm" [formGroup]="sortieForm" (ngSubmit)="onSubmit()">
-
+<h2>Modifier la sortie</h2>
   <div class="select">
     {{ data.sortie?.affectation?.vehicule.immatriculation }} |
     {{ data.sortie?.affectation?.chauffeur.nom_complet }}
