@@ -1,4 +1,4 @@
-/* Container global */
+
 .container {
   max-width: 600px;
   margin: 60px auto;
@@ -9,7 +9,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Titre du formulaire */
 h2 {
   color: #3aa0cd;
   font-size: 24px;
@@ -19,7 +18,6 @@ h2 {
   text-transform: uppercase;
 }
 
-/* Formulaire */
 form {
   display: flex;
   flex-direction: column;
@@ -36,10 +34,10 @@ label {
   width: 100%;
 }
 
-/* Inputs */
 input {
   width: 100%;
   padding: 12px;
+  text-align: center;
   font-size: 16px;
   margin: 10px 0;
   border-radius: 8px;
@@ -53,7 +51,6 @@ input:focus {
   outline: none;
 }
 
-/* Message d'erreur */
 .error {
   color: #f44336;
   font-size: 14px;

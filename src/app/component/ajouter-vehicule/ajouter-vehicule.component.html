@@ -3,15 +3,15 @@
   <form [formGroup]="vehiculeForm" (ngSubmit)="onSubmit()">
 
     <label for="immatriculation">Immatriculation</label>
-    <input id="immatriculation" formControlName="immatriculation" />
+    <input id="immatriculation" formControlName="immatriculation" placeholder="AB 123 CD ou AB 1234 CD" (input)="formatImmatriculation($event)" maxlength="10"/>
     <div class="error" *ngIf="vehiculeForm.get('immatriculation')?.touched && vehiculeForm.get('immatriculation')?.hasError('required')">
-      Immatriculation requise
+      <small *ngIf="vehiculeForm.get('immatriculation')?.errors?.['required']">Immatriculation requise.</small>
     </div>
 
     <label for="modele">Modèle</label>
     <input id="modele" formControlName="modele" />
     <div class="error" *ngIf="vehiculeForm.get('modele')?.touched && vehiculeForm.get('modele')?.hasError('required')">
-      Modèle requis
+     <small *ngIf="vehiculeForm.get('modele')?.errors?.['required']"> Modèle requis</small>
     </div>
 
     <label for="commentaire">Commentaire</label>
