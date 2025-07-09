@@ -17,10 +17,10 @@ import {VehiculeService} from '../../services/vehicule.service';
 })
 export class ModifierVehiculeComponent {
   vehiculeForm: FormGroup;
+  private isFormatting = false;
   submitted = false;
 
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<ModifierVehiculeComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private service: VehiculeService, private snackBar: MatSnackBar
-  ) {
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<ModifierVehiculeComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private service: VehiculeService, private snackBar: MatSnackBar) {
     this.vehiculeForm = this.fb.group({
       id: [data.vehicule.id],
       immatriculation: [data.vehicule.immatriculation],
@@ -71,6 +71,40 @@ export class ModifierVehiculeComponent {
     }
 
     return modifiedFields;
+  }
+
+  protected readonly event = event;
+
+  formattage(event: Event): void {
+    if (this.isFormatting) return;
+    const input = event.target as HTMLInputElement;
+    const rawValue = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const previousValue = this.vehiculeForm.get('immatriculation')?.value || '';
+    if (rawValue.length <= 2) return;
+    let formatted = '';
+    if (rawValue.length <= 7) {
+      let AA = rawValue.substring(0, 2);
+      let BB = rawValue.substring(2, 5);
+      let CC = rawValue.substring(5, 7);
+      formatted = AA;
+      if (BB) formatted += ' ' + BB;
+      if (CC) formatted += ' ' + CC;
+    } else {
+      let AA = rawValue.substring(0, 2);
+      let BB = rawValue.substring(2, 6);
+      let CC = rawValue.substring(6, 8);
+      formatted = AA;
+      if (BB) formatted += ' ' + BB;
+      if (CC) formatted += ' ' + CC;
+    }
+    if (formatted !== previousValue) {
+      this.isFormatting = true;
+      this.vehiculeForm.get('immatriculation')?.setValue(formatted, { emitEvent: false });
+      setTimeout(() => {
+        input.selectionStart = input.selectionEnd = formatted.length;
+        this.isFormatting = false;
+      });
+    }
   }
 }
 

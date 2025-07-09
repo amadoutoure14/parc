@@ -4,13 +4,11 @@
     <div class="form-row">
       <div class="form-group">
         <label for="immatriculation">Immatriculation</label>
-        <input type="text" id="immatriculation" formControlName="immatriculation" />
+        <input type="text" id="immatriculation" formControlName="immatriculation" (input)="formattage(event)"  maxlength="10"/>
         <div *ngIf="vehiculeForm.get('immatriculation')?.invalid && submitted" class="error">
           Immatriculation requise
         </div>
       </div>
-
-      <!-- Modèle -->
       <div class="form-group">
         <label for="modele">Modèle</label>
         <input type="text" id="modele" formControlName="modele" />

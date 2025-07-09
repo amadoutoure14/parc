@@ -15,6 +15,10 @@
   justify-content: center;
   gap: 10px;
 }
+button {
+  font-weight: bold;
+  font-size: 16px;
+}
 
 .cancel-button {
   color: #757575;

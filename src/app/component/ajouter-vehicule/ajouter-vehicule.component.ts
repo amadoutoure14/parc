@@ -34,41 +34,29 @@ export class AjouterVehiculeComponent implements OnInit {
   }
   formatImmatriculation(event: Event): void {
     if (this.isFormatting) return;
-
     const input = event.target as HTMLInputElement;
     const rawValue = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
     const previousValue = this.vehiculeForm.get('immatriculation')?.value || '';
-
-    // Si l'utilisateur supprime tout, ne pas reformater
     if (rawValue.length <= 2) return;
-
     let formatted = '';
     if (rawValue.length <= 7) {
-      // Format AB 123 CD
       let AA = rawValue.substring(0, 2);
       let BB = rawValue.substring(2, 5);
       let CC = rawValue.substring(5, 7);
-
       formatted = AA;
       if (BB) formatted += ' ' + BB;
       if (CC) formatted += ' ' + CC;
     } else {
-      // Format AB 1234 CD
       let AA = rawValue.substring(0, 2);
       let BB = rawValue.substring(2, 6);
       let CC = rawValue.substring(6, 8);
-
       formatted = AA;
       if (BB) formatted += ' ' + BB;
       if (CC) formatted += ' ' + CC;
     }
-
-    // Appliquer le format seulement si différent pour éviter blocage
     if (formatted !== previousValue) {
       this.isFormatting = true;
       this.vehiculeForm.get('immatriculation')?.setValue(formatted, { emitEvent: false });
-
-      // Repositionner le curseur en fin
       setTimeout(() => {
         input.selectionStart = input.selectionEnd = formatted.length;
         this.isFormatting = false;

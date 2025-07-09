@@ -1,26 +1,37 @@
-<table *ngIf="vehicules && vehicules.length > 0" class="table">
-  <thead>
-  <tr>
-    <th>Véhicule</th>
-    <th>Modèle</th>
-    <th>Pointer</th>
-    <th>Soumettre</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let vehicule of vehicules; let i = index">
-    <td>{{ vehicule.immatriculation }}</td>
-    <td>{{ vehicule.modele }}</td>
-    <td>
-      <input type="checkbox" [(ngModel)]="vehicule.cocher" (ngModelChange)="resetDate(vehicule)">
-      <input type="date" [(ngModel)]="date" *ngIf="vehicule.cocher">
-    </td>
-    <td>
-      <button mat-flat-button (click)="submit(vehicule)" class="submit" [disabled]="!vehicule.cocher">
-        Pointer
-      </button>
-    </td>
-  </tr>
+<div class="container">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher" #input>
+  <mat-table #table [dataSource]="dataSource"  class="table mat-elevation-z8" >
+    <ng-container matColumnDef="immatriculation">
+      <mat-header-cell *matHeaderCellDef> Immatriculation </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.immatriculation}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="modele">
+      <mat-header-cell *matHeaderCellDef> Modèle </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modele}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="pointer">
+      <mat-header-cell *matHeaderCellDef> Pointer </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div style="align-items: center; display: flex;flex-direction: row;">
+          <input type="checkbox" [(ngModel)]="element.cocher" (ngModelChange)="resetDate(element)"  style="width: 50px">
+          <input type="date" [(ngModel)]="date" *ngIf="element.cocher" style="width: 200px">
+        </div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="soumettre">
+      <mat-header-cell *matHeaderCellDef>Somettre</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-flat-button (click)="submit(element)" class="submit" [disabled]="!element.cocher">
+          Pointer
+        </button>
+      </mat-cell>
+    </ng-container>
 
-  </tbody>
-</table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">Pas de résultat pour "{{input.value}}"</td>
+    </tr>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons></mat-paginator>
+</div>
