@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { ChauffeurService } from '../../services/chauffeur.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {Chauffeur} from '../../modeles/Chauffeur';
+import {MatError} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-ajouter-chauffeur',
@@ -11,7 +12,8 @@ import {Chauffeur} from '../../modeles/Chauffeur';
   imports: [
     ReactiveFormsModule,
     NgIf,
-    FormsModule
+    FormsModule,
+    MatError
   ],
   templateUrl: './ajouter-chauffeur.component.html',
   styleUrls: ['./ajouter-chauffeur.component.css']

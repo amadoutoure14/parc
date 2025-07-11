@@ -1,23 +1,32 @@
+.container{
+  margin-top: 2%;
+  width: 98%;
+  margin-left: 1%;
+  flex-direction: column;
+}
 .table {
   width: 98%;
   border-collapse: collapse;
   margin-top: 20px;
   margin-right: 10px;
-  margin-left: 10px;
-  font-family: 'Arial', sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.table th {
+.table mat-header-cell {
   background-color: #3FAAD8;
   color: white;
+  justify-content: center;
   padding: 12px 15px;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
 }
 
-.table td {
+.table mat-cell {
   background-color: #fff;
+  justify-content: center;
   padding: 12px 15px;
   text-align: center;
   font-size: 14px;
@@ -28,22 +37,17 @@
   background-color: #f1f1f1;
 }
 
-.table {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-}
 
-.table td, .table th {
+.table mat-cell, .table mat-header-cell {
   border-left: 1px solid #ddd;
   border-top: 1px solid #ddd;
 }
 
-.table th:first-child, .table td:first-child {
+.table mat-header-cell:first-child, .table mat-cell:first-child {
   border-left: none;
 }
 
-.table tr:last-child td {
+.table tr:last-child mat-cell {
   border-bottom: none;
 }
 .submit{
@@ -83,3 +87,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(30%);
   cursor: pointer;
 }
+
+input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease-in-out;
+  margin: 0 auto;
+}
+
+input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+  outline: none;
+}
+

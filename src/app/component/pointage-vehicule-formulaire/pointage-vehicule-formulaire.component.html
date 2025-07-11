@@ -30,7 +30,7 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" [attr.colspan]="displayedColumns.length">Pas de résultat pour "{{input.value}}"</td>
+      <td  [attr.colspan]="displayedColumns.length" style="align-items: center" >Pas de résultat pour "{{input.value}}"</td>
     </tr>
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons></mat-paginator>

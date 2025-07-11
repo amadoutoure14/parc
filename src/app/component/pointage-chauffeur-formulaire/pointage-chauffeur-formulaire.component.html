@@ -1,26 +1,36 @@
-<table *ngIf="chauffeurs && chauffeurs.length > 0" class="table">
-  <thead>
-  <tr>
-    <th>Nom et Prénom</th>
-    <th>Téléphone</th>
-    <th>Pointer</th>
-    <th>Soumettre</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let chauffeur of chauffeurs; let i = index">
-    <td>{{ chauffeur.nom_complet }}</td>
-    <td>{{ chauffeur.telephone }}</td>
-    <td>
-      <input type="checkbox" [(ngModel)]="chauffeur.cocher">
-      <input type="date" [(ngModel)]="date" *ngIf="chauffeur.cocher">
-    </td>
-    <td>
-      <button mat-flat-button (click)="submit(chauffeur)" class="submit" [disabled]="!chauffeur.cocher">
-        Pointer
-      </button>
-    </td>
-  </tr>
-
-  </tbody>
-</table>
+<div class="container">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher" #input>
+  <mat-table [dataSource]="dataSource" class="table mat-elevation-z8">
+    <ng-container matColumnDef="nom">
+      <mat-header-cell *matHeaderCellDef> Nom complet</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.nom_complet}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="tel">
+      <mat-header-cell *matHeaderCellDef> Téléphone</mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.telephone}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="pointer">
+      <mat-header-cell *matHeaderCellDef> Pointer</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <div style="align-items: center; display: flex;flex-direction: row;">
+          <input type="checkbox" [(ngModel)]="user.cocher" style="width: 50px">
+          <input type="date" [(ngModel)]="date" *ngIf="user.cocher" style="width: 200px">
+        </div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="soumettre">
+      <mat-header-cell *matHeaderCellDef> Soumettre</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <button mat-flat-button (click)="submit(user)" class="submit" [disabled]="!user.cocher">
+          Pointer
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+    <tr class="mat-row" *matNoDataRow>
+      <td  [attr.colspan]="columnsToDisplay.length" style="align-items: center" >Pas de résultat pour "{{input.value}}"</td>
+    </tr>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5,10,20,100]" showFirstLastButtons></mat-paginator>
+</div>

@@ -4,16 +4,16 @@
 
     <label for="nom_complet">Nom Complet</label>
     <input id="nom_complet" formControlName="nom_complet" />
-    <div class="error" *ngIf="chauffeurForm.get('nom_complet')?.invalid && chauffeurForm.get('nom_complet')?.touched">
-      Nom complet requis
-    </div>
+    <mat-error class="error" *ngIf="chauffeurForm.get('nom_complet')?.invalid && chauffeurForm.get('nom_complet')?.touched">
+      <small>Nom complet requis</small>
+    </mat-error>
 
 
 
     <label for="telephone">Téléphone</label>
-    <input id="telephone" formControlName="telephone" />
+    <input id="telephone" formControlName="telephone" maxlength="8"/>
     <div class="error" *ngIf="chauffeurForm.get('telephone')?.invalid && chauffeurForm.get('telephone')?.touched">
-      Numéro de téléphone invalide (8 chiffres requis)
+      <small>Numéro de téléphone invalide (8 chiffres requis)</small>
     </div>
 
     <button type="submit" [disabled]="chauffeurForm.invalid">Soumettre</button>

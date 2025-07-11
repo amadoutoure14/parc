@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -6,22 +6,48 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ChauffeurService} from '../../services/chauffeur.service';
 import {Chauffeur} from '../../modeles/Chauffeur';
 import {PointageChauffeurService} from '../../services/pointage-chauffeur.service';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatNoDataRow, MatRow, MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-pointage-chauffeur-formulaire',
   imports: [
     MatButton,
-    NgForOf,
     NgIf,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatPaginator,
+    MatInput,
+    MatNoDataRow
   ],
   templateUrl: './pointage-chauffeur-formulaire.component.html',
   styleUrl: './pointage-chauffeur-formulaire.component.css'
 })
 export class PointageChauffeurFormulaireComponent implements OnInit {
-  chauffeurs: Chauffeur[] = [];
   date!: Date | null;
+  dataSource: MatTableDataSource<Chauffeur[]>;
+  columnsToDisplay = ['nom','tel','pointer','soumettre'];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private chauffeurService: ChauffeurService,
@@ -32,7 +58,8 @@ export class PointageChauffeurFormulaireComponent implements OnInit {
   ngOnInit(): void {
     this.chauffeurService.listeChauffeur().subscribe({
       next: (data: any) => {
-        this.chauffeurs = data.chauffeur;
+         this.dataSource = new MatTableDataSource(data.chauffeur);
+         this.dataSource.paginator = this.paginator
         this.snackBar.open(data.message, "Fermer", { duration: 3000 });
       }
     });
@@ -51,6 +78,13 @@ export class PointageChauffeurFormulaireComponent implements OnInit {
           chauffeur.cocher=false
         }
       });
+    }
+  }
+  applyFilter(event: Event): void {
+    this.dataSource.filter = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.paginator = this.paginator;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 

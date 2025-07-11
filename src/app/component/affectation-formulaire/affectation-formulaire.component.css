@@ -95,3 +95,9 @@ mat-option{
   margin: 2% 3%;
   border-radius: 1%;
 }
+mat-card-title{
+  font-weight: bold;
+  text-align: center;
+  font-size: 28px;
+  margin: 12px;
+}
